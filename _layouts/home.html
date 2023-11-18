@@ -8,17 +8,18 @@ layout: archive
 
 {% if paginator %}
   {% assign posts = paginator.posts %}
-  <h3>paginator.posts</h3> 
 {% else %}
   {% assign posts = site.posts %}
-  <h3>site.posts</h3>
 {% endif %}
 
 {% assign entries_layout = page.entries_layout | default: 'list' %}
 <div class="entries-{{ entries_layout }}">
+  <h3>{{ site.posts }}</h3>
   {% for post in posts %}
     {% include archive-single.html type=entries_layout %}
-    여기다1
+    
+  <h3>여기다1</h3>
+    
   {% endfor %}
   여기다2
 </div>
