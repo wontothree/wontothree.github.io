@@ -16,7 +16,11 @@ minimal_mistakes_skin    : "default" # "air", "aqua", "contrast", "dark", "dirt"
 
 # Site Settings
 locale                   : "en-US"
+<<<<<<< HEAD
 title                    : "@전전컴"
+=======
+title                    : "전전전컴"
+>>>>>>> ae9d22c47d5b61ecbd446e19595f2f1292fc53fa
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
 name                     : "Your Name"
