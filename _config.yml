@@ -291,7 +291,7 @@ defaults:
       share: true
       related: true
       sidebar:
-      nav: "sidebar-category"
+        nav: "sidebar-category"
   # _pages
   - scope:
       path: "_pages"
