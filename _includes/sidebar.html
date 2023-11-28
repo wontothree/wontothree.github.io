@@ -1,11 +1,8 @@
 {% if page.author_profile or layout.author_profile or page.sidebar %}
-  <h1>sidebar1</h1>
   <div class="sidebar sticky">
   {% if page.author_profile or layout.author_profile %}{% include author-profile.html %}{% endif %}
   {% if page.sidebar %}
-    <h1>sidebar2</h1>
     {% for s in page.sidebar %}
-      <h1>sidebar3</h1>
       {% if s.image %}
         <img src="{{ s.image | relative_url }}"
              alt="{% if s.image_alt %}{{ s.image_alt }}{% endif %}">
