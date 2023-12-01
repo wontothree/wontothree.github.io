@@ -15,9 +15,9 @@
 sidebar-category:
   - title: "카테고리"
     children:
-      - title: "Blog"
-        url: /blog/
-      - title: "About"
-        url: /about/
-      - title: "Sitemap"
-        url: /sitemap/
+      - title: "ML"
+        url: /ml/
+      - title: "DS"
+        url: /ds/
+      - title: "LOGIC"
+        url: /logic/
