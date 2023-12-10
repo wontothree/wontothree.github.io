@@ -49,17 +49,13 @@
 
 <title>{{ seo_title | default: site.title }}{% if paginator %}{% unless paginator.page == 1 %} {{ title_separator }} {{ site.data.ui-text[site.locale].page | default: "Page" }} {{ paginator.page }}{% endunless %}{% endif %}</title>
 <meta name="description" content="{{ seo_description }}">
-<script>alert("1111111111111111111")</script>
 {% if author.name %}
 <script>alert("2222222222222222222")</script>
-  <!--meta name="author" content="{{ author.name | default: author }}"-->
-<script>alert("3333333333333333")</script>
+  <meta name="author" content="{{ author.name | default: author }}">
   {% if og_type == "article" %}
-  <script>alert("444444444444444")</script>
-  <!--meta property="article:author" content="{{ author.name | default: author }}"-->
+  <meta property="article:author" content="{{ author.name | default: author }}">
   {% endif %}
 {% endif %}
-<script>alert("555555555555555555")</script>
 <meta property="og:type" content="{{ og_type }}">
 <meta property="og:locale" content="{{ site.locale | replace: "-", "_" | default: "en_US" }}">
 <meta property="og:site_name" content="{{ site.title }}">
