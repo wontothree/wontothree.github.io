@@ -16,8 +16,8 @@ sidebar-category:
   - title: "카테고리"
     children:
       - title: "ML"
-        url: /ml/
+        url: /ml
       - title: "DS"
-        url: /ds/
+        url: /ds
       - title: "LOGIC"
-        url: /logic/
+        url: /logic
