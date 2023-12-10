@@ -51,7 +51,7 @@
 <meta name="description" content="{{ seo_description }}">
 <script>alert("1111111111111111111")</script>
 {% if author.name %}
-<script>alert("22222222222222222")</script>
+<script>alert("{{ author.name | default: author }}")</script>
   <meta name="author" content="{{ author.name | default: author }}">
 <script>alert("3333333333333333")</script>
   {% if og_type == "article" %}
