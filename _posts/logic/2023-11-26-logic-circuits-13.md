@@ -1,5 +1,7 @@
 ---
 title: "[Logic] 동기식 순차 논리"
+categories:
+  - LOGIC
 tags: 
   - Logic
 toc: true
