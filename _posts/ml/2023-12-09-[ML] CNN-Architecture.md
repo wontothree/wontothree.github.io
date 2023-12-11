@@ -1,5 +1,7 @@
 ---
 title: "[ML] CNN Architecture"
+categories:
+  - ML
 tags: 
   - ML
 toc: true
