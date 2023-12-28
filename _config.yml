@@ -19,7 +19,7 @@ locale                   : "en-US"
 title                    : "전전전컴"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
-name                     : "Anthony Garcia"
+name                     :
 description              : "EECS"
 url                      : "https://wontothree.github.io"  # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "/"                              # the subpath of your site, e.g. "/blog"
@@ -110,14 +110,14 @@ author:
   location         : 
   email            :
   links:
-    - label: ""
-      icon: ""
-      url: ""
-    - label: ""
-      icon: ""
-      url: ""
-    - label: ""
-      icon: ""
+    - label: 
+      icon: 
+      url: 
+    - label: 
+      icon: 
+      url: 
+    - label: 
+      icon: 
       # url: "https://twitter.com/"
     - label: "Facebook"
       icon: "fab fa-fw fa-facebook-square"
