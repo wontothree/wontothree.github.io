@@ -2,7 +2,6 @@
 title: "[Electron] Diffusion and Recombination"
 excerpt:
 categories:
-  - ECE
   - Electron
 tags:
   - 2-2

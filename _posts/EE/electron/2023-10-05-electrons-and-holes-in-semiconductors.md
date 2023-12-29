@@ -2,7 +2,6 @@
 title: "[Electron] Electrons and Holes in Semiconductors"
 excerpt:
 categories:
-  - ECE
   - Electron
 tags:
   - 2-2
