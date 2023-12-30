@@ -1,10 +1,8 @@
 ---
 title: "[EMath] 복소평면에서의 적분"
 categories:
-  - EMath
+  - Engineering Mathematics
 excerpt: 
-tags: 
-  - EMath
 toc: true
 ---
 ## 1. 경로적분

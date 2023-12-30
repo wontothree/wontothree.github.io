@@ -1,10 +1,8 @@
 ---
 title: "[EMath] 급수와 유수"
 categories:
-  - EMath
+  - Engineering Mathematics
 excerpt: 
-tags: 
-  - EMath
 toc: true
 ---
 ## 1. 수열과 급수

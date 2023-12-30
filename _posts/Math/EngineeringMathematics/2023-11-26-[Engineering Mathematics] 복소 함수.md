@@ -1,10 +1,8 @@
 ---
 title: "[EMath] 복소 함수"
 categories:
-  - EMath
+  - Engineering Mathematics
 excerpt: 
-tags: 
-  - EMath
 toc: true
 ---
 ## 1. 복소수
