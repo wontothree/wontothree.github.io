@@ -1,7 +1,7 @@
 ---
-title: "EMath"
+title: "Engineering Mathematics"
 layout: archive
-permalink: /emath
+permalink: /engineeringmathematics
 ---
 
 {% assign posts = site.categories.Engineering Mathematics %}
