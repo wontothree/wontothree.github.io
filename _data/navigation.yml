@@ -47,5 +47,5 @@ sidebar-category:
         url: /opt
   - title: "ETC"
     children:
-      - title: "Law"
+      - title: "민법"
         url: /law
