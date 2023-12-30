@@ -45,5 +45,5 @@ sidebar-category:
         url: /opt
   - title: "ETC"
     children:
-      - title: "law"
+      - title: "Law"
         url: /law
