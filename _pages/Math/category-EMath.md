@@ -4,5 +4,5 @@ layout: archive
 permalink: /emath
 ---
 
-{% assign posts = site.categories.EMath %}
+{% assign posts = site.categories.Engineering Mathematics %}
 {% for post in posts %} {% include archive-single.html type=page.entries_layout %} {% endfor %}

@@ -40,7 +40,7 @@ sidebar-category:
   - title: "Math"
     children:
       - title: "Linear Algebra"
-        url: /lalgebtra
+        url: /linearalgebtra
       - title: "Engineering Math"
         url: /emath
       - title: "OPT"
