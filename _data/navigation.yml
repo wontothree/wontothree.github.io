@@ -39,7 +39,9 @@ sidebar-category:
         url: /mp
   - title: "Math"
     children:
-      - title: "EMath"
+      - title: "Linear Algebra"
+        url: /lalgebtra
+      - title: "Engineering Math"
         url: /emath
       - title: "OPT"
         url: /opt
