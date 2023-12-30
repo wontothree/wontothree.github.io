@@ -4,7 +4,7 @@ categories:
   - LinearAlgebra
 excerpt: 
 toc: true
-use_math: true
+# use_math: true
 ---
 ## 1. Systems of Linear Equations
 
