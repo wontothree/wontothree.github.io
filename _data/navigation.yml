@@ -13,11 +13,39 @@
 #  - title: "Blog"
 #    url: /blog/
 sidebar-category:
-  - title: "카테고리"
+  - title: "CS"
     children:
       - title: "ML"
         url: /ml
       - title: "DS"
         url: /ds
-      - title: "LOGIC"
+      - title: "OOP"
+        url: /oop
+  - title: "EE"
+    children:
+      - title: "Circuit"
+        url: /circuit
+      - title: "Electron"
+        url: /electron
+      - title: "EMF"
+        url: /emf
+      - title: "LAB"
+        url: /lab
+      - title: "Logic"
         url: /logic
+      - title: "LRS"
+        url: /lrs
+      - title: "MP"
+        url: /mp
+  - title: "Math"
+    children:
+      - title: "Linear Algebra"
+        url: /linearalgebra
+      - title: "Engineering Math"
+        url: /engineeringmathematics
+      - title: "OPT"
+        url: /opt
+  - title: "ETC"
+    children:
+      - title: "Law"
+        url: /law
