@@ -129,6 +129,30 @@ Variables corresponding to pivot columns in the matrix and the other variable
 
 Whenever a system is consistent, the solution set can be described explicitly by solving the reduced system of equations for the basic variable in terms of the free variables. 
 
+### Parametric Descriptions of Solution Sets
+
+Whenever a system is consistent and have free variables, we can describe parametric descriptions of solution sets in which the free varables act as parameters. 
+
+Whenever a system is inconsistent, the solution set is empty, which the solution set has no parametric representation.
+
+### Existence and Uniqueness Questions
+
+>Existence and Uniqueness Theorem
+
+A linear system is consistent if and only if the rightmost column of the augmented matrix is not apivot column - that is, if and only if an echelon form of the augmented matrix has no row of the form
+
+$$
+[0 \;... \;0 \;b] \;\text{with b nonzero}
+$$
+
+>USING ROW REDUCTION TO SOLVE A LINEAR SYSTEM
+
+1. Write the augmented matrix of the system.
+2. Use the row reduction algorithm to obtain an equivalent augmented matrix in echelon form. Decide whether the system is consistent. If there is no solution, stop; otherwise, go to the next step.
+3. Continue row reduction to obtain the reduced echelon form.
+4. Write the system of equations corresponding to the matrix obtained in step 3.
+5. Rewrite each nonzero equation from step 4 so that its basic variable is expressed in terms of any free variables appearing in the equation.
+
 ## 3. Vector Equations
 
 ## 4. The Matrix Equation Ax = b
