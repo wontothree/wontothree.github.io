@@ -1,8 +1,6 @@
 ---
-title: "[OPT] 볼록 최적화 문제"
+title: "[Convex Optimization] Ch04 Convex Optimization Problem"
 categories:
-  - OPT
-tags: 
   - OPT
 toc: true
 ---

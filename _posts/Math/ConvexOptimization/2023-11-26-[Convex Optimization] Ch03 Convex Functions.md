@@ -1,8 +1,6 @@
 ---
-title: "[OPT] 볼록 함수"
+title: "[Convex Optimization] Ch03 Convex Functions"
 categories:
-  - OPT
-tags: 
   - OPT
 toc: true
 ---

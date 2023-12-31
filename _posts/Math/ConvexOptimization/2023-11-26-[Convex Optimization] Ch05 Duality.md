@@ -1,8 +1,6 @@
 ---
-title: "[OPT] 쌍대성"
+title: "[Convex Optimization] Ch05 Duality"
 categories:
-  - OPT
-tags: 
   - OPT
 toc: true
 ---

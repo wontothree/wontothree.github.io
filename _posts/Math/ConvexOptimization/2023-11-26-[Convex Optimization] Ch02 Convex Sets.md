@@ -1,9 +1,7 @@
 ---
-title: "[OPT] 볼록 집합"
+title: "[Convex Optimization] Ch02 Convex Sets"
 categories:
   - OPT
-tags: 
- - OPT
 toc: true
 ---
 ## 1. Affine and convex set

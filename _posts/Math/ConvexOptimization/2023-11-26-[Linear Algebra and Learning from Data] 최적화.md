@@ -1,9 +1,7 @@
 ---
-title: "[OPT] 딥러닝을 위한 최적화"
+title: "[Linear Algebra and Learning form Data] 최적화"
 categories:
   - OPT
-tags: 
- - OPT
 toc: true
 ---
 최적화는 선형대수학과 다변량 미분적분학에 관한 지식을 필요로 한다.

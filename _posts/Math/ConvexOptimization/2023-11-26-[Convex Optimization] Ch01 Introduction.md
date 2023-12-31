@@ -1,12 +1,10 @@
 ---
-title: "[OPT] 최적화 기초"
+title: "[Convex Optimization] Ch01 Introduction"
 categories:
-  - OPT
-tags: 
   - OPT
 toc: true
 ---
-## 1. 수학적 최적하
+## 1. 수학적 최적화
 
 수학적 최적화 문제(또는 최적화 문제)
 
