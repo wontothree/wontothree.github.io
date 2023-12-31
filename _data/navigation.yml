@@ -15,7 +15,7 @@
 sidebar-category:
   - title: "CS"
     children:
-      - title: "ML"
+      - title: "Machine Learning"
         url: /ml
       - title: "DS"
         url: /ds
@@ -23,6 +23,10 @@ sidebar-category:
         url: /oop
   - title: "EE"
     children:
+      - title: "Logic"
+        url: /logic
+      - title: "Microprocessor"
+        url: /mp
       - title: "Circuit"
         url: /circuit
       - title: "Electron"
@@ -31,19 +35,15 @@ sidebar-category:
         url: /emf
       - title: "LAB"
         url: /lab
-      - title: "Logic"
-        url: /logic
       - title: "LRS"
         url: /lrs
-      - title: "MP"
-        url: /mp
   - title: "Math"
     children:
       - title: "Linear Algebra"
         url: /linearalgebra
-      - title: "Engineering Math"
+      - title: "Engineering Mathematics"
         url: /engineeringmathematics
-      - title: "OPT"
+      - title: "Optimization"
         url: /opt
   - title: "ETC"
     children:
