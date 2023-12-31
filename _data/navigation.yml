@@ -17,9 +17,9 @@ sidebar-category:
     children:
       - title: "Machine Learning"
         url: /ml
-      - title: "DS"
+      - title: "Data Structure"
         url: /ds
-      - title: "OOP"
+      - title: "Object-Oriented Programming"
         url: /oop
   - title: "EE"
     children:
@@ -27,15 +27,15 @@ sidebar-category:
         url: /logic
       - title: "Microprocessor"
         url: /mp
-      - title: "Circuit"
-        url: /circuit
-      - title: "Electron"
-        url: /electron
-      - title: "EMF"
+      - title: "Electromagnetism"
         url: /emf
+      - title: "Electric Circuit"
+        url: /circuit
+      - title: "Solid State Electronics"
+        url: /electron
       - title: "LAB"
         url: /lab
-      - title: "LRS"
+      - title: "Linear System"
         url: /lrs
   - title: "Math"
     children:
