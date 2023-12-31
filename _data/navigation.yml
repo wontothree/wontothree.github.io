@@ -23,7 +23,7 @@ sidebar-category:
         url: /oop
   - title: "EE"
     children:
-      - title: "Logic"
+      - title: "Digital Logic"
         url: /logic
       - title: "Microprocessor"
         url: /mp
