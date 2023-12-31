@@ -1,5 +1,5 @@
 ---
-title: "[Linear Algebra and Its Applications] Ch01. Linear Equations in Linear Algebra"
+title: "[Linear Algebra and Its Applications] Ch01 Linear Equations in Linear Algebra"
 categories:
   - LinearAlgebra
 excerpt: 
@@ -127,11 +127,11 @@ Since the reduced echelon form is unique, the leading entries are always in the 
 
 Variables corresponding to pivot columns in the matrix and the other variable
 
-Whenever a system is consistent, the solution set can be described explicitly by solving the reduced system of equations for the basic variable in terms of the free variables. 
+Whenever a system is consistent, the solution set can be described explicitly by solving the reduced system of equations for the basic variable in terms of the free variables.
 
 ### Parametric Descriptions of Solution Sets
 
-Whenever a system is consistent and have free variables, we can describe parametric descriptions of solution sets in which the free varables act as parameters. 
+Whenever a system is consistent and have free variables, we can describe parametric descriptions of solution sets in which the free varables act as parameters.
 
 Whenever a system is inconsistent, the solution set is empty, which the solution set has no parametric representation.
 
