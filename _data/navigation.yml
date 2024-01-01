@@ -15,12 +15,12 @@
 sidebar-category:
   - title: "CS"
     children:
-      - title: "Machine Learning"
-        url: /ml
-      - title: "Data Structure"
-        url: /ds
       - title: "Object-Oriented Programming"
         url: /oop
+      - title: "Data Structure"
+        url: /ds
+      - title: "Machine Learning"
+        url: /ml
   - title: "EE"
     children:
       - title: "Digital Logic"
