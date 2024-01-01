@@ -5,6 +5,8 @@ categories:
   - LinearAlgebra
 toc: true
 ---
+## vector
+
 모든 공학의 학부 수준에서는 linear한 경우만을 다룬다. 이 성질만을 이용해도 잘 설명되는 system이 어마어마하게 많다. 선형대수학에서는 vector space와 matrix algebra를 다룬다.
 
 원칙적으로 vector는 vector space에 존재하는 원소이기 때문에 지정된 형태가 없다. 하지만 우리는 그중에서 $R^n$ space 상에 있는 것만을 vector라고 이야기한다.
@@ -23,11 +25,11 @@ $$
 A = [1, 2, 3]
 = [1 \; 2 \; 3]
 =
-\begin{bmatrix} 
+\begin{bmatrix}
   1 \\
   2 \\
   3 \\
-\end{bmatrix} 
+\end{bmatrix}
 $$
 
 Zero vector : 모든 component가 0인 벡터
