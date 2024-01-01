@@ -1,8 +1,8 @@
 ---
 title: "[Basic AI Mathematics] Day 01"
+excerpt: "인공지능을 위한 수학"
 categories:
   - LinearAlgebra
-excerpt: 
 toc: true
 # use_math: true
 ---

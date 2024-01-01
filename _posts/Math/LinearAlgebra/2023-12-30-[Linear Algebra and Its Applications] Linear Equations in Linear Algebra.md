@@ -38,11 +38,11 @@ A system of linear equations has
 2. exactly one solution
 3. infinitely many solutions
 
->A system of linear equations is consistent
+>A system of linear equations is **consistent**
 
 It has either one solution or infintiely many solutions
 
-A system is inconsistent if it has no solution
+A system is **inconsistent** if it has no solution
 
 ### Matrix Notation
 

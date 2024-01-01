@@ -1,8 +1,8 @@
 ---
 title: "[Basic AI Mathematics] Day 02"
+excerpt: "인공지능을 위한 수학"
 categories:
   - LinearAlgebra
-excerpt: 
 toc: true
 ---
 모든 공학의 학부 수준에서는 linear한 경우만을 다룬다. 이 성질만을 이용해도 잘 설명되는 system이 어마어마하게 많다. 선형대수학에서는 vector space와 matrix algebra를 다룬다.
