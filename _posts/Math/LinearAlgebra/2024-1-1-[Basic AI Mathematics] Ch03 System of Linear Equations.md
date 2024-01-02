@@ -5,6 +5,24 @@ categories:
   - LinearAlgebra
 toc: true
 ---
+## 1. Introduction to Systems of Linear Equations
+
+## 2. Direct Methods for Solving Linear Systems
+
+### Matrices and Echelon form
+
+### Elementary Row Operation
+
+### Gaussian Elimination
+
+### Gauss-Jordan Elimination
+
+### Homogeneous System
+
+### Linear Systems over $\mathbb{Z}_p$
+
+## 3. Spanning Sets and Linear Independence
+
 ## 4. The Inverse of a Matrix
 
 $$
@@ -14,21 +32,21 @@ $$
 The inverse of 2 x 2 matrix
 
 $$
-A = 
-\begin{bmatrix} 
+A =
+\begin{bmatrix}
   a & b \\
   c & d \\
-\end{bmatrix} 
+\end{bmatrix}
 $$
 
 $$
 A^{-1}
 =
 \dfrac{1}{ad - bc}
-\begin{bmatrix} 
+\begin{bmatrix}
   d & -b \\
   -c & a \\
-\end{bmatrix} 
+\end{bmatrix}
 $$
 
 ### Properties of Invertible Matrices
@@ -40,3 +58,5 @@ $$
 ### The Gauss-Jordan Method for Computing the Inverse
 
 ## 5. The LU Factorization
+
+## 6. Subspace, Basis, Dimension, and Rank
