@@ -40,8 +40,7 @@ A =
 $$
 
 $$
-A^{-1}
-=
+A^{-1} =
 \dfrac{1}{ad - bc}
 \begin{bmatrix}
   d & -b \\
