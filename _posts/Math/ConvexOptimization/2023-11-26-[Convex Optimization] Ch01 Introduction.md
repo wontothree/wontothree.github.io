@@ -9,11 +9,11 @@ use_math: true
 
 수학적 최적화 문제(또는 최적화 문제)
 
-$
+$$
 \text{minimize} \;\; f_0(x)
 \\
 \text{subject to} \;\; f_i(x) \leq b_i \;\; i = 1, 2, ..., m
-$
+$$
 
 Linear programming : 목적 함수와 제약 함수들이 $f_0, ..., f_m$ 선형성을 가지고 있는 최적화 문제
 
