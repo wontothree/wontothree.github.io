@@ -58,6 +58,19 @@ $$
 
 ## 5. The LU Factorization
 
+상수값 b만 변하는 여러 선형방정식 $Ax = b$을 풀 때 계산량을 획기적으로 줄일 수 있다.
+
+A : n x n
+
+$$
+A = LU
+\\
+Ax = b \leftrightarrow y = Ux \;\text{and}\; Ly = b
+$$
+
+- L : lower triangular matrix
+- U : Upper triangular matrix
+
 ## 6. Subspace, Basis, Dimension, and Rank
 
 A Subspace of $R^n$ is any collection $S$ of vectors in $R^n$ such that :
