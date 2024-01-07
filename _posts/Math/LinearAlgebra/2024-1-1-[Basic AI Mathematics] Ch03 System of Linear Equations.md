@@ -59,3 +59,16 @@ $$
 ## 5. The LU Factorization
 
 ## 6. Subspace, Basis, Dimension, and Rank
+
+A Subspace of $R^n$ is any collection $S$ of vectors in $R^n$ such that :
+
+1. The zero vector $\mathbf{0}$ is in $S$
+2. If $\mathbf{u}$ and $\mathbf{v}$ are in S, then $\mathbf{u + v}$ is in S. (S is closed under addition.)
+3. If $\mathbf{u}$ is in S and c is a scalar, then $c\mathbf{u}$ is in S. (S is closed under scalar multimplication.)
+
+### Subspaces Associated with Matrices
+
+Let A be an m x n matrix.
+
+- **Row space** of A : the subspace row(A) of $R^n$ spanned by the rows of A.
+- **Column space** of A : the subspace of col(A) of $R^m$ spanned by the columns of A.
