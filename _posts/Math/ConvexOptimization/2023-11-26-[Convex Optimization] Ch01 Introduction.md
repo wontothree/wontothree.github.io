@@ -15,6 +15,7 @@ $$
 \lim_{x\to 0}{\frac{e^x}{2}}={\frac{1}{2}}
 $$
 
+
 $$
 \text{minimize} \;\; f_0(x)
 \\
