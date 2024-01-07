@@ -10,6 +10,12 @@ use_math: true
 수학적 최적화 문제(또는 최적화 문제)
 
 $$
+\lim_{x\to 0}{\frac{e^x-1}{2x}}
+\overset{\left[\frac{0}{0}\right]}{\underset{\mathrm{H}}{=}}
+\lim_{x\to 0}{\frac{e^x}{2}}={\frac{1}{2}}
+$$
+
+$$
 \text{minimize} \;\; f_0(x)
 \\
 \text{subject to} \;\; f_i(x) \leq b_i \;\; i = 1, 2, ..., m
