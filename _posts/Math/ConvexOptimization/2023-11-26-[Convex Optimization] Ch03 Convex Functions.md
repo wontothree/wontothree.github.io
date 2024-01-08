@@ -3,6 +3,7 @@ title: "[Convex Optimization] Ch03 Convex Functions"
 categories:
   - OPT
 toc: true
+use_math: true
 ---
 ## 3. The conjugate function
 

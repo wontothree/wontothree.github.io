@@ -3,6 +3,7 @@ title: "[Linear Algebra and Learning form Data] 최적화"
 categories:
   - OPT
 toc: true
+use_math: true
 ---
 최적화는 선형대수학과 다변량 미분적분학에 관한 지식을 필요로 한다.
 

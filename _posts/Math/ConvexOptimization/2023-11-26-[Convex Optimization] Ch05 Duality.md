@@ -3,6 +3,7 @@ title: "[Convex Optimization] Ch05 Duality"
 categories:
   - OPT
 toc: true
+use_math: true
 ---
 ## 1. The Lagrange dual function
 

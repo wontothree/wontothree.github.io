@@ -4,6 +4,7 @@ excerpt: "인공지능을 위한 수학"
 categories:
   - LinearAlgebra
 toc: true
+use_math: true
 ---
 ## 1. Introduction to Systems of Linear Equations
 

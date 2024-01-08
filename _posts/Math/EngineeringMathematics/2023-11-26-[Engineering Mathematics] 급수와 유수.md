@@ -4,6 +4,7 @@ categories:
   - Engineering Mathematics
 excerpt: 
 toc: true
+use_math: true
 ---
 ## 1. 수열과 급수
 
