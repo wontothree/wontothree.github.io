@@ -43,6 +43,8 @@ sidebar-category:
         url: /linearalgebra
       - title: "Engineering Mathematics"
         url: /engineeringmathematics
+      - title: "Probability Theory"
+        url: /probability                     
       - title: "Optimization"
         url: /opt
   - title: "ETC"
