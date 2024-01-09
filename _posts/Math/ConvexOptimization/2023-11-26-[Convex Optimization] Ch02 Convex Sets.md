@@ -3,6 +3,7 @@ title: "[Convex Optimization] Ch02 Convex Sets"
 categories:
   - OPT
 toc: true
+use_math: true
 ---
 ## 1. Affine and convex set
 

@@ -4,6 +4,7 @@ categories:
   - Engineering Mathematics
 excerpt: 
 toc: true
+use_math: true
 ---
 ## 1. 정의와 용어
 

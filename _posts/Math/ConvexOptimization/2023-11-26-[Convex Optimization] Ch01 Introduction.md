@@ -3,6 +3,7 @@ title: "[Convex Optimization] Ch01 Introduction"
 categories:
   - OPT
 toc: true
+use_math: true
 ---
 ## 1. 수학적 최적화
 

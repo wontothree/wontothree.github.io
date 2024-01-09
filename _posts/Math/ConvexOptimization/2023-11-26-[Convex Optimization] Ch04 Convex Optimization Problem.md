@@ -3,6 +3,7 @@ title: "[Convex Optimization] Ch04 Convex Optimization Problem"
 categories:
   - OPT
 toc: true
+use_math: true
 ---
 ## 1. Optimization problems
 
