@@ -1,5 +1,5 @@
 ---
-title: "[Deep Learning from Scratch 4] 1"
+title: "[밑시딥4] 1"
 categories:
   - RL
 tags: 
