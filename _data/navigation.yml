@@ -21,6 +21,8 @@ sidebar-category:
         url: /ds
       - title: "Machine Learning"
         url: /ml
+      - title: "Reinforcement Learning"
+        url: /rl
   - title: "EE"
     children:
       - title: "Digital Logic"
