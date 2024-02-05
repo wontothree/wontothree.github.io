@@ -38,7 +38,7 @@ sidebar-category:
       - title: "LAB"
         url: /lab
       - title: "Linear System"
-        url: /lrs
+        url: /ls
   - title: "Math"
     children:
       - title: "Linear Algebra"

@@ -1,8 +1,8 @@
 ---
-title: "LRS"
+title: "LS"
 layout: archive
-permalink: /lrs
+permalink: /ls
 ---
 
-{% assign posts = site.categories.LRS %}
+{% assign posts = site.categories.LS %}
 {% for post in posts %} {% include archive-single.html type=page.entries_layout %} {% endfor %}
