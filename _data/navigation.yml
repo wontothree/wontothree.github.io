@@ -39,6 +39,10 @@ sidebar-category:
         url: /lab
       - title: "Linear System"
         url: /ls
+      - title: "Nonlinear System"
+        url: /nls
+      - title: "Optimal Control"
+        url: /oc
   - title: "Math"
     children:
       - title: "Linear Algebra"
