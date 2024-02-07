@@ -1,5 +1,5 @@
 ---
-title: "[Linear System] Ch02 Optimal Control of Discrete Time Systems"
+title: "[Optimal Control] Ch02 Optimal Control of Discrete Time Systems"
 excerpt: Frank L. Lewis - Optimal Control
 categories:
   - OC
@@ -20,7 +20,7 @@ Question 2. In general, the limiting solution $S_{\infin}$ depends on the bounda
 
 Question 3. When is the closed-loop plant asymptotically stable?
 
->$(A, B)$ is **reachable** if the eigenvalues of $(A-BK)$ can be arbitrarily assigned by appropriate choice of the feedback modes of $A$.
+>$(A, B)$ is **reachable**(= controllable) if the eigenvalues of $(A-BK)$ can be arbitrarily assigned by appropriate choice of the feedback modes of $A$.
 
 >$(A, B)$ is **stabilizable** if there exists a matrix $K$ such that $(A-BK)$ is asymptotically stable.
 
