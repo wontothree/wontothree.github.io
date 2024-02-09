@@ -179,6 +179,7 @@ $$
 - System을 해석하기 위해 그림을 그리는 데에 관심이 있다.
 - 수식적으로 정확하게 알 수는 없지만 그림은 그릴 수 있다.
 - 무수히 많은 phase portrait이 있지만 initial condition에 의해 하나로 결정된다.
+- Phase portrait을 통해 주어진 점이 어떻게 될지(수렴, 발산) 알 수 있다.
 
 Q. Initial condition은 어떻게 얻을 수 있을까?
 
@@ -188,8 +189,39 @@ $$
 
 ## 3. Determinging Time from Phase Portraits
 
+- 손으로 할 수 있는 데까지 해보자.
+- $x_1$과 $x_2$가 미분 관계이면 phase portrait을 구할 수 있다.
+- Phase portrait을 통해 system에 대해 해석할 수 있다.
+- $x_1$과 $x_2$가 미분 관계이면(미분 방정식으로 표현된다면) 시간에 대한 정보도 알 수 있다.
+
+화살표 정하기
+
+$$
+\Delta t \approx \dfrac{\Delta}{\dot{x}}
+$$
+
+첫 번째 시스템은 stable하고 두 번째 시스템은 unstable하다.
+
+$$
+x_2 = x_1^2, \;\; x_2 = - x_1^2
+$$
+
+특정 위치에서 다른 위치까지 이동하는 데 걸리는 시간
+
+$$
+t = \int \dfrac{1}{\dot{x}}dx
+$$
+
 ## 4. Phase Plane Anaysis of Linear Systems
 
+- Nonlinear system의 stability는 equilibrium에 대해 이야기하고 그 중 일부이다.
+- System의 stability를 논하고 싶은데 전체 portrait을 그리기에는 무리일 수 있다.
+- 특정 equilibrium point의 주변에서만 phase portrait을 그리고 싶다.
+
 ## 5. Phase Plane Anaysis of Nonlinear Systems
+
+- Equilibrium point 근처에서는 선형 시스템처럼 동작한다.
+- 항상 원점은 equilibrium point이다. 아니더라도 원점이 equilibrium point가 되도록 만들 수 있기 때문이다.
+- Nonlinear system에서 taylor series를 이용하면 linearization할 수 있다.
 
 ## 6. Existence of Limit Cycles
