@@ -16,7 +16,30 @@ use_math: true
 
 ### 4.1 Positive Definite Functions and Lyqpunov Functions
 
+Definition
+
+>A scalar continuous function $V(x)$ is said to be **lacally positive definite** if $V(0) = 0$ and, in a ball $B_{R_0}$
+>
+>$$
+x \neq 0 \rightarrow V(x) > 0
+$$
+>if $V(0) = 0$ and the above property bolds over the whole state space, the $V(x)$ is said to be **globally positive definite**.
+
+Definition
+
+>If, in a ball $B_{R_0}$, the function $V(x)$ is positive definite and has continuous partial derivatives, and if its time deriative along any state trajectory of system is negative semi-definite
+>
+>$$
+\dot{V}(x) \leq 0
+$$
+
+>then $V(x)$ is said to be a **Lyapunov function** for the system.
+
 ### 4.2 Equilibrium Point Theorems
+
+#### Lyapunov theorem for local stability
+
+#### Lyapunov theorem for global stability
 
 ### 4.3 Invariant Set Theorems
 
