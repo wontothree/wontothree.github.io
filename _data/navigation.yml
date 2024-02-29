@@ -23,6 +23,8 @@ sidebar-category:
         url: /ml
       - title: "Reinforcement Learning"
         url: /rl
+      - title: "Autonomous Driving"
+        url: /ad
   - title: "EE"
     children:
       - title: "Digital Logic"
