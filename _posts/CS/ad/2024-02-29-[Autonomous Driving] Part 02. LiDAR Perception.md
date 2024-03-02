@@ -393,7 +393,13 @@ source devel/setup.bash
 roslaunch velodyne_pointcloud VLP16_points.launch
 ```
 
-### 01-15 
+### 01-06 자율주행 실습을 위한 오픈 라이다 데이터 셋 소개
+
+### 01-07 포인트 클라우드 처리 방법 구현을 위한 Open3D 사용법
+
+### 01-08 포인트 클라우드 시각화 및 편집 툴 CloudCompare 사용법
+
+### 01-09 LiDAR 데이터 학습을 위한 레이블링 툴 소개
 
 ## Chapter 02 Point Cloud Processing Backbone
 
