@@ -2,9 +2,8 @@
 title: "[ML] CNN Architecture"
 categories:
   - ML
-tags: 
-  - ML
 toc: true
+use_math: true
 ---
 ## AlexNet
 
