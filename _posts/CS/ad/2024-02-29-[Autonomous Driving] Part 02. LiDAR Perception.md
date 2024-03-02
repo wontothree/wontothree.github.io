@@ -107,6 +107,12 @@ use_math: true
 
 ROS 20.04 LTS Noetic
 
+install terminator
+
+```
+sudo apt install terminator
+```
+
 ```
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 ```
@@ -136,6 +142,258 @@ activating ROS before roscore
 ```
 source /opt/ros/noetic/setup.bash
 ```
+
+```
+roscore
+```
+
+```
+vi .bashrc
+```
+
+or
+
+```
+vim .bashrc
+```
+
+```
+echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
+```
+
+you can find added line - source /opt/ros/noetic/setup.bash
+
+this is setup file.
+
+autonomous ROS environment setting on terminal
+
+```
+vi .bashrc
+```
+
+install dependence package
+
+```
+sudo apt install python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential
+```
+
+```
+sudo rosdep init
+```
+
+complete all ROS environment
+
+```
+rosdep update
+```
+
+### 01-04 테스트를 위한 ROS 환경 구성(2)
+
+catkin_ws is a main root directory of ROS workspace
+
+```
+mkdir -p catkin_ws/src
+```
+
+```
+cd catkin_ws
+```
+
+build command : auto making build folder and devel folder
+
+```
+catkin_make
+```
+
+you can activate project environment. also other terminal
+
+```
+source devel/setup.bash
+```
+
+ros node : program unit cooresponding to one task
+
+node example
+
+ros-noetic-[package name]
+
+ros-noetic-slam-gmapping
+
+```
+sudo apt install ros-noetic-ros-tutorials
+```
+
+in a terminal
+
+```
+roscore
+```
+
+in another terminal
+
+you can check rosnode on now
+
+```
+rosnode list
+```
+
+```
+source /opt/ros/noetic/setup.bash
+```
+
+```
+rosrun turtlesim turtlesim_node
+```
+
+you can check /turtlesim
+
+```
+rosnode list
+```
+
+topic : data unit
+
+node A -> the other node B
+
+topic : "hello"
+
+A : publish / B : subscribe
+
+topic example
+
+```
+rosrun turtlesim turtle_teleop_key
+```
+
+```
+rostopic list
+```
+
+```
+rostopic echo /turtle1/pose
+```
+
+second way to check ros topic : rqt
+
+```
+sudo apt install ros-noetic-rqt-common-plugins
+```
+
+```
+rosrun rqt_graph rqt_graph
+```
+
+dataset download
+
+```
+rviz
+```
+
+### 01-05 테스트를 위한 ROS 환경 구성(3)
+
+ROS back file : recorded result - LiDAR mapping, oddometry, trajectory result and so on.
+
+start
+
+```
+mkdir -p ouster_ws/src
+```
+
+```
+cd ouster_ws/src
+```
+
+```
+git clone https://github.com/ouster-lidar/ouster_example
+```
+
+install ouster ros package
+
+```
+catkin_make ouster_ros
+```
+
+build
+
+```
+catkin_make
+```
+
+on catkin_ws directory
+
+l : infinite loop
+
+```
+rosbag play -l ouster_example.bag
+```
+
+check information of ros bag
+
+```
+rosbag info ouster_example.bag
+```
+
+```
+rviz
+```
+
+add -> By topic -> Odometry -> OK
+
+map -> odom
+
+Close without Saving
+
+add -> By topic -> Odometry -> OK
+
+Fixed Frame : base_link
+
+lobby_lidaar bag example
+
+```
+rosbag play -l lobby_lidar.bag
+```
+
+install driver
+
+```
+sudo apt install ros-noetic-velodyne
+```
+
+```
+mkdir -p velo_ws/src
+```
+
+```
+git clone https://github.com/ros-drivers/velodyne.git
+```
+
+on velo_ws
+
+```
+rosdep install --from-paths src --ignore-src --rosdistro noetic -y
+```
+
+```
+catkin_make
+```
+
+on catkin_ws
+
+```
+rviz
+```
+
+add -> By topic -> PointCloud2
+
+```
+source devel/setup.bash
+```
+
+```
+roslaunch velodyne_pointcloud VLP16_points.launch
+```
+
+### 01-15 
 
 ## Chapter 02 Point Cloud Processing Backbone
 
