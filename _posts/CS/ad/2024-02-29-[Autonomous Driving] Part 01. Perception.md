@@ -1,5 +1,5 @@
 ---
-title: "[자율주행] Part 01. Perception"
+title: "[Autonomous Driving] Part 01. Perception"
 excerpt: 자율주행을 위한 컴퓨터비전과 라이다 & 센서퓨전까지 초격차 패키지 Online
 categories:
   - AD
