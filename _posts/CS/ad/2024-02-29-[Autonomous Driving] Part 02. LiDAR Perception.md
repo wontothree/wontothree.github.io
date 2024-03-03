@@ -395,6 +395,83 @@ roslaunch velodyne_pointcloud VLP16_points.launch
 
 ### 01-06 자율주행 실습을 위한 오픈 라이다 데이터 셋 소개
 
+라이다 데이터셋의 역할
+
+- 목적 : 항해법 성능 개선을 위한 알고리즘 반복 평가
+- 성능의 정량적인 평가
+- 잠재적인 약점 분석
+- 다른 방법들과 객관적인 비교
+- 많은 데이터는 실제 상황에서 알고리즘의 적은 편차와 높은 신뢰도를 보장
+
+KITTI dataset
+
+- 주율 주행 목적인 컴퓨터 비전 분야에서 가장 대표적으로 쓰이는 데이터셋
+
+- 데이터셋 취득을 위한 센서 구성
+  - GPS/IMU: OXRS RT 3003
+  - LiDAR : Velodyne HDL-64E
+  - Grayscale Camera x 2 : Point Grey Flea 2
+  - Color Cmaera x 2 : Point Grey Flea 2
+- 활용 가능 분야
+  - Stereo vision
+  - Optical flow
+  - Depth estimation
+  - Visual/LiDAR odometry
+  - Object detection/tracking
+  - Semantic segmentation
+  - Road/lane detection
+
+Semantic-KITTI dataset
+
+- KITTI dataset을 ai 목적에 맞게 customize한 dataset
+- AI processing을 위한 추가적인 annotiation이 포함된(semantic label 등)
+- 데이터셋 구성
+  - 0~10번 시퀀스는 학습을 위한 어노테이션이 포함된
+  - 11~21번 시퀀스는 테스트에 주로 활용되며, 다양한 hard case들이 포함되어 있음
+  - 총 28개의 클래스 레이블이 있음
+- 주요 활용 분야
+  - Semantic segmentation
+  - Panoptic segmentation
+  - Semantic scene completion
+
+nuScenes dataset
+
+- 센서 구성
+  - 카메라 6대
+  - 스피닝 라이다 1대
+  - 장거리 레이더 센서 5대
+- 포함사항
+  - 각 센서 간 extrinsics calibratino
+  - 카메라의 intrinsic calibration
+  - 센서 synchronization
+  - 모델 학습을 위한 class annotation
+
+Waymo open dataset
+
+1. Perception data
+  - 세그멘테이션 레이블 및 객체 어노테이션 포함
+  - 맵 데이터
+  - 센서 구성
+    - 중거리 라이다 1대
+    - 단거리 라이다 4대
+    - 카메라 5대
+  - 센서 설정
+    - 라이다와 카메라 간 동기화
+    - LiDAR to Camera projection
+    - 센서 캘리브레이션 및 이를 활용한 주행체의 pose
+2. Motion data
+  - 센서 구성
+    - 중거리 라이다 1대
+    - 단거리 라이다 4대
+  - 객체 추적을 위한 어노테이션 데이터
+  - 맵 데이터
+
+Complex urban dataset
+
+- 2018에 KAIST에서 공개한 오픈 데이터셋
+  - 복잡한 도시 촬영을 하면서 복잡한 씬에 대한 데이터 취득
+  - 빌등 숲을 구성한 도시에서 GPS 수신호가 취약한 점을 참고하여 이러한 환경에서 집중적으로 데이터셋을 취득함
+
 ### 01-07 포인트 클라우드 처리 방법 구현을 위한 Open3D 사용법
 
 ### 01-08 포인트 클라우드 시각화 및 편집 툴 CloudCompare 사용법
