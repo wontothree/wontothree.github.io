@@ -474,6 +474,8 @@ Complex urban dataset
 
 ### 01-07 포인트 클라우드 처리 방법 구현을 위한 Open3D 사용법
 
+Open3D : point cloud 계의 openCV
+
 ### 01-08 포인트 클라우드 시각화 및 편집 툴 CloudCompare 사용법
 
 ### 01-09 LiDAR 데이터 학습을 위한 레이블링 툴 소개
