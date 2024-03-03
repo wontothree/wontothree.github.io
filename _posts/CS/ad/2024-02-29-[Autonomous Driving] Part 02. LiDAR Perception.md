@@ -393,7 +393,9 @@ source devel/setup.bash
 roslaunch velodyne_pointcloud VLP16_points.launch
 ```
 
-### 01-06 자율주행 실습을 위한 오픈 라이다 데이터 셋 소개
+### 01-06 자율주행 실습을 위한 오픈 라이다 데이터셋 소개
+
+
 
 ### 01-07 포인트 클라우드 처리 방법 구현을 위한 Open3D 사용법
 
