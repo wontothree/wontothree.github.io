@@ -53,8 +53,10 @@ sidebar-category:
         url: /engineeringmathematics
       - title: "Probability Theory"
         url: /probability                     
-      - title: "Optimization"
+      - title: "Mathematical Optimization"
         url: /opt
+      - title: "Real Analysis"
+        url: /analysis
   - title: "ETC"
     children:
       - title: "민법"
