@@ -478,9 +478,18 @@ Open3D : point cloud 계의 openCV
 
 ### 01-08 포인트 클라우드 시각화 및 편집 툴 CloudCompare 사용법
 
+포인트 클라우드를 다룰 때,  유용한 툴이다.
+
 ### 01-09 LiDAR 데이터 학습을 위한 레이블링 툴 소개
 
 ## Chapter 02 Point Cloud Processing Backbone
+
+- 02-01. PointNet (1)
+- 02-02. PointNet (2)
+- 02-03. PointNet++
+- 02-04. Graph Convolutional Network
+- 02-05. Dynamic Graph CNN
+- 02-06. Kernel Point Convolutions
 
 ## Chapter 03 Point Cloud Matching
 
