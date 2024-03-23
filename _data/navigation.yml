@@ -67,8 +67,8 @@ sidebar-category:
     children:
       - title: "Electronic Circuits 1"
         url: /ElectronicCircuits1
-      - title: "ECDL2"
-        url: /ECDL2
+      - title: "ECDL3"
+        url: /ECDL3
       - title: "Digital Control"
         url: /DigitalControl
       - title: "Discrete Mathematics"
