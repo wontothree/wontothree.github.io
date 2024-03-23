@@ -65,3 +65,19 @@ sidebar-category:
         url: /invest
       - title: "Business"
         url: /business
+  - title: "3-1"
+    children:
+      - title: "Electronic Circuits 1"
+        url: /ElectronicCircuits1
+      - title: "Electrical and Computer Design Laboratory 2"
+        url: /ElectricAndComputerDesignLaboratory2
+      - title: "Electrical And Computer Engineering CapstonDesign"
+        url: /ElectricalAndComputerEngineeringCapstonDesign
+      - title: "Digital Control"
+        url: /DigitalControl
+      - title: "Discrete Mathematics"
+        url: /DiscreteMathematics
+      - title: "Marketing Management"
+        url: /MarketingManagement
+      - title: "Mathematical Analysis 1"
+        url: /MathematicalAnalysis1
