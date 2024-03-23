@@ -21,6 +21,10 @@ sidebar-category:
         url: /ds
       - title: "Machine Learning"
         url: /ml
+      - title: "Reinforcement Learning"
+        url: /rl
+      - title: "Autonomous Driving"
+        url: /ad
   - title: "EE"
     children:
       - title: "Digital Logic"
@@ -30,13 +34,17 @@ sidebar-category:
       - title: "Electromagnetism"
         url: /emf
       - title: "Electric Circuit"
-        url: /circuit
+        url: /ElectricCircuit
       - title: "Solid State Electronics"
         url: /electron
       - title: "LAB"
         url: /lab
       - title: "Linear System"
-        url: /lrs
+        url: /ls
+      - title: "Nonlinear System"
+        url: /nls
+      - title: "Optimal Control"
+        url: /oc
   - title: "Math"
     children:
       - title: "Linear Algebra"
@@ -45,9 +53,15 @@ sidebar-category:
         url: /engineeringmathematics
       - title: "Probability Theory"
         url: /probability                     
-      - title: "Optimization"
+      - title: "Mathematical Optimization"
         url: /opt
+      - title: "Real Analysis"
+        url: /analysis
   - title: "ETC"
     children:
-      - title: "민법"
+      - title: "Civil Law"
         url: /law
+      - title: "Invest"
+        url: /invest
+      - title: "Business"
+        url: /business
