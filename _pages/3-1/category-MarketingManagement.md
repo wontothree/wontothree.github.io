@@ -1,8 +1,8 @@
 ---
 title: "Marketing Management"
 layout: archive
-permalink: /MarketingManagement
+permalink: /marketingmanagement
 ---
 
-{% assign posts = site.categories.MarketingManagement%}
+{% assign posts = site.categories.marketingmanagement%}
 {% for post in posts %} {% include archive-single.html type=page.entries_layout %} {% endfor %}
