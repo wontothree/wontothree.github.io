@@ -16,16 +16,16 @@ Logical Equivalences : truth table을 통해 증명할 수 있다.
 
 |Name|Equivalence|
 |---|---|
-|Identity laws||
-|Domination laws||
-|Idempotent laws||
-|Double negation law||
-|Commutative laws||
-|Associative laws||
-|Distributive laws||
-|De Morgan's laws||
-|Absorption laws||
-|Negation laws||
+|Identity laws|p $\wedge$ **T** $\equiv$ p, p $\vee$ **F** $\equiv$ p|
+|Domination laws|p $\vee$ **T** $\equiv$ **T**, p $\wedge$ F $\equiv$ F|
+|Idempotent laws|p $\wedge$ p $\equiv$ p, p $\vee$ p $\equiv$ p|
+|Double negation law|~(~p) $\equiv$ p|
+|Commutative laws|p $\vee$ q $\equiv$ q $\vee$ p, p $\wedge$ q $\equiv$ q $\wedge$ p|
+|Associative laws|(p $\vee$ q) $\vee$ r $\equiv$ p $\vee$ (q $\vee$ r), (p $\wedge$ q) $\wedge$ r $\equiv$ p $\wedge$ (q $\wedge$ r)|
+|Distributive laws|p $\vee$ (q $\wedge$ r) $\equiv$ (p $\vee$ q) $\wedge$ (p $\vee$ r), p $\wedge$ (q $\vee$ r) $\equiv$ (p $\wedge$ q) $\vee$ (p $\wedge$ r)|
+|De Morgan's laws|~(p $\vee$ q) $\equiv$ ~p $\wedge$ ~q, ~(p $\wedge$ q) $\equiv$ ~p $\vee$ ~q|
+|Absorption laws|p $\vee$ (p $\wedge$ q) $\equiv$ p, p $\wedge$ (p $\vee$ q) $\equiv$ p|
+|Negation laws|p $\vee$ ~p $\equiv$ **T**, p $\wedge$ ~p $\equiv$ **F**|
 
 ## 4. Predicates and Quantifiers
 
