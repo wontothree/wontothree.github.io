@@ -1,3 +1,3 @@
 # wontothree.github.io
 
-technical blod
+technical blog
