@@ -33,6 +33,19 @@ Logical Equivalences : truth table을 통해 증명할 수 있다.
 
 ## 6. Rules of Inference
 
+Truth table or rules of inference -> validity
+
+|Name|Tautology|
+|---|---|
+|Modus ponens|(p $\wedge$ (p $\rightarrow$ q)) $\equiv$ q|
+|Modus tollens|(~q $\wedge$ (p $\rightarrow$ q)) $\equiv$ ~p|
+|Hypothetical syllogism|((p $\rightarrow$ q) $\wedge$ (q $\rightarrow$ r)) $\equiv$ (p $\rightarrow r)$|
+|Disjunctive syllogism|((p $\vee$ q) $\wedge$ ~p) $\rightarrow$ q|
+|Addition|p $\rightarrow$ p $\vee$ q|
+|Simplication|p $\wedge$ q $\rightarrow$ p|
+|Conjunction|((p) $\wedge$ (q)) $\rightarrow$ (p $\wedge$ q)|
+|Resolution|((p $\vee$ q) $\wedge$ (~p $\vee$ r)) $\rightarrow$ (q $\vee$ r)|
+
 ## 7. Introduction to Proof
 
 ## 8. Proof Methods and Strategy
