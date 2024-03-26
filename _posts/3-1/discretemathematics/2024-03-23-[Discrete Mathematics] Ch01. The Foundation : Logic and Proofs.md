@@ -1,5 +1,5 @@
 ---
-title: "[Discrete Mathematics] Ch01. The Foundation : Logic and Proofs"
+title: "[Discrete Mathematics] Ch01 The Foundation : Logic and Proofs"
 excerpt: Kenneth H. Rosen - Discrete Mathematics and Its Applications
 categories:
   - discretemathematics
@@ -17,7 +17,7 @@ Logical Equivalences : truth table을 통해 증명할 수 있다.
 |Name|Equivalence|
 |---|---|
 |Identity laws|p $\wedge$ **T** $\equiv$ p, p $\vee$ **F** $\equiv$ p|
-|Domination laws|p $\vee$ **T** $\equiv$ **T**, p $\wedge$ F $\equiv$ F|
+|Domination laws|p $\vee$ **T** $\equiv$ **T**, p $\wedge$ **F** $\equiv$ **F**|
 |Idempotent laws|p $\wedge$ p $\equiv$ p, p $\vee$ p $\equiv$ p|
 |Double negation law|~(~p) $\equiv$ p|
 |Commutative laws|p $\vee$ q $\equiv$ q $\vee$ p, p $\wedge$ q $\equiv$ q $\wedge$ p|
@@ -26,6 +26,15 @@ Logical Equivalences : truth table을 통해 증명할 수 있다.
 |De Morgan's laws|~(p $\vee$ q) $\equiv$ ~p $\wedge$ ~q, ~(p $\wedge$ q) $\equiv$ ~p $\vee$ ~q|
 |Absorption laws|p $\vee$ (p $\wedge$ q) $\equiv$ p, p $\wedge$ (p $\vee$ q) $\equiv$ p|
 |Negation laws|p $\vee$ ~p $\equiv$ **T**, p $\wedge$ ~p $\equiv$ **F**|
+
+|Logical Equivalences Involving Conditional Statements|
+|:---:|
+|p $\rightarrow$ q $\equiv$ ~p $\vee$ q|
+|p $\rightarrow$ q $\equiv$ ~q $\rightarrow$ ~p|
+
+|Logical Equivalences Involving Biconditional Statements|
+|---|
+||
 
 ## 4. Predicates and Quantifiers
 
