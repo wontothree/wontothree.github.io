@@ -67,7 +67,7 @@ sidebar-category:
         url: /latex
   - title: "3-1"
     children:
-      - title: "Electronic Circuits 1"
+      - title: "Electronic Circuits"
         url: /electroniccircuits
       - title: "ECDL3"
         url: /ecdl3

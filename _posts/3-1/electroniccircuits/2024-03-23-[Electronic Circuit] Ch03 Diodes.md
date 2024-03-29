@@ -2,7 +2,7 @@
 title: "[Electronic Circuit] Ch03 Diodes"
 excerpt: 
 categories:
-  - electroniccircuit
+  - electroniccircuits
 toc: true
 use_math: true
 ---
