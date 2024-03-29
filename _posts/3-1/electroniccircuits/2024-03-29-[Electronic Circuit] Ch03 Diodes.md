@@ -1,12 +1,18 @@
 ---
 title: "[Electronic Circuit] Ch03 Diodes"
-excerpt: 
+excerpt: Sedra - Microelectronic Circuits
 categories:
   - electroniccircuits
 toc: true
 use_math: true
 ---
 ## 1. The Ideal Diode
+
+### 1.1 Current Voltage Characteristic
+
+### 1.2 The Rectifier
+
+### 1.3 Limiting and Protection Circuits
 
 ## 2. Terminal Characteristics of Junction Diodes
 
