@@ -79,3 +79,7 @@ sidebar-category:
         url: /marketingmanagement
       - title: "Real Analysis"
         url: /realanalysis
+  - title: "Paper Review"
+    children:
+      - title: "Computer Vision"
+        url: /computervision

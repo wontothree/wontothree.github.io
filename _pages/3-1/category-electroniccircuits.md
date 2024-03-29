@@ -1,5 +1,5 @@
 ---
-title: "Electronic Circuits 1"
+title: "Electronic Circuits"
 layout: archive
 permalink: /electroniccircuits
 ---
