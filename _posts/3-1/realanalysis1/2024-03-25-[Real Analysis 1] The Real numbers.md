@@ -1,8 +1,8 @@
 ---
-title: "[Real Analysis 1] Ch01. The Real Numbers"
+title: "[Real Analysis] Ch01. The Real Numbers"
 excerpt: Manfred - Introduction to Real Analysis
 categories:
-  - realanalysis1
+  - realanalysis
 toc: true
 use_math: true
 ---
@@ -15,6 +15,8 @@ use_math: true
 ## 4. The Least Upper Bound Property
 
 ## 5. Consequences of the Least Upper Bound Property
+
+THEOREM 1.5.1 (Archimedian Property)
 
 ## 6. Binary and Ternary Expansions
 

@@ -68,14 +68,14 @@ sidebar-category:
   - title: "3-1"
     children:
       - title: "Electronic Circuits 1"
-        url: /ElectronicCircuits1
+        url: /electroniccircuits
       - title: "ECDL3"
-        url: /ECDL3
+        url: /ecdl3
       - title: "Digital Control"
         url: /DigitalControl
       - title: "Discrete Mathematics"
         url: /discretemathematics
       - title: "Marketing Management"
         url: /marketingmanagement
-      - title: "Real Analysis 1"
-        url: /realanalysis1
+      - title: "Real Analysis"
+        url: /realanalysis

@@ -1,8 +1,8 @@
 ---
-title: "Electronic Circuits 1"
+title: "Real Analysis"
 layout: archive
-permalink: /ElectronicCircuits1
+permalink: /realanalysis
 ---
 
-{% assign posts = site.categories.ElectronicCircuits1%}
+{% assign posts = site.categories.realanalysis%}
 {% for post in posts %} {% include archive-single.html type=page.entries_layout %} {% endfor %}
