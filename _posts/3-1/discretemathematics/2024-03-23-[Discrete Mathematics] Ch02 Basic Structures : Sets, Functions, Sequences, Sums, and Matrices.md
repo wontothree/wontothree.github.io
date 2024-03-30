@@ -49,13 +49,16 @@ let bit strings of $U$ is 1111 1111 1111 1111 1111 1111 11, bit strings of {a, b
 
 ### 3.1 Introduction
 
-**[Definition 1]**
+>**[Definition 1]**
 >Let $A$ and $B$ be sets. A *function f* from $A$ to $B$ is an assignment of exactly on element of $B$ to each element of $A$. We write $f(a) = b$ if $b$ is the unique element of $B$ assigend by the function $f$ to the element $a$ of $A$. If $f$ is a function from $A$ to $B$, we write $f : A \rightarrow B$.
 
 ### 3.2 One-to-One and Onto Functions
 
-**[Definition 1]**
+>**[Definition 5]**
 >A function $f$ is said to be *one-to-one*, or an injection, if and only if $f(a) = f(b)$ implies that $a = b$ for all $a$ and $b$ in the domain of $f$. A function is said to be *injective* if it is one-to-one.
+
+>**[Definition 7]**
+>A function $f$ from $A$ to $B$ is called *onto*, or a surjection, if and only if for every element $b \in B$ there is an element $a \in A$ with $f(a) = b$. A function $f$ is called *surjective* if it is onto.
 
 ### 3.3 Inverse Functions and Compositions of Functions
 
@@ -74,5 +77,20 @@ let bit strings of $U$ is 1111 1111 1111 1111 1111 1111 11, bit strings of {a, b
 ## 4. Sequences and Summations
 
 ## 5. Cardinality of Sets
+
+### 5.1 Introduction
+
+>**[Definition 1]**
+>The sets $A$ and $B$ have the same cardinarity if and only if there is a one-to-one corresponence from $A$ to $B$. When $A$ and $B$ have the same cardinarity, we write $|A| = |B|$.
+
+### 5.2 Countable Sets
+
+>**[Definition 2]**
+>If there is a one-tone function from $A$ to $B$, the cardinality of $A$ is less that or the same as the cardinality of $B$ and we write $|A| \leq |B|$. Moreover, when $|A| \leq |B|$ and A and B have differenct cardinality, we say that the cardinality of $A$ less than the cardinality of $B$ and we write $|A| < |B|$
+
+>**[Definition 3]**
+>A set that is either finite or has the same cardinality as the set of positive integers is called *countable*. A set that is not countable is called *uncountable*.
+
+### 5.3 An Uncountable Set
 
 ## 6. Matrices
