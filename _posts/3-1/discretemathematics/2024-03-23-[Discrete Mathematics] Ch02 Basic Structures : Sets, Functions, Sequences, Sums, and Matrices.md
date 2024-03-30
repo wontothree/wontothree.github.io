@@ -35,15 +35,35 @@ Two, or more, sets can be combined in many differenct ways.
 
 ### 2.4 Computer Represetation of Sets
 
-A method for storing elements using an arbitray ordering of the elements of the universal set.
+A method for storing elements using an arbitrary ordering of the elements of the universal set.
 
 1. Assume that the universal set $U$ is finite.
 2. Specify an arbitrary ordering of the elements of $U$, for instance $a_1, a_2, ..., a_n$.
 3. Represent a subset $A$ of $U$ with the bit string of length $n$, where the $i$th bit in this string is 1 if $a_i$ belongs to $A$ and  is 0 if $a_i$ does not belong to $A$.
 
+When bit strings of $U$ is 1111 1111 1111 1111 1111 1111 11, bit strings of {a, b, c, d, e} is 1111 1000 0000 0000 0000 0000 00
+
 ### 2.5 Multisets
 
 ## 3. Functions
+
+### 3.1 Introduction
+
+**[Definition 1]**
+>Let $A$ and $B$ be sets. A *function f* from $A$ to $B$ is an assignment of exactly on element of $B$ to each element of $A$. We write $f(a) = b$ if $b$ is the unique element of $B$ assigend by the function $f$ to the element $a$ of $A$. If $f$ is a function from $A$ to $B$, we write $f : A \rightarrow B$.
+
+### 3.2 One-to-One and Onto Functions
+
+**[Definition 1]**
+>A function $f$ is said to be *one-to-one*, or an injection, if and only if $f(a) = f(b)$ implies that $a = b$ for all $a$ and $b$ in the domain of $f$. A function is said to be *injective* if it is one-to-one.
+
+### 3.3 Inverse Functions and Compositions of Functions
+
+### 3.4 The Graphs of Functions
+
+### 3.5 Some Important Functions
+
+### 3.6 Partial Functions
 
 ## 4. Sequences and Summations
 
