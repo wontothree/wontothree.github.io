@@ -41,7 +41,7 @@ A method for storing elements using an arbitrary ordering of the elements of the
 2. Specify an arbitrary ordering of the elements of $U$, for instance $a_1, a_2, ..., a_n$.
 3. Represent a subset $A$ of $U$ with the bit string of length $n$, where the $i$th bit in this string is 1 if $a_i$ belongs to $A$ and  is 0 if $a_i$ does not belong to $A$.
 
-When bit strings of $U$ is 1111 1111 1111 1111 1111 1111 11, bit strings of {a, b, c, d, e} is 1111 1000 0000 0000 0000 0000 00
+let bit strings of $U$ is 1111 1111 1111 1111 1111 1111 11, bit strings of {a, b, c, d, e} is 1111 1000 0000 0000 0000 0000 00
 
 ### 2.5 Multisets
 
@@ -58,6 +58,12 @@ When bit strings of $U$ is 1111 1111 1111 1111 1111 1111 11, bit strings of {a, 
 >A function $f$ is said to be *one-to-one*, or an injection, if and only if $f(a) = f(b)$ implies that $a = b$ for all $a$ and $b$ in the domain of $f$. A function is said to be *injective* if it is one-to-one.
 
 ### 3.3 Inverse Functions and Compositions of Functions
+
+>**[Definition 9]**
+>Let $f$ be a one-to-one correspondence from the set $A$ to the set $B$. The *inverse* function of $f$ is the function that assigns to an element $b$ belonging to $B$ the unique element $a$ in $A$ such that $f(a) = b$. The inverse function of $f$ is denoted by $f^{-1}$. Hence, $f^{-1}(b) = a$ when $f(a) = b$.
+
+>**[Definition 10]**
+>Let $g$ be a function from the set $A$ to the set $B$ and let $f$ be a function from the set $B$ to the set $C$. The composition of the functions $f$ and $g$, denoted for all $a \in A$ by $f \cdot g$, is the function from $A$ to $C$ defined by $(f \cdot g)(a) = f(g(a))$.
 
 ### 3.4 The Graphs of Functions
 
