@@ -1,9 +1,11 @@
 ---
-title: "[Circuit] Laplace Transform"
+title: "[ElectricCircuit] 12. Laplace Transform"
+excerpt: J. David Irwin - Engineering Circuit Analysis
 categories:
-  - Circuit
+  - ElectricCircuit
 tags:
 toc: true
+use_math: true
 ---
 ## 1. Definition
 

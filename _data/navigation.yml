@@ -34,7 +34,7 @@ sidebar-category:
       - title: "Electromagnetism"
         url: /emf
       - title: "Electric Circuit"
-        url: /circuit
+        url: /ElectricCircuit
       - title: "Solid State Electronics"
         url: /electron
       - title: "LAB"
@@ -53,9 +53,33 @@ sidebar-category:
         url: /engineeringmathematics
       - title: "Probability Theory"
         url: /probability                     
-      - title: "Optimization"
+      - title: "Mathematical Optimization"
         url: /opt
+      - title: "Real Analysis"
+        url: /analysis
   - title: "ETC"
     children:
-      - title: "민법"
+      - title: "Civil Law"
         url: /law
+      - title: "Invest"
+        url: /invest
+      - title: "LaTex"
+        url: /latex
+  - title: "3-1"
+    children:
+      - title: "Electronic Circuits"
+        url: /electroniccircuits
+      - title: "ECDL3"
+        url: /ecdl3
+      - title: "Digital Control"
+        url: /DigitalControl
+      - title: "Marketing Management"
+        url: /marketingmanagement
+      - title: "Real Analysis"
+        url: /realanalysis
+      - title: "Discrete Mathematics"
+        url: /discretemathematics
+  - title: "Paper Review"
+    children:
+      - title: "Computer Vision"
+        url: /computervision

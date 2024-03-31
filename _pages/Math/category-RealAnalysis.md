@@ -1,8 +1,8 @@
 ---
-title: "Circuit"
+title: "Real Analysis"
 layout: archive
-permalink: /circuit
+permalink: /analysis
 ---
 
-{% assign posts = site.categories.Circuit %}
+{% assign posts = site.categories.RealAnalysis %}
 {% for post in posts %} {% include archive-single.html type=page.entries_layout %} {% endfor %}

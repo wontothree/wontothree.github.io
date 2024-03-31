@@ -1,0 +1,8 @@
+---
+title: "Real Analysis"
+layout: archive
+permalink: /realanalysis
+---
+
+{% assign posts = site.categories.realanalysis%}
+{% for post in posts %} {% include archive-single.html type=page.entries_layout %} {% endfor %}

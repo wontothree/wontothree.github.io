@@ -1,9 +1,11 @@
 ---
-title: "[Circuit] Variable-Frequency Network Performance"
+title: "[ElectricCircuit] 11. Variable-Frequency Network Performance"
+excerpt: J. David Irwin - Engineering Circuit Analysis
 categories:
-  - Circuit
+  - ElectricCircuit
 tags:
 toc: true
+use_math: true
 ---
 ## 1. Variable Frequency-Response Analysis
 
@@ -373,3 +375,4 @@ A filter network is generally designed to pass signals with a specific frequency
 ## 6. Application Examples
 
 ## 7. Design Examples
+

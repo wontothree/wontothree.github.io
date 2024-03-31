@@ -1,8 +1,8 @@
 ---
-title: "[자료구조] 14. 탐색"
+title: "[Data Structure] 14 탐색"
+excerpt: 천인국 - 두근두근 자료구조
 categories:
   - DS
-excerpt: 
 toc: true
 use_math: true
 ---
