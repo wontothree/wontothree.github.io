@@ -476,6 +476,47 @@ Complex urban dataset
 
 Open3D : point cloud 계의 openCV
 
+```
+sudo apt install python3-pip
+```
+
+```
+pip install open3d
+```
+
+```
+python
+```
+
+```
+impost open3d
+```
+
+sample.py
+
+```py
+import open3d as o3d
+import numpy as np
+
+print("Load a ply")
+
+ply_point_cloud = o3d.data.ply_point_cloud()
+
+pcd = o3d.io.read_point_cloud(ply_point_cloud.path)
+
+print(pcd)
+
+print(np.array(pcd.points))
+
+o3d.visualization.draw_geometries(
+    [pcd],
+    zoom=0.3412,
+    front=[0.4257, -0.2125, -0.8795],
+    lookat=[2.6172, 2.0475, 1.532],
+    up=[-0.694, -0.9768, 0.2024],
+)
+```
+
 ### 01-08 포인트 클라우드 시각화 및 편집 툴 CloudCompare 사용법
 
 ### 01-09 LiDAR 데이터 학습을 위한 레이블링 툴 소개
