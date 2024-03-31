@@ -72,6 +72,25 @@ let bit strings of $U$ is 1111 1111 1111 1111 1111 1111 11, bit strings of {a, b
 
 ### 3.5 Some Important Functions
 
+>**[Definition 12]**
+>The *floor function* assigns to the real number $x$ the largest integer that is less than or equal to $x$. The value of the floor function at $x$ is denoted by $\lfloor x \rfloor$. \
+>The *ceiling function* assigns to the real number $x$ the smallest integer that is greater than or equal to $x$. The value of the ceiling function at $x$ is denoted by $\lceil x \rceil$
+
+|Useful Properties of Floor and Ceiling functions. ($n$ is an integer, $x$ is a real number.)|
+|---|
+|$\lfloor x \rfloor = n$ if and only if $n \leq x < n + 1$|
+|$\lceil n \rceil = n$ if and only if $n-1 < x \leq n$|
+|$\lfloor x \rfloor = n$ if and only if $x-1 < n \leq x$|
+|$\lceil n \rceil = n$ if and only if $x \leq n < n-1$|
+||
+|$x-1 < \lfloor x \rfloor \leq x \leq \lceil x \rceil < x + 1$
+||
+|$\lfloor -x \rfloor = - \lceil x \rceil$|
+|$\lceil -x \rceil = - \lfloor x \rfloor$|
+||
+|$\lfloor x + n \rfloor = \lfloor x \rfloor + n$|
+|$\lceil x + n \rceil = \lceil x \rceil + n$|
+
 ### 3.6 Partial Functions
 
 ## 4. Sequences and Summations
@@ -86,7 +105,7 @@ let bit strings of $U$ is 1111 1111 1111 1111 1111 1111 11, bit strings of {a, b
 ### 5.2 Countable Sets
 
 >**[Definition 2]**
->If there is a one-tone function from $A$ to $B$, the cardinality of $A$ is less that or the same as the cardinality of $B$ and we write $|A| \leq |B|$. Moreover, when $|A| \leq |B|$ and A and B have differenct cardinality, we say that the cardinality of $A$ less than the cardinality of $B$ and we write $|A| < |B|$
+>If there is a one-to-one function from $A$ to $B$, the cardinality of $A$ is less that or the same as the cardinality of $B$ and we write $|A| \leq |B|$. Moreover, when $|A| \leq |B|$ and A and B have differenct cardinality, we say that the cardinality of $A$ less than the cardinality of $B$ and we write $|A| < |B|$
 
 >**[Definition 3]**
 >A set that is either finite or has the same cardinality as the set of positive integers is called *countable*. A set that is not countable is called *uncountable*.
@@ -100,7 +119,11 @@ let bit strings of $U$ is 1111 1111 1111 1111 1111 1111 11, bit strings of {a, b
 **Zero-one matrix** is a matrix all of whose entries are either 0 or 1.
 
 >**[Definition 8]**
->Let $A = [a_{ij}]$ and $B = [b_{ij}]$ be $m \times n$ zero-one matrices. Then the *join* of $A$ and $B$ is denoted by $A \vee B$. The *meet* of $A$ and $B$ is the zero matriz with $(i, j)$th entry $a_{ij} \wedge b_{ij}$. The meet of $A$ and $B$ is denoted by $A \wedge B$.
+>Let $A = [a_{ij}]$ and $B = [b_{ij}]$ be $m \times n$ zero-one matrices. Then the *join* of $A$ and $B$ is denoted by $A \vee B$. \
+>The *meet* of $A$ and $B$ is the zero matriz with $(i, j)$th entry $a_{ij} \wedge b_{ij}$. The meet of $A$ and $B$ is denoted by $A \wedge B$.
 
 >**[Definition 9]**
 >Let $A = [a_{ij}]$ be an $m \times k$ zero-one matrix and $B = [b_{ij}]$ be a $k \times n$ zero-one matrix. Then the Boolean project of $A$ and $B$, denoted by $A \odot B$, is the $m \times n$ matrix with $(i, j)$th entry $c_{ij}$ where $c_{ij} = (a_{i1} \wedge b_{1j}) \vee (a_{i2} \wedge b_{2j}) \vee ... \vee (a_{i3} \wedge b_{3j})$.
+
+>**[Definition 10]**
+>Lat $A$ be a square zero-one matrix and let $r$ be a positive integer. The $r$th *Boolean power* of $A$ is the Boolean product of $r$ factors of $A$.
