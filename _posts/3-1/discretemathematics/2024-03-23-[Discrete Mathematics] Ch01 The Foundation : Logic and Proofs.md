@@ -40,7 +40,26 @@ Logical Equivalences : truth table을 통해 증명할 수 있다.
 
 ## 4. Predicates and Quantifiers
 
+De Morgan's Laws for Quanifiers
+
+|Negation|Equivalent Statement|
+|:---:|:---:|
+|~$\exists P(x)$|$\forall$~$P(x)$|
+|~$\forall P(x)$|$\exists$~$P(x)$|
+
 ## 5. Nested Quantifiers
+
+### 5.2 Understanding Statements Involving Nested Quantifiers
+
+### 5.3 The Order of Quantifiers
+
+### 5.4 Translatin Mathematical Statements into Statements Involving Nested Quantifiers
+
+### 5.5 Translating from Nested Quantifiers into English
+
+### 5.6 Translating English Sentences into Logical Expressions
+
+### 5.7 Negating Nested Quantifiers
 
 ## 6. Rules of Inference
 
@@ -59,4 +78,32 @@ Truth table or rules of inference -> validity
 
 ## 7. Introduction to Proof
 
+### 7.2 Understanding How Theorems Are Stated
+
+### 7.3 Methods of Proving Theormes
+
+### 7.5 Direct Proofs
+
+### 7.6 Proofs by Contraposition
+
+### 7.7 Proofs by Contradiction
+
+### 7.8 Mistakes in Proofs
+
 ## 8. Proof Methods and Strategy
+
+### 8.2 Exhaustive Proof and Proof by Cases
+
+### 8.3 Existence Proofs
+
+### 8.4 Uniqueness Proofs
+
+### 8.5 Proof Strategies
+
+### 8.6 Looking for Counterexamples
+
+### 8.7 Proof Strategy in Action
+
+### 8.8 Tilings
+
+### 8.9 The Role of Open Problems
