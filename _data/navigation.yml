@@ -73,12 +73,12 @@ sidebar-category:
         url: /ecdl3
       - title: "Digital Control"
         url: /DigitalControl
-      - title: "Discrete Mathematics"
-        url: /discretemathematics
       - title: "Marketing Management"
         url: /marketingmanagement
       - title: "Real Analysis"
         url: /realanalysis
+      - title: "Discrete Mathematics"
+        url: /discretemathematics
   - title: "Paper Review"
     children:
       - title: "Computer Vision"
