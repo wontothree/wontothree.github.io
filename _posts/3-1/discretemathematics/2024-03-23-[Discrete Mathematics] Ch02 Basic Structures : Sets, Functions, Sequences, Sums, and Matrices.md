@@ -94,3 +94,13 @@ let bit strings of $U$ is 1111 1111 1111 1111 1111 1111 11, bit strings of {a, b
 ### 5.3 An Uncountable Set
 
 ## 6. Matrices
+
+### 6.4 Zero-One Matrices
+
+**Zero-one matrix** is a matrix all of whose entries are either 0 or 1.
+
+>**[Definition 8]**
+>Let $A = [a_{ij}]$ and $B = [b_{ij}]$ be $m \times n$ zero-one matrices. Then the *join* of $A$ and $B$ is denoted by $A \vee B$. The *meet* of $A$ and $B$ is the zero matriz with $(i, j)$th entry $a_{ij} \wedge b_{ij}$. The meet of $A$ and $B$ is denoted by $A \wedge B$.
+
+>**[Definition 9]**
+>Let $A = [a_{ij}]$ be an $m \times k$ zero-one matrix and $B = [b_{ij}]$ be a $k \times n$ zero-one matrix. Then the Boolean project of $A$ and $B$, denoted by $A \odot B$, is the $m \times n$ matrix with $(i, j)$th entry $c_{ij}$ where $c_{ij} = (a_{i1} \wedge b_{1j}) \vee (a_{i2} \wedge b_{2j}) \vee ... \vee (a_{i3} \wedge b_{3j})$.
