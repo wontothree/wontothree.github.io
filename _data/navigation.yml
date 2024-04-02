@@ -55,8 +55,6 @@ sidebar-category:
         url: /probability                     
       - title: "Mathematical Optimization"
         url: /opt
-      - title: "Real Analysis"
-        url: /analysis
   - title: "ETC"
     children:
       - title: "Civil Law"

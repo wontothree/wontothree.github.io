@@ -23,7 +23,7 @@ THEOREM 1.5.1 (Archimedian Property)
 ## 7. Countable and Uncountable Sets
 
 >[DEFINITION 1.7.1]
->Two sets $A$ and $B$ are said to be *equivalent* (or to have the same cardinality), *denoted by $A$ ~ $B$, *if there exists a one-to-one function of $A$ onto $B$*.
+>Two sets $A$ and $B$ are said to be *equivalent* (or to have the same cardinality), denoted by $A$ ~ $B$, if there exists a one-to-one function of $A$ onto $B$.
 >
 >The notion of equivalence of sets satisfies the following:
 >(i) $A$ ~ $A$ (reflexive)
