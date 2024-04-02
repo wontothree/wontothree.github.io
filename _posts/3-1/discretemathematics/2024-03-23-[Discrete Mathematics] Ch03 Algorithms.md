@@ -182,4 +182,12 @@ Insertion  =   1  2  3  4  5  6  7  8  9
 
 ## 2. The growth of functions
 
+### 2.2 Big-O Notation
+
+### 2.3 Big-O Estimates for Some Important Functions
+
+## 2.4 The Growth of Combinations of Functions
+
+### 2.5 Big-Omega and Big-Theta Notation
+
 ## 3. Complexity of algorithms
