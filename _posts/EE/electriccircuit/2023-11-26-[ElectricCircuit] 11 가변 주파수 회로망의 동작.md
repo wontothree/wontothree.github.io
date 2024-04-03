@@ -2,7 +2,7 @@
 title: "[ElectricCircuit] 11 가변 주파수 회로망의 동작"
 excerpt: J. David Irwin - Engineering Circuit Analysis
 categories:
-  - ElectricCircuit
+  - electriccircuit
 toc: true
 toc_icon: star
 share: false

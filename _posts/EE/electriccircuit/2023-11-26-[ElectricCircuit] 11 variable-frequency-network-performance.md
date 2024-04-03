@@ -2,7 +2,7 @@
 title: "[ElectricCircuit] 11 Variable-Frequency Network Performance"
 excerpt: J. David Irwin - Engineering Circuit Analysis
 categories:
-  - ElectricCircuit
+  - electriccircuit
 toc: true
 toc_icon: star
 share: false

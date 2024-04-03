@@ -2,7 +2,7 @@
 title: "[ElectricCircuit] 12 Laplace Transform"
 excerpt: J. David Irwin - Engineering Circuit Analysis
 categories:
-  - ElectricCircuit
+  - electriccircuit
 toc: true
 toc_icon: star
 share: false

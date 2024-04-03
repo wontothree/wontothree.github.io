@@ -2,7 +2,7 @@
 title: "[Digital Control] Ch03 Sampling and Reconstruction"
 excerpt: Charles L. Philips - Digital Control System
 categories:
-  - DigitalControl
+  - digitalcontrol
 toc: true
 toc_icon: star
 share: false
