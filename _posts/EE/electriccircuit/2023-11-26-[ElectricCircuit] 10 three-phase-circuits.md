@@ -1,10 +1,11 @@
 ---
-title: "[ElectricCircuit] 10. Three Phase Circuits"
+title: "[ElectricCircuit] 10 Three Phase Circuits"
 excerpt: J. David Irwin - Engineering Circuit Analysis
 categories:
   - ElectricCircuit
-tags:
 toc: true
+toc_icon: star
+share: false
 use_math: true
 ---
 ## 1. Three phase circuits

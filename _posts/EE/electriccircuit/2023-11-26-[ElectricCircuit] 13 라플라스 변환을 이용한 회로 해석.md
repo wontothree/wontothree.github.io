@@ -1,10 +1,11 @@
 ---
-title: "[ElectricCircuit] 13. 라플라스 변환을 이용한 회로 해석"
+title: "[ElectricCircuit] 13 라플라스 변환을 이용한 회로 해석"
 excerpt: J. David Irwin - Engineering Circuit Analysis
 categories:
   - ElectricCircuit
-tags:
 toc: true
+toc_icon: star
+share: false
 use_math: true
 ---
 ## 1. 라플라스 회로 해

@@ -1,10 +1,11 @@
 ---
-title: "[ElectricCircuit] 12. Laplace Transform"
+title: "[ElectricCircuit] 12 Laplace Transform"
 excerpt: J. David Irwin - Engineering Circuit Analysis
 categories:
   - ElectricCircuit
-tags:
 toc: true
+toc_icon: star
+share: false
 use_math: true
 ---
 ## 1. Definition
@@ -12,7 +13,7 @@ use_math: true
 Laplace transform of a function $f(t)$
 
 $$
-\mathscr{L}[f(t)] = \int_0^{\infin} f(t) e^{-st} dt
+\mathscr{L}[f(t)] = \int_0^{\infty} f(t) e^{-st} dt
 = \textbf{F}(s),
 \;\; s + j\sigma,
 \;\; f(t) = 0 \; for \; t < 0
@@ -21,7 +22,7 @@ $$
 A sufficient condition for existence of laplace transform
 
 $$
-\int_0^{\infin} e^{-\sigma t} |f(t)|dt < \infin
+\int_0^{\infty} e^{-\sigma t} |f(t)|dt < \infty
 $$
 
 for some real value $\sigma$
@@ -96,8 +97,8 @@ Useful theorems describing important properties of the Laplace transform
 >
 >$$
 \mathscr{L}[f(at)]
-= \int_0^{\infin} f(at) e^{-st} dt
-= \dfrac{1}{a}\int_0^{\infin} f(\lambda) e^{-(\lambda/a)s} d\lambda
+= \int_0^{\infty} f(at) e^{-st} dt
+= \dfrac{1}{a}\int_0^{\infty} f(\lambda) e^{-(\lambda/a)s} d\lambda
 = \dfrac{1}{a}\textbf{F}(\dfrac{s}{a}), \; \sigma > 0
 $$
 
@@ -105,10 +106,10 @@ $$
 >
 >$$
 \mathscr{L}[f(t - t_0)u(t - t_0)]
-= \int_0^{\infin} f(t - t_0)u(t - t_0) e^{-st} dt
-= \int_{-t_0}^{\infin} f(t)u(t) e^{-s(t + t_0)} dt \\
-= \int_{0}^{\infin} f(t) e^{-s(t + t_0)} dt
-= e^{-st_0}\int_0^{\infin} f(t) e^{-st} dt
+= \int_0^{\infty} f(t - t_0)u(t - t_0) e^{-st} dt
+= \int_{-t_0}^{\infty} f(t)u(t) e^{-s(t + t_0)} dt \\
+= \int_{0}^{\infty} f(t) e^{-s(t + t_0)} dt
+= e^{-st_0}\int_0^{\infty} f(t) e^{-st} dt
 = e^{-st_0}\textbf{F}(s)
 $$
 
@@ -116,8 +117,8 @@ $$
 >
 >$$
 \mathscr{L}[e^{-at}f(t)]
-= \int_0^{\infin} e^{-at}f(t) e^{-st} dt
-= \int_0^{\infin} f(t) e^{-(a + s)t} dt
+= \int_0^{\infty} e^{-at}f(t) e^{-st} dt
+= \int_0^{\infty} f(t) e^{-(a + s)t} dt
 = \textbf{F}(a + s)
 $$
 
@@ -131,7 +132,7 @@ $$
 |6. Differentiation|$$\dfrac{d^nf(t)}{dt^n}$$|$$s^n\textbf{F}(s) - s^{n-1}f(0) - s^{n-2}f^1(0) - s^{n-3}f^2(0) ... - s^0f^{n-1}(0)$$|
 |7. Multiplication by t|$$tf(t)$$|$$-\dfrac{d\textbf{F}(s)}{ds}$$|
 ||$$t^nf(t)$$|$$-\dfrac{d^n\textbf{F}(s)}{ds^n}$$|
-|8. Division by t|$$\dfrac{f(t)}{t}$$|$$\int_s^{\infin}\textbf{F}(\lambda)d\lambda$$|
+|8. Division by t|$$\dfrac{f(t)}{t}$$|$$\int_s^{\infty}\textbf{F}(\lambda)d\lambda$$|
 |9. Integration|$$\int_0^tf(\lambda)d\lambda$$|$$\dfrac{\textbf{F}(s)}{s}$$|
 |10. Convolution|$$\int_0^t f_1(\lambda)f_2(t - \lambda) d\lambda$$|$$\textbf{F}_1(s)\textbf{F}_2(s)$$|
 

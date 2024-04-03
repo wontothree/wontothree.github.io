@@ -1,10 +1,11 @@
 ---
-title: "[ElectricCircuit] 11. 가변 주파수 회로망의 동작"
+title: "[ElectricCircuit] 11 가변 주파수 회로망의 동작"
 excerpt: J. David Irwin - Engineering Circuit Analysis
 categories:
   - ElectricCircuit
-tags:
 toc: true
+toc_icon: star
+share: false
 use_math: true
 ---
 ## 1. 가변 주파수 응답 해석

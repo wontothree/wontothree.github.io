@@ -1,10 +1,11 @@
 ---
-title: "[ElectricCircuit] 11. Variable-Frequency Network Performance"
+title: "[ElectricCircuit] 11 Variable-Frequency Network Performance"
 excerpt: J. David Irwin - Engineering Circuit Analysis
 categories:
   - ElectricCircuit
-tags:
 toc: true
+toc_icon: star
+share: false
 use_math: true
 ---
 ## 1. Variable Frequency-Response Analysis

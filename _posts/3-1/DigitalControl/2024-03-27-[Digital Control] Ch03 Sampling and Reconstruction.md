@@ -23,14 +23,44 @@ $$
 Laplace transform
 
 $$
-\bar{E} = e(0)\left[\dfrac{1}{s} - \dfrac{\epsilon^{-Ts}}{s}\right]
+\bar{E}(s) = e(0)\left[\dfrac{1}{s} - \dfrac{\epsilon^{-Ts}}{s}\right]
 + e(T)\left[\dfrac{\epsilon^{-Ts}}{s} - \dfrac{\epsilon^{-2Ts}}{s}\right]
 + e(2T)\left[\dfrac{\epsilon^{-2Ts}}{s} - \dfrac{\epsilon^{-3Ts}}{s}\right] \\
 = \left[\dfrac{1-\epsilon^{Ts}}{s} \right]\left[e(0) + e(T)\epsilon^{-Ts} + e(2T)\epsilon^{-2Ts}  + \dots  \right]\\
 = \left[\sum_{n=0}^{\infty}e(nT)\epsilon^{-nTs}\right] \left[\dfrac{1-\epsilon^{Ts}}{s} \right]
 $$
 
+- First factor : a function of the input $e(t)$ and the sampling period $T$
+- Second factor :  a transfer function independent of $e(t)$ (zero-order hold)
+
+The function $E^*(S)$, called the starred transform, is defined as
+
+$$
+E^*(S) := \sum_{n=0}^{\infty}e(nT)\epsilon^{-nTs}
+$$
+
+$E^*(S)$ does not appear in the physical system but appear as a result factoring.
+
 ## 3 The Ideal Sampler
+
+Inverse laplace transform
+
+$$
+e^*(t) = \mathcal{L}^{-1}[E^*(s)]
+= e(0)\delta(t) + e(T)\delta(t-T) + e(2T)\delta(t-2T) + \dots
+$$
+
+$e^*(t)$ is not a physical signal
+
+$$
+\delta_T(t) := \sum_{n=0}^{\infty}\delta(t-nT)
+$$
+
+Then
+
+$$
+e^*(t) = e(t)\delta_T(t)
+$$
 
 ## 4 Evaluation of E*(S)
 
