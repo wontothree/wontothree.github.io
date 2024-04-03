@@ -13,14 +13,13 @@ Technical Blog
     |- _sass
     |- assets
     |- docs
-    |- img
+    |- img : pictures in article
     |- test
     |- _config.yml : 전체적인 설정
     |- editorconfig
     |- .gitignore
     |- .travis.yml
     |- banner.js
-    |- CHANGELOG.md
     |- Gemfile
     |- index.html
     |- minimal-mistakes-jekyll.gemspec
@@ -28,3 +27,7 @@ Technical Blog
     |- package.json
     |- Rakefile
     |- README.md
+
+## Reference
+
+https://mmistakes.github.io/minimal-mistakes/docs/configuration/
