@@ -1,5 +1,5 @@
 ---
-title: "[Real Analysis] Ch01. The Real Numbers"
+title: "[Real Analysis] Ch02 Topology of THe Real Line"
 excerpt: Manfred - Introduction to Real Analysis
 categories:
   - realanalysis
