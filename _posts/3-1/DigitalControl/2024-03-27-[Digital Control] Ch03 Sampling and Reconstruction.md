@@ -43,6 +43,8 @@ $E^*(S)$ does not appear in the physical system but appear as a result factoring
 
 ## 3 The Ideal Sampler
 
+Ideal sampler(임펄스 변조기) : sampler and hold model에 나타난 sampler. 실제로 존재하지 않는 신호인 임펄스 함수가 출력에 나타난다.
+
 Inverse laplace transform
 
 $$
@@ -62,10 +64,52 @@ $$
 e^*(t) = e(t)\delta_T(t)
 $$
 
-## 4 Evaluation of E*(S)
+## 4 Evaluation of $E^*(s)$
+
+Definition
+
+$$
+E^*(S) := \sum_{n=0}^{\infty}e(nT)\epsilon^{-nTs}
+$$
+
+$E^*(S)$에 대한 추가적인 두 개의 표현식
+
+$$
+E^*(s) = \sum_{\text{at poles of E}(\lambda)} \left[ \text{residues of} \; E(\lambda) \dfrac{1}{1-\epsilon^{-T(s-\lambda)}}\right]
+$$
+
+$$
+E^*(s) = \dfrac{1}{T}\sum_{n=-\infty}^{\infty} E(s + jn\omega_s) + \dfrac{e(0)}{2}
+$$
 
 ## 5 Results from the Fourier Transform
 
-## 6 Properties of E*(S)
+## 6 Properties of $E^*(s)$
+
+$E^*(s)$ have two important properties in the s-domain.
+
+**Property 1**
+
+$E^*(s)$ is periodic in s with the period $j\omega_s$
+
+$$
+E^*(s + jn\omega_s) = E^*(s) \;\text{for}\; n \in \Z
+$$
+
+**Property 2**
+
+$E(s)$가 $s = s_1$에서 극점을 가지면 $E^*(s)$는 $s = s_1 + jm\omega_s$에서 극점을 갖는다.
 
 ## 7 Data Reconstruction
+
+데이터 복원의 일반적인 방법은 다항식 외삽법이다.
+
+Tylor 급수를 이용한다.
+
+$$
+e(t) = e(nT) + e'(nT)(t - nT) + \dfrac{e''(nT)}{2!} + \dots
+$$
+
+- 0차 홀드
+- 1차 홀드
+- 분수차 홀드
