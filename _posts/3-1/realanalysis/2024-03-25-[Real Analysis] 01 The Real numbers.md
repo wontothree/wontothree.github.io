@@ -46,7 +46,7 @@ THEOREM 1.5.1 (Archimedian Property)
 >(e) $A$ is **at most countable** if $A$ is finite or countable.
 
 >**THEOREM 1.7.4**
->$\N \times \N$ is countable
+>$\mathbb{N} \times \mathbb{N}$ is countable
 
 ### Sequences
 
@@ -59,7 +59,7 @@ THEOREM 1.5.1 (Archimedian Property)
 >Every infinite subset of a countable set is countable
 
 >**[THEOREM 1.7.7]**
->If $f$ maps $\N$ onto $A$, then $A$ is at most countable
+>If $f$ maps $\mathbb{N}$ onto $A$, then $A$ is at most countable
 
 ### Index Families of Sets
 
