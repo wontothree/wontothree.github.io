@@ -1,18 +1,28 @@
 ---
-title: "[Electronic Circuit] Ch03 Diodes"
+title: "[Electronic Circuit] 03 Diodes"
 excerpt: Sedra - Microelectronic Circuits
 categories:
   - electroniccircuits
 toc: true
+toc_icon: star
+share: false
 use_math: true
 ---
 ## 1. The Ideal Diode
 
 ### 1.1 Current Voltage Characteristic
 
+The ideal diode can be considered the most fundemental nonlinear circuit element.
+
+![](../../../img/post/electroniccircuit/diode.png)
+
 ### 1.2 The Rectifier
 
+- The series connection of a diode and a resister
+
 ### 1.3 Limiting and Protection Circuits
+
+
 
 ## 2. Terminal Characteristics of Junction Diodes
 

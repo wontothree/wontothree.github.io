@@ -1,9 +1,11 @@
 ---
-title: "[Electronic Circuit] Ch02 Operational Amplifiers"
+title: "[Electronic Circuit] 02 Operational Amplifiers"
 excerpt: 
 categories:
   - electroniccircuits
 toc: true
+toc_icon: star
+share: false
 use_math: true
 ---
 ## 1. The Ideal Op amo
