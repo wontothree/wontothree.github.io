@@ -1,26 +1,28 @@
 ---
-title: "[Real Analysis] Ch01. The Real Numbers"
+title: "[Real Analysis] 01 The Real Numbers"
 excerpt: Manfred - Introduction to Real Analysis
 categories:
   - realanalysis
 toc: true
+toc_icon: star
+share: false
 use_math: true
 ---
-## 1. Sets and Operations on Sets
+## 1 Sets and Operations on Sets
 
-## 2. Functions
+## 2 Functions
 
-## 3. Mathematical Induction
+## 3 Mathematical Induction
 
-## 4. The Least Upper Bound Property
+## 4 The Least Upper Bound Property
 
-## 5. Consequences of the Least Upper Bound Property
+## 5 Consequences of the Least Upper Bound Property
 
 THEOREM 1.5.1 (Archimedian Property)
 
-## 6. Binary and Ternary Expansions
+## 6 Binary and Ternary Expansions
 
-## 7. Countable and Uncountable Sets
+## 7 Countable and Uncountable Sets
 
 >**[DEFINITION 1.7.1]**
 >Two sets $A$ and $B$ are said to be **equivalent** (or to have the same **cardinality**), denoted by $A$ ~ $B$, if there exists a one-to-one function of $A$ onto $B$.
@@ -49,7 +51,7 @@ THEOREM 1.5.1 (Archimedian Property)
 ### Sequences
 
 >**[DEFINITION 1.7.5]**
->If $A$ is a set, by a **sequence** in $A$ we mean a function $f$ from $\N$ into $A$. For each $n \in \N$, let $x_n = f(n)$. Then $x_n$ is called the $n$th term of the sequence $f$
+>If $A$ is a set, by a **sequence** in $A$ we mean a function $f$ from $\mathbb{N}$ into $A$. For each $n \in \mathbb{N}$, let $x_n = f(n)$. Then $x_n$ is called the $n$th term of the sequence $f$
 
 - 고등학교 수학에서와 달리 함수를 통해 수열을 정의한다.
 
