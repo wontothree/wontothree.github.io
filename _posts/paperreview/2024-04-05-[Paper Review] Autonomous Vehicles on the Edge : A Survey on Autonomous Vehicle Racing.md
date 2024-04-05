@@ -45,7 +45,29 @@ use_math: true
 
 ### *B. Planning*
 
+![](../../img/post/paperreview/raceline.png)
 
+|Planner|Role||
+|---|---|---|
+|Global Planner|providing an optimal path (raceline) around the racetrack|optimizing for the lowest lap time|
+|Local Planner (motion planner)|avoiding obstacles while still provide a fast and and reliable path that does not deviate too much from the optimal global reaceline|operate in a certain time horizon|
+|Behavior Planner|high-level mission planning of the racecar|the decision making about overtaking maneuvers (overtaking left / overtaking right / stay behind), the energy management strategy, interaction with other vehicles and the reaction to inputs from race control(e.g. flags, speed limits)|
+
+- Fundemental problems for autonomous racing planning
+  - Minimum-time optimization for a global optimal raceline
+  - Long local planning horizon for recursive feasibility
+  - Obstacle avoidance and vehicle reaction at high speeds
+  - High replanning frequency for real-time capability
+  - Decision making under high uncertainty
+  - Interaction planning with non-cooperative agents
+
+![](../../img/post/paperreview/overview-planning.png)
+
+#### Global Planning
+
+#### Local Planning
+
+#### Behavior Planning
 
 ## 3 AUTONOMOUS RACING HARDWARE: VEHICLES AND COMPETITIONS
 
