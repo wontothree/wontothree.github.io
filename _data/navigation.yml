@@ -35,6 +35,8 @@ sidebar-category:
         url: /electron
       - title: "LAB"
         url: /lab
+      - title: "Digital Control (3-1)"
+        url: /digitalcontrol
       - title: "Linear System"
         url: /ls
       - title: "Nonlinear System"
@@ -45,6 +47,10 @@ sidebar-category:
     children:
       - title: "Linear Algebra"
         url: /linearalgebra
+      - title: "Real Analysis (3-1)"
+        url: /realanalysis
+      - title: "Discrete Mathematics (3-1)"
+        url: /discretemathematics
       - title: "Engineering Mathematics"
         url: /engineeringmathematics
       - title: "Probability Theory"
@@ -57,22 +63,10 @@ sidebar-category:
         url: /law
       - title: "Invest"
         url: /invest
+      - title: "Marketing Management (3-1)"
+        url: /marketingmanagement
       - title: "LaTex"
         url: /latex
-  - title: "3-1"
-    children:
-      - title: "Electronic Circuits"
-        url: /electroniccircuits
-      - title: "ECDL3"
-        url: /ecdl3
-      - title: "Digital Control"
-        url: /digitalcontrol
-      - title: "Marketing Management"
-        url: /marketingmanagement
-      - title: "Real Analysis"
-        url: /realanalysis
-      - title: "Discrete Mathematics"
-        url: /discretemathematics
   - title: "Paper Review"
     children:
       - title: "Computer Vision"
