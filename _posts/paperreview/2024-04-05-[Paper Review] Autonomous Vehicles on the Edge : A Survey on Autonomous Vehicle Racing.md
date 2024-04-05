@@ -138,4 +138,3 @@ Many publications aim toward designing a holistic autonomous software stack that
 
 ## 3 AUTONOMOUS RACING HARDWARE: VEHICLES AND COMPETITIONS
 
-https://github.com/JohannesBetz/AutonomousRacing_Literature
