@@ -17,4 +17,3 @@ use_math: true
 ## 4 Compact Subsets of $\mathbb{R}$
 
 ## 5 The Cantor Set
-

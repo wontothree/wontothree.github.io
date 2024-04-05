@@ -1,8 +1,8 @@
 ---
-title: "OOP"
+title: "Java"
 layout: archive
-permalink: /oop
+permalink: /java
 ---
 
-{% assign posts = site.categories.OOP %}
+{% assign posts = site.categories.java %}
 {% for post in posts %} {% include archive-single.html type=page.entries_layout %} {% endfor %}

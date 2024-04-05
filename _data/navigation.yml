@@ -15,8 +15,8 @@
 sidebar-category:
   - title: "CS"
     children:
-      - title: "Object-Oriented Programming"
-        url: /oop
+      - title: "Java"
+        url: /java
       - title: "Data Structure"
         url: /ds
       - title: "Machine Learning"
