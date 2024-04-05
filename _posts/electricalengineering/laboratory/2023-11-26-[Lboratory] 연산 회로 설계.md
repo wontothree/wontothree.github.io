@@ -1,8 +1,12 @@
 ---
-title: "[LAB] 연산 회로 설계"
-tags: 
-  - LAB
+title: "[Lboratory] 연산 회로 설계"
+excerpt: 
+categories:
+  - laboratory
 toc: true
+toc_icon: star
+share: false
+use_math: true
 ---
 ## 1. 4Bit 덧셈
 

@@ -1,8 +1,12 @@
 ---
-title: "[LAB] 엔코더와 디코더"
-tags: 
-  - LAB
+title: "[Lboratory] 엔코더와 디코더"
+excerpt: 
+categories:
+  - laboratory
 toc: true
+toc_icon: star
+share: false
+use_math: true
 ---
 ## 8 X 3 encoder
 

@@ -1,8 +1,12 @@
 ---
-title: "[LAB] 데이터의 저장"
-tags: 
-  - LAB
+title: "[Lboratory] 데이터의 저장"
+excerpt: 
+categories:
+  - laboratory
 toc: true
+toc_icon: star
+share: false
+use_math: true
 ---
 ## 1. 데이터의 저장과 이동
 

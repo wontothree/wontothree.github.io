@@ -1,8 +1,12 @@
 ---
-title: "[LAB] BS개념"
-tags: 
-  - LAB
+title: "[Lboratory] BS개념"
+excerpt: 
+categories:
+  - laboratory
 toc: true
+toc_icon: star
+share: false
+use_math: true
 ---
 ## 2.5 클럭의 이해와 순서 논리 회로
 

@@ -1,8 +1,12 @@
 ---
-title: "[LAB] 7 세그먼트"
-tags: 
-  - LAB
+title: "[Lboratory] 7 세그먼트"
+excerpt: 
+categories:
+  - laboratory
 toc: true
+toc_icon: star
+share: false
+use_math: true
 ---
 ## 7 segment source code
 

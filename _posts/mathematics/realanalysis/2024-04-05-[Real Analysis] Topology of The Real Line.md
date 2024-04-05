@@ -1,6 +1,6 @@
 ---
 title: "[Real Analysis] 02 Topology of THe Real Line"
-excerpt: Manfred - Introduction to Real Analysis
+excerpt: "Manfred - Introduction to Real Analysis : Ch02"
 categories:
   - realanalysis
 toc: true

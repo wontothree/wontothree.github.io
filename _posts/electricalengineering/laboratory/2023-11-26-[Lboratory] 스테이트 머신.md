@@ -1,8 +1,12 @@
 ---
-title: "[LAB] 스테이트 머신]"
-tags: 
-  - LAB
+title: "[Lboratory] 스테이트 머신]"
+excerpt: 
+categories:
+  - laboratory
 toc: true
+toc_icon: star
+share: false
+use_math: true
 ---
 ## [실습 29] 무어 스테이트 머신
 

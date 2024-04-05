@@ -1,8 +1,12 @@
 ---
-title: "[LAB] Text LCD 제어"
-tags: 
-  - LAB
+title: "[Lboratory] Text LCD 제어"
+excerpt: 
+categories:
+  - laboratory
 toc: true
+toc_icon: star
+share: false
+use_math: true
 ---
 ## Text LCD 제어
 

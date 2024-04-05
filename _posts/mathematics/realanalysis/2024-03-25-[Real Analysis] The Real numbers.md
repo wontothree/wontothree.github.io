@@ -1,6 +1,6 @@
 ---
-title: "[Real Analysis] 01 The Real Numbers"
-excerpt: Manfred - Introduction to Real Analysis
+title: "[Real Analysis] The Real Numbers"
+excerpt: "Manfred - Introduction to Real Analysis : Ch01"
 categories:
   - realanalysis
 toc: true
