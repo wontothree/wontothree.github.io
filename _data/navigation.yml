@@ -13,7 +13,7 @@
 #  - title: "Blog"
 #    url: /blog/
 sidebar-category:
-  - title: "CS"
+  - title: "Computer Science"
     children:
       - title: "Java"
         url: /java
@@ -21,7 +21,7 @@ sidebar-category:
         url: /ds
       - title: "Machine Learning"
         url: /ml
-  - title: "EE"
+  - title: "Electrical Engineering"
     children:
       - title: "Digital Logic"
         url: /logic
@@ -41,7 +41,7 @@ sidebar-category:
         url: /nls
       - title: "Optimal Control"
         url: /oc
-  - title: "Math"
+  - title: "Mathematics"
     children:
       - title: "Linear Algebra"
         url: /linearalgebra
@@ -49,7 +49,7 @@ sidebar-category:
         url: /engineeringmathematics
       - title: "Probability Theory"
         url: /probability                     
-      - title: "Mathematical Optimization"
+      - title: "Convex Optimization"
         url: /opt
   - title: "ETC"
     children:
