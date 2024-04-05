@@ -35,8 +35,8 @@ sidebar-category:
         url: /electriccircuit
       - title: "Electronic Circuit (3-1)"
         url: /electroniccircuit
-      - title: "LAB"
-        url: /lab
+      - title: "Laboratory"
+        url: /laboratory
       - title: "Digital Control (3-1)"
         url: /digitalcontrol
       - title: "Linear System"
