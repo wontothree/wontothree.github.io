@@ -71,5 +71,5 @@ sidebar-category:
         url: /latex
   - title: "Paper Review"
     children:
-      - title: "paperreview"
+      - title: "Paper Review"
         url: /paperreview

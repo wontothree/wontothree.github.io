@@ -1,8 +1,8 @@
 ---
 title: "Computer Vision"
 layout: archive
-permalink: /computervision
+permalink: /paperreview
 ---
 
-{% assign posts = site.categories.computervision %}
+{% assign posts = site.categories.paperreview %}
 {% for post in posts %} {% include archive-single.html type=page.entries_layout %} {% endfor %}

@@ -39,8 +39,13 @@ use_math: true
   - High speed localization and state estimation
   - Localization on wide areas without specific landmarks
   - Percise localization information necessary to chieve high dynamic trajectory planning and control
+- The current state of the art in autonomous racing is heavily based on single vehicle races. Therefore the subcategory of object detection algorithms for high speed applications was not given much attension.
 
 ![](../../img/post/paperreview/overview-perception.png)
+
+### *B. Planning*
+
+
 
 ## 3 AUTONOMOUS RACING HARDWARE: VEHICLES AND COMPETITIONS
 
