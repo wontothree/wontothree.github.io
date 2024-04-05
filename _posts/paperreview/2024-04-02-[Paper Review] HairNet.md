@@ -1,8 +1,8 @@
 ---
-title: "[Computer Vision] HairNet"
+title: "[Paper Review] HairNet"
 excerpt: 'HairNet : Single-View Hair Reconstruction using Convolutional Neural Networks'
 categories:
-  - computervision
+  - paperreview
 toc: true
 toc_icon: star
 share: false

@@ -19,6 +19,7 @@ Technical Blog
     |- banner.js
     |- Gemfile
     |- index.html : 블로그 첫 페이지
+    |- minimal-mistakes-jekyll.gemspec
     |- package-lock.json
     |- package.json
     |- Rakefile
