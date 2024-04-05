@@ -2,7 +2,7 @@
 title: "[Electronic Circuit] 03 Diodes"
 excerpt: Sedra - Microelectronic Circuits
 categories:
-  - electroniccircuits
+  - electroniccircuit
 toc: true
 toc_icon: star
 share: false

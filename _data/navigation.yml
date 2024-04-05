@@ -29,10 +29,12 @@ sidebar-category:
         url: /mp
       - title: "Electromagnetism"
         url: /emf
-      - title: "Electric Circuit"
-        url: /ElectricCircuit
       - title: "Solid State Electronics"
         url: /electron
+      - title: "Electric Circuit"
+        url: /ElectricCircuit
+      - title: "Electronic Circuit"
+        url: /electroniccircuit
       - title: "LAB"
         url: /lab
       - title: "Digital Control (3-1)"

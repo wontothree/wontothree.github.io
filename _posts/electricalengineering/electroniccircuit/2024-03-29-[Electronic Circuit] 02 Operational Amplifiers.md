@@ -2,7 +2,7 @@
 title: "[Electronic Circuit] 02 Operational Amplifiers"
 excerpt: Sedra - Microelectronic Circuits
 categories:
-  - electroniccircuits
+  - electroniccircuit
 toc: true
 toc_icon: star
 share: false
