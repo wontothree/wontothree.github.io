@@ -32,6 +32,8 @@ use_math: true
 
 ### *A. Perception*
 
+![](../../img/post/paperreview/overview-perception.png)
+
 - Perception : detecting object, detecting the free space, mapping the environment, localizing the autonomous vehicle
 - Autonomous racing $\rightarrow$ "How fast is too fast?" (Falanga et al.) $\rightarrow$ The maximum latency an autonomous system can tolerate to guarantee safety (not crashing in an object) is related to the **desired speed**, the **agility of the system** (e.g. the maximum acceleration it can produce) and the **perception parameter of the sensors** (e.g. the sensing range).
 - Fundemental problems for autonomous racing perception
@@ -41,17 +43,17 @@ use_math: true
   - Percise localization information necessary to chieve high dynamic trajectory planning and control
 - The current state of the art in autonomous racing is heavily based on single vehicle races. Therefore the subcategory of object detection algorithms for high speed applications was not given much attension.
 
-![](../../img/post/paperreview/overview-perception.png)
-
 ### *B. Planning*
 
-![](../../img/post/paperreview/raceline.png)
+![](../../img/post/paperreview/overview-planning.png)
 
 |Planner|Role||
 |---|---|---|
 |Global Planner|providing an optimal path (raceline) around the racetrack|optimizing for the lowest lap time|
 |Local Planner (motion planner)|avoiding obstacles while still provide a fast and and reliable path that does not deviate too much from the optimal global reaceline|operate in a certain time horizon|
 |Behavior Planner|high-level mission planning of the racecar|the decision making about overtaking maneuvers (overtaking left / overtaking right / stay behind), the energy management strategy, interaction with other vehicles and the reaction to inputs from race control(e.g. flags, speed limits)|
+
+![](../../img/post/paperreview/raceline.png)
 
 - Fundemental problems for autonomous racing planning
   - Minimum-time optimization for a global optimal raceline
@@ -60,8 +62,6 @@ use_math: true
   - High replanning frequency for real-time capability
   - Decision making under high uncertainty
   - Interaction planning with non-cooperative agents
-
-![](../../img/post/paperreview/overview-planning.png)
 
 #### Global Planning
 
@@ -102,6 +102,40 @@ Objectives of the overall optimization : **lap time**, geometric properties of t
 
 두 번째 카테고리에서는 주로 두 명 이상의 플레이어 게임에서 최상의 조치를 찾기 위해 게임 이론적 접근 방식이 사용됩니다. 연속적인 모션 플래닝 문제는 일반적으로 각 플레이어가 한 번에 하나씩 "이동"을 할 수 있는 단계별 게임으로 변환됩니다. 이러한 접근 방식은 보통 후회의 개념을 포함하여 즉시 또는 장기적으로 레이싱 게임에서 승리하기 위한 최상의 응답을 찾으려고 합니다. Williams 등 [204]는 상대의 행동에 대한 최상의 응답 모델을 MPC의 변형과 결합하여 다른 차량의 비용에 예측된 상대의 궤적을 포함합니다. Notomista 등 [135]는 감도가 향상된 나시 평형 탐색을 제안하며, 두 대의 차량 레이싱 게임에서 궤적을 최적화하기 위해 반복되는 최상의 응답 알고리즘을 사용합니다. [199]에서는 나시 평형 근사치와 함께 반복되는 최상의 응답을 사용하여 소멸하는 수평 궤적을 계획하는 데 사용됩니다. 이 기술은 상대방의 의도와 응답을 고려하면서 경주차를 트랙을 따라 최대한 진행시키는 데 도움이 됩니다. Sinha 등 [168]은 상대방의 프로토 타입을 오프라인으로 구축하고 라이브러리를 사용하여 현재 상대방을 근사하기 위해 EXP3 알고리즘을 사용합니다. Liniger 등 [122]은 소멸하는 수평 방식으로 다중 플레이어 게임을 반복하며, 이로 인해 일련의 연결된 게임이 생성됩니다. 이 비협력적인 게임 접근 방식으로 저자들은 차량이 블로킹 매니버를 생성하지만 충돌 위험이 더 커진다는 것을 보여 줄 수 있었습니다. Wang 등 [200]은 모든 에이전트에 대한 공동 궤적 공간에서 나시 평형으로 수렴하기 위해 감도가 향상된 반복되는 최상의 응답을 사용합니다. 마지막으로, Schwarting 등 [167]은 믿음 공간에서 지역 반복적인 동적 프로그래밍(DP)을 사용하여 연속적인 부분 관찰 가능한 마르코프 의사 결정 과정(POMDP)을 해결합니다.
 
+### *C. Control*
+
+### *D. End-to-End*
+
+### *E. Applied Autonomous Racing Studies*
+
+![](../../img/post/paperreview/applied-studies.png)
+
+#### Evaluation
+
+#### Complete Software Stack
+
+Many publications aim toward designing a holistic autonomous software stack that describes the individual software components, the methods, the transfer of messages from one module to the other and a final evaluation on real hardware or simulation.
+
+- The teams provide different concept to solve those individual tasks and display at the same time the underlying computation hardware of the their autonomous race vehicles. In addition, the teams provide insights in the middleware (e.g. ROS) as well as compuations times of their algorithms.
+
+#### Modelling
+
+- The modeling of the vehicle dynamics behavior of the racecar is an essential part in the field of autonomous racing.
+- Either these models are used in the simulation environments or model-based trajectory planning/control design aprroaches.
+- Not all of parameters of model are available in detail for a vehicle and so different methods for estimating these parameters are proposed - especially for nonlinear vehicle parameters like the tires
+  - Unscented Kalman Filter
+  - DNNs
+
+#### Simulation
+
+- The Open Racing Car Simulator (TORCS)
+- Roborace : have openAI Gym interface for classical control or RL
+- SVL Simulator : 3D end-to-end autonomous vehicle simulation platform that provides different maps, vehicles, sensor modelling, weather simulation
+- Simulation environment for F1TENTH
+  - Babu et al. - ROS and Gazebo based autonomous racing simulator
+  - F1TENTH Gym :  lirhgtweight, 2D-simulation with an openAi Gym interface
+  - Carla
+
 ## 3 AUTONOMOUS RACING HARDWARE: VEHICLES AND COMPETITIONS
 
-## 4 SUMMARY AND CONCLUSIONS
+https://github.com/JohannesBetz/AutonomousRacing_Literature
