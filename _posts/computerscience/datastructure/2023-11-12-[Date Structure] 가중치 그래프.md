@@ -1,9 +1,11 @@
 ---
-title: "[자료구조] 12. 가중치 그래프"
-categories:
-  - DS
-excerpt: 
+title: "[자료구조] 가중치 그래프"
+excerpt: "두근두근 자료구조 : Ch12"
+categories: 
+  - datastructure
 toc: true
+toc_icon: star
+share: false
 use_math: true
 ---
 ## 1. 가중치 그래프

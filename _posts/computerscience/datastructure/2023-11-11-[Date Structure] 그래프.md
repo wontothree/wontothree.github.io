@@ -1,11 +1,11 @@
 ---
-title: "[자료구조] 11. 그래프"
-categories:
-  - DS
-excerpt: 
-tags: 
-  - DS
+title: "[자료구조] 그래프"
+excerpt: "두근두근 자료구조 : Ch11"
+categories: 
+  - datastructure
 toc: true
+toc_icon: star
+share: false
 use_math: true
 ---
 ## 1. 그래프

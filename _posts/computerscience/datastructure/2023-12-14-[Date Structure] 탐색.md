@@ -1,9 +1,11 @@
 ---
-title: "[Data Structure] 14 탐색"
-excerpt: 천인국 - 두근두근 자료구조
-categories:
-  - DS
+title: "[자료구조] 탐색"
+excerpt: "두근두근 자료구조 : Ch14"
+categories: 
+  - datastructure
 toc: true
+toc_icon: star
+share: false
 use_math: true
 ---
 ## 1. 탐색

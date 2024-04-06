@@ -1,9 +1,11 @@
 ---
-title: "[자료구조] 6. 리스트"
-categories:
-  - DS
-excerpt: 
+title: "[자료구조] 리스트"
+excerpt: "두근두근 자료구조 : Ch06"
+categories: 
+  - datastructure
 toc: true
+toc_icon: star
+share: false
 use_math: true
 ---
 ## 1. 리스트

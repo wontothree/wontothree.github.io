@@ -1,9 +1,13 @@
 ---
-title: "[자료구조] 3. 스택"
-categories:
-  - DS
+title: "[자료구조] 스택"
+excerpt: "두근두근 자료구조 : Ch03"
+categories: 
+  - datastructure
 toc: true
+toc_icon: star
+share: false
 use_math: true
+---
 ---
 ## 1. 스택
 

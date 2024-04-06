@@ -1,10 +1,11 @@
-
 ---
-title: "[자료구조] 8. 트리"
-categories:
-  - DS
-excerpt: 
+title: "[자료구조] 트리"
+excerpt: "두근두근 자료구조 : Ch08"
+categories: 
+  - datastructure
 toc: true
+toc_icon: star
+share: false
 use_math: true
 ---
 ## 1. 트리의 개념

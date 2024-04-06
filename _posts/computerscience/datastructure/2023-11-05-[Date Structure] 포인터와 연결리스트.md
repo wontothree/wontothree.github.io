@@ -1,9 +1,11 @@
 ---
-title: "[자료구조] 5. 포인터와 연결리스트"
-categories:
-  - DS
-excerpt: 
+title: "[자료구조] 포인터와 연결리스트"
+excerpt: "두근두근 자료구조 : Ch05"
+categories: 
+  - datastructure
 toc: true
+toc_icon: star
+share: false
 use_math: true
 ---
 Linked list : 물리적으로 흩어져 있는 자료들을 서로 연결하여 하나로 묶는 방법

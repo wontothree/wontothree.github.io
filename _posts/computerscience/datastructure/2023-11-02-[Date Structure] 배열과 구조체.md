@@ -1,8 +1,11 @@
 ---
-title: "[자료구조] 2. 배열과 구조체"
-categories:
-  - DS
+title: "[자료구조] 배열과 구조체"
+excerpt: "두근두근 자료구조 : Ch02"
+categories: 
+  - datastructure
 toc: true
+toc_icon: star
+share: false
 use_math: true
 ---
 - 한꺼번에 많은 자료를 표현해야 하는 경우 배열이나 구조체를 사용할 수 있다.

@@ -1,9 +1,11 @@
 ---
-title: "[자료구조] 13. 정렬"
-categories:
-  - DS
-excerpt: 
+title: "[자료구조] 정렬"
+excerpt: "두근두근 자료구조 : Ch13"
+categories: 
+  - datastructure
 toc: true
+toc_icon: star
+share: false
 use_math: true
 ---
 ## 1. 정렬

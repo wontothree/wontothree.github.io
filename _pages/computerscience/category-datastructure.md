@@ -1,8 +1,8 @@
 ---
-title: "ML"
+title: "Data Structure"
 layout: archive
-permalink: /ml
+permalink: /datastructure
 ---
 
-{% assign posts = site.categories.ML %}
+{% assign posts = site.categories.datastructure %}
 {% for post in posts %} {% include archive-single.html type=page.entries_layout %} {% endfor %}

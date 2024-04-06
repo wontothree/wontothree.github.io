@@ -1,9 +1,11 @@
 ---
-title: "[자료구조] 7. 순환"
-categories:
-  - DS
-excerpt: 
+title: "[자료구조] 순환"
+excerpt: "두근두근 자료구조 : Ch07"
+categories: 
+  - datastructure
 toc: true
+toc_icon: star
+share: false
 use_math: true
 ---
 ## 1. 순환의 소개

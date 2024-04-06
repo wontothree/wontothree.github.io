@@ -26,6 +26,21 @@ Technical Blog
     |- staticman.yml
     |- README.md
 
+## 이해
+
+```md
+---
+title: "[Electronic Circuit] Diodes"
+excerpt: "Sedra - Microelectronic Circuits : Ch03"
+categories:
+  - electroniccircuit
+toc: true
+toc_icon: star
+share: false
+use_math: true
+---
+```
+
 ## Reference
 
 https://mmistakes.github.io/minimal-mistakes/docs/configuration/
@@ -45,4 +60,3 @@ https://ansohxxn.github.io/blog/jekyll-directory-structure/
 - 각 게시물에서 스크롤하면 contents nav bar가 따라가도록
 - contents nav bar 제목 수정
 - _pages에서 카테고리 설정 더 편리하게 할 수 있도록 하기
-- test, docs 폴더 이해하기

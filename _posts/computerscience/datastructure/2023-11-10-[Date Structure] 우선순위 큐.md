@@ -1,9 +1,11 @@
 ---
-title: "[자료구조] 10. 우선순위 큐"
-categories:
-  - DS
-excerpt: 
+title: "[자료구조] 우선순위 큐"
+excerpt: "두근두근 자료구조 : Ch10"
+categories: 
+  - datastructure
 toc: true
+toc_icon: star
+share: false
 use_math: true
 ---
 ## 1. 우선순위 큐

@@ -18,9 +18,11 @@ sidebar-category:
       - title: "Java"
         url: /java
       - title: "Data Structure"
-        url: /ds
+        url: /datastructure
       - title: "Machine Learning"
-        url: /ml
+        url: /machinelearning
+      - title: "ROS2"
+        url: /ros2
   - title: "Electrical Engineering"
     children:
       - title: "Digital Logic"
@@ -35,7 +37,7 @@ sidebar-category:
         url: /electriccircuit
       - title: "Electronic Circuit (3-1)"
         url: /electroniccircuit
-      - title: "Laboratory"
+      - title: "Laboratory (3-1)"
         url: /laboratory
       - title: "Digital Control (3-1)"
         url: /digitalcontrol

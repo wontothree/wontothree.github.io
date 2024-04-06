@@ -1,8 +1,11 @@
 ---
-title: "[자료구조] 4. 큐"
-categories:
-  - DS
+title: "[자료구조] 큐"
+excerpt: "두근두근 자료구조 : Ch04"
+categories: 
+  - datastructure
 toc: true
+toc_icon: star
+share: false
 use_math: true
 ---
 ## 1. 큐
