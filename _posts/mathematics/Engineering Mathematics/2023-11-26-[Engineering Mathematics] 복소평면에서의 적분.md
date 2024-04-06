@@ -1,9 +1,11 @@
 ---
-title: "[EMath] 복소평면에서의 적분"
+title: "[Engineering Mathematics] 복소평면에서의 적분"
+excerpt:
 categories:
-  - Engineering Mathematics
-excerpt: 
+  - engineeringmathematics
 toc: true
+toc_icon: star
+share: false
 use_math: true
 ---
 ## 1. 경로적분

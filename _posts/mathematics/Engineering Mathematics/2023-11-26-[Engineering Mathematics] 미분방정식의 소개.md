@@ -1,9 +1,11 @@
 ---
-title: "[EMath] 미분방정식의 소개"
+title: "[Engineering Mathematics] 미분방정식의 소개"
+excerpt:
 categories:
-  - Engineering Mathematics
-excerpt: 
+  - engineeringmathematics
 toc: true
+toc_icon: star
+share: false
 use_math: true
 ---
 ## 1. 정의와 용어

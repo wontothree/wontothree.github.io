@@ -1,11 +1,14 @@
 ---
-title: "[EMath] 급수와 유수"
+title: "[Engineering Mathematics] 급수와 유수"
+excerpt:
 categories:
-  - Engineering Mathematics
-excerpt: 
+  - engineeringmathematics
 toc: true
+toc_icon: star
+share: false
 use_math: true
 ---
+
 ## 1. 수열과 급수
 
 ## 2. Taylor 급수

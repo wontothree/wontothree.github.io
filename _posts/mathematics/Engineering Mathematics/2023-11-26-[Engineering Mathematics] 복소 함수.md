@@ -1,9 +1,11 @@
 ---
-title: "[EMath] 복소 함수"
+title: "[Engineering Mathematics] 복소함수"
+excerpt:
 categories:
-  - Engineering Mathematics
-excerpt: 
+  - engineeringmathematics
 toc: true
+toc_icon: star
+share: false
 use_math: true
 ---
 ## 1. 복소수

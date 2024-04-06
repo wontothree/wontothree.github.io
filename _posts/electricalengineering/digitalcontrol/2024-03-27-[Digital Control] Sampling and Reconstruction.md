@@ -69,7 +69,7 @@ $$
 Definition
 
 $$
-E^*(S) := \sum_{n=0}^{\infty}e(nT)\epsilon^{-nTs}
+E^*(s) := \sum_{n=0}^{\infty}e(nT)\epsilon^{-nTs}
 $$
 
 $E^*(S)$에 대한 추가적인 두 개의 표현식
