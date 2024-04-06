@@ -1,6 +1,6 @@
 ---
-title: "[Digital Control] Ch04 Open-loop Discrete-time Systems"
-excerpt: Charles L. Philips - Digital Control System
+title: "[Digital Control] Open-loop Discrete-time Systems"
+excerpt: "Charles L. Philips - Digital Control System : Ch04"
 categories:
   - digitalcontrol
 toc: true

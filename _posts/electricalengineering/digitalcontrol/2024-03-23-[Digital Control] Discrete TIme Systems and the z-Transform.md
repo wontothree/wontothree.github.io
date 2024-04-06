@@ -1,6 +1,6 @@
 ---
-title: "[Digital Control] Ch02 Discrete-Time Systems and the z-Transform"
-excerpt: Charles L. Philips - Digital Control System
+title: "[Digital Control] Discrete-Time Systems and the z-Transform"
+excerpt: "Charles L. Philips - Digital Control System : Ch02"
 categories:
   - digitalcontrol
 toc: true

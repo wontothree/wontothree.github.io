@@ -1,6 +1,6 @@
 ---
-title: "[Digital Control] Ch03 Sampling and Reconstruction"
-excerpt: Charles L. Philips - Digital Control System
+title: "[Digital Control] Sampling and Reconstruction"
+excerpt: "Charles L. Philips - Digital Control System : Ch03"
 categories:
   - digitalcontrol
 toc: true
