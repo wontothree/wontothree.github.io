@@ -1,6 +1,6 @@
 ---
-title: "[ElectricCircuit] 10 Three Phase Circuits"
-excerpt: J. David Irwin - Engineering Circuit Analysis
+title: "[ElectricCircuit] Three Phase Circuits"
+excerpt: "J. David Irwin - Engineering Circuit Analysis : Ch10"
 categories:
   - electriccircuit
 toc: true

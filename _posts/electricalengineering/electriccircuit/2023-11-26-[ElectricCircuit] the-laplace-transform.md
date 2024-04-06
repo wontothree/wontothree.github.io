@@ -1,6 +1,6 @@
 ---
-title: "[ElectricCircuit] 12 Laplace Transform"
-excerpt: J. David Irwin - Engineering Circuit Analysis
+title: "[ElectricCircuit] Laplace Transform"
+excerpt: "J. David Irwin - Engineering Circuit Analysis : Ch12"
 categories:
   - electriccircuit
 toc: true
@@ -77,17 +77,17 @@ Once the transform pair are known, we can easily move back and forth between the
 
 |$f(t)$|$\textbf{F}(s)$|
 |:---:|:---:|
-|$$\delta (t)$$|$$1$$|
-|$$u(t)$$|$$\dfrac{1}{s}$$|
-|$$e^{-at}$$|$$\dfrac{1}{s + a}$$|
+|$\delta (t)$|$1$|
+|$u(t)$|$\dfrac{1}{s}$|
+|$e^{-at}$|$\dfrac{1}{s + a}$|
 |$t$|$\dfrac{1}{s^2}$|
-|$$\dfrac{t^n}{n!}$$|$$\dfrac{1}{s^(n+1)}$$|
-|$$te^{-at}$$|$$\dfrac{1}{(s + a)^2}$$|
-|$$\dfrac{t^ne^{-at}}{n!}$$|$$\dfrac{1}{s + a}^{n+1}$$|
-|$$\sin bt$$|$$\dfrac{b}{s^2 + b^2}$$|
-|$$\cos bt$$|$$\dfrac{s}{s^2 + b^2}$$|
-|$$e^{-at}\sin bt$$|$$\dfrac{b}{(s + a)^2 + b^2}$$|
-|$$e^{-at}\cos bt$$|$$\dfrac{s + a}{(s + a)^2 + b^2}$$|
+|$\dfrac{t^n}{n!}$|$\dfrac{1}{s^(n+1)}$|
+|$te^{-at}$|$\dfrac{1}{(s + a)^2}$|
+|$\dfrac{t^ne^{-at}}{n!}$|$\dfrac{1}{s + a}^{n+1}$|
+|$\sin bt$|$\dfrac{b}{s^2 + b^2}$|
+|$\cos bt$|$\dfrac{s}{s^2 + b^2}$|
+|$e^{-at}\sin bt$|$\dfrac{b}{(s + a)^2 + b^2}$|
+|$e^{-at}\cos bt$|$\dfrac{s + a}{(s + a)^2 + b^2}$|
 
 ## 4. Properties of the Laplace Transform
 
@@ -124,17 +124,17 @@ $$
 
 |Properties Number|$$f(t)$$|$$\textbf{F}(s)$$|
 |:---:|:---:|:---:|
-|1. Magnitude scaling|$$Af(t)$$|$$A\textbf{F}(s)$$|
-|2. Addition/subtraction|$$f_1(t) \pm f_2(t)$$|$$\textbf{F}_1(s) \pm \textbf{F}_2(s)$$|
-|3. Time scaling|$$f(at)$$|$$\dfrac{1}{a}\textbf{F}(\dfrac{s}{a}), \; a > 0$$|
-|4. Time shifting|$$f(t - t_0)u(t - t_0)$$|$$e^{-st_0}\textbf{F}(s)$$|
-|5. Frequency shifting|$$e^{-at}f(t)$$|$$\textbf{F}(a + s)$$|
-|6. Differentiation|$$\dfrac{d^nf(t)}{dt^n}$$|$$s^n\textbf{F}(s) - s^{n-1}f(0) - s^{n-2}f^1(0) - s^{n-3}f^2(0) ... - s^0f^{n-1}(0)$$|
-|7. Multiplication by t|$$tf(t)$$|$$-\dfrac{d\textbf{F}(s)}{ds}$$|
-||$$t^nf(t)$$|$$-\dfrac{d^n\textbf{F}(s)}{ds^n}$$|
-|8. Division by t|$$\dfrac{f(t)}{t}$$|$$\int_s^{\infty}\textbf{F}(\lambda)d\lambda$$|
-|9. Integration|$$\int_0^tf(\lambda)d\lambda$$|$$\dfrac{\textbf{F}(s)}{s}$$|
-|10. Convolution|$$\int_0^t f_1(\lambda)f_2(t - \lambda) d\lambda$$|$$\textbf{F}_1(s)\textbf{F}_2(s)$$|
+|1. Magnitude scaling|$Af(t)$|$A\textbf{F}(s)$|
+|2. Addition/subtraction|$f_1(t) \pm f_2(t)$|$$\textbf{F}_1(s) \pm \textbf{F}_2(s)$$|
+|3. Time scaling|$f(at)$|$\dfrac{1}{a}\textbf{F}(\dfrac{s}{a}), \; a > 0$|
+|4. Time shifting|$f(t - t_0)u(t - t_0)$|$e^{-st_0}\textbf{F}(s)$|
+|5. Frequency shifting|$e^{-at}f(t)$|$\textbf{F}(a + s)$|
+|6. Differentiation|$\dfrac{d^nf(t)}{dt^n}$|$s^n\textbf{F}(s) - s^{n-1}f(0) - s^{n-2}f^1(0) - s^{n-3}f^2(0) ... - s^0f^{n-1}(0)$|
+|7. Multiplication by t|$tf(t)$|$-\dfrac{d\textbf{F}(s)}{ds}$|
+||$t^nf(t)$|$-\dfrac{d^n\textbf{F}(s)}{ds^n}$|
+|8. Division by t|$\dfrac{f(t)}{t}$|$\int_s^{\infty}\textbf{F}(\lambda)d\lambda$|
+|9. Integration|$\int_0^tf(\lambda)d\lambda$|$\dfrac{\textbf{F}(s)}{s}$|
+|10. Convolution|$\int_0^t f_1(\lambda)f_2(t - \lambda) d\lambda$|$\textbf{F}_1(s)\textbf{F}_2(s)$|
 
 ## 5. Performing the Inverse Transfrom
 
