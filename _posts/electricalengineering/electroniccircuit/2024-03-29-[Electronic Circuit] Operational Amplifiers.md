@@ -8,7 +8,7 @@ toc_icon: star
 share: false
 use_math: true
 ---
-## 1 The Ideal Op amo
+## 1 The Ideal Op amp
 
 ## 2 The Inverting Configuration
 

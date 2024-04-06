@@ -1,5 +1,5 @@
 ---
-title: "[Laboratory] "
+title: "[Laboratory] Characteristics of Diverse Diodes : PN Juction, Zener, and Schottky Diodes"
 excerpt: 
 categories:
   - laboratory
@@ -8,18 +8,18 @@ toc_icon: star
 share: false
 use_math: true
 ---
-## 1 The Ideal Op amo
+## Contents
 
-## 2 The Inverting Configuration
-
-## 3 The Noninverting Configuration
-
-## 4 Difference Amplifiers
-
-## 5 Integrators and Differentiators
-
-## 6 DC Imperfections
-
-## 7 Effect of Finite Open-Loop Gain and Bandwidth on Circuit Performance
-
-## 8 Large-Signal Operation of Op amps
+- PN Junction Diode
+  - Typical values of DC blocking voltage, forward voltage drop, and reverse current of pn junction diode
+  - Current-voltage characteristic of half-wave rectifier circuit with pn junction diode
+  -
+- Zener Diode
+  - Typical values of Zener voltage, forward voltage drop, and reverse leakage current of Zener diode
+  - Current-voltage characteristic of half-wave rectifier circuit with Zener diode
+  -
+  - Simulated value for zener voltage
+- Shottky Diode
+  - Typical values of DC breaking voltage, forward voltage drop, and reverse current of Shottky diode
+  - Current-voltage characteristic of half-wave rectifier circuit with Shottky diode
+  -
