@@ -122,7 +122,7 @@ $$
 = \textbf{F}(a + s)
 $$
 
-|Properties Number|$$f(t)$$|$$\textbf{F}(s)$$|
+|Properties Number|$f(t)$$|$$\textbf{F}(s)$|
 |:---:|:---:|:---:|
 |1. Magnitude scaling|$Af(t)$|$A\textbf{F}(s)$|
 |2. Addition/subtraction|$f_1(t) \pm f_2(t)$|$$\textbf{F}_1(s) \pm \textbf{F}_2(s)$$|
