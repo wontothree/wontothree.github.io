@@ -8,7 +8,11 @@ toc_icon: star
 share: false
 use_math: true
 ---
-## Contents
+## 1 THEORY
+
+## 2 SIMULATION
+
+### Contents
 
 - PN Junction Diode
   - Typical values of DC blocking voltage, forward voltage drop, and reverse current of pn junction diode
@@ -23,3 +27,11 @@ use_math: true
   - Typical values of DC breaking voltage, forward voltage drop, and reverse current of Shottky diode
   - Current-voltage characteristic of half-wave rectifier circuit with Shottky diode
   - ..
+
+## 3 EXPERIMENT
+
+### PN Junction Diode
+
+### Zener Diode
+
+### 
