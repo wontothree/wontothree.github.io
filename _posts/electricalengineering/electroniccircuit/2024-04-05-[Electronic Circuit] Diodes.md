@@ -22,7 +22,7 @@ The ideal diode can be considered the most fundemental nonlinear circuit element
 
 ### 1.3 Limiting and Protection Circuits
 
-## 2 Terminal Characteristics of Junction Diodes
+## 2 Terminal Characteristics of Junction Diodes (current-voltage characteristic)
 
 The i-v characteristic of a silicon junction diode
 
@@ -50,20 +50,15 @@ The characteristic curve consists of three distinct regions
 In the forward region, the i-v relationship is closely approximated by
 
 $$
-i = I_s(e^{v/V_T} - 1)
+i = I_s(e^{v/nV_T} - 1)
 $$
 
-전압과 전류의 관계를 exponential로 modeling하지만 실제 그래프와 차이가 발생한다. 이것을 보완하기 위해 parameter n을 추가한다. 이것은 diode마다 다른 값을 갖는다. 우리는 보통 1로 두고 게산한다.
-
-Thermal Voltage
-
-$$
-V_T = \dfrac{kT}{q}
-\\
-q = 1.6 \times 10^{-19}
-$$
-
--> 26mV per T = 300K
+- Saturation current (or scale current) $I_s$ : a constant for a given diode at a given temperature. $I_s$ doubles in value for every $5^{\circ}$ rise in temperature. 다이오드의 형상에 종속된 고유한 값이며 온도에도 종속적이다. 일반적으로 10~15A의 값을 갖는다.
+- Thermal Voltage : $V_T = \dfrac{kT}{q} = 0.0862$T, mV (상온에서 약 26mV(25.6876 mV))
+  - $k$ = Boltzmann's constant $= 8.62 \times 10^{-5} \text{eV/k} = 1.38 \times 10^{-23} \text{joules/kelvin}$ (constant)
+  - $T$ = the absolute temperature in kelvins = 273 + temperature in $^{\circ}C$
+  - $q$ = the magnitude of electronic charge = $1.60 \times 10^{-19}$ coulomb (constant)
+- $n$ : 전압과 전류의 관계를 exponential로 modeling하지만 실제 그래프와 차이가 발생한다. 이것을 보완하기 위해 parameter n을 추가한다. 이것은 diode마다 다른 값을 갖는다. 우리는 보통 1로 두고 게산한다.
 
 $$
 i = I_s(e^{v/nV_T} - 1) \cong I_s(e^{v/V_T} - 1) \cong I_se^{v/V_T}
@@ -73,12 +68,8 @@ v = V_T\ln \left (\dfrac{i}{I_s} \right)
 v_2 - v_1 = V_T \ln \left (\dfrac{i_2}{i_1} \right) = 2.3V_T \log \left(\dfrac{i_2}{i_1} \right )
 $$
 
-- $i_2$의 전류가 10배 커지면 $2.3V_T$ 커진다. 상온에서 약 60mV 증가한다.
-- 반도체의 온도가 1도 상승하면, 반도체에 걸리는 전압이 2mV 감소한다.
-- 넓은 범위에서 선형적으로 나타나는 특성이다.
-- 이 성질은 반도체의 온도를 측정할 때 쓰인다.
-- CPU 팬을 끄고 컴퓨터를 부팅하면 조금 실행되다 꺼진다. CPU가 특정 온도 이상이 되면 cpu를 shut down시키는 장치가 있는 것이다. 즉 CPU의 온도를 측정할 수 있는 것이다.
-- 1mA를 넣어주고 순방향 전압의 감소폭을 모니터링하여 온도를 알아낼 수 있다.
+>실생활 이야기 \
+>$i_2$의 전류가 10배 커지면 $2.3V_T$ 커진다. 상온에서 약 60mV 증가한다. 반도체의 온도가 1도 상승하면, 반도체에 걸리는 전압이 2mV 감소한다. 넓은 범위에서 선형적으로 나타나는 특성이다. 이 성질은 반도체의 온도를 측정할 때 쓰인다. CPU 팬을 끄고 컴퓨터를 부팅하면 조금 실행되다 꺼진다. CPU가 특정 온도 이상이 되면 cpu를 shut down시키는 장치가 있는 것이다. 즉 CPU의 온도를 측정할 수 있는 것이다. 1mA를 넣어주고 순방향 전압의 감소폭을 모니터링하여 온도를 알아낼 수 있다.
 
 ### 2.2 The Reverse-Bias Region
 
@@ -140,4 +131,5 @@ Load line analysis
 
 ## 궁금한 점
 
-- 3.2절에서 thermal voltage 개념이 갑자기 왜 나오는 것일까?
+- 2.1절에서 thermal voltage 개념이 갑자기 왜 나오는 것일까? $\rightarrow$ diode의 i-v characteristic을 exponential function을 이용해 modeling할 때 열전압이 들어가기 때문이다.
+- 칩 내부의 온드를 추정할 수 있는 것은 저항 온도 계수 때문이 아닐까? https://www.rohm.co.kr/electronics-basics/resistors/r_what9 / https://blog.naver.com/dibaoi/222579435860
