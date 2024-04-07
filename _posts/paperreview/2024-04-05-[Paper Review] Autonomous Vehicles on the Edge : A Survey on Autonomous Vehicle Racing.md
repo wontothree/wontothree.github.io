@@ -19,13 +19,13 @@ use_math: true
 
 ### *B. Preliminart Remark*
 
-![](../../img/post/paperreview/autonomous-driving-pipline.png)
+![](../../img/paperreview/autonomous-driving-pipline.png)
 
 ## 2 AUTONOMOUS RACING SOFTWARE
 
 ### *A. Perception*
 
-![](../../img/post/paperreview/overview-perception.png)
+![](../../img/paperreview/overview-perception.png)
 
 - Perception : detecting object, detecting the free space, mapping the environment, localizing the autonomous vehicle
 - Autonomous racing $\rightarrow$ "How fast is too fast?" (Falanga et al.) $\rightarrow$ The maximum latency an autonomous system can tolerate to guarantee safety (not crashing in an object) is related to the **desired speed**, the **agility of the system** (e.g. the maximum acceleration it can produce) and the **perception parameter of the sensors** (e.g. the sensing range).
@@ -38,7 +38,7 @@ use_math: true
 
 ### *B. Planning*
 
-![](../../img/post/paperreview/overview-planning.png)
+![](../../img/paperreview/overview-planning.png)
 
 |Planner|Role||
 |---|---|---|
@@ -46,7 +46,7 @@ use_math: true
 |Local Planner (motion planner)|avoiding obstacles while still provide a fast and and reliable path that does not deviate too much from the optimal global reaceline|operate in a certain time horizon|
 |Behavior Planner|high-level mission planning of the racecar|the decision making about overtaking maneuvers (overtaking left / overtaking right / stay behind), the energy management strategy, interaction with other vehicles and the reaction to inputs from race control(e.g. flags, speed limits)|
 
-![](../../img/post/paperreview/raceline.png)
+![](../../img/paperreview/raceline.png)
 
 - Fundemental problems for autonomous racing planning
   - Minimum-time optimization for a global optimal raceline
@@ -60,7 +60,7 @@ use_math: true
 
 Objectives of the overall optimization : **lap time**, geometric properties of the race lines, or energy sepent
 
-![](../../img/post/paperreview/time-lap.png)
+![](../../img/paperreview/time-lap.png)
 
 - Variations of Evolutionary Algorithms
 - Optimal control problem, usually non-linear
@@ -68,7 +68,7 @@ Objectives of the overall optimization : **lap time**, geometric properties of t
 
 #### Local Planning
 
-![](../../img/post/paperreview/local-planning.png)
+![](../../img/paperreview/local-planning.png)
 
 - In local planning, the main objective is to plan the cars motion for a fixed horizon by avoiding collisions with either the environment or adversaries.
 - 3 main strategies
@@ -97,7 +97,7 @@ Objectives of the overall optimization : **lap time**, geometric properties of t
 
 ### *E. Applied Autonomous Racing Studies*
 
-![](../../img/post/paperreview/applied-studies.png)
+![](../../img/paperreview/applied-studies.png)
 
 #### Evaluation
 

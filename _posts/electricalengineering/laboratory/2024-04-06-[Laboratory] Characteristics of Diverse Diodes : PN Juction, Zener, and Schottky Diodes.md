@@ -1,6 +1,6 @@
 ---
 title: "[Laboratory] Characteristics of Diverse Diodes : PN Juction, Zener, and Schottky Diodes"
-excerpt: 
+excerpt: Unit 6
 categories:
   - laboratory
 toc: true
@@ -28,10 +28,6 @@ use_math: true
   - Current-voltage characteristic of half-wave rectifier circuit with Shottky diode
   - ..
 
-## 3 EXPERIMENT
-
 ### PN Junction Diode
 
-### Zener Diode
-
-### 
+### Typical values of DC blocking voltage, forward voltage drop, and reverse current of pn junction diode
