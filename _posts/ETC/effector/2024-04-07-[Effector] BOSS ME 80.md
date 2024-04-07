@@ -10,7 +10,7 @@ use_math: true
 ---
 ## The Connection Order of Effect
 
-![](./../../img/effector/connection-order.png)
+![](./../../../img/effector/connection-order.png)
 
 - Delay와 reverb가 마지막에 걸린다.
 
@@ -20,11 +20,11 @@ use_math: true
 
 ## Preamp
 
-![](./../../img/effector/preamp.png)
+![](./../../../img/effector/preamp.png)
 
 ## Delay
 
-![](./../../img/effector/delay.png)
+![](./../../../img/effector/delay.png)
 
 ## Reverb
 
