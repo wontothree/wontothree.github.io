@@ -1,6 +1,6 @@
 ---
 title: "[Discrete Mathematics] Ch03 Algorithms"
-excerpt: Kenneth H. Rosen - Discrete Mathematics and Its Applications
+excerpt: "Kenneth H. Rosen - Discrete Mathematics and Its Applications : Ch03"
 categories:
   - discretemathematics
 toc: true

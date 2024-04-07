@@ -1,6 +1,6 @@
 ---
 title: "[Discrete Mathematics] Ch02 Basic Structures : Sets, Functions, Sequences, Sums, and Matrices"
-excerpt: Kenneth H. Rosen - Discrete Mathematics and Its Applications
+excerpt: "Kenneth H. Rosen - Discrete Mathematics and Its Applications : Ch02"
 categories:
   - discretemathematics
 toc: true

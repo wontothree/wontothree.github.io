@@ -1,6 +1,6 @@
 ---
 title: "[Discrete Mathematics] Ch04 Number Theory and Cryptography"
-excerpt: Kenneth H. Rosen - Discrete Mathematics and Its Applications
+excerpt: "Kenneth H. Rosen - Discrete Mathematics and Its Applications : Ch04"
 categories:
   - discretemathematics
 toc: true
