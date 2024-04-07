@@ -16,16 +16,16 @@ use_math: true
 
 - PN Junction Diode
   - Typical values of DC blocking voltage, forward voltage drop, and reverse current of 1N4004
-  - Current-voltage characteristic of half-wave rectifier circuit with pn junction diode
+  - Current-voltage characteristic of half-wave rectifier circuit with 1N4004
   - ..
 - Zener Diode
   - Typical values of Zener voltage, forward voltage drop, and reverse leakage current of 1N4733
-  - Current-voltage characteristic of half-wave rectifier circuit with Zener diode
+  - Current-voltage characteristic of half-wave rectifier circuit with 1N4733
   - ..
   - Simulated value for zener voltage
 - Shottky Diode
-  - Typical values of DC breaking voltage, forward voltage drop, and reverse current of 1N5817
-  - Current-voltage characteristic of half-wave rectifier circuit with Shottky diode
+  - Typical values of DC broking voltage, forward voltage drop, and reverse current of 1N5817
+  - Current-voltage characteristic of half-wave rectifier circuit with 1N5817
   - ..
 
 ### PN Junction Diode
@@ -50,7 +50,7 @@ use_math: true
 
 ### Shottky Diode
 
-### Typical Values of DC Breaking Voltage, Forward Voltage Drop, and Reverse Current of 1N5817
+### Typical Values of DC Broking Voltage, Forward Voltage Drop, and Reverse Current of 1N5817
 
 ![](../../../img/laboratory/1N5817-vishay.png)
 

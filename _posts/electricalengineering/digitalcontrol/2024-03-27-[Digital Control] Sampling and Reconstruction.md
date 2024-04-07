@@ -120,3 +120,4 @@ $$
 
 - Plugin effector에서는 AD/DA 변환 과정과 디지털 회로에서의 처리 과정에서 시간이 소요되어 real time이 어렵다. 일반적인 제어에서 이런 문제가 발생할 수 있을까? 빈번할까?
 - Optimal Control이나 MPC을 통한 경로 생성 과정에서 sampling and reconstruction 과정은 어디에 해당할까?
+- 아날로그 회로와 디지털 회로를 구분하는 기준을 AD/DA 과정 여부로 할 수 있을까?
