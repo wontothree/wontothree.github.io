@@ -15,26 +15,43 @@ use_math: true
 ### Contents
 
 - PN Junction Diode
-  - Typical values of DC blocking voltage, forward voltage drop, and reverse current of pn junction diode
+  - Typical values of DC blocking voltage, forward voltage drop, and reverse current of 1N4004
   - Current-voltage characteristic of half-wave rectifier circuit with pn junction diode
   - ..
 - Zener Diode
-  - Typical values of Zener voltage, forward voltage drop, and reverse leakage current of Zener diode
+  - Typical values of Zener voltage, forward voltage drop, and reverse leakage current of 1N4733
   - Current-voltage characteristic of half-wave rectifier circuit with Zener diode
   - ..
   - Simulated value for zener voltage
 - Shottky Diode
-  - Typical values of DC breaking voltage, forward voltage drop, and reverse current of Shottky diode
+  - Typical values of DC breaking voltage, forward voltage drop, and reverse current of 1N5817
   - Current-voltage characteristic of half-wave rectifier circuit with Shottky diode
   - ..
 
 ### PN Junction Diode
 
-### Typical values of DC blocking voltage, forward voltage drop, and reverse current of pn junction diode
+### Typical Values of DC Blocking Voltage, Forward Voltage Drop, and Reverse Current of 1N4004
 
 ![](../../../img/laboratory/1N4004-diodes.png)
 
 (DIODES incorporated - 1N4004 datasheet)
 
+### Current-voltage characteristic of half-wave rectifier circuit with 1N4004
 
-### Current-voltage characteristic of half-wave rectifier circuit with pn junction diode
+### Zener Diode
+
+### Typical Values of Zener Voltage, Forward Voltage Drop, and Reverse Leakage Current of 1N4733
+
+![](../../../img/laboratory/1N4733-bytesonic-1.png)
+
+![](../../../img/laboratory/1N4733-bytesonic-2.png)
+
+(Bytesonic electronics co. ltd - 1N4733 datasheet)
+
+### Shottky Diode
+
+### Typical Values of DC Breaking Voltage, Forward Voltage Drop, and Reverse Current of 1N5817
+
+![](../../../img/laboratory/1N5817-vishay.png)
+
+(Vishay semiconductors - 1N5817 datasheet)
