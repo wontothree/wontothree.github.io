@@ -16,7 +16,7 @@ To provide a basis for thoroughly understanding the operation of digital control
 
 ## 2 Sampled-Data Control Systems
 
-<img src="../../..//img/post/digitalcontrol/zero-order-hold.png">
+<img src="./../../../img/digitalcontrol/zero-order-hold.png">
 
 $$
 \bar{e}(t) = e(0)[u(t) - u(t - T)] + e(T)[u(t-T)-u(t-2T)] + e(2T)[u(t-2T)-u(t-3T)] + \dots
