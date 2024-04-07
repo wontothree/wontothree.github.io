@@ -71,6 +71,8 @@ sidebar-category:
         url: /marketingmanagement
       - title: "LaTex"
         url: /latex
+      - title: "Effector"
+        url: /effector
   - title: "Paper Review"
     children:
       - title: "Paper Review"
