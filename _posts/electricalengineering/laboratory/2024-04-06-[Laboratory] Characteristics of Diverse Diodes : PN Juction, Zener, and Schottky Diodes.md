@@ -31,3 +31,10 @@ use_math: true
 ### PN Junction Diode
 
 ### Typical values of DC blocking voltage, forward voltage drop, and reverse current of pn junction diode
+
+![](../../../img/laboratory/1N4004-diodes.png)
+
+(DIODES incorporated - 1N4004 datasheet)
+
+
+### Current-voltage characteristic of half-wave rectifier circuit with pn junction diode
