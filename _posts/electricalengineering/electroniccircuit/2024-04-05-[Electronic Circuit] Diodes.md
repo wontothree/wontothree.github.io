@@ -14,7 +14,7 @@ use_math: true
 
 The ideal diode can be considered the most fundemental nonlinear circuit element.
 
-![](../../../img/post/electroniccircuit/diode.png)
+![](../../../img/electroniccircuit/diode.png)
 
 ### 1.2 The Rectifier
 
@@ -26,11 +26,11 @@ The ideal diode can be considered the most fundemental nonlinear circuit element
 
 The i-v characteristic of a silicon junction diode
 
-![](../../../img/post/electroniccircuit/diode-iv-graph.png)
+![](../../../img/electroniccircuit/diode-iv-graph.png)
 
 The i-v characteristic of a silicon junction diode with some expended and others compressed
 
-![The i-v characteristic of a silicon junction diode with some expended and others compressed](../../../img/post/electroniccircuit/diode-iv-graph2.png)
+![The i-v characteristic of a silicon junction diode with some expended and others compressed](../../../img/electroniccircuit/diode-iv-graph2.png)
 
 The characteristic curve consists of three distinct regions
 
