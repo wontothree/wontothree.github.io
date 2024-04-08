@@ -40,13 +40,14 @@ use_math: true
 
 ### Current-voltage characteristic of half-wave rectifier circuit with 1N4004
 
+<p align="center">
+  <img src="../../../img/laboratory/1N4004-b1.png" align="center" width="49%">
+  <img src="../../../img/laboratory/1N4004-b2.png" align="center" width="49%">
+<figcaption align="center"></figcaption></p>
+
 ### 2 Zener Diode
 
 ### Typical Characteristic Values of 1N4733
-
-![](../../../img/laboratory/1N4733-bytesonic-1.png)
-
-![](../../../img/laboratory/1N4733-bytesonic-2.png)
 
 (Bytesonic electronics co. ltd - 1N4733 datasheet)
 
