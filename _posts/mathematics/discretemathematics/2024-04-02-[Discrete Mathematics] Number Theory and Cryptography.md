@@ -27,7 +27,18 @@ DIvision of an integer bu a positive integer produces quatient and remainder. Wo
 ### 1.3 The Division Algorithm
 
 >**[THEORM 2]** **THE DIVISION ALGORITHM** \
->Let $a$ be an integer and $d$ a positive integer. Then there are unique integers $q$ and $r$, with $0 \geq r < d$, such that $a = dq + r$
+>Let $a$ be an integer and $d$ a positive integer. Then there are unique integers $q$ and $r$, with $0 \geq r < d$, such that $a = dq + r$.
+
+>**[DEFINTION 2]** In the equality in the division algorithm, $d$ is called the divisor, $a$ is called the divident, and, $q$ is called the quotient, and $r$ is called the remainder. The notation is used to express the quotient and remainder: $q = a$ **div** $d$, $r = a$ **mod** $d$
+
+### 1.4 Modular Arithmetic
+
+Because we are interested only in remainders, we have special notation for them. We have already notation $a$ mode $m$ to represent remainder when integer $a$ is divided by the positive integer $m$. We now introduce a different, but related, notation that indicates that two integers have the same reaminder when they are divided by the positive integer $m$.
+
+>[DEFINITION 3] If $a$ and $b$ are integers and $m$ is a positive integer, then $a$ is congruent to $b$ modulo $m$ if $m$ divides $a-b$. \
+>We use the notation $a \equiv b (\text{mod m)}$ to indicate that $a$ is congruent to $b$ modulo $m$. \
+>We say that $a \equiv b (\text{mode m})$ is a congruence and that $m$ is its modulus (plural moduli). \
+>If $a$ and $b$ are not congruent to modulo $b$, we write $a \not\equiv b (mod m)$.
 
 ## 2. Ineger Representations and Algorithms
 
