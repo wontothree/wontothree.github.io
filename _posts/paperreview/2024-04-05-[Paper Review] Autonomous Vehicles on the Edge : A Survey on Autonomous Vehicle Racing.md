@@ -120,7 +120,7 @@ The teams provide different concept to solve individual tasks and display at the
 - SVL Simulator : 3D end-to-end autonomous vehicle simulation platform that provides different maps, vehicles, sensor modelling, weather simulation
 - Simulation environment for F1TENTH
   - Babu et al. - ROS and Gazebo based autonomous racing simulator
-  - F1TENTH Gym :  lirhgtweight, 2D-simulation with an openAi Gym interface
+  - F1TENTH Gym : lirhgtweight, 2D-simulation with an openAi Gym interface
   - Carla
 
 ## 3 AUTONOMOUS RACING HARDWARE: VEHICLES AND COMPETITIONS
@@ -128,3 +128,6 @@ The teams provide different concept to solve individual tasks and display at the
 ## 궁금한 점
 
 - Global planner에서는 non-linear optimal control problem을 푸는 방식을 이용할 수 있고 local planner에서는 Model predictive control을 이용할 수 있는데, 둘은 어떤 차이가 있으며 각각을 이용하는 이유가 뭘까?
+- Modeling이라는 것이 system identification을 말하는 것일까?
+- System identification을 한 결과를 urdf file에 넣어야 하는 것일까?
+- System으로부터 modeling을 해야 할 대상에는 어떤 것들이 있을까?
