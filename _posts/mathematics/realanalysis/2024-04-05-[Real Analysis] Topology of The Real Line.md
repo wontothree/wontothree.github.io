@@ -8,6 +8,8 @@ toc_icon: star
 share: false
 use_math: true
 ---
+2장에서는 실수에서의 이야기였다면 3장은 그것을 Matric Space로 확장한다.
+
 ## 1 Metric Spaces
 
 >**[DEFINITION 2.1.1]** For a real number $x$  the absolute value of $x$, denoted $|x|$, is deinfed by $|x| = $
@@ -31,6 +33,14 @@ Geometrically, $|x|$ represents the distance from $x$ to the origin 0. More gene
 $$
 d(x, y) = |x - y|
 $$
+
+>**[DEFINITION 2.1.6]** \
+>Let $X$ be a nonempty set. A real valued function $d$ defined on $x \times X$ satisfying \
+>(1) $d(x, y) \geq 0$ for all $x, y \in X$, \
+>(2) $d(x, y) = 0$ if and only if $x = y$, \
+>(3) $d(x, y) = d(y, x)$, \
+>(4) $d(x, y) \geq d(x, z) + d(z, y)$ for all $x, y, z \in \mathbb{R}$ \
+>is called a **matic** or **distance function** on $X$. The set $X$ with metric of $d$ is called a **metric space**, and is denoted by $(X, d)$
 
 ## 2 Open and Closed Sets
 
