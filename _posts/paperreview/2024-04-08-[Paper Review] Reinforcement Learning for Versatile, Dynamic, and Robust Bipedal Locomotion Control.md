@@ -14,8 +14,6 @@ End-to-end 강화학습을 통해 이족보행 로봇을 제어하는 최신 연
 
 강화학습 연구에서 항상 문제로 대두되는 것은 현실 세계에서 적용이 어렵다는 점입니다. 그런데 본 연구는 강화학습으로 시뮬레이션뿐만 아니라 현실 세계에서 로봇을 강인하게 제어해내는 데 성공했습니다. 다음 영상에서 이를 확인할 수 있습니다.
 
-https://www.youtube.com/watch?v=sQEnDbET75g
-
 {% include video id="sQEnDbET75g" provider="youtube" %}
 
 Cassie(이족보행 로봇)가 end-to-end RL을 통해 robustness를 달성할 수 있었던 세 가지 이유를 뽑으면 다음과 같습니다.
