@@ -9,7 +9,7 @@ Technical Blog
         |- ui-text.yml
     |- _include : html file들이 들어있다.
     |- _layout : page마다 design과 직접적으로 연관된 html file들이 들어있다. _include에 있는 html file들을 불러오는 경우가 많다.
-    |- _pages : navigation bar categories
+    |- _pages : main page에서 navigation bar category를 타고 들어갔을 때 나오는 페이지
     |- _posts : articles
     |- _sass : minimal-mistakes.scss에 import 할 수 있는 scss 파일들을 모아 둔 폴더이다. minimal-mistakes.scss는 최종적으로 📁_assets/css/main.scss에 import 된다. 블로그와 컴포넌트들을 시각적으로 디자인하는 스타일시트 파일들이다. css와 유사하다.
     |- assets

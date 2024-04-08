@@ -1,5 +1,5 @@
 ---
-title: "Computer Vision"
+title: "Paper Review"
 layout: archive
 permalink: /paperreview
 ---
