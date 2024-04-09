@@ -48,7 +48,10 @@ use_math: true
 ### Small-Signal Model of 1N4004
 
 - Operating  point is $(543.56mV, 100.44mA)$
-- $$
+- When DC current $I_D = 100.44mA$,
+- DC voltage $V_D = 543.56mV$,
+- DC resistance $R_D := \dfrac{V_D}{I_D} = 5.41\Omega$, and
+- AC resistance $r_D \approx \dfrac{\Delta I_D}{\Delta V_D} = 0.23$.
 
 ### 2 Zener Diode
 
@@ -84,3 +87,6 @@ use_math: true
 
 The goal od small-signal model is to describe how the output(the diode current) changes when there is a small change in the input(the voltage drop).
 
+The goal of a small-signal model is to get a value for the admittance (or impedance) of the component. The admittance is simply the derivative of the diode current, with respect to the voltage drop evaluated at the operating point
+
+https://resources.pcb.cadence.com/blog/2020-small-signal-model-for-a-diode-in-dc-and-ac-circuits
