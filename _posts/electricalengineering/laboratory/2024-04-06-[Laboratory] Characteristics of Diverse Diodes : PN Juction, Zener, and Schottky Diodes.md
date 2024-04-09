@@ -13,16 +13,16 @@ use_math: true
 1. PN Junction Diode \
   Typical characteristic values of 1N4004 \
   Current-voltage characteristic of half-wave rectifier circuit with 1N4004 \
-  ..
+  Small-signal model of 1N4004
 2. Zener Diode \
   Typical characteristic values of 1N4733 \
   Current-voltage characteristic of half-wave rectifier circuit with 1N4733 \
   Simulated value for zener voltage \
-  ..
+  Small-signal model of 1N4733
 3. Shottky Diode \
   Typical characteristic values of 1N5817 \
   Current-voltage characteristic of half-wave rectifier circuit with 1N5817 \
-  ..
+  Small-signal model of 1N5817
 
 ### 1 PN Junction Diode
 
@@ -45,9 +45,18 @@ use_math: true
   <img src="../../../img/laboratory/1N4004-b2.png" align="center" width="49%">
 <figcaption align="center"></figcaption></p>
 
+### Small-Signal Model of 1N4004
+
+- Operating  point is $(543.56mV, 100.44mA)$
+- $$
+
 ### 2 Zener Diode
 
 ### Typical Characteristic Values of 1N4733
+
+![](../../../img/laboratory/1N4733-bytesonic-1.png)
+
+![](../../../img/laboratory/1N4733-bytesonic-2.png)
 
 (Bytesonic electronics co. ltd - 1N4733 datasheet)
 
@@ -70,3 +79,8 @@ use_math: true
 |DC Broking Voltage|$20$V|
 |Forward Voltage Drop|$0.45$V|
 |Reverse Current|$1.0m$A|
+
+## 궁금한 것
+
+The goal od small-signal model is to describe how the output(the diode current) changes when there is a small change in the input(the voltage drop).
+
