@@ -131,3 +131,4 @@ The teams provide different concept to solve individual tasks and display at the
 - Modeling이라는 것이 system identification을 말하는 것일까?
 - System identification을 한 결과를 urdf file에 넣어야 하는 것일까?
 - System으로부터 modeling을 해야 할 대상에는 어떤 것들이 있을까?
+- Behavior planner - global planner - local planner 각각을 어떻게 설계해야 할까?
