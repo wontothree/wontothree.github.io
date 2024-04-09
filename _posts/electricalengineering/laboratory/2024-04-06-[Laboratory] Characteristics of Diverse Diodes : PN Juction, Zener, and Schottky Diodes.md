@@ -12,16 +12,16 @@ use_math: true
 
 1. PN Junction Diode \
   Typical characteristic values of 1N4004 \
-  Current-voltage characteristic of half-wave rectifier circuit with 1N4004 \
+  Current-voltage characteristic of 1N4004 \
   Small-signal model of 1N4004
 2. Zener Diode \
   Typical characteristic values of 1N4733 \
-  Current-voltage characteristic of half-wave rectifier circuit with 1N4733 \
-  Simulated value for zener voltage \
+  Current-voltage characteristic of 1N4733 \
+  Simulated value for Zener voltage \
   Small-signal model of 1N4733
 3. Shottky Diode \
   Typical characteristic values of 1N5817 \
-  Current-voltage characteristic of half-wave rectifier circuit with 1N5817 \
+  Current-voltage characteristic of 1N5817 \
   Small-signal model of 1N5817
 
 ### 1 PN Junction Diode
@@ -38,7 +38,7 @@ use_math: true
 |Forward Voltage Drop|$1.0$V|
 |Reverse Current|$5.0\mu$A|
 
-### Current-voltage characteristic of half-wave rectifier circuit with 1N4004
+### Current-voltage characteristic of 1N4004
 
 <p align="center">
   <img src="../../../img/laboratory/1N4004-b1.png" align="center" width="49%">
@@ -89,3 +89,7 @@ The goal od small-signal model is to describe how the output(the diode current) 
 The goal of a small-signal model is to get a value for the admittance (or impedance) of the component. The admittance is simply the derivative of the diode current, with respect to the voltage drop evaluated at the operating point
 
 https://resources.pcb.cadence.com/blog/2020-small-signal-model-for-a-diode-in-dc-and-ac-circuits
+
+- Current-Voltage Characteristic은 소자의 특성일까 아니면 회로의 특성일까? -> 소자의 특성 같다.
+- half-wave rectifier circuit에서 저항의 값이 바뀌어도 I-V curve가 동일할까? 나아가 모든 회로에서 이 특성이 동일하게 나타날까?
+- Zener diode와 shottky diode는 pn junction diode가 아닐까?
