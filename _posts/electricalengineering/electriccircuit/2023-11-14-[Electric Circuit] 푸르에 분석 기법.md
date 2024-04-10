@@ -1,5 +1,5 @@
 ---
-title: "[ElectricCircuit] 푸리에 분석 기법"
+title: "[Electric Circuit] 푸리에 분석 기법"
 excerpt: "J. David Irwin - Engineering Circuit Analysis : Ch14"
 categories:
   - electriccircuit

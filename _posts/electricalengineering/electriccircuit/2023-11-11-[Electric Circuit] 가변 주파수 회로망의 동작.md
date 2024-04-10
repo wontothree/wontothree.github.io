@@ -1,5 +1,5 @@
 ---
-title: "[ElectricCircuit] 가변 주파수 회로망의 동작"
+title: "[Electric Circuit] 가변 주파수 회로망의 동작"
 excerpt: "J. David Irwin - Engineering Circuit Analysis : Ch11"
 categories:
   - electriccircuit

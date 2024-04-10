@@ -1,5 +1,5 @@
 ---
-title: "[ElectricCircuit] Variable-Frequency Network Performance"
+title: "[Electric Circuit] Variable-Frequency Network Performance"
 excerpt: "J. David Irwin - Engineering Circuit Analysis : Ch11"
 categories:
   - electriccircuit
@@ -39,7 +39,7 @@ Example 11.1
 
 ### Poles and Zeros
 
-## 2. Sinusoidal Frequency Analysis
+## 2. Sinusoidal Frequency Analysis (Bode Plot)
 
 In a sinusoidal steady-state analysis, the network function can be expressed as
 

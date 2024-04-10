@@ -1,5 +1,5 @@
 ---
-title: "[ElectricCircuit] Laplace Transform"
+title: "[Electric Circuit] Laplace Transform"
 excerpt: "J. David Irwin - Engineering Circuit Analysis : Ch12"
 categories:
   - electriccircuit
