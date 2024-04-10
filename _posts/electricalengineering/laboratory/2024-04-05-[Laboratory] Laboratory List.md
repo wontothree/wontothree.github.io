@@ -1,6 +1,6 @@
 ---
 title: "[Laboratory] Laboratory List"
-excerpt: 
+excerpt: "List"
 categories:
   - laboratory
 toc: true
@@ -13,7 +13,7 @@ use_math: true
 |Passive Filter (1/2)||
 |Passive Filter (2/2)||
 |Opamp (1/2)||
-|Opamp (2/2)||
+|Opamp (2/2)|Characteristics of Practical Operational Amplifier|
 |Diode (1/3)|Characteristics of diverse Diodes : PN Juction, Zener, and Schottky Diodes|
 |Diode (2/3)|Rectifier|
 |Diode (3/3)|Voltage Regulator, Limiter Circuit, and Clamping Circuit|

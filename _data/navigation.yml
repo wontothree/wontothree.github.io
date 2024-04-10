@@ -71,6 +71,8 @@ sidebar-category:
         url: /motor
       - title: "Paper Review"
         url: /paperreview
+      - title: "Mind"
+        url: /mind
       
       - title: "Civil Law"
         url: /law
