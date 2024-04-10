@@ -17,7 +17,7 @@ $$
 \\
 \textbf{Z}_L = j\omega L= \omega L \phase{0^{\circ}}
 \\
-\textbf{Z}_C = \dfrac{1}{j\omega C} = \dfrac{1}{\omega C \phase{90^{\circ}}}
+\textbf{Z}_C = \dfrac{1}{j\omega C} = \dfrac{1}{\omega C \angle{90^{\circ}}}
 $$
 
 RLC series network
@@ -91,7 +91,7 @@ $$
 The phase angle for $\textbf{H}(j\omega)$
 
 $$
-\phase{\textbf{H}(j\omega)} = 0 \pm N(90^{\circ}) + \tan^{-1}\omega\tau_1 + \tan^{-1}(\dfrac{2\xi_a\omega\tau_3}{1 - \omega^2\tau_3^2}) + ... \\
+\angle{\textbf{H}(j\omega)} = 0 \pm N(90^{\circ}) + \tan^{-1}\omega\tau_1 + \tan^{-1}(\dfrac{2\xi_a\omega\tau_3}{1 - \omega^2\tau_3^2}) + ... \\
 - \tan^{-1}\omega\tau_a - \tan^{-1}\dfrac{2\xi_b\omega\tau_b}{1-\omega^2\tau_b^2} ...
 $$
 
