@@ -90,11 +90,33 @@ $$
 
 ## 3 Modeling the Diode
 
-We'll assess the sustainablitiy of these two models in various analysis situations. k
+We'll assess the sustainablitiy of these two models in various analysis situations.
 
 ### 3.1 The Exponential Model
 
+The exponential model provides the most accurate description od diode operation outside of the breakdown region.
+
+It's severely nonlinear nature makes it the most difficult to use.
+
+다이오드의 전류 전압 특성
+
+$$
+I_D = I_Se^{V_D/V_T}
+$$
+
+저항의 전류 전압 특성
+
+$$
+I_R = \dfrac{V_{DD}-V_D}{R}
+$$
+
+다이오드와 저항이 직렬 연결되어 있으므로 키르히호프의 전류 법칙에 의해 $I_D = I_R$
+
+![](../../../img/electroniccircuit/graphical-analysis.png)
+
 ### 3.2 Graphical Analysis Using the Exponential Model
+
+우리는 다이오드가 포함된 회로에 흐르는 전류를 알고싶다.
 
 - Exponential이 들어간 방정식을 풀 수 없다.
 - 간단한 회로에서조차도 전압에 대한 일반화된 식을 얻을 수 없다.
@@ -103,9 +125,8 @@ We'll assess the sustainablitiy of these two models in various analysis situatio
 
 Load line analysis
 
-- 굉장히 중요한 기법
-- 회로의 동작을 분석하는 tool
-- 실질적인 값을 알려주지는 않는다.
+- 회로에 흐르는 전류에 대한 정보를 준다.
+- 실질적인 값을 알려주지는 않지만 회로의 동작을 분석하는 굉장히 중요한 기법
 - 저항의 특성과 diode의 특성을 한 그래프에 그린다. 두 그래프의 교점이 우리가 얻고자 하는 점이다.
 - 저항이 커진다면 혹은 $V_{DD}$가 작아진다면, 회로에 흐르는 전류는 어떻게 될지 등에 대한 정보를 알려준다.
 

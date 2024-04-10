@@ -47,7 +47,7 @@ use_math: true
 
 ### Small-Signal Model of 1N4004
 
-- Operating  point is $(543.56mV, 100.44mA)$
+- Operating  point is $(543.56mV, 100.44mA)$.
 - When DC current $I_D = 100.44mA$, DC voltage $V_D = 543.56mV$,
 - DC resistance $R_D := \dfrac{V_D}{I_D} = 5.41\Omega$, and
 - AC resistance $r_D \approx \dfrac{\Delta I_D}{\Delta V_D} = 0.23$.
