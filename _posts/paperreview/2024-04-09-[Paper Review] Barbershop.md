@@ -1,5 +1,5 @@
 ---
-title: "[Paper Review] Barbershop: GAN-based Image Compositing using Segmentation Masks"
+title: "[Paper Review] Barbershop"
 excerpt: 'Barbershop: GAN-based Image Compositing using Segmentation Masks'
 categories:
   - paperreview

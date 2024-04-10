@@ -1,5 +1,5 @@
 ---
-title: "[Paper Review] Barbershop"
+title: "[Paper Review] BiSeNet"
 excerpt: 'BiSeNet V2: Bilateral Network with Guided Aggregation for
 Real-time Semantic Segmentation'
 categories:
