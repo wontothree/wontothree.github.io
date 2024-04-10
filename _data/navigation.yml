@@ -63,17 +63,18 @@ sidebar-category:
         url: /opt
   - title: "ETC"
     children:
+      - title: "LaTex"
+        url: /latex
+      - title: "Effector"
+        url: /effector
+      - title: "Motor"
+        url: /motor
+      - title: "Paper Review"
+        url: /paperreview
+      
       - title: "Civil Law"
         url: /law
       - title: "Invest"
         url: /invest
       - title: "Marketing Management (3-1)"
         url: /marketingmanagement
-      - title: "LaTex"
-        url: /latex
-      - title: "Effector"
-        url: /effector
-  - title: "Paper Review"
-    children:
-      - title: "Paper Review"
-        url: /paperreview
