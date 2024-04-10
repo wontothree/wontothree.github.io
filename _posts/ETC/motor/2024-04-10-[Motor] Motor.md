@@ -18,6 +18,8 @@ use_math: true
 
 https://www.motorbank.kr/goods/goods_view.php?goodsNo=1000033917
 
+![](./../../../img/motor/bldc-motor.png)
+
 ![](./../../../img/motor/bldc-motor1.png)
 
 ![](./../../../img/motor/bldc-motor2.png)
