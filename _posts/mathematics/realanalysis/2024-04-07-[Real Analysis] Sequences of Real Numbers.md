@@ -16,7 +16,7 @@ Our presentation will be considerably more rigorous - emphasizing proofs rather 
 
 ## 1 Convergent Squences
 
->**{DEFINITION 3.1.1}** \
+>**[DEFINITION 3.1.1]** \
 >A Sequence $\{p_n\}_{n=1}^\infty$ in $X$ is said to **converge** if there exists a point $p \in X$ such that for every $\epsilon > 0$, there exists a positvie integer $n_0 = n_0(\epsilon)$ such that $p_n \in N_\epsilon(p)$ for all $n \geq n_0$. If this is the case, we say that $\{p_n\}$ converges to $p$
 
 ## 2 Sequences of Real Numbers
