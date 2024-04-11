@@ -18,7 +18,14 @@ use_math: true
 
 ## 5 Consequences of the Least Upper Bound Property
 
-THEOREM 1.5.1 (Archimedian Property)
+>**[THEOREM 1.5.1] (Archimedian Property)** \
+>If $x, y \in \mathbb{R}$ and $x > 0$, then there exists a positive integer $n$ such that $nx > y$.
+
+>**[THEOREM 1.5.2]** \
+>If $x, y \in \mathbb{R}$ and $x < y$, then there exists $r \in \mathbb{Q}$ such that $x < r < y$.
+
+>**[THEOREM 1.5.3]** \
+>For every real number $x > 0$ and every positive integer $n$, there exists a unique positive real number $y$ so that $y^n = x$.
 
 ## 6 Binary and Ternary Expansions
 
