@@ -51,9 +51,9 @@ sidebar-category:
     children:
       - title: "Linear Algebra"
         url: /linearalgebra
-      - title: "Real Analysis (3-1)"
+      - title: "Real Analysis"
         url: /realanalysis
-      - title: "Discrete Mathematics (3-1)"
+      - title: "Discrete Mathematics"
         url: /discretemathematics
       - title: "Engineering Mathematics"
         url: /engineeringmathematics
