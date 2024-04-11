@@ -20,12 +20,27 @@ use_math: true
 >The **range** of $f$, denoted Range $f$, is defined by  \
 >$\text{Range} f = \{y \in B : (x, y) \in f \;\text{for some}\; x \in A\}$
 
+>If Range $f = B$, then the function $f$ is said to be **onto** $B$
+
+### Image and Inverse Image
+
+### Inverse Function
+
+>**[DEFINITION 1.2.7]** \
+>A function $f$ from $A$ into $B$ is said to be one-to-one if whenever $x_1 \neq x_2$, then $f(x_1) \neq f(x_2)$
+
 ## 3 Mathematical Induction
 
 >**WELL-ORDERING PRINCIPLE** \
 >Every nonempty subset of $\mathbb{N}$ has a smallest element.
 
 ## 4 The Least Upper Bound Property
+
+Both the rational numbers $\mathbb{Q}$ and real numbers $\mathbb{R}$ are algebraic systems known as *fields*.
+
+>A Field is a set $\mathbb{F}$ with two perations, addition and multiplication, which satisfy the following axioms:
+>1. If $a, b \in F$, then $a + b \in F$ and $a \cdot b \in \mathbb{F}$.
+>2. 
 
 ## 5 Consequences of the Least Upper Bound Property
 
