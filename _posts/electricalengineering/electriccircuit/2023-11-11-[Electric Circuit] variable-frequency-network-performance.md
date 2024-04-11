@@ -13,9 +13,9 @@ use_math: true
 The effect of varying frequency on elements - the resistor, inducor, and capacitor
 
 $$
-\textbf{Z}_R = R\phase{0^{\circ}}
+\textbf{Z}_R = R\angle{0^{\circ}}
 \\
-\textbf{Z}_L = j\omega L= \omega L \phase{0^{\circ}}
+\textbf{Z}_L = j\omega L= \omega L \angle{0^{\circ}}
 \\
 \textbf{Z}_C = \dfrac{1}{j\omega C} = \dfrac{1}{\omega C \angle{90^{\circ}}}
 $$
@@ -377,3 +377,10 @@ A filter network is generally designed to pass signals with a specific frequency
 
 ## 7. Design Examples
 
+## 궁금한 점
+
+위상차의 정의가 뭘까?
+
+차 : 큰 거 - 작은 거
+
+https://blog.naver.com/seo0511/10153075056
