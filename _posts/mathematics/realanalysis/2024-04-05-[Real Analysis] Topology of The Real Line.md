@@ -1,5 +1,5 @@
 ---
-title: "[Real Analysis] Topology of THe Real Line"
+title: "[Real Analysis] Topology of The Real Line"
 excerpt: "Manfred - Introduction to Real Analysis : Ch02"
 categories:
   - realanalysis
@@ -12,7 +12,7 @@ use_math: true
 
 ## 1 Metric Spaces
 
->**[DEFINITION 2.1.1]** For a real number $x$  the absolute value of $x$, denoted $|x|$, is deinfed by $|x| = $
+>**[DEFINITION 2.1.1]** For a real number $x$ the absolute value of $x$, denoted $|x|$, is deinfed by $|x| = $
 
 >**[THEOREM 2.1.2]** \
 >(a) $|-x| = |x|$ for all $x \in \mathbb{R}$. \
