@@ -73,12 +73,10 @@ We take a closer look at infinite sets and what it means for an infinite set ot 
 >**[THEOREM 1.7.7]**
 >If $f$ maps $\mathbb{N}$ onto $A$, then $A$ is at most countable
 
-### Index Families of Sets
-
 ### The Countability of $\mathbb{Q}$
 
 >**[THEOREM 1.7.15]**
->If $\{E_n\}_{n=1}^{\infty}$ is a sequence of countable sets and $$S = \cup_{n=1}^{\infty} E_n$$, then $S$ is countable.
+>If $\{E_n\}_{n=1}^{\infty}$ is a sequence of countable sets and $S = \cup_{n=1}^{\infty} E_n$, then $S$ is countable.
 
 >**[COROLLARY 1.7.16]**
 >$\mathbb{Q}$ is countable.
