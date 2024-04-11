@@ -40,7 +40,18 @@ Both the rational numbers $\mathbb{Q}$ and real numbers $\mathbb{R}$ are algebra
 
 >A Field is a set $\mathbb{F}$ with two perations, addition and multiplication, which satisfy the following axioms:
 >1. If $a, b \in F$, then $a + b \in F$ and $a \cdot b \in \mathbb{F}$.
->2. 
+>2. If $a, b\in F$, then $a + b = b + a, a \cdot b = b \cdot a$.
+>3. If $a, b, c \in F$, then $a + (b + c) = (a + b) + c, a \cdot (b \cdot c) = (a \cdot b) \cdot c$
+>4. There exists an element $0 \in F$ such that $a + 0 = a$ for all $a \in F$.
+>5. 
+>6. 
+>7.
+>8.
+
+>The real numbers $\mathbb{R}$ contain a subset $\mathbb{P}$ known as the positive real numbers satisfying the following: \
+>(01) If $a, b \in \mathbb{P}$, then $a + b \in \mathbb{P}$ and $a \cdot b \in \mathbb{P}$. \
+>(O2) If $a \in \mathbb{R}$, then on and only one of the following hold: \
+>$a \in \mathbb{P}, -a \in \mathbb{P}, a = 0$.
 
 ## 5 Consequences of the Least Upper Bound Property
 
@@ -111,3 +122,7 @@ We take a closer look at infinite sets and what it means for an infinite set ot 
 
 >**[THEOREM 1.7.18]**
 >If $A$ is the set of all sequences whose elements are 0 or 1, then $A$ is uncountable.
+
+## 궁금한 점
+
+- 첫 번째 order axiom이 field axiom과 중복되는데 왜 존해하는 것일까?
