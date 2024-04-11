@@ -28,14 +28,16 @@ use_math: true
 >(a) $|x - y| \geq |x - z| + |z - y|$, and \
 >(b) $||x| - |y|| \leq |x - y|$.
 
-Geometrically, $|x|$ represents the distance from $x$ to the origin 0. More generally for $x, y \in \mathbb{R}$, the **euclidean distance** $d(x, y)$ is defined by
+Geometrically, $|x|$ represents the distance from $x$ to the origin 0.
+
+More generally for $x, y \in \mathbb{R}$, the **euclidean distance** $d(x, y)$ is defined by
 
 $$
 d(x, y) = |x - y|
 $$
 
 >**[DEFINITION 2.1.6]** \
->Let $X$ be a nonempty set. A real valued function $d$ defined on $x \times X$ satisfying \
+>Let $X$ be a nonempty set. A real valued function $d$ defined on $X \times X$ satisfying \
 >(1) $d(x, y) \geq 0$ for all $x, y \in X$, \
 >(2) $d(x, y) = 0$ if and only if $x = y$, \
 >(3) $d(x, y) = d(y, x)$, \
