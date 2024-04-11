@@ -1,5 +1,5 @@
 ---
-title: "[Real Analysis] Topology of The Real Line"
+title: "[Real Analysis] Topology of the Real Line"
 excerpt: "Manfred - Introduction to Real Analysis : Ch02"
 categories:
   - realanalysis
@@ -12,19 +12,19 @@ use_math: true
 
 ## 1 Metric Spaces
 
->**[DEFINITION 2.1.1]** For a real number $x$ the absolute value of $x$, denoted $|x|$, is deinfed by $|x| = $
+>**[DEFINITION 2.1.1]** For a real number $x$ the absolute value of $x$, denoted $|x|$, is deinfed by $|x|$...
 
 >**[THEOREM 2.1.2]** \
 >(a) $|-x| = |x|$ for all $x \in \mathbb{R}$. \
 >(b) $|xy| = |x| |y|$ for all $x, y \in \mathbb{R}$. \
 >(c) $|x| = \sqrt{x^2}$ for all $x \in \mathbb{R}$. \
 >(d) If $r$ > 0, then $|x| < r$ if and only if $-r < x < r$. \
->(e) $-|x| \leq x \leq |x|$.
+>(e) $-|x| \leq x \leq |x|$ for all $x \in \mathbb{R}$. \
 
 >**[THEOREM 2.1.3]** (Triangle Inequality) \
 >For all $x, y \in \mathbb{R}$, we have $|x + y| \leq |x| + |y|$.
 
->**[COROLLART 2.1.4]** For all $a, y, x \in \mathbb{R}$ we have \
+>**[COROLLART 2.1.4]** For all $x, y, z \in \mathbb{R}$ we have \
 >(a) $|x - y| \geq |x - z| + |z - y|$, and \
 >(b) $||x| - |y|| \leq |x - y|$.
 
