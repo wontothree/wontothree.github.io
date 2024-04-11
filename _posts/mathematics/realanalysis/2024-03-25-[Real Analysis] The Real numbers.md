@@ -14,9 +14,14 @@ use_math: true
 
 ## 3 Mathematical Induction
 
+>**WELL-ORDERING PRINCIPLE** \
+>Every nonempty subset of $\mathbb{N}$ has a smallest element.
+
 ## 4 The Least Upper Bound Property
 
 ## 5 Consequences of the Least Upper Bound Property
+
+We look at a number of elementary properties of real numbers which in more elementary courses are usually always taken for granted. There are all actually consequences of the least upper bound property of the real numbers.
 
 >**[THEOREM 1.5.1] (Archimedian Property)** \
 >If $x, y \in \mathbb{R}$ and $x > 0$, then there exists a positive integer $n$ such that $nx > y$.
@@ -27,9 +32,9 @@ use_math: true
 >**[THEOREM 1.5.3]** \
 >For every real number $x > 0$ and every positive integer $n$, there exists a unique positive real number $y$ so that $y^n = x$.
 
-## 6 Binary and Ternary Expansions
-
 ## 7 Countable and Uncountable Sets
+
+We take a closer look at infinite sets and what it means for an infinite set ot be countable.
 
 >**[DEFINITION 1.7.1]**
 >Two sets $A$ and $B$ are said to be **equivalent** (or to have the same **cardinality**), denoted by $A$ ~ $B$, if there exists a one-to-one function of $A$ onto $B$.
