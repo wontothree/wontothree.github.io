@@ -20,7 +20,7 @@ Our presentation will be considerably more rigorous - emphasizing proofs rather 
 >A Sequence $\{p_n\}_{n=1}^{\infty} \;\text{in}\; X$ is said to **converge** if there exists a point $p \in X$ such that for every $\epsilon > 0$, there exists a positvie integer $n_0 = n_0(\epsilon)$ such that $p_n \in N_{\epsilon}(p) \;\text{for all}\; n \geq n_0$. If this is the case, we say that $\{p_n\}$ converges to $p$.
 
 >**[DEFINITION 3.1.3]** \
-> A sequence $\{p_n\}$ in X is said to be **bounded** if there exists $p \in X$ and a positvie constant $M$ such that $,d(p, p_n) \leq M$ for all $n \in \mathbb{N}$.
+> A sequence $\{p_n\}$ in X is said to be **bounded** if there exists $p \in X$ and a positvie constant $M$ such that $d(p, p_n) \leq M$ for all $n \in \mathbb{N}$.
 
 ## 2 Sequences of Real Numbers
 
