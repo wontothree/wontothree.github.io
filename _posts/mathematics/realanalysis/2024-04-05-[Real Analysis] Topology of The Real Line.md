@@ -24,8 +24,8 @@ use_math: true
 >**[THEOREM 2.1.3]** (Triangle Inequality) \
 >For all $x, y \in \mathbb{R}$, we have $|x + y| \leq |x| + |y|$.
 
->**[COROLLART 2.1.4]** For all $x, y, z \in \mathbb{R}$ we have \
->(a) $|x - y| \geq |x - z| + |z - y|$, and \
+>**[COROLLARY 2.1.4]** For all $x, y, z \in \mathbb{R}$ we have \
+>(a) $|x - y| \leq |x - z| + |z - y|$, and \
 >(b) $||x| - |y|| \leq |x - y|$.
 
 Geometrically, $|x|$ represents the distance from $x$ to the origin 0.
@@ -43,6 +43,8 @@ $$
 >(3) $d(x, y) = d(y, x)$, \
 >(4) $d(x, y) \geq d(x, z) + d(z, y)$ for all $x, y, z \in \mathbb{R}$ \
 >is called a **matic** or **distance function** on $X$. The set $X$ with metric of $d$ is called a **metric space**, and is denoted by $(X, d)$
+
+All of these properties are what we intuitively expect a distance function to satisfy.
 
 ## 2 Open and Closed Sets
 
