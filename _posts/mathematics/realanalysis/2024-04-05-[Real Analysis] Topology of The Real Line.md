@@ -19,7 +19,7 @@ use_math: true
 >(b) $|xy| = |x| |y|$ for all $x, y \in \mathbb{R}$. \
 >(c) $|x| = \sqrt{x^2}$ for all $x \in \mathbb{R}$. \
 >(d) If $r$ > 0, then $|x| < r$ if and only if $-r < x < r$. \
->(e) $-|x| \leq x \leq |x|$ for all $x \in \mathbb{R}$. \
+>(e) $-|x| \leq x \leq |x|$ for all $x \in \mathbb{R}$.
 
 >**[THEOREM 2.1.3]** (Triangle Inequality) \
 >For all $x, y \in \mathbb{R}$, we have $|x + y| \leq |x| + |y|$.
