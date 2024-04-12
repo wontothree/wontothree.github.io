@@ -53,9 +53,10 @@ $$
 i = I_s(e^{v/nV_T} - 1)
 $$
 
-![](../../../img/electroniccircuit/ivmodel1.png)
-
-![](../../../img/electroniccircuit/ivmodel2.png)
+<p align="center">
+  <img src="../../../img/electroniccircuit/ivmodel1.png" align="center" width="49%">
+  <img src="../../../img/electroniccircuit/ivmodel2.png" align="center" width="49%">
+<figcaption align="center"></figcaption></p>
 
 - Saturation current (or scale current) $I_s$ : a constant for a given diode at a given temperature. $I_s$ doubles in value for every $5^{\circ}$ rise in temperature. 다이오드의 형상에 종속된 고유한 값이며 온도에도 종속적이다. 일반적으로 10~15A의 값을 갖는다.
 - Thermal Voltage : $V_T = \dfrac{kT}{q} = 0.0862$T, mV (상온에서 약 26mV(25.6876 mV))
