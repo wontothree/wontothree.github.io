@@ -40,8 +40,8 @@ Both the rational numbers $\mathbb{Q}$ and real numbers $\mathbb{R}$ are algebra
 
 >A Field is a set $\mathbb{F}$ with two perations, addition and multiplication, which satisfy the following axioms:
 >1. If $a, b \in F$, then $a + b \in F$ and $a \cdot b \in \mathbb{F}$.
->2. If $a, b\in F$, then $a + b = b + a, a \cdot b = b \cdot a$.
->3. If $a, b, c \in F$, then $a + (b + c) = (a + b) + c, a \cdot (b \cdot c) = (a \cdot b) \cdot c$
+>2. For all $a, b\in F$, then $a + b = b + a, a \cdot b = b \cdot a$.
+>3. For all $a, b, c \in F$, then $a + (b + c) = (a + b) + c, a \cdot (b \cdot c) = (a \cdot b) \cdot c$
 >4. There exists an element $0 \in F$ such that $a + 0 = a$ for all $a \in F$.
 >5. 
 >6. 
@@ -50,8 +50,26 @@ Both the rational numbers $\mathbb{Q}$ and real numbers $\mathbb{R}$ are algebra
 
 >The real numbers $\mathbb{R}$ contain a subset $\mathbb{P}$ known as the positive real numbers satisfying the following: \
 >(01) If $a, b \in \mathbb{P}$, then $a + b \in \mathbb{P}$ and $a \cdot b \in \mathbb{P}$. \
->(O2) If $a \in \mathbb{R}$, then on and only one of the following hold: \
+>(O2) If $a \in \mathbb{P}$, then one and only one of the following hold: \
 >$a \in \mathbb{P}, -a \in \mathbb{P}, a = 0$.
+
+### Upper Bound of Set
+
+>**[DEFINITION 1.4.1]** \
+>A subset $E$ of $\mathbb{R}$ is **bounded above** if there exists $\beta \in \mathbb{R}$ such that $x \leq \beta$ for every $x \in E$. \
+> Such a $\beta$ is called an upper bound of $E$.
+
+### Least Upper Bound od a Set
+
+>**[DEFINITION 1.4.3]** \
+>Let $E$ be a nonempty subset of $\mathbb{R}$ that is bounded above. \
+> An element of $\alpha \in \mathbb{R}$ is called the **least upper bound** of **supremum** of $E$ if \
+>(i) $\alpha$ is an upper bound of $E$, and \
+>(ii) if $\beta \in \mathbb{R}$ satisfies $\beta < \alpha$, then $\beta$ is not an upper bound of $E$.
+
+### Least Upper Bound Property of $\mathbb{R}$
+
+### Intervals
 
 ## 5 Consequences of the Least Upper Bound Property
 
