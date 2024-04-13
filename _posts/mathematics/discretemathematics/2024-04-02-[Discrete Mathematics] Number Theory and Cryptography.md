@@ -1,5 +1,5 @@
 ---
-title: "[Discrete Mathematics] Ch04 Number Theory and Cryptography"
+title: "[Discrete Mathematics] Number Theory and Cryptography"
 excerpt: "Kenneth H. Rosen - Discrete Mathematics and Its Applications : Ch04"
 categories:
   - discretemathematics
@@ -58,7 +58,29 @@ Because we are interested only in remainders, we have special notation for them.
 
 ## 4 Solving Congruences
 
+Solving linear congruences, which have the form $ax \equiv b (mod \;m)$, is an essential task in the study of number theory and its applications, just as solving linear equations plays an important role in calculus and linear algebra.
+
+Finding discrete logarithms turns out to be an extremely difficult problem in general. The difficulty of this problem is the basis for the security of many cryptographic systems.
+
+### 4.1 Linear Congruences
+
+### 4.2 The Chinese Remainder Theorem
+
+### 4.3 Computer Arithmetic with Large Integers
+
+### 4.4 Fermat's Little Theorem
+
+### 4.5 Pseudoprimes
+
+### 4.6 Primitive Roots and Discrete Logarithm
+
 ## 5 Application of Congruences
+
+We will show how we can use modular arithmetic to do hashing, how to use congruences to generate sequences of pseudorandom numbers, and how to construct check digits using congruences for a variety of types of identification numbers.
+
+### 5.1 Hashing Functions
+
+### 5.2 Pseudorandom Numbers
 
 ### 5.3 Parity Check Digit
 

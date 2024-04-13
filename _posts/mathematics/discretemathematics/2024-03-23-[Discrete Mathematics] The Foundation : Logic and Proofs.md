@@ -1,5 +1,5 @@
 ---
-title: "[Discrete Mathematics] Ch01 The Foundation : Logic and Proofs"
+title: "[Discrete Mathematics] The Foundation : Logic and Proofs"
 excerpt: "Kenneth H. Rosen - Discrete Mathematics and Its Applications : Ch01" 
 categories:
   - discretemathematics
