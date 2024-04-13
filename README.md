@@ -6,7 +6,7 @@ Technical Blog
 
     |- _data
         |- navigation.yml : navigation bar and side bar
-        |- ui-text.yml
+        |- ui-text.yml :
     |- _include : html file들이 들어있다.
     |- _layout : page마다 design과 직접적으로 연관된 html file들이 들어있다. _include에 있는 html file들을 불러오는 경우가 많다.
     |- _pages : main page에서 navigation bar category를 타고 들어갔을 때 나오는 페이지
@@ -60,3 +60,6 @@ https://ansohxxn.github.io/blog/jekyll-directory-structure/
 - 각 게시물에서 스크롤하면 contents nav bar가 따라가도록
 - contents nav bar 제목 수정
 - _pages에서 카테고리 설정 더 편리하게 할 수 있도록 하기
+
+- category 안에서도 sidebar가 뜨도록 하기
+- category를 눌렀을 때 category page가 나오도록 하기

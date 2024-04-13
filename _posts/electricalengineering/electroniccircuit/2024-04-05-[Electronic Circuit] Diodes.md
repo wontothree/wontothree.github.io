@@ -8,6 +8,14 @@ toc_icon: star
 share: false
 use_math: true
 ---
+- Verse 1 : ideal diode
+- Verse 2 : practical diode
+- Verse 3 : diode models
+- Verse 4 : small signal model
+- Verse 5 : application of diode : voltage regulator
+- Verse 6 : applicatioin of diode : rectifier
+- Verse 7 : application of diode :
+
 ## 1 The Ideal Diode
 
 ### 1.1 Current Voltage Characteristic
@@ -144,6 +152,32 @@ Load line analysis
 ## 4 The Small-Signal Model
 
 ## 5 Voltage Regulation
+
+![](../../../img/electroniccircuit/dcpowersupply.png)
+
+DC power supply를 만들 때 diode를 가장 많이 사용한다. Rectifier와 voltage regulator에 diode가 들어간다.
+
+- Transformer : 한국의 전압 국가 표준은 220V이고 미국은 120V이다. transformer는 2개의 inductor의 감은 수 비를 이용해서 승압 또는 감압을 한다. 일반적으로 감압을 한다.
+
+A Voltage redulator is a circuit designed to provide a constant dc voltage between its output terminals.
+
+The output voltage must remain as constant as possible in spite of (a) **changes in the load current drawn from the regulator output terminal** and (b) **changes in the dc power-supply voltage that feeds the regulator circuit**.
+
+General p-n junction diode vs. Zener diode
+
+|P-N Juction Diode|Zener Diode|
+|---|---|
+|0V부터 breakdown까지 거리가 멀다.|Breakdown이 발생하는 전압의 크기가 작다.|
+|Breakdown이 일어나는 전압이 정확하게 알려져있지 않다.|Breakdown이 발생하는 전압을 구체적으로 안다.|
+
+Zener diode i-v curve의 breakdown region에서 굉장히 큰 기울기를 갖으므로 Zener diode는 굉장히 작은 저항 값을 갖는다는 것을 알 수 있다. 따라서 Zener diode는 저항과 이상적인 전압원으로 modeling할 수 있다.
+
+Important specification of Zener diode
+
+|Important specification of Zener diode|Description|Feature|
+|---|---|
+|Line Regulation|Voltage regulatior의 입장에서 입력 전압의 변화에 대한 출력 전압의 변화|작을수록 좋다.|
+|Load Regulation|부하 전륙의 변화에 대한 출력 전압의 변화|작을수록 좋다.|
 
 ## 6 Rectifier Circuits
 
