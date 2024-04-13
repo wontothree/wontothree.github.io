@@ -10,7 +10,9 @@ use_math: true
 ---
 ## 1 Introduction
 
-앞서 배운 이산 시간 시스템, z-transform, sampling, data reconstruction에 대한 내용들을 open-loop discrete-time system을 분석하는 데 활용할 것이다. Since ideal sampler don't have transfer function, these analysis technique of discrete-time system is requited.
+- 앞서 배운 이산 시간 시스템, z-transform, sampling, data reconstruction에 대한 내용들을 open-loop discrete-time system을 분석하는 데 활용할 것이다. 
+- Since ideal sampler don't have transfer function, these analysis technique of discrete-time system is requited.
+- 이 분석 기술은 폐루프 시스템으로 확장된다.
 
 ## 2 The Relationship Between $E(Z)$ and $E^*(S)$
 
