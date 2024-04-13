@@ -8,88 +8,20 @@ toc_icon: star
 share: false
 use_math: true
 ---
-### Contents
 
-1. PN Junction Diode \
-  Typical characteristic values of 1N4004 \
-  Current-voltage characteristic of 1N4004 \
-  Small-signal model of 1N4004
-2. Zener Diode \
-  Typical characteristic values of 1N4733 \
-  Current-voltage characteristic of 1N4733 \
-  Simulated value for Zener voltage \
-  Small-signal model of 1N4733
-3. Shottky Diode \
-  Typical characteristic values of 1N5817 \
-  Current-voltage characteristic of 1N5817 \
-  Small-signal model of 1N5817
+![](../../../img/laboratory/ECDL3_Unit6-01.png)
+![](../../../img/laboratory/ECDL3_Unit6-02.png)
+![](../../../img/laboratory/ECDL3_Unit6-03.png)
+![](../../../img/laboratory/ECDL3_Unit6-04.png)
+![](../../../img/laboratory/ECDL3_Unit6-05.png)
+![](../../../img/laboratory/ECDL3_Unit6-06.png)
+![](../../../img/laboratory/ECDL3_Unit6-07.png)
+![](../../../img/laboratory/ECDL3_Unit6-08.png)
+![](../../../img/laboratory/ECDL3_Unit6-09.png)
+![](../../../img/laboratory/ECDL3_Unit6-10.png)
+![](../../../img/laboratory/ECDL3_Unit6-11.png)
+![](../../../img/laboratory/ECDL3_Unit6-12.png)
+![](../../../img/laboratory/ECDL3_Unit6-13.png)
+![](../../../img/laboratory/ECDL3_Unit6-14.png)
+![](../../../img/laboratory/ECDL3_Unit6-15.png)
 
-### 1 PN Junction Diode
-
-### Typical Characteristic Values of 1N4004
-
-![](../../../img/laboratory/1N4004-diodes.png)
-
-(DIODES incorporated - 1N4004 datasheet)
-
-|||
-|---|---|
-|DC Blocking Voltage|$400$V|
-|Forward Voltage Drop|$1.0$V|
-|Reverse Current|$5.0\mu$A|
-
-### Current-voltage characteristic of 1N4004
-
-<p align="center">
-  <img src="../../../img/laboratory/1N4004-b1.png" align="center" width="49%">
-  <img src="../../../img/laboratory/1N4004-b2.png" align="center" width="49%">
-<figcaption align="center"></figcaption></p>
-
-### Small-Signal Model of 1N4004
-
-- Operating  point is $(543.56mV, 100.44mA)$.
-- When DC current $I_D = 100.44mA$, DC voltage $V_D = 543.56mV$,
-- DC resistance $R_D := \dfrac{V_D}{I_D} = 5.41\Omega$, and
-- AC resistance $r_D \approx \dfrac{\Delta I_D}{\Delta V_D} = 0.23$.
-
-### 2 Zener Diode
-
-### Typical Characteristic Values of 1N4733
-
-![](../../../img/laboratory/1N4733-bytesonic-1.png)
-
-![](../../../img/laboratory/1N4733-bytesonic-2.png)
-
-(Bytesonic electronics co. ltd - 1N4733 datasheet)
-
-|||
-|---|---|
-|Zener Voltage|$5.1$V|
-|Forward Voltage Drop|$1.2$V|
-|Reverse Leakage Current|$10\mu$A|
-
-### 3 Shottky Diode
-
-### Typical Characteristic Values of 1N5817
-
-![](../../../img/laboratory/1N5817-vishay.png)
-
-(Vishay semiconductors - 1N5817 datasheet)
-
-|||
-|---|---|
-|DC Broking Voltage|$20$V|
-|Forward Voltage Drop|$0.45$V|
-|Reverse Current|$1.0m$A|
-
-## 궁금한 것
-
-The goal od small-signal model is to describe how the output(the diode current) changes when there is a small change in the input(the voltage drop).
-
-The goal of a small-signal model is to get a value for the admittance (or impedance) of the component. The admittance is simply the derivative of the diode current, with respect to the voltage drop evaluated at the operating point
-
-https://resources.pcb.cadence.com/blog/2020-small-signal-model-for-a-diode-in-dc-and-ac-circuits
-
-- Current-Voltage Characteristic은 소자의 특성일까 아니면 회로의 특성일까? -> 소자의 특성 같다.
-- half-wave rectifier circuit에서 저항의 값이 바뀌어도 I-V curve가 동일할까? 나아가 모든 회로에서 이 특성이 동일하게 나타날까?
-- Zener diode와 shottky diode는 pn junction diode가 아닐까?
