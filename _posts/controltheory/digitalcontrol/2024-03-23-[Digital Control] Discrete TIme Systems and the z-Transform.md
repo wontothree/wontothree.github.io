@@ -10,13 +10,14 @@ use_math: true
 ---
 ## 1 Introduction
 
-- 이산 시간 시스템
-- z-transform
-
-|연속 시간|이산 시간|
-|---|---|
-|미분방정식|차분방정식|
+|Continuous Time System|Discrete Time System|
+|:---:|:---:|
+|Differentil Equation|Difference Equation|
 |Laplace Transform|Z-Transform|
+
+차분 방정식, 전달함수, 그리고 상태 방정식에 의한 이산 시간 시스템의 모델링을 제시한다.
+
+이산 시간 시스템은 차분 방정식으로 표현되며, 시스템 내의 신호들의 숫자 배욜로 표현된다는 것을 배운다. 이 숫자 배열은 연속 시간 신호를 샘플링하여 만들 수 있다. 이것은 디지털 제어 시스템의 예시이다.
 
 ## 2 Discrete-Time Systems
 

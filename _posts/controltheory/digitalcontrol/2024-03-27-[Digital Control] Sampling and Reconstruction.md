@@ -12,7 +12,7 @@ use_math: true
 
 ## 1 Introduction
 
-To provide a basis for thoroughly understanding the operation of digital control systems, it is necessary to determine the effects of continuous-time signal.
+To provide a basis for thoroughly understanding the operation of digital control systems, it is necessary to determine the effects of sampling a continuous-time signal.
 
 ## 2 Sampled-Data Control Systems
 
