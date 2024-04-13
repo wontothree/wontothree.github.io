@@ -1,8 +1,8 @@
 ---
-title: "LS"
+title: "Nonlinear System"
 layout: archive
-permalink: /ls
+permalink: /nonlinearsystem
 ---
 
-{% assign posts = site.categories.LS %}
+{% assign posts = site.categories.nonlinearsystem %}
 {% for post in posts %} {% include archive-single.html type=page.entries_layout %} {% endfor %}

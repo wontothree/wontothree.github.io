@@ -1,8 +1,8 @@
 ---
-title: "OC"
+title: "Linear System"
 layout: archive
-permalink: /oc
+permalink: /linearsystem
 ---
 
-{% assign posts = site.categories.OC %}
+{% assign posts = site.categories.linearsystem %}
 {% for post in posts %} {% include archive-single.html type=page.entries_layout %} {% endfor %}

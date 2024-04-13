@@ -1,8 +1,8 @@
 ---
-title: "NLS"
+title: "Optimal Control"
 layout: archive
-permalink: /nls
+permalink: /optimalcontrol
 ---
 
-{% assign posts = site.categories.NLS %}
+{% assign posts = site.categories.optimalcontrol %}
 {% for post in posts %} {% include archive-single.html type=page.entries_layout %} {% endfor %}

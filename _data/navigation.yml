@@ -35,18 +35,20 @@ sidebar-category:
         url: /electron
       - title: "Electric Circuit"
         url: /electriccircuit
-      - title: "Electronic Circuit (3-1)"
+      - title: "Electronic Circuit"
         url: /electroniccircuit
-      - title: "Laboratory (3-1)"
+      - title: "Laboratory"
         url: /laboratory
-      - title: "Digital Control (3-1)"
+  - title: "Control Theory"
+    children:
+      - title: "Digital Control"
         url: /digitalcontrol
       - title: "Linear System"
-        url: /ls
+        url: /linearsystem
       - title: "Nonlinear System"
-        url: /nls
+        url: /nonlinearsystem
       - title: "Optimal Control"
-        url: /oc
+        url: /optimalcontrol
   - title: "Mathematics"
     children:
       - title: "Linear Algebra"
