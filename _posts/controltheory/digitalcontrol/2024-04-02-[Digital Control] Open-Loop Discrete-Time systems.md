@@ -31,7 +31,7 @@ $$
 Therefore
 
 $$
-E(z) = E^*(s) |_{\epsilon^{sT}=z}
+E(z) = E^*(s) |_{\epsilon^{sT}=z} \;\; \text{or} \;\; E^*(s) = E(z) |_{z=\epsilon^{sT}}
 $$
 
 이것은 z-transform이 laplace transform의 특별한 경우라는 것을 의미한다.
