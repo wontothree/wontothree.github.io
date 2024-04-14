@@ -10,19 +10,26 @@ use_math: true
 ---
 ## 1. Algorithms
 
+Pseudocode language
+
+- Precedure statment : the name of an algorithm
+- Asiignment statement : assign value to variables
+= Block of statement : group procedure (begin and end)
+- Comments : statements in {} which are not executed
+
 ### 1.1 Introduction
 
 >**[Definition]** An algorithm is a finite set of precise instructions for performing a computation or for solving a problem.
 
-Properties of Algorithms
-
-- Input : An algorithm has input values from a specified set
-- Output : From each set of input values an algorithm produces output values from a specified set. The output values are the solution to the problem.
-- Definiteness : The steps of an algorithm must be defined precsiely.
-- Correctness : An algorithm should produce the correct output values for each set of input values
-- Finiteness : An algorithm should produce the desired output after a finite number of steps for any input in the set.
-- Effectiveness : It must be possible to perform each step an algortihm exactly and in a finite amount of time.
-- Generality : The procedure should be applicable for all problems of the desired form, not just for a particular set of input values.
+|Properties of Algorithms|Description|
+|---|---|
+|Input|An algorithm has input values from a specified set|
+|Output|From each set of input values an algorithm produces output values from a specified set. The output values are the solution to the problem.|
+|Definiteness|The steps of an algorithm must be defined precsiely.|
+|Correctness|An algorithm should produce the correct output values for each set of input values|
+|Finiteness|An algorithm should produce the desired output after a finite number of steps for any input in the set.|
+|Effectiveness|It must be possible to perform each step an algortihm exactly and in a finite amount of time.|
+|Generality|The procedure should be applicable for all problems of the desired form, not just for a particular set of input values.|
 
 ### 1.2 Searching algorithms
 
@@ -186,7 +193,7 @@ Insertion  =   1  2  3  4  5  6  7  8  9
 
 ### 2.3 Big-O Estimates for Some Important Functions
 
-## 2.4 The Growth of Combinations of Functions
+### 2.4 The Growth of Combinations of Functions
 
 ### 2.5 Big-Omega and Big-Theta Notation
 
