@@ -52,7 +52,8 @@ use_math: true
 |8|STACK|Hard rock|
 |9|METAL|Heavily distodrted sound of a Bogner Uberschall|
 
-지금은 clean만 사용하고 있는데 2~9 simulation에 대한 감을 잡아야 한다.
+- 지금은 clean만 사용하고 있는데 2~9 simulation에 대한 감을 잡아야 한다.
+- 기본적으로 소리를 증폭하는 역할을 한다.
 
 ## Delay
 
