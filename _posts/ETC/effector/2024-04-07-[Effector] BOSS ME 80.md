@@ -14,11 +14,10 @@ use_math: true
 
 - Delay와 reverb가 마지막에 걸린다.
 
-- 많이 사용하는 patch
-  - PREAMP
-  - OD/DS
-  - DELAY
-  - REVERB
+- PREAMP : 기본적으로 소리를 증폭하는 역할을 하기 때문에 항상 사용된다.
+- OD/DS
+- DELAY
+- REVERB
 
 ## COMP/FX
 
@@ -53,7 +52,6 @@ use_math: true
 |9|METAL|Heavily distodrted sound of a Bogner Uberschall|
 
 - 지금은 clean만 사용하고 있는데 2~9 simulation에 대한 감을 잡아야 한다.
-- 기본적으로 소리를 증폭하는 역할을 한다.
 
 ## Delay
 
