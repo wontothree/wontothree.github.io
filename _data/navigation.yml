@@ -75,10 +75,12 @@ sidebar-category:
         url: /paperreview
       - title: "Video"
         url: /video
+      - title: "Skin"
+        url: /skin
       
       - title: "Civil Law"
         url: /law
       - title: "Invest"
         url: /invest
-      - title: "Marketing Management (3-1)"
+      - title: "Marketing Management"
         url: /marketingmanagement
