@@ -24,3 +24,5 @@ use_math: true
 ![](../../../img/laboratory/ECDL3_Unit6-13.png)
 ![](../../../img/laboratory/ECDL3_Unit6-14.png)
 ![](../../../img/laboratory/ECDL3_Unit6-15.png)
+
+## Feedback
