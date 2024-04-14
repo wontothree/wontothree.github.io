@@ -189,7 +189,16 @@ Insertion  =   1  2  3  4  5  6  7  8  9
 
 ## 2. The growth of functions
 
+함수의 성장 : 인풋에 대해 아웃풋이 얼마나 변하느냐.
+
+- One of the advatages of using big-O notation is that we can estimate the growth of a function without worrying about constant multipliers or smaller order terms.
+- Big-O notatino is used to estimate the number of operations an algorithm uses as its input grows.
+- With the help of big-O notation, we can determine whether it is practical to use a particular algorithm to solve a problem as the size of the input inceases.
+
 ### 2.2 Big-O Notation
+
+>**[DEFINITION 1]** \
+>Let $f$ and $g$ be functions from the set of integers or the set of real numbers to the set of real numbers. We say that $f(x)$ is $O(g(x))$ if there are constants $C$ and $k$ such that $|f(x)| \leq C|g(x)|$ whenever $x > k$. This is read as "$f(x)$ is bog-oh of $g(x)$."
 
 ### 2.3 Big-O Estimates for Some Important Functions
 

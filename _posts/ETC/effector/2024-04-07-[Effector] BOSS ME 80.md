@@ -25,7 +25,7 @@ use_math: true
 
 |Number|Type of Effect|Explanation|
 |---|---|---|
-|1|COMP|Compressor 다이나믹이 줄어드는 특유의 느낌이 있다. John mayer 곡에서 comp를 최대로 한다.|
+|1|COMP|Compressor 다이나믹이 줄어드는 특유의 느낌이 있다. John mayer 곡에서 comp를 최대로 한다. 소리가 단단해진다. 서스테인이 생긴다.|
 |2, 3|WATH||
 |4|OCTAVE||
 |5|SLOW GEAR||
@@ -42,7 +42,7 @@ use_math: true
 |Number|Type of Preamp|Explanation|
 |---|---|---|
 |1|Acoustic|어쿠스틱 기타 느낌을 낸다.|
-|2|CLEAN|가장 무난하다. 뭘 할지 모르겠거나 다른 preamp에 대한 이해가 없다면 사용하면 된다.|
+|2|CLEAN|가장 무난하다. 뭘 할지 모르겠거나 다른 preamp에 대한 이해가 없다면 사용하면 된다. 클린 부스트와 같은 역할을 하는 것일까?|
 |3|TWEED|Fender Bassman's VINTAGE sound|
 |4|CRUNCH||
 |5|COMBD|VOX AC30's VINTAGE crunch sound|
