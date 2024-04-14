@@ -24,6 +24,12 @@ The ideal diode can be considered the most fundemental nonlinear circuit element
 
 ![](../../../img/electroniccircuit/diode.png)
 
+- 저항은 극성에 관계 없이 동일하게 동작하기 때문에 극성을 구분하지 않는지만 diode는 다르다. -> anode(양극), cathode(음극)
+- Ideal diode에서 정의된 전류의 방향은 anode $\rightarrow$ cathode이다.
+- Diode의 극성에 따라 $R = 0$ 인 영역과 $R = \infty$인 영역이 나뉜다.
+- 인간은 다이오드의 비선형성을 이용해 많은 것들을 할 수 있다. 인류가 존재하는 한 diode는 존재할 것이다. 지금까지의 소자들로는 할 수 없었던 switch 역할을 할 수 있다.
+- 언제 shot / open가 되도록 할지 고민해야 한다. 언제 forward / reverse인지를 판단할 수 있다면 회로 분석이 쉬워진다.
+
 ### 1.2 The Rectifier
 
 - The series connection of a diode and a resister
