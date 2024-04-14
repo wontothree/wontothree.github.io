@@ -1,6 +1,6 @@
 # wontothree.github.io
 
-Technical Blog
+[Technical Blog](https://wontothree.github.io/)
 
 ## Folder Tree
 
@@ -60,6 +60,5 @@ https://ansohxxn.github.io/blog/jekyll-directory-structure/
 - 각 게시물에서 스크롤하면 contents nav bar가 따라가도록
 - contents nav bar 제목 수정
 - _pages에서 카테고리 설정 더 편리하게 할 수 있도록 하기
-
 - category 안에서도 sidebar가 뜨도록 하기
 - category를 눌렀을 때 category page가 나오도록 하기
