@@ -1,6 +1,7 @@
 ---
 title: "[Paper Review] General Object Foundation Model for Images and Videos at Scale"
 excerpt: 14 Dec 2023
+categories:
   - paperreview
 toc: true
 toc_icon: star
