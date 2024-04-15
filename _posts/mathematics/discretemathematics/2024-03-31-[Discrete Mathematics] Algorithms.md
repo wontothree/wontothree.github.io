@@ -200,9 +200,20 @@ Insertion  =   1  2  3  4  5  6  7  8  9
 >**[DEFINITION 1]** \
 >Let $f$ and $g$ be functions from the set of integers or the set of real numbers to the set of real numbers. We say that $f(x)$ is $O(g(x))$ if there are constants $C$ and $k$ such that $|f(x)| \leq C|g(x)|$ whenever $x > k$. This is read as "$f(x)$ is bog-oh of $g(x)$."
 
+>**[THEOREM 1]** \
+>Let $f(x) = a_nx^n + a_{n-1}a^{n-1} + \dots + a_1x + a_0$, where $a_0, a_1, \dots , a_n$ are real numbers. Then $f(x)$ is $O(x^n)$.
+
 ### 2.3 Big-O Estimates for Some Important Functions
 
+![](../../../img/discretemathematics/growthfunction.png)
+
 ### 2.4 The Growth of Combinations of Functions
+
+>**[THEOREM 2]** \
+>Suppose that $f_1(x)$ is $O(g_1(x))$ and taht $f_2(x)$ is $O(g_2(x))$. Then $(f_1(x) + f_2(x))$ is $g(x)$, where $g(x) = \text{max}(|g_1(x)|, |g_2(x)|)$ for all $x$.
+
+>**[THEOREM 3]** \
+> Suppose that $f_1(x)$ is $O(g_1(x))$ and $f_2(x)$ is$O(g_2(x))$. Then $(f_1f_2)(x)$ is $O(g_1(x)g_2(x))$.
 
 ### 2.5 Big-Omega and Big-Theta Notation
 
