@@ -210,7 +210,10 @@ Insertion  =   1  2  3  4  5  6  7  8  9
 ### 2.4 The Growth of Combinations of Functions
 
 >**[THEOREM 2]** \
->Suppose that $f_1(x)$ is $O(g_1(x))$ and taht $f_2(x)$ is $O(g_2(x))$. Then $(f_1(x) + f_2(x))$ is $g(x)$, where $g(x) = \text{max}(|g_1(x)|, |g_2(x)|)$ for all $x$.
+>Suppose that $f_1(x)$ is $O(g_1(x))$ and taht $f_2(x)$ is $O(g_2(x))$. Then $(f_1(x) + f_2(x))$ is $O(g(x))$, where $g(x) = \text{max}(|g_1(x)|, |g_2(x)|)$ for all $x$.
+
+>**[DEFINITION 3]** \
+>Suppose that $f_1(x)$ and $f_2(x)$ are both $O(g(x))$. Then $(f_1 + f_2)(x)$ is $O(g(x))$.
 
 >**[THEOREM 3]** \
 > Suppose that $f_1(x)$ is $O(g_1(x))$ and $f_2(x)$ is$O(g_2(x))$. Then $(f_1f_2)(x)$ is $O(g_1(x)g_2(x))$.
@@ -218,7 +221,7 @@ Insertion  =   1  2  3  4  5  6  7  8  9
 ### 2.5 Big-Omega and Big-Theta Notation
 
 >**[DEFINITION 2]** \
->Let $f$ and $g$ be functions from the set of integers or the set of real numbers to the set of real numbers. We say that $f(x)$ is $\Omega(g(x))$ if there are constants $C$ and $k$ with $C$ positive such that $|f(x)| \geq C|g(x)|$ whenever $x > k$.
+>Let $f$ and $g$ be functions from the set of integers or the set of real numbers to the set of real numbers. We say that $f(x)$ is $\Omega(g(x))$ if there are constants $C$ and $k$ with positive $C$ such that $|f(x)| \geq C|g(x)|$ whenever $x > k$.
 
 >**[DEFINITION 3]** \
 >Let $f$ and $g$ be functions from the set of integers or the set of real numbers to the set of real numbers. We say that $f(x)$ is $\theta(g(x))$ if $f(x)$ is O(g(x)) and $f(x)$ is $\Omega(g(x))$.
