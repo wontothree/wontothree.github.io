@@ -198,7 +198,7 @@ Insertion  =   1  2  3  4  5  6  7  8  9
 ### 2.2 Big-O Notation
 
 >**[DEFINITION 1]** \
->Let $f$ and $g$ be functions from the set of integers or the set of real numbers to the set of real numbers. We say that $f(x)$ is $O(g(x))$ if there are constants $C$ and $k$ such that $|f(x)| \leq C|g(x)|$ whenever $x > k$. This is read as "$f(x)$ is bog-oh of $g(x)$."
+>Let $f$ and $g$ be functions from the set of integers or the set of real numbers to the set of real numbers. We say that $f(x)$ is $O(g(x))$ if there are constants $C$ and $k$ such that $|f(x)| \leq C|g(x)|$ whenever $x > k$. This is read as "$f(x)$ is big-oh of $g(x)$."
 
 >**[THEOREM 1]** \
 >Let $f(x) = a_nx^n + a_{n-1}a^{n-1} + \dots + a_1x + a_0$, where $a_0, a_1, \dots , a_n$ are real numbers. Then $f(x)$ is $O(x^n)$.
@@ -216,5 +216,11 @@ Insertion  =   1  2  3  4  5  6  7  8  9
 > Suppose that $f_1(x)$ is $O(g_1(x))$ and $f_2(x)$ is$O(g_2(x))$. Then $(f_1f_2)(x)$ is $O(g_1(x)g_2(x))$.
 
 ### 2.5 Big-Omega and Big-Theta Notation
+
+>**[DEFINITION 2]** \
+>Let $f$ and $g$ be functions from the set of integers or the set of real numbers to the set of real numbers. We say that $f(x)$ is $\Omega(g(x))$ if there are constants $C$ and $k$ with $C$ positive such that $|f(x)| \geq C|g(x)|$ whenever $x > k$.
+
+>**[DEFINITION 3]** \
+>Let $f$ and $g$ be functions from the set of integers or the set of real numbers to the set of real numbers. We say that $f(x)$ is $\theta(g(x))$ if $f(x)$ is O(g(x)) and $f(x)$ is $\Omega(g(x))$.
 
 ## 3. Complexity of algorithms
