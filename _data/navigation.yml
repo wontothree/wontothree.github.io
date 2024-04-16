@@ -63,12 +63,8 @@ sidebar-category:
         url: /opt
   - title: "ETC"
     children:
-      - title: "LaTex"
-        url: /latex
       - title: "Effector"
         url: /effector
-      - title: "Motor"
-        url: /motor
       - title: "Paper Review"
         url: /paperreview
       - title: "Civil Law"
