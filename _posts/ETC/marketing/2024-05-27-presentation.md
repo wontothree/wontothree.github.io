@@ -27,13 +27,12 @@ share: false
 - 마케팅 제안 4 : offline popup store
 
 근거 : 실질적인 마케팅 실행 방안의 근거를 여러 마케팅 분석 기법에서 마련하자. (이 비중은 1/3 이하로 제한하자.)
-    - PEST
-    - SWOT
-    - BCG Matrix
 
 |3C 분석(or 대외대내환경분석)|STP|Marketing Mix (4P)|
 |:---:|:---:|:---:|
 |Customer|Segmentation|Product|
 |Competitor|Targeting|Price|
-|Company(SWOT, BCG Matrix)|Positioning|Place|
+|Company (SWOT, BCG Matrix)|Positioning|Place|
 |||Promotion|
+
+- PEST 분석
