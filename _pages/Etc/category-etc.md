@@ -1,8 +1,8 @@
 ---
-title: "Invest"
+title: "ETC"
 layout: archive
-permalink: /invest
+permalink: /etc
 ---
 
-{% assign posts = site.categories.Invest %}
+{% assign posts = site.categories.etc %}
 {% for post in posts %} {% include archive-single.html type=page.entries_layout %} {% endfor %}

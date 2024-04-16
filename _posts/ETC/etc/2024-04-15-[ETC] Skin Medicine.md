@@ -1,8 +1,8 @@
 ---
-title: "[Skin] 약"
+title: "[ETC] Skin Medicine"
 excerpt: "약"
 categories: 
-  - skin
+  - etc
 toc: true
 toc_icon: star
 share: false

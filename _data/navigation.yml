@@ -71,15 +71,9 @@ sidebar-category:
         url: /motor
       - title: "Paper Review"
         url: /paperreview
-      - title: "Video"
-        url: /video
-      - title: "Skin"
-        url: /skin
-      - title: "English"
-        url: /english
       - title: "Civil Law"
         url: /law
-      - title: "Invest"
-        url: /invest
       - title: "Marketing Management"
         url: /marketingmanagement
+      - title: "ETC"
+        url: /etc
