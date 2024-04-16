@@ -47,9 +47,9 @@ Because we are interested only in remainders, we have special notation for them.
 
 >**[DEFINITION 3]** \
 >If $a$ and $b$ are integers and $m$ is a positive integer, then $a$ is congruent to $b$ modulo $m$ if $m$ divides $a-b$. \
->We use the notation $a \equiv b (\text{mod m)}$ to indicate that $a$ is congruent to $b$ modulo $m$. \
->We say that $a \equiv b (\text{mode m})$ is a congruence and that $m$ is its modulus (plural moduli). \
->If $a$ and $b$ are not congruent to modulo $b$, we write $a \not\equiv b (mod m)$.
+>We use the notation $a \equiv b \;(\text{mod m)}$ to indicate that $a$ is congruent to $b$ modulo $m$. \
+>We say that $a \equiv b \;(\text{mod m})$ is a congruence and that $m$ is its modulus (plural moduli). \
+>If $a$ and $b$ are not congruent to modulo $b$, we write $a \not\equiv b \;(\text{mod m})$.
 
 ## 2 Ineger Representations and Algorithms
 
