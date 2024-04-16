@@ -1,5 +1,5 @@
 ---
-title: "Flow of Thinking"
+title: "Flow of Thought"
 layout: archive
 permalink: /flowofthought
 ---
