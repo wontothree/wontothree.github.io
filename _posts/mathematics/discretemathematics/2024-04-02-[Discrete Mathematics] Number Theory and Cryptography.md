@@ -45,7 +45,8 @@ Division of an integer by a positive integer produces quatient and remainder. Wo
 
 Because we are interested only in remainders, we have special notation for them. We have already notation $a$ mode $m$ to represent remainder when integer $a$ is divided by the positive integer $m$. We now introduce a different, but related, notation that indicates that two integers have the same reaminder when they are divided by the positive integer $m$.
 
->[DEFINITION 3] If $a$ and $b$ are integers and $m$ is a positive integer, then $a$ is congruent to $b$ modulo $m$ if $m$ divides $a-b$. \
+>**[DEFINITION 3]** \
+>If $a$ and $b$ are integers and $m$ is a positive integer, then $a$ is congruent to $b$ modulo $m$ if $m$ divides $a-b$. \
 >We use the notation $a \equiv b (\text{mod m)}$ to indicate that $a$ is congruent to $b$ modulo $m$. \
 >We say that $a \equiv b (\text{mode m})$ is a congruence and that $m$ is its modulus (plural moduli). \
 >If $a$ and $b$ are not congruent to modulo $b$, we write $a \not\equiv b (mod m)$.
