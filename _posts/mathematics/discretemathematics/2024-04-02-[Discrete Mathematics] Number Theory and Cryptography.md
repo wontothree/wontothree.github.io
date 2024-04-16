@@ -92,6 +92,13 @@ However, computer usually use binary notation (with 2 as the base) when carrying
 >$n = a_kb^k + a_{k-1}b^{k-1} + \dot + a_1b + a_0$, \
 >where $k$ is a nonnegative integer, $a_0, a_1, \dots a_k$ are nonnegative integers less than $b$, and $a_k \neq 0$.
 
+|Expansion|Base|
+|:---:|:---:|
+|binary expansion|base 2 expansion|
+|octal expansion|base 8 expansion|
+|decimal expansion|base 10 expansion|
+|hexadecimal expansion|base 16 expansion|
+
 ### 2.3 Algorithms for Integer Operations
 
 ## 3 Primes and Greatest Common Divisors
