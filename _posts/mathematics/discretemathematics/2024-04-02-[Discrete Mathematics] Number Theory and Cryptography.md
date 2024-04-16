@@ -17,7 +17,8 @@ Division of an integer by a positive integer produces quatient and remainder. Wo
 >**[DEFINITION 1]** \
 >If $a$ and $b$ are integers with $a \neq 0$, we say that $a$ divides $b$ if thers is an integer $c$ such that $b = ac$ (or equivalently, if $\dfrac{b}{a}$ is an integer). When $a$ divides $b$, we say that a is a *factor* or *divisor* of $b$, and that $b$ is a muliple of $a$. The notation $a|b$ denotes that $a$ devides $b$. We write $a\;\not| \;b$ when $a$ does not divide $b$.
 
->**[THEOREM 1]** Let $a, b$ be integers, where $a \neq 0$, Then \
+>**[THEOREM 1]** \
+>Let $a, b$ be integers, where $a \neq 0$, Then \
 >(i) if $a \;|\; b$ and $a \;|\; c$, then $a \;|\; (b + c)$; \
 >(ii) if $a | b$, then $a \;|\; bc$ for all integers $c$; \
 >(iii) if $a | b$ and $b \;|\; c$, then $a \;|\; c$.
@@ -30,7 +31,15 @@ Division of an integer by a positive integer produces quatient and remainder. Wo
 >**[THEORM 2]** **THE DIVISION ALGORITHM** \
 >Let $a$ be an integer and $d$ a positive integer. Then there are unique integers $q$ and $r$, with $0 \geq r < d$, such that $a = dq + r$.
 
->**[DEFINTION 2]** In the equality in the division algorithm, $d$ is called the divisor, $a$ is called the divident, and, $q$ is called the quotient, and $r$ is called the remainder. The notation is used to express the quotient and remainder: $q = a$ **div** $d$, $r = a$ **mod** $d$
+>**[DEFINTION 2]** \
+>In the equality in the division algorithm,
+>
+>- $d$ is called the divisor,
+>- $a$ is called the dividend,
+>- $q$ is called the quotient,
+>- and $r$ is called the remainder.
+>
+>The notation is used to express the quotient and remainder: $q = a$ **div** $d$, $r = a$ **mod** $d$
 
 ### 1.4 Modular Arithmetic
 
