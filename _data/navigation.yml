@@ -77,7 +77,8 @@ sidebar-category:
         url: /video
       - title: "Skin"
         url: /skin
-      
+      - title: "English"
+        url: /english
       - title: "Civil Law"
         url: /law
       - title: "Invest"

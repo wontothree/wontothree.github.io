@@ -1,8 +1,11 @@
 ---
 title: "[ML] CNN Architecture"
+excerpt:
 categories:
-  - ML
+  - machinelearning
 toc: true
+toc_icon: star
+share: false
 use_math: true
 ---
 ## AlexNet
