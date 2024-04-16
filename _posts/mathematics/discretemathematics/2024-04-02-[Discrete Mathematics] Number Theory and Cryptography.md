@@ -55,6 +55,9 @@ $$
 a \equiv b \;(\text{mod m}) \Leftrightarrow m \;|\; b-a
 $$
 
+>**[THEOREM 3]** \
+>Let $a$ and $b$ be integers, and let $m$ be a positive integer. Then $a \equiv b \;(\text{mod m})$ if and only if $a \;(\text{mod m}) = b \;(\text{mod m})$
+
 ## 2 Ineger Representations and Algorithms
 
 ## 3 Primes and Greatest Common Divisors
