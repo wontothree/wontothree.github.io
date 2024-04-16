@@ -13,7 +13,7 @@
     |- _posts : articles
     |- _sass : minimal-mistakes.scss에 import 할 수 있는 scss 파일들을 모아 둔 폴더이다. minimal-mistakes.scss는 최종적으로 📁_assets/css/main.scss에 import 된다. 블로그와 컴포넌트들을 시각적으로 디자인하는 스타일시트 파일들이다. css와 유사하다.
     |- assets
-    |- img : pictures in article
+    |- img : pictures in articles
     |- _config.yml : 전체적인 설정
     |- .travis.yml
     |- banner.js
@@ -24,7 +24,6 @@
     |- package.json
     |- Rakefile
     |- staticman.yml
-    |- README.md
 
 ## 이해
 
@@ -62,3 +61,7 @@ https://ansohxxn.github.io/blog/jekyll-directory-structure/
 - _pages에서 카테고리 설정 더 편리하게 할 수 있도록 하기
 - category 안에서도 sidebar가 뜨도록 하기
 - category를 눌렀을 때 category page가 나오도록 하기
+
+## 참고할만한 블로그
+
+https://unknownpgr.com/

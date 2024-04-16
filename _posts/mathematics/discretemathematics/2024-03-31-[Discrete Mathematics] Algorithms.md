@@ -212,7 +212,7 @@ Insertion  =   1  2  3  4  5  6  7  8  9
 >**[THEOREM 2]** \
 >Suppose that $f_1(x)$ is $O(g_1(x))$ and taht $f_2(x)$ is $O(g_2(x))$. Then $(f_1(x) + f_2(x))$ is $O(g(x))$, where $g(x) = \text{max}(|g_1(x)|, |g_2(x)|)$ for all $x$.
 
->**[DEFINITION 3]** \
+>**[Corollary 1]** \
 >Suppose that $f_1(x)$ and $f_2(x)$ are both $O(g(x))$. Then $(f_1 + f_2)(x)$ is $O(g(x))$.
 
 >**[THEOREM 3]** \
