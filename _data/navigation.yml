@@ -63,8 +63,8 @@ sidebar-category:
         url: /opt
   - title: "ETC"
     children:
-      - title: "Effector"
-        url: /effector
+      - title: "Guitar and Effector"
+        url: /guitarandeffector
       - title: "Paper Review"
         url: /paperreview
       - title: "Civil Law"

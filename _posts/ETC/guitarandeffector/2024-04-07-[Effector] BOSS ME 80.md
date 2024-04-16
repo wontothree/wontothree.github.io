@@ -2,7 +2,7 @@
 title: "[Effector] BOSS ME-80"
 excerpt: "Manual"
 categories: 
-  - effector
+  - guitarandeffector
 toc: true
 toc_icon: star
 share: false

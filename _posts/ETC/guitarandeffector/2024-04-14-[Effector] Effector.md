@@ -2,7 +2,7 @@
 title: "[Effector] Effector"
 excerpt: ""
 categories: 
-  - effector
+  - guitarandeffector
 toc: true
 toc_icon: star
 share: false
