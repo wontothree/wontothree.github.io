@@ -75,6 +75,25 @@ The set of all integers congruent to an integer $a$ modulo $m$ is called the **c
 
 ## 2 Ineger Representations and Algorithms
 
+Although we commonly use decimal (base 10), representations, binary (base 2), octal (base 8), and hexadecimal (base 16) representations are often used, especially in computer science.
+
+We will introduce an algorithm for finding $a \;\text{div}\; d$ and $a \;\text{mod}\; d$ where $a$ and $d$ are integers with $d > 1$.
+
+We will describe an efficient algorithm for modular exponentiation, which is a particularly important algorithm for cryptography.
+
+### 2.2 Representations of Integers
+
+In the decimal notation, an integer n is written as a sum of the form $a_k10^k + a_{k-1}10^{k-1} + \dots + a_110 + a_0$, where $a_j$ is an integer with $0 \leq a_j \leq 9$ for $j = 0, 1, \dots k$.
+
+However, computer usually use binary notation (with 2 as the base) when carrying out arithmetic, and octal (base 8) or hexadecimal (base 16) notation when expressing characters, such as letters or digits.
+
+>**[THEOREM 1]** base b expansion of n \
+>Let $b$ be an integer greater that 1. Then if $n$ is a positive integer, it can be expressed uniquely in the form
+>$n = a_kb^k + a_{k-1}b^{k-1} + \dot + a_1b + a_0$, \
+>where $k$ is a nonnegative integer, $a_0, a_1, \dots a_k$ are nonnegative integers less than $b$, and $a_k \neq 0$.
+
+### 2.3 Algorithms for Integer Operations
+
 ## 3 Primes and Greatest Common Divisors
 
 ### 3.6 Greatest Common Divisors and Least Common Multiples
