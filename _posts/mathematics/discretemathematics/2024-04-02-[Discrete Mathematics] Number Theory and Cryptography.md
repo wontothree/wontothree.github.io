@@ -29,7 +29,7 @@ Division of an integer by a positive integer produces quatient and remainder. Wo
 ### 1.3 The Division Algorithm
 
 >**[THEORM 2]** **THE DIVISION ALGORITHM** \
->Let $a$ be an integer and $d$ a positive integer. Then there are unique integers $q$ and $r$, with $0 \geq r < d$, such that $a = dq + r$.
+>Let $a$ be an integer and $d$ a positive integer. Then there are unique integers $q$ and $r$, with $0 \leq r < d$, such that $a = dq + r$.
 
 >**[DEFINTION 2]** \
 >In the equality in the division algorithm,
