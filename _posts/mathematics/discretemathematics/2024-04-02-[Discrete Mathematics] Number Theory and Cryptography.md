@@ -58,6 +58,21 @@ $$
 >**[THEOREM 3]** \
 >Let $a$ and $b$ be integers, and let $m$ be a positive integer. Then $a \equiv b \;(\text{mod m})$ if and only if $a \;(\text{mod m}) = b \;(\text{mod m})$
 
+>**[THEOREM 4]** \
+>Let $m$ be a positive integer. The integer $a$ and $b$ are congruent modulo $m$ if and only if there is an integer $k$ such that $a = b + km$.
+
+The set of all integers congruent to an integer $a$ modulo $m$ is called the **congruence class of $a$ modulo $m$**.
+
+>**[THEOREM 5]** \
+>Let $m$ be a positive integer. If $a \equiv b \;(\text{mod m})$ and $c \equiv d \;\text{mod m}$, then \
+>$a + c \equiv b + d \;(\text{mod m})$ and $ac \equiv bd \;\text{mod m}$.
+
+>**[COROLLARY 2]** \
+>Let $m$ be a positive integer and let $a$ and $b$ be integers. Then \
+>$(a + b) \;(\text{mod m}) = ((a \;\text{mod m}) + (b \;\text{mod m})) \;\text{mod m}$ \
+>and \
+>$ab \;\text{mod m} = ((a \;\text{mod m})(b \;\text{mod m})) \text{mod m}$
+
 ## 2 Ineger Representations and Algorithms
 
 ## 3 Primes and Greatest Common Divisors
