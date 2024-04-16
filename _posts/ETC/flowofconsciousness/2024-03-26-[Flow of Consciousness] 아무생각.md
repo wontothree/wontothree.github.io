@@ -1,11 +1,10 @@
 ---
-title: "[Flow of Thinking] 아무 생각"
+title: "[Flow of Consciousness] 아무 생각"
 excerpt:
 categories:
-  - flowofthinking
+  - flowofconsciousness
 toc: true
 toc_label: ""
 toc_icon: star
 use_math: true
 ---
-dsflj
