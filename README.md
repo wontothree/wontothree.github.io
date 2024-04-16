@@ -65,3 +65,5 @@ https://ansohxxn.github.io/blog/jekyll-directory-structure/
 ## 참고할만한 블로그
 
 https://unknownpgr.com/
+
+https://www.blossominkyung.com/
