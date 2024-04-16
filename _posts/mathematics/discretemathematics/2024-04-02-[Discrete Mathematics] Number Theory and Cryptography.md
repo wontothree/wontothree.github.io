@@ -52,7 +52,7 @@ Because we are interested only in remainders, we have special notation for them.
 >If $a$ and $b$ are not congruent to modulo $b$, we write $a \not\equiv b \;(\text{mod m})$.
 
 $$
-a \equiv b \;(\text{mod m}) 
+a \equiv b \;(\text{mod m}) \Leftrightarrow m \;|\; b-a
 $$
 
 ## 2 Ineger Representations and Algorithms
