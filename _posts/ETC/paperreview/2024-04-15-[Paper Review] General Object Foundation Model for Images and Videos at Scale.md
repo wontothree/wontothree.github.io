@@ -19,7 +19,7 @@ use_math: true
 
 - **NLP foundation models** such as BERT, GPT-3, T5 developed with unified input-output paradigms and large-scale pre-trainning, have achieved remarkable generalization capabilities to address nearly all NLP tasks.
 - **Visual foundation models** can only serve specific subdomains, such as CLIP for multi-modal visual model, MAE for visual representations model, SAM for segmetation model.
-- We introduce **a general object visual foundation model - GLEE**, which simultaneously solve a wide range of object-centric tasks while ensuring SOTA performance, including object detection, instance segmentation, grounding, object tracking, interactive segmentation and tracking, etc.
+- We introduce **a general object visual foundation model - GLEE**, which simultaneously solve a wide range of object-centric tasks while ensuring SOTA performance.
 
 ![](./../../../img/paperreview/glee.png)
 
