@@ -58,9 +58,7 @@ sidebar-category:
       - title: "Discrete Mathematics"
         url: /discretemathematics
       - title: "Engineering Mathematics"
-        url: /engineeringmathematics
-      - title: "Probability Theory"
-        url: /probability                     
+        url: /engineeringmathematics                 
       - title: "Convex Optimization"
         url: /opt
   - title: "ETC"
