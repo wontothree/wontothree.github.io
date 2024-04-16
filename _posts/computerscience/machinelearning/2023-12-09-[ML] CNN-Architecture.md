@@ -1,5 +1,5 @@
 ---
-title: "[ML] CNN Architecture"
+title: "[Machine Learning] CNN Architecture"
 excerpt:
 categories:
   - machinelearning
