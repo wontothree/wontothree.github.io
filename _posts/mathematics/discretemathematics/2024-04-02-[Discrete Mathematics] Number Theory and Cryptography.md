@@ -51,6 +51,10 @@ Because we are interested only in remainders, we have special notation for them.
 >We say that $a \equiv b \;(\text{mod m})$ is a congruence and that $m$ is its modulus (plural moduli). \
 >If $a$ and $b$ are not congruent to modulo $b$, we write $a \not\equiv b \;(\text{mod m})$.
 
+$$
+a \equiv b \;(\text{mod m}) 
+$$
+
 ## 2 Ineger Representations and Algorithms
 
 ## 3 Primes and Greatest Common Divisors
