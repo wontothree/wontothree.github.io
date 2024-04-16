@@ -15,9 +15,9 @@ use_math: true
 
 ## 1. Introduction
 
-- Foundation model : an emerging paradigm for building artificial general intelligence (AGI) systems, signifying a model trained on broad data that is capable of being adapted to a wide range of downstream tasks in an general paradigm.
-- 기존 연구 : Despite being widely studied, current visual foundation models are still focusing on establishing correlations between global image features and language descriptions or learning image-level feature representations. However, locating and identifying objects constitute foundational capabilities in computer vi- sion systems, serves as a basis for solving complex or high level vision tasks such as segmentation, scene understand- ing, object tracking, event detection, and activity recogni- tion and support a wide range of applications.
-- GLEE : To address the aforementioned limitation, providing general and accurate object-level information, we introduce a general object vi- sual foundation model, coined as GLEE, which simultane- ously solve a wide range of object-centric tasks while ensur- ing SOTA performance, including object detection, instance segmentation, grounding, object tracking, interactive seg- mentation and tracking, etc., as shown in Figure 1. Through a unified input and output paradigm definition, our model is capable of learning from a wide range of diverse data and predicting general object representations, which masks it to generalize well to new data and tasks in a zero-shot manner and achieve amazing performance. In addition, thanks to the unified paradigm, the training data can be scaled up at low cost by introducing a large amount of automatically la- beled data, and further improve the zero-shot generalization ability of the model.
+>Foundation model : an emerging paradigm for building artificial general intelligence (AGI) systems, signifying a model trained on broad data that is capable of being adapted to a wide range of downstream tasks in an general paradigm.
+
+- NLP
 
 ![](./../../../img/paperreview/glee.png)
 
