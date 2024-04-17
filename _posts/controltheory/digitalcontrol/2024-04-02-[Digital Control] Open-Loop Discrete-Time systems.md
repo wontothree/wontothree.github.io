@@ -48,7 +48,7 @@ $E(z)$와 $E^*(s)$의 관계를 이용해 2장에서 다루었던 z-transform에
 
 ## 3 The Pulse Transfer Function
 
-## 4 Open-Loop Systems Contraining Digital Filters
+## 4 Open-Loop Systems Containing Digital Filters
 
 ## 5 The Modified z-Transform
 
@@ -66,4 +66,4 @@ $E(z)$와 $E^*(s)$의 관계를 이용해 2장에서 다루었던 z-transform에
 
 ## 궁금한 점
 
-- $E(z) = E^*(s) |_{\epsilon^{sT}=z}$ 왜 이런 식으로 표현할까?
+- $E(z) = E^*(s) | _{\epsilon^{sT}=z}$ 왜 이런 식으로 표현할까?
