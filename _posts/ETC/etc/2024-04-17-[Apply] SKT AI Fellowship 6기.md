@@ -94,3 +94,23 @@ https://www.sktaifellowship.com/d48d779c-f591-437b-856d-b018ef539b43
 1. 비가 오는 밤에 촬영된 영상을 찾아줘 (영상 간 검색)
 2. 이 영상에서 주황색 상의를 입은 남성이 지나간 장면을 추적해줘 (영상 내 검색)
 3. 이 영상에서 3:00 ~ 5:00 분 사이에 지나간 사람들의 성비 분포는 어떻게 돼?
+
+## SKT 관제 시스템 사업
+
+엘리오스2 LTE/5G 실시간 관제 시스템(SK텔레콤 T live caster)
+
+{% include video id="ZleQuFKayn4" provider="youtube" %}
+
+[고객사례] 대우건설 : 국내 건설사 최초 드론 관제 시스템 도입
+
+{% include video id="QVFw_8A7FKI" provider="youtube" %}
+
+최근에는 naver cloud platform에서 제공하는 AI 서비스와 지도 API를 활용하고 있다. 지도 API를 활용해 건설 현장 및 주변 정보를 쉽게 볼 수 있는 앱을 개발하였고 Machine Learning 서비스를 통해 드론 영상 분석 시스템을 연구 중에 있다.
+
+DW 드론 관제 시스템은 건설 현장뿐만 아니라 소방, 인명 수색, 화재 감시, 해안 정찰 등 다양한 곳에 확대 적용이 가능하다.
+
+향후에는 AI 이미지 분석 기술을 접목하여 드론이 촬영한 영상에서 중요한 정보를 자동으로 사용자에게 제공할 수 있는 서비스가 될 수 있도록 기술 개발 중에 있다. 예를 들어 건설 현장의 위험 요소, 이상 징후를 드론이 실시간 영상 분석을 통해 자동으로 감지하여 사용자에게 알림을 주거나 이후 조치를 취할 수 이도록 하는 등 여러 방면으로 활용할 수 있을 것이다.
+
+[SK Telecom] KOSECO에서 소개하는 T Live Caster Plan 차세대 영상관제솔루션
+
+{% include video id="nZfkHGXc7qQ" provider="youtube" %}
