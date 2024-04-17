@@ -36,3 +36,13 @@ share: false
 |||Promotion|
 
 - PEST 분석
+
+## 해야 할 것
+
+### 경쟁 분석
+
+- Beebonz의 경쟁사는 누구인가? 경쟁의 범주를 어떻게 잡아야 할까
+
+경쟁사 후보
+
+- 명품 기업 : GUCCI, CHANNEL, ...
