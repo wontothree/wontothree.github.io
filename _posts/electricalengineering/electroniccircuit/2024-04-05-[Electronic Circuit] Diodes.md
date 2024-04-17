@@ -164,6 +164,9 @@ Load line analysis
 DC power supply를 만들 때 diode를 가장 많이 사용한다. Rectifier와 voltage regulator에 diode가 들어간다.
 
 - Transformer : 한국의 전압 국가 표준은 220V이고 미국은 120V이다. transformer는 2개의 inductor의 감은 수 비를 이용해서 승압 또는 감압을 한다. 일반적으로 감압을 한다.
+- Diode Rectifier : 정현파의 AC 입력을 정방향으로 정류한다.
+- Filter : 감쇄폭을 줄인다.
+- Voltage Regulator : 평탄화한다.
 
 A Voltage redulator is a circuit designed to provide a constant dc voltage between its output terminals.
 
