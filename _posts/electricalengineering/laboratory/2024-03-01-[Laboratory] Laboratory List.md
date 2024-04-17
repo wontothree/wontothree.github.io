@@ -15,7 +15,7 @@ use_math: true
 |Unit05|Opamp (1/2)||
 |Unit06|Opamp (2/2)|Characteristics of Practical Operational Amplifier|
 |Unit07|Diode (1/3)|Characteristics of diverse Diodes : PN Juction, Zener, and Schottky Diodes|
-|Unit08|Diode (2/3)|Rectifier|
+|Unit08|Diode (2/3)|Rectifiers : H-W Rectifier, F-W Rectifier, Peak Detector, and Super Diode|
 |Unit09|Diode (3/3)|Voltage Regulator, Limiter Circuit, and Clamping Circuit|
 |Unit09|Mosfet (1/4)||
 |Unit10|Mosfet (2/4)||
