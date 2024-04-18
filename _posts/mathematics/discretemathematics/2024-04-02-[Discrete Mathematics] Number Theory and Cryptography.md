@@ -103,6 +103,31 @@ However, computer usually use binary notation (with 2 as the base) when carrying
 
 ## 3 Primes and Greatest Common Divisors
 
+- will discuss the distribution of primes among the integers.
+- will describe some of the results about primes found by mathematicians.
+- will discuss some of the many old conjectures about primes that remain usettled today.
+- will study the greastest common dividor of two integers, as well as the least common multiple of two integers.
+- will develop an important algorithm for computing greatest common divisors, called the Euclidean algorithm.
+
+Primes have become essential in modern cryptographic systems, and we will develop some of their properties important in crytography.
+
+### 3.2 Primes
+
+>**[DEFINITION 1]** \
+>An integer $p$ greater than 1 is called **prime** if the only positive factors of $p$ are 1 and $p$. \
+>A positive integer that is greater than 1 and is not prime is called **composite**.
+
+>**[DEFINITION 2]** \
+>Every integer greater than 1 can be written uniquely as a prime or as the product of two or more primes, where the prime factors are written in order of nondecreasing size.
+
+The primes are the building blocks of positive integers.
+
+### 3.3 Trial Division
+
+### 3.4 The Sieve of Eratosthenes
+
+### 3.5 Conjectures and Open Problems about Primes
+
 ### 3.6 Greatest Common Divisors and Least Common Multiples
 
 ### 3.7 The Euclidean Algorithm
