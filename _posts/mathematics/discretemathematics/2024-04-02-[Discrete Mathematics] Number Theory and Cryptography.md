@@ -141,7 +141,22 @@ It is often important to show that a given integer is prime. For instance, in cr
 
 ### 3.6 Greatest Common Divisors and Least Common Multiples
 
-The largest integer
+The largest integer that divides both of two integers is called the greatest common divisor of these integers.
+
+>**[DEFINITION 2]** \
+>Let a and b be integers, not both zero. The largest integer d such that $d \; | \; a$ and $d \; | \; b$ is called the greatest common divisor of $a$ and $b$. The greatest divisor of $a$ and $b$ is denoted by gcd(a, b).
+
+>**[DEFINITION 3]** \
+>The integers a and b are **relatively prime** if their greatest common divisor is 1.
+
+>**[DEFINITION 4]** \
+>The integers $a_1, a_2, \dots, a_n$ are **pairwise relatively prime** if gcd$(a_i, a_j) = 1$ whenever $1 \leq i < j \leq n$.
+
+>**[DEFINITION 5]** \
+>The **least common multiple** of the positive integers a and b is the smallest positive integer that is divisible by both a and b. The least common multiple of a and b is denoted by lcm(a, b).
+
+>**[THEOREM 5]** \
+>Let a and b be positive integers. Then $ab = gcd(a, b) \cdot lcm(a, b)$.
 
 ### 3.7 The Euclidean Algorithm
 
