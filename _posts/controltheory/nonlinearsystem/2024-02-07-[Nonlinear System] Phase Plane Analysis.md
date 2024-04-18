@@ -1,6 +1,6 @@
 ---
-title: "[Nonlinear System] Ch02 Phase Plane Analysis"
-excerpt: Jean-Jacques E.Slotine Weiping Li - Applied Nonlinear Control
+title: "[Nonlinear System] Phase Plane Analysis"
+excerpt: "Jean-Jacques E.Slotine Weiping Li - Applied Nonlinear Control : Ch02"
 categories:
   - nonlinearsystem
 toc: true

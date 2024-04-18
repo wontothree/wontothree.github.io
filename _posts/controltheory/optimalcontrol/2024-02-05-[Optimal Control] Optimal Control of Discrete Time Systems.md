@@ -1,6 +1,6 @@
 ---
-title: "[Optimal Control] Ch02 Optimal Control of Discrete Time Systems"
-excerpt: Frank L. Lewis - Optimal Control
+title: "[Optimal Control] Optimal Control of Discrete Time Systems"
+excerpt: "Frank L. Lewis - Optimal Control : Ch02"
 categories:
   - optimalcontrol
 toc: true

@@ -1,6 +1,6 @@
 ---
-title: "[Optimal Control] Ch01 Static Optimization"
-excerpt: Frank L. Lewis - Optimal Control
+title: "[Optimal Control] Static Optimization"
+excerpt: "Frank L. Lewis - Optimal Control : Ch01"
 categories:
   - optimalcontrol
 toc: true

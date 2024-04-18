@@ -1,6 +1,6 @@
 ---
-title: "[Nonlinear System] Ch03 Fundamentals of Lyapunov Theory"
-excerpt: Jean-Jacques E.Slotine Weiping Li - Applied Nonlinear Control
+title: "[Nonlinear System] Fundamentals of Lyapunov Theory"
+excerpt: "Jean-Jacques E.Slotine Weiping Li - Applied Nonlinear Control : Ch03"
 categories:
   - nonlinearsystem
 toc: true

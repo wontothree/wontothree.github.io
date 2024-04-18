@@ -1,6 +1,6 @@
 ---
-title: "[Linear System] Ch04 State-Space Solutions and Realizations"
-excerpt: Chi-Tsong Chen - Linear System Theory and Design
+title: "[Linear System] State-Space Solutions and Realizations"
+excerpt: "Chi-Tsong Chen - Linear System Theory and Design : Ch04"
 categories:
   - linearsystem
 toc: true
