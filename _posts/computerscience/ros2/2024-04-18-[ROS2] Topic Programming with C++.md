@@ -1,5 +1,5 @@
 ---
-title: "[ROS2] Topic Programming using C++"
+title: "[ROS2] Topic Programming with C++"
 excerpt:
 categories: 
   - ros2

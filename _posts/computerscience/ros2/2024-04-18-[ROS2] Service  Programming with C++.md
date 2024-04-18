@@ -1,5 +1,5 @@
 ---
-title: "[ROS2] Service C++"
+title: "[ROS2] Service Programming with C++"
 excerpt:
 categories: 
   - ros2
@@ -8,7 +8,7 @@ toc_icon: star
 share: false
 use_math: true
 ---
-## d
+## 
 
 ```cpp
 #include <memory>

@@ -1,5 +1,5 @@
 ---
-title: "[ROS2] Node"
+title: "[ROS2] Node Programming with C++"
 excerpt:
 categories: 
   - ros2
