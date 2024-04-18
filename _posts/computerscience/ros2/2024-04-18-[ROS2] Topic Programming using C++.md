@@ -12,27 +12,22 @@ use_math: true
 
 ### 5초 동안 로봇이 원동하고 정지하는 예제
 
+![](../../../img/ros2/parking.png)
+
 ```bash
 cbp cpp_topic_pkg
-```
 
-Terminal 1
-
-```bash
+# Terminal 1
 rosfoxy
 
 ros2 launch gcamp_gazebo gcamp_world.launch.py
-```
 
-Terminal 2
-
-```bash
+# Terminal 2
 rosfoxy
 
 ros2 run cpp_topic_pkg cmd_vel_pub_node
-```
 
-```bash
+# Result
 [INFO] [1713391686.567648606] [cmd_vel_pub_node]: 4.999986 Seconds Passed
 [INFO] [1713391686.567660466] [cmd_vel_pub_node]: 4.999998 Seconds Passed
 [INFO] [1713391686.567680108] [cmd_vel_pub_node]: 5.000009 Seconds Passed
@@ -45,31 +40,35 @@ ros2 run cpp_topic_pkg cmd_vel_pub_node
 #include <memory>
 
 // geometry_msgs/msg/twist 형식의 topic message type을 사용하기 위해 include
+// py는 CamelCase로 import하고, cpp는 snake_case로 include한다.
+// include에서는 twist, type을 지정할 때와 코드에서 사용할 때는 Twist로 사용한다.
+// 로봇을 움직이기 위해서는 특정 축으로 몇 m/s 움직일 것인지에 대한 제어 신호를 주어야 한다.
+// 이것은 geometry_msgs 에 있는 twist의 속도와 각속도로 표현할 수 있다.
 #include "geometry_msgs/msg/twist.hpp"
 #include "rclcpp/rclcpp.hpp"
 
 // public 상속어로 rclcpp 안에 있는 node를 상속받는다.
 class TwistPub : public rclcpp::Node {
 private:
-  // topic publisher의 type 선언 : SharedPtr
+  // topic publisher node를 SharedPtr로 선언한다.
   rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr m_pub;
-  // publish를 주기적으로 사용하기 위한 timer 선언
+  // publish를 주기적으로 사용하기 위한 timer 변수를 선언한다.
   rclcpp::TimerBase::SharedPtr m_timer;
-  // topic message - m_twist_msg의 type 선언 : geometry_msgs::msg::Twist
+  // topic message 변수를 geometry_msgs::msg::Twist의 type으로 선언한다.
   geometry_msgs::msg::Twist m_twist_msg;
 
   // 로봇에게 제어 신호를 전달하는 함수
   void timer_callback() { move_robot(); }
 
 public:
-  // 생성사 / Node의 생성자를 호출하면서 node의 이름을 지정한다.
+  // Node의 생성자를 호출하면서 node의 이름을 지정한다.
   TwistPub() : Node("cmd_vel_pub_node") {
     RCLCPP_INFO(get_logger(), "Cmd_vel Pub Node Created");
 
     // create_publisher를 통해 **publish를 생성하는 부분**(핵심)
     // message type template : <geometry_msgs::msg::Twist> / python과 차이
-    // topic의 이름 : skidbot/cmd_vel
-    // 큐 사이즈 : 10
+    // [매개변수 1] topic의 이름 : skidbot/cmd_vel
+    // [매개변수 2] 큐 사이즈 : 10
     m_pub = create_publisher<geometry_msgs::msg::Twist>("skidbot/cmd_vel", 10);
 
     // create_wall_timer를 사용하기 때문에 내부적으로 WallRate가 사용될 것이다.
@@ -91,7 +90,7 @@ public:
   }
 
   // 로봇을 멈추는 함수
-  // 주고 있던 제어 신호를 모두 0으로 하여 publish한다.
+  // 클래스 내부에서 로봇을 움직이는 함수과 멈추는 함수의 차이는 publish하는 message 내부 데이터의 차이일 뿐이고 구조는 동일하다.
   void stop_robot() {
     m_twist_msg.linear.x = 0.0;
     m_twist_msg.angular.z = 0.0;
@@ -134,11 +133,6 @@ int main(int argc, char **argv) {
 }
 ```
 
-- twist 형식의 message type을 사용한다. 로봇을 움직이기 위해서는 특정 축으로 몇 m/s로 움직일 것인지에 대한 제어 신호를 주어야 한다. 그것이 geometry_msgs 안에 있는 twist이다.
-- py는 camel case, cpp는 snake case
-- message type : Twist / include : twist / code : Twist
-- 클래스 내부에서 로봇을 움직이는 함수과 멈추는 함수의 차이는 publish하는 message 내부 데이터의 차이일 뿐이고 구조는 동일하다.
- 
 이렇게 일정 시간동안 Node를 반복 실행하고자 하는 경우 ⇒ Spin을 적극 사용하시기 바랍니다.
 
 ```cpp
