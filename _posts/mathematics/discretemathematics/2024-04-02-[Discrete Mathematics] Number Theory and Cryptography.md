@@ -124,7 +124,18 @@ The primes are the building blocks of positive integers.
 
 ### 3.3 Trial Division
 
+It is often important to show that a given integer is prime. For instance, in cryptology, large primes are used in some methods for making messages secret.
+
+>**[THEOREM 2]** \
+>If n is a composite integer, then n has a prime divisor less than or equal to $\sqrt{n}$.
+
 ### 3.4 The Sieve of Eratosthenes
+
+>**[THEOREM 3]** \
+>There are infinitely many primes.
+
+>**[THEOREM 4]** The Prime Number Theorem \
+>The ratio of $\pi$(x), the number of primes not exceeding $x$, and $x / \ln x$ approaches 1 as $x$ grows without bound.
 
 ### 3.5 Conjectures and Open Problems about Primes
 
