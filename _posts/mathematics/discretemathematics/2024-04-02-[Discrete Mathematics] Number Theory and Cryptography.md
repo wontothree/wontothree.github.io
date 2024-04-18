@@ -141,6 +141,8 @@ It is often important to show that a given integer is prime. For instance, in cr
 
 ### 3.6 Greatest Common Divisors and Least Common Multiples
 
+The largest integer
+
 ### 3.7 The Euclidean Algorithm
 
 >**[LEMMA 1]**
