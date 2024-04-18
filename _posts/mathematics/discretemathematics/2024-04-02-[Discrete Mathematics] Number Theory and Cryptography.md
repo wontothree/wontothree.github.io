@@ -255,6 +255,14 @@ $$
 
 ## 6 Cryptography
 
+- Decryption : the process of determining the original message from the encrypted message
+
+|Cipher|Description|
+|---|---|
+|Caesar's Cipher|$f(p) = (p - 3) \;\text{mod}\; 26$|
+|Shift Cipher|$f(p) = (p + k) \;\text{mod}\; 26$|
+|Affine Cipher|$f(p) = (ap + b) \;\text{mod}\; 26$|
+
 - 정수론이 적용되는 분야 중 하나이다.
 - RSA(Rivest Shamir Adleman) : 만나지 않고도 가능한 암호, 대표적인 공개 키 암호, 인수분해 문제, $f -> f^{-1}$가 어렵도록 one way function
 - 현대 암호는 55년이 되지 않아서 배워야 할 양이 적다.
