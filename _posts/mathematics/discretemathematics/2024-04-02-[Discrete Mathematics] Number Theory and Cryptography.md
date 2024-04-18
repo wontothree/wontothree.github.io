@@ -160,6 +160,10 @@ The largest integer that divides both of two integers is called the greatest com
 
 ### 3.7 The Euclidean Algorithm
 
+최대 공약수를 구하는 가장 효율적인 방법
+
+Computing the greatest common divisor of two integers directly from the prime factorizations of these integers is inefficient and time-consuming. We will give a more efficient method of finding the greatest common divisor, called the Euclidean algorithm.
+
 >**[LEMMA 1]**
 >Let $a = bq + r$, where a, b, q, and r are integers. Then gcd($a, b$) = gcd($b, r$).
 
@@ -167,6 +171,22 @@ The largest integer that divides both of two integers is called the greatest com
 
 >**[BEZOUT'S THEOREM]**
 >If $a$ and $b$ are positive integers, then there exist integers $s$ and $t$ such that gcd(a, b) = sa + tb
+
+>**[DEFINITION 6]** \
+>If $a$ and $b$ are positive integers, then integers $s$ and $t$ such that gac(a, b) = $sa + tb$ are called Bezout coefficients of $a$ and $b$. \
+>Also the equation gcd$(a, b) = sa + tb$ is called Bezout's identity.
+
+There are two different methods that can be used to find a linear combination of two integers equal to their greatestt common divisor. The first method proceeds by working backward through the divisions of the Euclidean algorithm, so this method requires a forward pass and a backward pass through the steps of the Euclidean algorithm. The main advantage of the second method, known as the extended Euclidean algorithm, is that is uses on pass through the steps of the Euclidean algorithm fo find Bezout codfficients of a and b.
+
+Extended Euclidean Algorithm
+
+$$
+s_0 = 1, s_1 = 0, t_0 = 0, t_1 = 1
+\\
+s_j = s_{j-2} - q_{j-1}s_{j-1}, \;\text{and}\; t_j = t_{j-2} - q_{j-1}t_{j-1}
+$$
+
+for $j = 2, 3, \dots, n$, where the $q_j$ are the quotients in the divisions used when the Euclidean algorithm finds gcd(a, b)
 
 ## 4 Solving Congruences
 
