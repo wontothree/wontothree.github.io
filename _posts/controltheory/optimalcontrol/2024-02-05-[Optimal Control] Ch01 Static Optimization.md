@@ -2,7 +2,7 @@
 title: "[Optimal Control] Ch01 Static Optimization"
 excerpt: Frank L. Lewis - Optimal Control
 categories:
-  - OC
+  - optimalcontrol
 toc: true
 use_math: true
 ---

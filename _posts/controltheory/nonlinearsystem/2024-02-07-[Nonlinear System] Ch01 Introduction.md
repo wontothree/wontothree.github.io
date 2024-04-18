@@ -2,7 +2,7 @@
 title: "[Nonlinear System] Ch01 Introduction"
 excerpt: Jean-Jacques E.Slotine Weiping Li - Applied Nonlinear Control
 categories:
-  - NLS
+  - nonlinearsystem
 toc: true
 use_math: true
 ---

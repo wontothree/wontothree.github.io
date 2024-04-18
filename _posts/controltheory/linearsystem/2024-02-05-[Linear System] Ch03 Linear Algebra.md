@@ -2,7 +2,7 @@
 title: "[Linear System] Ch03 Linear Algebra"
 excerpt: Chi-Tsong Chen - Linear System Theory and Design
 categories:
-  - LS
+  - linearsystem
 toc: true
 use_math: true
 ---

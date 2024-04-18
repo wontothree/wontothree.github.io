@@ -2,7 +2,7 @@
 title: "[Optimal Control] Ch02 Optimal Control of Discrete Time Systems"
 excerpt: Frank L. Lewis - Optimal Control
 categories:
-  - OC
+  - optimalcontrol
 toc: true
 use_math: true
 ---
