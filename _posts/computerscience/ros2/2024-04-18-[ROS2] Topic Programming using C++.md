@@ -72,17 +72,17 @@ public:
     m_pub = create_publisher<geometry_msgs::msg::Twist>("skidbot/cmd_vel", 10);
 
     // create_wall_timer를 사용하기 때문에 내부적으로 WallRate가 사용될 것이다.
-    // 100ms의 주기로 timer_callback을 실행한다.
-    // timer_callback이 클래스 내부에 정의된 함수이기 때문에 std::bind를 사용한다.
-    // 매개변수가 없기 때문에 this를 사용한다.
+    // [매개변수 1] 실행 주기 : 100ms의 주기로 timer_callback을 실행한다.
+    // [매개변수 2] 실행 함수 : timer_callback이 클래스 내부에 정의된 함수이기 때문에 std::bind를 사용한다.
+    // [매개변수 3] 매개변수가 없기 때문에 this를 사용한다.
     m_timer = create_wall_timer(std::chrono::milliseconds(100),
                                 std::bind(&TwistPub::timer_callback, this));
   }
 
   // 로봇을 움직이는 함수
   // twist에 해당하는 제어 신호를 준다.
-  // 로봇이 원운동하도록 한다.
   void move_robot() {
+    // 로봇이 원운동하도록 한다.
     m_twist_msg.linear.x = 0.5;
     m_twist_msg.angular.z = 1.0;
     // m_pub을 pointer로 선언했기 때문에 화살표로 publish 함수를 호출하여 publish한다.
@@ -90,8 +90,8 @@ public:
   }
 
   // 로봇을 멈추는 함수
-  // 클래스 내부에서 로봇을 움직이는 함수과 멈추는 함수의 차이는 publish하는 message 내부 데이터의 차이일 뿐이고 구조는 동일하다.
   void stop_robot() {
+    // 클래스 내부에서 로봇을 움직이는 함수과 멈추는 함수의 차이는 publish하는 message 내부 데이터의 차이일 뿐이고 구조는 동일하다.
     m_twist_msg.linear.x = 0.0;
     m_twist_msg.angular.z = 0.0;
     m_pub->publish(m_twist_msg);
@@ -168,9 +168,8 @@ ros2 run cpp_topic_pkg laser_sub_node
 ```cpp
 #include <memory>
 #include "rclcpp/rclcpp.hpp"
-// 헷갈리는 부분
 // python에서는 CamelCase를 사용하여 sensor_msgs/msg/LaseScan와 같이 import한다.
-// C++에서는 snake_case를 사용하여 include하고, 코드에서는 CamelCase를 사용하여 LaserScan과 같이 사용한다.
+// C++에서는 snake_case를 사용하여 include하고, 코드에서는 LaserScan과 같이 CamelCase를 사용한다.
 #include "sensor_msgs/msg/laser_scan.hpp"
 
 // 생산성을 높이기 위한 축약어
@@ -178,17 +177,17 @@ using LaserScan = sensor_msgs::msg::LaserScan;
 
 class LaserSub : public rclcpp::Node {
 private:
-  // subsrciber node를 선언한다.
+  // subsrciber node 변수를 선언한다.
   rclcpp::Subscription<sensor_msgs::msg::LaserScan>::SharedPtr m_sub;
 
 public:
   LaserSub() : Node("topic_sub_oop_node") {
     // create_subscription 함수를 호출하여 subscriber를 생성한다.
-    // 사용하는 message type을 넣어준다.
-    // using을 사용한다면 LaserScan만 쓰면 된다.
-    // 첫 번째 매개변수 : subscribe할 topic 이름
-    // 2번째 : 큐 사이즈
-    // 3번째 : callback 함수 / 내부 함수이기 때문에 
+    // message type : sensor_msgs::msg::LaserScan
+    // 한편 using을 사용한다면 LaserScan만 쓰면 된다.
+    // [매개변수 1] : subscribe할 topic 이름
+    // [매개변수 2] : 큐 사이즈
+    // [매개변수 3] : callback 함수 / 내부 함수이기 때문에 
     // std::placeholders::_1 : 적어도 1개의 매개변수가 필요하다.
     // callback이 실행되면서 subscribe받은 데이터를 다뤄야 한다. msg가 그 데이터이다.
     m_sub = this->create_subscription<sensor_msgs::msg::LaserScan>(
