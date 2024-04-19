@@ -198,6 +198,8 @@ An important application of diodes is in the design of rectifier circuits. A dio
 
 ### 6.1 The Half-Wave Rectifier
 
+The half-wave rectifier uses alternate half-cycles of the input sinusoid.
+
 ### 6.2 The Full-Wave Rectifier
 
 ### 6.3 The Bridge Rectifier
