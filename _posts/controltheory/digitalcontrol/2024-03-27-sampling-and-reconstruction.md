@@ -25,7 +25,9 @@ To provide a basis for thoroughly understanding the operation of digital control
 - Therefore, a data-reconstruction device, called a data hold, is inserted into the system directly following the sampler.
 - Data hold : to reconstruct the simpled signal into a form that closely resembles the signal brefore sampling.
 - Zero-order hold : the simplest data-reconstruction device
-- 샘플러로 표현된 동작은 전달함수로 표현할 수 없다.
+- 샘플러로 표현된 동작은 전달함수로 표현할 수 없지만 holder는 전달함수로 표현될 수 있다.
+
+![](../../../img/digitalcontrol/sampler-holder.png)
 
 <img src="./../../../img/digitalcontrol/zero-order-hold.png">
 
