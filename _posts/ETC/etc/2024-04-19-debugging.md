@@ -30,3 +30,11 @@ sidebar:
 sidebar:
     nav: "sidebar-category"
 ```
+
+## 2. 모든 파일 이름을 영소문자로 통일하기
+
+```2023-11-01-[Date Structure] 자료구조와 알고리즘.md```
+
+파일 이름을 위와 같이 설정하면 페이지의 링크가 다음과 같이 생성된다.
+
+```https://wontothree.github.io/datastructure/Date-Structure-자료구조와-알고리즘/```
