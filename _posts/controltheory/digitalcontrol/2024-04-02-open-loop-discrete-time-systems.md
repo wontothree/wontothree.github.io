@@ -48,7 +48,37 @@ $E(z)$와 $E^*(s)$의 관계를 이용해 2장에서 다루었던 z-transform에
 
 ## 3 The Pulse Transfer Function
 
+In this section, we develop an expression for the z-transform of the output of open-loop sampled-data systems
+
+- Open-loop sampled-data system : sampler + zero-order hold + plant
+
+![](../../../img/digitalcontrol/open-loop-sampled-data-system.png)
+
+- $G_p(s)$ : plant transfer function
+- $\dfrac{1-\epsilon^{-Ts}}{s}$ : zero-holder hold transfer function
+- $G(s)$ : zero-order hold와 plant를 하나의 system으로 볼 때 transfer function
+
+$$
+C(s) = G(s) \cdot E^*(s)
+\\
+C^*(s) = G^*(s) \cdot E^*(s)
+\\
+C^d(z) = G^d(z) \cdot E^d(z)
+$$
+
+(증명 생략)
+
+- $G^d(z)$ : pulse transfer function
+
 ## 4 Open-Loop Systems Containing Digital Filters
+
+System을 계속해서 확장한다.
+
+- Sampled-data system
+- Open-loop sampled-data system
+- Open-loop system
+
+A digital filer that solves a linear difference equation with constant coefficients can be represented by a transfer function $D(z)$, such that $M(z) = D(z)E(z)$
 
 ## 5 The Modified z-Transform
 

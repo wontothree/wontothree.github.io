@@ -14,13 +14,13 @@ use_math: true
 
 To provide a basis for thoroughly understanding the operation of digital control systems, it is necessary to determine the effects of sampling a continuous-time signal.
 
-<img src="./../../../img/digitalcontrol/sampled-data-control-system.png">
+<img src="./../../../img/digitalcontrol/sampled-data-system.png">
 
 이 장에서는 A/D + Digital Computer + D/A를 하나의 시스템으로 본다.
 
 ## 2 Sampled-Data Control Systems
 
-- Sampled-data control system : A/D + Digital Computer + D/A + plant
+- Sampled-data system : A/D + D/A + plant
 - In general, it is undesirable to apply a signal in sampled form, such as a train of narrow rectangular pulses to a plant, because of the high-frequency components inherently present in that signal. - 무슨 의미인지 모르겠다.
 - Therefore, a data-reconstruction device, called a data hold, is inserted into the system directly following the sampler.
 - Data hold : to reconstruct the simpled signal into a form that closely resembles the signal brefore sampling.
