@@ -40,13 +40,136 @@ use_math: true
 ---
 ```
 
-## Reference
+index.html
 
-https://mmistakes.github.io/minimal-mistakes/docs/configuration/
+``html
+---
+layout: home
+author_profile: true
+sidebar:
+    nav: "sidebar-category"
+---
+```
 
-https://jekyllrb.com/docs/themes/
+_layouts/home.html
 
-https://ansohxxn.github.io/blog/jekyll-directory-structure/
+```html
+---
+layout: archive
+---
+
+{{ content }}
+
+<h3 class="archive__subtitle">{{ site.data.ui-text[site.locale].recent_posts | default: "Recent Posts" }}</h3>
+
+{% if paginator %}
+  {% assign posts = paginator.posts %}
+{% else %}
+  {% assign posts = site.posts %}
+{% endif %}
+
+{% assign entries_layout = page.entries_layout | default: 'list' %}
+<div class="entries-{{ entries_layout }}">
+  {% for post in posts %}
+    {% include archive-single.html type=entries_layout %}
+  {% endfor %}
+</div>
+
+{% include paginator.html %}
+```
+
+---
+
+_pages/category-etc.md
+
+```md
+---
+title: "ETC"
+layout: archive
+permalink: /etc
+---
+
+{% assign posts = site.categories.etc %}
+{% for post in posts %} {% include archive-single.html type=page.entries_layout %} {% endfor %}
+```
+
+_layouts/archive
+
+```html
+---
+layout: default
+---
+
+{% if page.header.overlay_color or page.header.overlay_image or page.header.image %}
+  {% include page__hero.html %}
+{% elsif page.header.video.id and page.header.video.provider %}
+  {% include page__hero_video.html %}
+{% endif %}
+
+{% if page.url != "/" and site.breadcrumbs %}
+  {% unless paginator %}
+    {% include breadcrumbs.html %}
+  {% endunless %}
+{% endif %}
+
+<div id="main" role="main">
+  {% include sidebar.html %}
+
+  <div class="archive">
+    {% unless page.header.overlay_color or page.header.overlay_image %}
+      <h1 id="page-title" class="page__title">{{ page.title }}</h1>
+    {% endunless %}
+    {{ content }}
+  </div>
+</div>
+```
+
+_layouts/default
+
+```md
+---
+author: Anthony
+---
+
+<!doctype html>
+
+<html lang="{{ site.locale | slice: 0,2 | default: "en" }}" class="no-js">
+  <head>
+    {% include head.html %}
+    {% include head/custom.html %}
+
+    {% if page.use_math %}
+      {% include mathjax_support.html %}
+    {% endif %}
+  </head>
+
+  <body class="layout--{{ page.layout | default: layout.layout }}{% if page.classes or layout.classes %}{{ page.classes | default: layout.classes | join: ' ' | prepend: ' ' }}{% endif %}">
+    {% include_cached skip-links.html %}
+    {% include_cached masthead.html %}
+
+    <div class="initial-content">
+      {{ content }}
+    </div>
+
+    {% if site.search == true %}
+      <div class="search-content">
+        {% include_cached search/search_form.html %}
+      </div>
+    {% endif %}
+
+    <div id="footer" class="page__footer">
+      <footer>
+        {% include footer/custom.html %}
+        {% include_cached footer.html %}
+      </footer>
+    </div>
+
+    {% include scripts.html %}
+
+  </body>
+</html>
+```
+
 
 ## To do
 
@@ -63,6 +186,12 @@ https://ansohxxn.github.io/blog/jekyll-directory-structure/
 - category를 눌렀을 때 category page가 나오도록 하기
 
 ## 참고할만한 블로그
+
+https://mmistakes.github.io/minimal-mistakes/docs/configuration/
+
+https://jekyllrb.com/docs/themes/
+
+https://ansohxxn.github.io/blog/jekyll-directory-structure/
 
 https://unknownpgr.com/
 
