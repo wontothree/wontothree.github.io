@@ -208,6 +208,16 @@ The half-wave rectifier uses alternate half-cycles of the input sinusoid.
 
 ## 7 Other Diode Applications
 
+### 7.1 The Clamped Capacitor and Bootstrapping
+
+### 7.2 The Voltage Doubler
+
+### 7.3 Varactors
+
+### 7.4 Photodiodes
+
+### 7.5 Light-Emitting Diodes
+
 ## 궁금한 점
 
 - 2.1절에서 thermal voltage 개념이 갑자기 왜 나오는 것일까? $\rightarrow$ diode의 i-v characteristic을 exponential function을 이용해 modeling할 때 열전압이 들어가기 때문이다.
