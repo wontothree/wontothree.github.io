@@ -42,7 +42,7 @@ use_math: true
 
 index.html
 
-``html
+```html
 ---
 layout: home
 author_profile: true
