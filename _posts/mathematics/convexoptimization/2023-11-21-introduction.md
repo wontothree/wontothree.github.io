@@ -2,7 +2,7 @@
 title: "[Convex Optimization] Introduction"
 excerpt: "Stephen Boyd - Convex Optimization : Ch01"
 categories:
-  - optimization
+  - convexoptimization
 toc: true
 toc_icon: star
 share: false

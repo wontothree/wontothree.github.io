@@ -59,7 +59,7 @@ sidebar-category:
         url: /discretemathematics
       - title: "Engineering Mathematics"
         url: /engineeringmathematics                 
-      - title: "Convex Optimization"
+      - title: "Optimization"
         url: /optimization
   - title: "ETC"
     children:
