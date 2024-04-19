@@ -1,5 +1,5 @@
 ---
-title: "[Laboratory] Characteristics of Diverse Diodes : PN Juction, Zener, and Schottky Diodes"
+title: "[Laboratory] Rectifiers : H-W Rectifier, F-W Rectifier, Peak Detector, and Super Diode"
 excerpt: Unit 6
 categories:
   - laboratory
