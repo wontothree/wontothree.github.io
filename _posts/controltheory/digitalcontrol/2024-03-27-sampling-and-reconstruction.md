@@ -14,12 +14,17 @@ use_math: true
 
 To provide a basis for thoroughly understanding the operation of digital control systems, it is necessary to determine the effects of sampling a continuous-time signal.
 
-<img src="./../../../img/digitalcontrol/sampled-data-control-system.png">
+<img src="./../../../img/digitalcontrol/sampled-data-control-system.png">
 
 이 장에서는 A/D + Digital Computer + D/A를 하나의 시스템으로 본다.
 
 ## 2 Sampled-Data Control Systems
 
+- Sampled-data control system : A/D + Digital Computer + D/A + plant
+- In general, it is undesirable to apply a signal in sampled form, such as a train of narrow rectangular pulses to a plant, because of the high-frequency components inherently present in that signal. - 무슨 의미인지 모르겠다.
+- Therefore, a data-reconstruction device, called a data hold, is inserted into the system directly following the sampler.
+- Data hold : to reconstruct the simpled signal into a form that closely resembles the signal brefore sampling.
+- Zero-order hold : the simplest data-reconstruction device
 - 샘플러로 표현된 동작은 전달함수로 표현할 수 없다.
 
 <img src="./../../../img/digitalcontrol/zero-order-hold.png">
@@ -126,7 +131,7 @@ $$
 
 - Plugin effector에서는 AD/DA 변환 과정과 디지털 회로에서의 처리 과정에서 시간이 소요되어 real time이 어렵다. 일반적인 제어에서 이런 문제가 발생할 수 있을까? 빈번할까?
 - Optimal Control이나 MPC을 통한 경로 생성 과정에서 sampling and reconstruction 과정은 어디에 해당할까?
-- 아날로그 회로와 디지털 회로를 구분하는 기준을 AD/DA 과정 여부로 할 수 있을까?
+- 아날로그 회로와 디지털 회로를 구분하는 기준을 AD/DA 과정 여부로 할 수 있을까? O
 - "폭이 좁은 사각형 펄스 열과 같이 샘플링된 모양의 신호는 고주파 성분이 들어있기 때문에 플랜트에 입력하는 것이 바람직하지 않다."(100p)라는 문장의 의미가 무엇일까?
-- A/D + Digital Computer + D/A를 하나의 시스템으로 보는 것일까?
-- A/D + Digital Computer + D/A를 하나의 시스템으로 볼 수 있을까? 신호 처리가 되는 과정은 무시하는 것인가?
+- A/D + Digital Computer + D/A를 하나의 시스템으로 보는 것일까? O
+- A/D + Digital Computer + D/A를 하나의 시스템으로 볼 수 있을까? 신호 처리가 되는 과정은 무시하는 것인가? O
