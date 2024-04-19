@@ -1,8 +1,11 @@
 ---
-title: "[Convex Optimization] Ch02 Convex Sets"
+title: "[Convex Optimization] Convex Sets"
+excerpt: "Stephen Boyd - Convex Optimization : Ch02"
 categories:
-  - OPT
+  - optimization
 toc: true
+toc_icon: star
+share: false
 use_math: true
 ---
 ## 1. Affine and convex set

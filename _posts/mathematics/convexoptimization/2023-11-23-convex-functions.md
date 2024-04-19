@@ -1,8 +1,11 @@
 ---
-title: "[Convex Optimization] Ch03 Convex Functions"
+title: "[Convex Optimization] Convex Functions"
+excerpt: "Stephen Boyd - Convex Optimization : Ch03"
 categories:
-  - OPT
+  - optimization
 toc: true
+toc_icon: star
+share: false
 use_math: true
 ---
 ## 3. The conjugate function

@@ -1,8 +1,11 @@
 ---
-title: "[Convex Optimization] Ch04 Convex Optimization Problem"
+title: "[Convex Optimization] Convex Optimization Problem"
+excerpt: "Stephen Boyd - Convex Optimization : Ch04"
 categories:
-  - OPT
+  - optimization
 toc: true
+toc_icon: star
+share: false
 use_math: true
 ---
 ## 1. Optimization problems

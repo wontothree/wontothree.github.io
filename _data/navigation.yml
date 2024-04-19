@@ -60,7 +60,7 @@ sidebar-category:
       - title: "Engineering Mathematics"
         url: /engineeringmathematics                 
       - title: "Convex Optimization"
-        url: /opt
+        url: /optimization
   - title: "ETC"
     children:
       - title: "Guitar and Effector"
