@@ -2,6 +2,8 @@
 title: "ETC"
 layout: archive
 permalink: /etc
+sidebar:
+    nav: "sidebar-category"
 ---
 
 {% assign posts = site.categories.etc %}
