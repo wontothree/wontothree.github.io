@@ -1,6 +1,6 @@
 ---
-title: "[Basic AI Mathematics] Ch03 System of Linear Equations"
-excerpt: "인공지능을 위한 수학"
+title: "[Basic AI Mathematics] System of Linear Equations"
+excerpt: "인공지능을 위한 수학 : Ch03"
 categories:
   - LinearAlgebra
 toc: true

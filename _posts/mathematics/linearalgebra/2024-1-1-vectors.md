@@ -1,6 +1,6 @@
 ---
-title: "[Basic AI Mathematics] Ch01 Vectors"
-excerpt: "인공지능을 위한 수학"
+title: "[Basic AI Mathematics] Vectors"
+excerpt: "인공지능을 위한 수학 : Ch01"
 categories:
   - LinearAlgebra
 toc: true

@@ -1,6 +1,6 @@
 ---
-title: "[Basic AI Mathematics] Ch02 Matrices"
-excerpt: "인공지능을 위한 수학"
+title: "[Basic AI Mathematics] Matrices"
+excerpt: "인공지능을 위한 수학 : Ch02"
 categories:
   - LinearAlgebra
 toc: true

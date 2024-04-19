@@ -1,6 +1,6 @@
 ---
-title: "[Basic AI Mathematics] Ch04 Eigenvalues and Eigenvectors"
-excerpt: "인공지능을 위한 수학"
+title: "[Basic AI Mathematics] Eigenvalues and Eigenvectors"
+excerpt: "인공지능을 위한 수학 : Ch04"
 categories:
   - LinearAlgebra
 toc: true
