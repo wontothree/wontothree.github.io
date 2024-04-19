@@ -12,7 +12,7 @@ share: false
 
 주장
 
-- 마케팅 제안 1 : [REPOSITIONING(REBRANDING)] make luxury accessible에서 make sense your day로 (센스, 멋 / 합리성)
+- 마케팅 제안 1 : [REPOSITIONING(REBRANDING)] make luxury accessible에서 make sense in your day로 (센스, 멋 / 합리성)
 - 마케팅 제안 2 : application -> 센스, 멋
 - 마케팅 제안 3 : 광고/홍보 -> 센스, 멋
 - 마케팅 제안 4 : offline popup store
@@ -25,7 +25,7 @@ GUCCI, CHANNEL 등의 명품 기업
 
 ## SWOT
 
-- 강점 : 저렴하다. (-> keyword 합리성) / 온라인 /
+- 강점 : 저렴하다. (-> keyword 합리성) / 온라인
 - 단점 : 멋을 강조하지 않는다. (-> keyword 멋 강조 전략) / 질이 낮다. / 오프라인이 없다.
 - 기회 : 성장하고 있는 국내 온라인 MZ 명품 시장
 - 위협 :
@@ -56,10 +56,10 @@ GUCCI, CHANNEL 등의 명품 기업
 
 세분 시장의 조건
 
-1. 세분 시장 간 이질성
-2. 측정 가능성
-3. 시장 규모
-4. 도달 가능성
+1. 세분 시장 간 이질성 v
+2. 측정 가능성 v
+3. 시장 규모 v
+4. 도달 가능성 v
 
 ## STP - Targeting : MZ (10~30)
 
@@ -82,28 +82,12 @@ GUCCI, CHANNEL 등의 명품 기업
 4. 개별 고객 수준 마케팅 전략 : 특정 사용자나 사용자 계층을 목표로 한 포지셔닝 v -> MZ
 5. 경쟁적 포지셔닝 : 경쟁자와 직간접적으로 연계시킴으로써 포지셔닝하는 방법
 
-## STP - Positioning : "Make Sense Your Day" (-> 합리성 + 센스)
+## STP - Positioning : "Make Sense in Your Day" (-> 합리성 + 센스)
 
 ![](./../../../img/marketing/positioningmap.png)
-
-어떻게 그들에게 알리고 자리매김할 것이냐
-
-포지셔닝 과정
-
-1. 타겟 시장 내 경쟁 브랜드 파악
-2. 타겟 시장 내 경쟁 브랜드 및 자사 브랜드 포지션 확인
-3. 포지션 맵 상에서 목표 포지션 결정
-4. 목표 포지션에 적합한 마케팅 믹스 계획 및 실행
-
-재포지셔닝 : 소비자 기호가 변하거나 강력한 경쟁자의 등장으로 기존의 포지션이 경쟁 우위를 상실했거나 시장 매력도가 줄어들었을 때 기업이 원하는 새로운 시장 또는 포지션으로 재구축하는 전략
-
-가격 /  멋 -> 포지셔닝 맵 -> 멋을 강조하는 방향으로 재포지셔닝
-
-- Make Sense Your Day
 
 ## 교수님 feedback
 
 - 실질적인 해결책, 마케팅 실행 방안
 - Benchmarking을 활용할 것
 - 리본즈에게 가장 필요한 부분은 이거고, 리본즈가 실행해야 할 부분은 이겁니다’
-- 3c 분석
