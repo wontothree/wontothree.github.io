@@ -78,7 +78,7 @@ layout: archive
 {% include paginator.html %}
 ```
 
----
+---------
 
 _pages/category-etc.md
 
@@ -170,20 +170,22 @@ author: Anthony
 </html>
 ```
 
-
 ## To do
 
 - main page 그래프 지식 구조 시각화 개발하기
 - 현 위치에 따라 sidebar 반응 개발하기
     ref : https://enidanny.github.io/book%20review/essay-S000000937818/
-- 각 categroy page에서도 side navigation bar 보이도록 설정
-- 각 게시물의 제목에서 ch or 번호 지우기
 - 각 게시물에서 카테고리 눌렀을 때 category page로 이동하도록 설정하기
 - 각 게시물에서 스크롤하면 contents nav bar가 따라가도록
-- contents nav bar 제목 수정
 - _pages에서 카테고리 설정 더 편리하게 할 수 있도록 하기
 - category 안에서도 sidebar가 뜨도록 하기
 - category를 눌렀을 때 category page가 나오도록 하기
+
+노가다성
+
+- 각 게시물의 제목에서 ch or 번호 지우기
+- contents nav bar 제목 수정
+- file name은 다 소문자로 통일
 
 ## 참고할만한 블로그
 
