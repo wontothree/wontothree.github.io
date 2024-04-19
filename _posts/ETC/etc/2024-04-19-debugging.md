@@ -23,3 +23,10 @@ sidebar:
 {% assign posts = site.categories.etc %}
 {% for post in posts %} {% include archive-single.html type=page.entries_layout %} {% endfor %}
 ```
+
+각 category page에 다음 코드를 추가한다.
+
+```md
+sidebar:
+    nav: "sidebar-category"
+```
