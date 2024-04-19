@@ -91,6 +91,8 @@ share: false
 
 ### Positioning : "Make Sense Your Day" -> 합리성 + 센스
 
+![](./../../../img/marketing/positioningmap.png)
+
 어떻게 그들에게 알리고 자리매김할 것이냐
 
 포지셔닝 과정
