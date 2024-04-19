@@ -2,6 +2,8 @@
 title: "Digital Control"
 layout: archive
 permalink: /digitalcontrol
+sidebar:
+    nav: "sidebar-category"
 ---
 
 {% assign posts = site.categories.digitalcontrol %}

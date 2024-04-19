@@ -2,6 +2,8 @@
 title: "Paper Review"
 layout: archive
 permalink: /paperreview
+sidebar:
+    nav: "sidebar-category"
 ---
 
 {% assign posts = site.categories.paperreview %}

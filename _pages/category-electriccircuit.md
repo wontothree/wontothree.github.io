@@ -2,6 +2,8 @@
 title: "Electric Circuit"
 layout: archive
 permalink: /electriccircuit
+sidebar:
+    nav: "sidebar-category"
 ---
 
 {% assign posts = site.categories.electriccircuit %}

@@ -2,6 +2,8 @@
 title: "Law"
 layout: archive
 permalink: /law
+sidebar:
+    nav: "sidebar-category"
 ---
 
 {% assign posts = site.categories.Law %}

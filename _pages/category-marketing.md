@@ -2,6 +2,8 @@
 title: "Marketing"
 layout: archive
 permalink: /marketing
+sidebar:
+    nav: "sidebar-category"
 ---
 
 {% assign posts = site.categories.marketing%}

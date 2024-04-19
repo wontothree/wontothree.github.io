@@ -2,6 +2,8 @@
 title: "Data Structure"
 layout: archive
 permalink: /datastructure
+sidebar:
+    nav: "sidebar-category"
 ---
 
 {% assign posts = site.categories.datastructure %}

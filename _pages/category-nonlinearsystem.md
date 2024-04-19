@@ -2,6 +2,8 @@
 title: "Nonlinear System"
 layout: archive
 permalink: /nonlinearsystem
+sidebar:
+    nav: "sidebar-category"
 ---
 
 {% assign posts = site.categories.nonlinearsystem %}

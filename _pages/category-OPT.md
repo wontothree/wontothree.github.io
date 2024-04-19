@@ -2,6 +2,8 @@
 title: "OPT"
 layout: archive
 permalink: /opt
+sidebar:
+    nav: "sidebar-category"
 ---
 
 {% assign posts = site.categories.OPT %}

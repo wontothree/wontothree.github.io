@@ -2,6 +2,8 @@
 title: "Machine Learning"
 layout: archive
 permalink: /machinelearning
+sidebar:
+    nav: "sidebar-category"
 ---
 
 {% assign posts = site.categories.machinelearning %}

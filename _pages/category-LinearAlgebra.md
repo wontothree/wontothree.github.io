@@ -2,6 +2,8 @@
 title: "Linear Algebra"
 layout: archive
 permalink: /linearalgebra
+sidebar:
+    nav: "sidebar-category"
 ---
 
 {% assign posts = site.categories.LinearAlgebra %}

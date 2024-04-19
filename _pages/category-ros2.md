@@ -2,6 +2,8 @@
 title: "ROS2"
 layout: archive
 permalink: /ros2
+sidebar:
+    nav: "sidebar-category"
 ---
 
 {% assign posts = site.categories.ros2 %}

@@ -2,6 +2,8 @@
 title: "Real Analysis"
 layout: archive
 permalink: /realanalysis
+sidebar:
+    nav: "sidebar-category"
 ---
 
 {% assign posts = site.categories.realanalysis%}

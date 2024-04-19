@@ -2,6 +2,8 @@
 title: "Java"
 layout: archive
 permalink: /java
+sidebar:
+    nav: "sidebar-category"
 ---
 
 {% assign posts = site.categories.java %}

@@ -2,6 +2,8 @@
 title: "LOGIC"
 layout: archive
 permalink: /logic
+sidebar:
+    nav: "sidebar-category"
 ---
 
 {% assign posts = site.categories.LOGIC %}

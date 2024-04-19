@@ -2,6 +2,8 @@
 title: "MP"
 layout: archive
 permalink: /mp
+sidebar:
+    nav: "sidebar-category"
 ---
 
 {% assign posts = site.categories.MP %}

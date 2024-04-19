@@ -2,6 +2,8 @@
 title: "EMF"
 layout: archive
 permalink: /emf
+sidebar:
+    nav: "sidebar-category"
 ---
 
 {% assign posts = site.categories.EMF %}

@@ -2,6 +2,8 @@
 title: "Laboratory"
 layout: archive
 permalink: /laboratory
+sidebar:
+    nav: "sidebar-category"
 ---
 
 {% assign posts = site.categories.laboratory %}

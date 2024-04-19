@@ -2,6 +2,8 @@
 title: "Discrete Mathematics"
 layout: archive
 permalink: /discretemathematics
+sidebar:
+    nav: "sidebar-category"
 ---
 
 {% assign posts = site.categories.discretemathematics%}

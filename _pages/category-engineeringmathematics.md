@@ -2,6 +2,8 @@
 title: "Engineering Mathematics"
 layout: archive
 permalink: /engineeringmathematics
+sidebar:
+    nav: "sidebar-category"
 ---
 
 {% assign posts = site.categories.engineeringmathematics %}

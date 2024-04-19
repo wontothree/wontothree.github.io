@@ -2,6 +2,8 @@
 title: "Electron"
 layout: archive
 permalink: /electron
+sidebar:
+    nav: "sidebar-category"
 ---
 
 {% assign posts = site.categories.Electron %}
