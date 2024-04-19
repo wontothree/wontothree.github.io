@@ -12,7 +12,7 @@ share: false
 
 주장
 
-- 마케팅 제안 1 : [REPOSITIONING(REBRANDING)] make luxury accessible에서 make sense your day로
+- 마케팅 제안 1 : [REPOSITIONING(REBRANDING)] make luxury accessible에서 make sense your day로 (센스, 멋 / 합리성)
 - 마케팅 제안 2 : application -> 센스, 멋
 - 마케팅 제안 3 : 광고/홍보 -> 센스, 멋
 - 마케팅 제안 4 : offline popup store
@@ -28,6 +28,10 @@ share: false
 
 - PEST 분석
 
+## 3C - 경쟁 분석 : 명품 기업
+
+GUCCI, CHANNEL 등의 명품 기업
+
 ## SWOT
 
 - 강점 : 저렴하다. (-> keyword 합리성) / 온라인 /
@@ -40,9 +44,7 @@ share: false
 |Oppertunity(기회)|국내 온라인 MZ 명품 시장 선점 전략 / 합리성 강조 전략|오프라인 진출 전략|
 |Threats(위협)|x|x|
 
-## STP
-
-### Segmentation
+## STP - Segmentation : 세대
 
 기준 변수
 
@@ -68,7 +70,7 @@ share: false
 3. 시장 규모
 4. 도달 가능성
 
-### Targeting : MZ (10~30)
+## STP - Targeting : MZ (10~30)
 
 세분 시장의 평가
 
@@ -89,7 +91,7 @@ share: false
 4. 개별 고객 수준 마케팅 전략 : 특정 사용자나 사용자 계층을 목표로 한 포지셔닝 v -> MZ
 5. 경쟁적 포지셔닝 : 경쟁자와 직간접적으로 연계시킴으로써 포지셔닝하는 방법
 
-### Positioning : "Make Sense Your Day" -> 합리성 + 센스
+## STP - Positioning : "Make Sense Your Day" (-> 합리성 + 센스)
 
 ![](./../../../img/marketing/positioningmap.png)
 
@@ -107,14 +109,6 @@ share: false
 가격 /  멋 -> 포지셔닝 맵 -> 멋을 강조하는 방향으로 재포지셔닝
 
 - Make Sense Your Day
-
-### 경쟁 분석
-
-- Beebonz의 경쟁사는 누구인가? 경쟁의 범주를 어떻게 잡아야 할까
-
-경쟁사 후보
-
-- 명품 기업 : GUCCI, CHANNEL, ...
 
 ## 교수님 feedback
 
