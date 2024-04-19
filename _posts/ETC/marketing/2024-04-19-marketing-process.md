@@ -8,6 +8,15 @@ toc_icon: star
 toc_label: ""
 share: false
 ---
+|3C 분석(or 대외대내환경분석)|STP|Marketing Mix (4P)|
+|:---:|:---:|:---:|
+|Customer|Segmentation|Product|
+|Competitor|Targeting|Price|
+|Company (SWOT, BCG Matrix)|Positioning|Place|
+|||Promotion|
+
+- PEST 분석
+
 ## SWOT 분석
 
 |외부적 환경 요인 \| 내부적 환경 요인|Strength(강점)|Weakness(약점)|

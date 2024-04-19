@@ -19,15 +19,6 @@ share: false
 
 근거 : 실질적인 마케팅 실행 방안의 근거를 여러 마케팅 분석 기법에서 마련하자. (이 비중은 1/3 이하로 제한하자.)
 
-|3C 분석(or 대외대내환경분석)|STP|Marketing Mix (4P)|
-|:---:|:---:|:---:|
-|Customer|Segmentation|Product|
-|Competitor|Targeting|Price|
-|Company (SWOT, BCG Matrix)|Positioning|Place|
-|||Promotion|
-
-- PEST 분석
-
 ## 3C - 경쟁 분석 : 명품 기업
 
 GUCCI, CHANNEL 등의 명품 기업
