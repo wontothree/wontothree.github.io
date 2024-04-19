@@ -1,6 +1,6 @@
 ---
 title: "[Laboratory] Rectifiers : H-W Rectifier, F-W Rectifier, Peak Detector, and Super Diode"
-excerpt: Unit 6
+excerpt: Unit 07
 categories:
   - laboratory
 toc: true

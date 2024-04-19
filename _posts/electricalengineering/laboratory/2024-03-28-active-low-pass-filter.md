@@ -1,6 +1,6 @@
 ---
 title: "[Laboratory] Active Low-pass Filter"
-excerpt: Unit 4
+excerpt: Unit 04
 categories:
   - laboratory
 toc: true

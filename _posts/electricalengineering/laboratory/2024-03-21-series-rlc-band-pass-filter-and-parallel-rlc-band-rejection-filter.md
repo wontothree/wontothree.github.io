@@ -1,6 +1,6 @@
 ---
 title: "[Laboratory] Series RLC Band-pass Filter and Parallel RLC Band-rejection Filter"
-excerpt: Unit 3
+excerpt: Unit 03
 categories:
   - laboratory
 toc: true

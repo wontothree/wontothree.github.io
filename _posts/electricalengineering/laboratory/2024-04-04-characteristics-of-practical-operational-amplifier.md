@@ -1,6 +1,6 @@
 ---
 title: "[Laboratory] Characteristics of Practical Operational Amplifier"
-excerpt: Unit 5
+excerpt: Unit 05
 categories:
   - laboratory
 toc: true
