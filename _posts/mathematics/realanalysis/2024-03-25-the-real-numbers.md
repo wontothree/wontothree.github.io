@@ -103,7 +103,7 @@ We take a closer look at infinite sets and what it means for an infinite set ot 
 >
 >(b) $A$ is **infinite** if $A$ is not finite.
 >
->(c) $A$ is **countable** if $A$ ~ $N$.
+>(c) $A$ is **countable** if $A$ ~ $\mathbb{N}$.
 >
 >(d) $A$ is **uncountable** if $A$ is neither finite nor countable.
 >
