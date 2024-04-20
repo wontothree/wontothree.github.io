@@ -4,6 +4,7 @@ excerpt: "J. David Irwin - Engineering Circuit Analysis : Ch10"
 categories:
   - electriccircuit
 toc: true
+toc_label: ""
 toc_icon: star
 share: false
 use_math: true
