@@ -17,7 +17,7 @@ Our presentation will be considerably more rigorous - emphasizing proofs rather 
 ## 1 Convergent Squences
 
 >**[DEFINITION 3.1.1]** \
->A Sequence $ \{ p_n \}_{n=1}^{\infty} \; \text{in} \; X$ is said to **converge** if there exists a point $p \in X$ such that for every $\epsilon > 0$, there exists a positvie integer $n_0 = n_0(\epsilon)$ such that $p_n \in N_\epsilon (p) \; \text{for all} \; n \geq n_0$. If this is the case, we say that $\{ p_n \}$ converges to $p$.
+>A Sequence $ \{ p_n \}_{n=1}^{\infty}$ in $X$ is said to **converge** if there exists a point $p \in X$ such that for every $\epsilon > 0$, there exists a positvie integer $n_0 = n_0(\epsilon)$ such that $p_n \in N_\epsilon (p)$ for all $n \geq n_0$. If this is the case, we say that $\{ p_n \}$ converges to $p$.
 
 >**[DEFINITION 3.1.3]** \
 > A sequence $\{p_n\}$ in X is said to be **bounded** if there exists $p \in X$ and a positvie constant $M$ such that $d(p, p_n) \leq M$ for all $n \in \mathbb{N}$.
@@ -33,14 +33,14 @@ Our presentation will be considerably more rigorous - emphasizing proofs rather 
 We will emphasize some of the important properties of sequences of real numbers, and also investigate the limites of several basic sequences that are frequently encountered in the analysis.
 
 >**[THEOREM 3.2.1]** \
->If $\{ a_n \} and \{ b_n \}$ are convergent sequences of real numbers with $\lim_{n \rightarrow \infty} a_n= a$ and $\lim_{n \rightarrow \infty} b_n= b$, \
+>If $\{ a_n \}$ and $\{ b_n \}$ are convergent sequences of real numbers with $\lim_{n \rightarrow \infty} a_n= a$ and $\lim_{n \rightarrow \infty} b_n= b$, \
 >then \
 >(a) $\lim_{n \rightarrow \infty} (a_n + b_n) = a + b$, and \
 >(b) $\lim_{n \rightarrow \infty} a_nb_n= ab$. \
 >(c) Futhermore, if $a \neq 0$, and $a_n \neq 0$ for all $n$, then $\lim_{n \rightarrow \infty} \dfrac{b_n}{a_n}= \dfrac{b}{a}$.
 
 >**[COROLLARY 3.2.2]** \
->If $\{ a_n \}$ is a convergent sequennce of real numbers with $\lim_{n \rightarrow \infty} a_n= a$, then for any $c \in \mathbb{R}$, \
+>If $\{ a_n \}$ is a convergent sequence of real numbers with $\lim_{n \rightarrow \infty} a_n= a$, then for any $c \in \mathbb{R}$, \
 >(a) $\lim_{n \rightarrow \infty} (a_n + c)= a + c$, and \
 >(b) $\lim_{n \rightarrow \infty} c\;a_n= c\;a$.
 
@@ -55,7 +55,8 @@ We will emphasize some of the important properties of sequences of real numbers,
 
 ### Some special Sequences
 
->**[THEOREM 3.2.5]** (Binomial Theorem) For $a \in \mathbb{R}$, $n \in \mathbb{N},$ \
+>**[THEOREM 3.2.5]** (Binomial Theorem) \
+>For $a \in \mathbb{R}$, $n \in \mathbb{N},$ \
 >$(1 + a)^n = \sum_{k=0}^n \dots$
 
 >**[THEOREM 3.2.6]** \
