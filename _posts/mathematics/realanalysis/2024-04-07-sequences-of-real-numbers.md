@@ -46,7 +46,25 @@ We will emphasize some of the important properties of sequences of real numbers,
 
 >**[THEOREM 3.2.3]** \
 >Let $\{ a_n \}$ and $\{ b_n \}$ be a sequences of real numbers. If $\{ b_n \}$ is bounded and $\lim_{n \rightarrow \infty} a_n= 0$, then
->$$\lim_{n \rightarrow \infty} a_n b_n= 0$$
+>$\lim_{n \rightarrow \infty} a_n b_n= 0$
+
+>**[THEOREM 3.2.4]** squeeze theorem \
+>Suppose $\{a_n\}$, $\{b_n\}$, and $\{c_n\}$ are sequences of real numbers for which there exists $n_0 \in \mathbb{N}$ such that $a_n \leq b_n \leq c_n$ for all $n \in \mathbb{N}$, $n \geq n_0$, \
+>and that $\lim_{n \rightarrow \infty} a_n= \lim_{n \rightarrow \infty} b_n = L$. \
+>Then the sequence $\{b_n\}$ converges and $\lim_{n \rightarrow \infty} b_n = L$
+
+### Some special Sequences
+
+>**[THEOREM 3.2.5]** (Binomial Theorem) For $a \in \mathbb{R}$, $n \in \mathbb{N},$ \
+>$(1 + a)^n = \sum_{k=0}^n \dots$
+
+>**[THEOREM 3.2.6]** \
+>(a) If $p > 0$, then $\lim_{n \rightarrow \infty} \dfrac{1}{p^n} = 0$. \
+>(b) If $p > 0$, then $\lim_{n \rightarrow \infty} \sqrt[n]{p} = 1$. \
+>(c) $\lim_{n \rightarrow \infty} \sqrt[n]{n} = 1$ \
+>(d) If $p > 1$ and $\alpha$ is real, then $\lim_{n \rightarrow \infty} \dfrac{n^\alpha}{p^n} = 0$. \
+>(e) If $|p| < 1$, then $\lim_{n \rightarrow \infty} p^n = 0$. \
+>(f) For all $p \in \mathbb{R}$, $\lim_{n \rightarrow \infty} \dfrac{p^n}{n!} = 0$.
 
 ## 3 Monotone Sequences
 
