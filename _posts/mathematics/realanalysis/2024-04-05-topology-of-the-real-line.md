@@ -12,7 +12,8 @@ use_math: true
 
 ## 1 Metric Spaces
 
->**[DEFINITION 2.1.1]** For a real number $x$ the absolute value of $x$, denoted $|x|$, is deinfed by $|x|$...
+>**[DEFINITION 2.1.1]** \
+>For a real number $x$ the absolute value of $x$, denoted $|x|$, is deinfed by $|x|$ ...
 
 >**[THEOREM 2.1.2]** \
 >(a) $|-x| = |x|$ for all $x \in \mathbb{R}$. \
@@ -24,7 +25,8 @@ use_math: true
 >**[THEOREM 2.1.3]** (Triangle Inequality) \
 >For all $x, y \in \mathbb{R}$, we have $|x + y| \leq |x| + |y|$.
 
->**[COROLLARY 2.1.4]** For all $x, y, z \in \mathbb{R}$ we have \
+>**[COROLLARY 2.1.4]** \
+>For all $x, y, z \in \mathbb{R}$, we have \
 >(a) $|x - y| \leq |x - z| + |z - y|$, and \
 >(b) $||x| - |y|| \leq |x - y|$.
 
@@ -45,6 +47,8 @@ $$
 >is called a **matic** or **distance function** on $X$. The set $X$ with metric of $d$ is called a **metric space**, and is denoted by $(X, d)$
 
 All of these properties are what we intuitively expect a distance function to satisfy.
+
+수열의 극한의 정의에서 거리 함수가 사용된다.
 
 ## 2 Open and Closed Sets
 
