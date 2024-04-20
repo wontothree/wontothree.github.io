@@ -80,6 +80,8 @@ System을 계속해서 확장한다.
 
 A digital filer that solves a linear difference equation with constant coefficients can be represented by a transfer function $D(z)$, such that $M(z) = D(z)E(z)$
 
+![](../../../img/digitalcontrol/open-loop-system.png)
+
 ## 5 The Modified z-Transform
 
 ## 6 Systems with Time Delays
