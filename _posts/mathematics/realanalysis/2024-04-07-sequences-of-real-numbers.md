@@ -22,6 +22,12 @@ Our presentation will be considerably more rigorous - emphasizing proofs rather 
 >**[DEFINITION 3.1.3]** \
 > A sequence $\{p_n\}$ in X is said to be **bounded** if there exists $p \in X$ and a positvie constant $M$ such that $d(p, p_n) \leq M$ for all $n \in \mathbb{N}$.
 
+>**[THEOREM 3.1.4]** \
+>Let $(X, d)$ be a metric space. \
+>(a) If a sequence $ \{p_n\}$ in $X$ converges, then its limit is unique. \
+>(b) Every convergent sequence in $X$ is bounded. \
+>(c) If $E \subset X$ and $p$ is alimit point of $E$, then there exists a sequence $\{p_n\}$ in $E$ with $p_n \neq p$ for all $n$ such that $\lim_{n \rightarrow \infty} \{p_n\} = p$.
+
 ## 2 Sequences of Real Numbers
 
 ## 3 Monotone Sequences
