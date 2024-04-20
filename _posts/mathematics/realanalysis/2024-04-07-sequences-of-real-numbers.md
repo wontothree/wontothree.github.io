@@ -30,6 +30,24 @@ Our presentation will be considerably more rigorous - emphasizing proofs rather 
 
 ## 2 Sequences of Real Numbers
 
+We will emphasize some of the important properties of sequences of real numbers, and also investigate the limites of several basic sequences that are frequently encountered in the analysis.
+
+>**[THEOREM 3.2.1]** \
+>If $\{ a_n \} and \{ b_n \}$ are convergent sequences of real numbers with $\lim_{n \rightarrow \infty} a_n= a$ and $\lim_{n \rightarrow \infty} b_n= b$, \
+>then \
+>(a) $\lim_{n \rightarrow \infty} (a_n + b_n) = a + b$, and \
+>(b) $\lim_{n \rightarrow \infty} a_nb_n= ab$. \
+>(c) Futhermore, if $a \neq 0$, and $a_n \neq 0$ for all $n$, then $\lim_{n \rightarrow \infty} \dfrac{b_n}{a_n}= \dfrac{b}{a}$.
+
+>**[COROLLARY 3.2.2]** \
+>If $\{ a_n \}$ is a convergent sequennce of real numbers with $\lim_{n \rightarrow \infty} a_n= a$, then for any $c \in \mathbb{R}$, \
+>(a) $\lim_{n \rightarrow \infty} (a_n + c)= a + c$, and \
+>(b) $\lim_{n \rightarrow \infty} c\;a_n= c\;a$.
+
+>**[THEOREM 3.2.3]** \
+>Let $\{ a_n \}$ and $\{ b_n \}$ be a sequences of real numbers. If $\{ b_n \}$ is bounded and $\lim_{n \rightarrow \infty} a_n= 0$, then
+>$$\lim_{n \rightarrow \infty} a_n b_n= 0$$
+
 ## 3 Monotone Sequences
 
 ## 4 Subsequences and the Bolzano- Weierstrass Theorem
