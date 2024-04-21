@@ -175,9 +175,35 @@ Therefore $c_n \rightarrow L$.
 
 ### Some special Sequences
 
+We consider some special sequences of real numbers that occur frequently in the study of analysis.
+
 >**[THEOREM 3.2.5]** (Binomial Theorem) \
 >For $a \in \mathbb{R}$, $n \in \mathbb{N},$ \
->$(1 + a)^n = \sum_{k=0}^n \dots$
+>$(1 + a)^n = \sum_{k=0}^n {n \choose k} a^k = {n \choose 0} + {n \choose 1} a + \dots + {n \choose n} a^n$
+
+**Proof.**
+
+We will use Mathematical induction.
+
+When $n = 1$, ${1 \choose 0} + {1 \choose 1} a = 1 + 1$, which means the given identity is true.
+
+Suppose that the given identity is true, which is ${n \choose 0} + {n \choose 1} a + \dots + {n \choose n} a^n$.
+
+$$
+(1 + a)^{n+1} = (1 + a) (1 + a)^n
+\\
+= (1 + a) \{ {n \choose 0} + {n \choose 1} a + \dots + {n \choose n} a^n \}
+\\
+= \{ {n \choose 0} + {n \choose 1} a + \dots + {n \choose n} a^n \} + \{ {n \choose 0} a + {n \choose 1} a^2 + \dots + {n \choose n} a^{n+1} \}
+\\
+= {n \choose 0} + {n+1 \choose 1} a + \dots + {n+1 \choose n} a^{n+1} + {n \choose n} a^{n+1}
+\\
+= {n+1 \choose 0} + {n+1 \choose 1} a + \dots + {n+1 \choose n} a^{n+1} + {n+1 \choose n+1} a^{n+1}
+$$
+
+, which means the given identity is true when $n = n + 1$.
+
+Therefore, by mathematical induction, the given identity is true.
 
 >**[THEOREM 3.2.6]** \
 >(a) If $p > 0$, then $\lim_{n \rightarrow \infty} \dfrac{1}{p^n} = 0$. \
