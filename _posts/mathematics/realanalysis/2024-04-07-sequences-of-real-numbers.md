@@ -213,7 +213,7 @@ Therefore, by mathematical induction, the given identity is true.
 >(e) If $|p| < 1$, then $\lim_{n \rightarrow \infty} p^n = 0$. \
 >(f) For all $p \in \mathbb{R}$, $\lim_{n \rightarrow \infty} \dfrac{p^n}{n!} = 0$.
 
-**Proof.**
+**Proof (a)**
 
 Let $\epsilon \in \mathbb{R}$ s.t. $\epsilon > 0 $ be given.
 
@@ -222,6 +222,26 @@ By Archimedian property, $\exists n_0$ s.t. $n_0 \epsilon^{1/p} > 1$ or $\epsilo
 If $n \geq n_0$, $\vert \dfrac{1}{n^p} - 0 \vert \leq \vert \dfrac{1}{n_0^p} \vert < \epsilon$.
 
 Therefore, $\dfrac{1}{n^p} \rightarrow 0$
+
+**Proof (b)**
+
+When $p = 1$, $\lim_{n \rightarrow \infty} \sqrt[n]{p} = \lim_{n \rightarrow \infty} 1 = 1$.
+
+When $p < 1$, $\exists q = \dfrac{1}{p}$.
+
+If is suffice to show that $\lim_{n \rightarrow \infty} \sqrt[n]{p} = 1$ for $p > 1$.
+
+Since $p > 1$, $\sqrt[n]{p} > 1$ and $\sqrt[n]{p} = p^{1/n} = 1 + a_n$ for $n \in \mathbb{N}$ and some $a_n > 0$.
+
+$$
+p = (1 + a_n)^n
+= {n \choose 0} + {n \choose 1} a_n + \dots + {n \choose n} a_n^n
+\geq na_n
+$$
+
+Since $0 < a_n < \dfrac{p}{n}$ and $\dfrac{p}{n} \rightarrow 0$, by squeeze theorem, $a_n \rightarrow 0$.
+
+Therefore, $\lim_{n \rightarrow \infty} \sqrt[n]{p} = \lim_{n \rightarrow \infty} (1 + a_n) = 1$.
 
 ## 3 Monotone Sequences
 
