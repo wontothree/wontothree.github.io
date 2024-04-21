@@ -136,9 +136,23 @@ Therefore $\dfrac{1}{a_n} \rightarrow \dfrac{1}{a}$
 >(a) $\lim_{n \rightarrow \infty} (a_n + c)= a + c$, and \
 >(b) $\lim_{n \rightarrow \infty} c\;a_n= c\;a$.
 
+**Proof.** If we define the sequence $c_n$ by $c_n = c$ for all $n \in \mathbb{N}$, then the conclusions follow by (a) and (b) of the previous theorem.
+
 >**[THEOREM 3.2.3]** \
 >Let $\{ a_n \}$ and $\{ b_n \}$ be a sequences of real numbers. If $\{ b_n \}$ is bounded and $\lim_{n \rightarrow \infty} a_n= 0$, then
 >$\lim_{n \rightarrow \infty} a_n b_n= 0$
+
+**Proof.** 
+
+Since $b_n$ is bounded, $\exists M > 0 \; s.t. \; \vert b_n \vert < M \;\forall \; n \in \mathbb{N}$.
+
+Let $\epsilon > 0$ be given.
+
+Since $a_n \rightarrow 0$, $\exists n_0 = n_0(\epsilon) \in \mathbb{N} \; s.t. \; \vert a_n - 0 \vert < \dfrac{\epsilon}{M} \; \forall n \geq n_0$.
+
+Thus, if $n \geq n_0$, $\vert a_nb_n - 0 \vert \leq \vert a_n \vert \vert b_n \vert \leq \dfrac{\epsilon}{M} \cdot M = \epsilon$.
+
+Therefore, $a_nb_n \rightarrow 0$.
 
 >**[THEOREM 3.2.4]** squeeze theorem \
 >Suppose $\{a_n\}$, $\{b_n\}$, and $\{c_n\}$ are sequences of real numbers for which there exists $n_0 \in \mathbb{N}$ such that $a_n \leq b_n \leq c_n$ for all $n \in \mathbb{N}$, $n \geq n_0$, \
