@@ -29,7 +29,7 @@ Our presentation will be considerably more rigorous - emphasizing proofs rather 
 >(b) Every convergent sequence in $X$ is bounded. \
 >(c) If $E \subset X$ and $p$ is a limit point of $E$, then there exists a sequence $\{p_n\}$ in $E$ with $p_n \neq p$ for all $n$ such that $\lim_{n \rightarrow \infty} \{p_n\} = p$.
 
-Proof (a)
+**Proof (a)**
 
 We will prove it using proof by contradiction.
 
@@ -45,7 +45,21 @@ Thus if $n \geq max(n_1, n_2)$, by triangule inequality, $d(p, q) \leq d(p_n, p)
 
 Thereofre, $p = q$ and the sequence $p_n$ converges to unique point.
 
-Proof (b)
+**Proof (b)**
+
+Let $\{p_n\}$ be a convergent sequence in $X$ such that converges to $p \in X$.
+
+Take $\epsilon = 1$.
+
+For this $\epsilon, \exists n_0 \in \mathbb{N} \; s.t. \; d(p_n, p) < \epsilon \; \forall n > n_0$.
+
+Let $M = max(d(p, p_1), d(p, p_2), \dots, d(p, p_{n_0}), 1)$.
+
+Then $d(p, p_n) \leq M \; \forall n \in \mathbb{N}$.
+
+Therefore $p_n$ is bounded.
+
+**Proof (c)**
 
 ## 2 Sequences of Real Numbers
 

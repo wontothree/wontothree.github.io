@@ -30,7 +30,7 @@ use_math: true
 >(a) $|x - y| \leq |x - z| + |z - y|$, and \
 >(b) $||x| - |y|| \leq |x - y|$.
 
-Geometrically, $|x|$ represents the distance from $x$ to the origin 0.
+Geometrically, $\vert x \vert$ represents the distance from $x$ to the origin 0.
 
 More generally for $x, y \in \mathbb{R}$, the **euclidean distance** $d(x, y)$ is defined by
 
