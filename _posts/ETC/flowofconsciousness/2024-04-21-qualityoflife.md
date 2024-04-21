@@ -6,10 +6,9 @@ share: false
 ---
 Because I should live through world regardless of meanings or reasons of life, I strive to improve the quality of my life.
 
-Health.
+The followings are directly related to quality of life.
 
-Food.
-
-Sleep.
-
-Work out.
+- Health.
+- Food.
+- Sleep.
+- Work out.
