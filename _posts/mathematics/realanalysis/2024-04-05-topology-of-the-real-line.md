@@ -8,12 +8,14 @@ toc_icon: star
 share: false
 use_math: true
 ---
-2장에서는 실수에서의 이야기였다면 3장은 그것을 Matric Space로 확장한다.
+1장이 실수에서의 이야기였다면 2장은 그것을 Matric Space로 확장한다.
 
 ## 1 Metric Spaces
 
 >**[DEFINITION 2.1.1]** \
 >For a real number $x$ the absolute value of $x$, denoted $|x|$, is deinfed by $|x|$ ...
+
+From the definition, $\vert x \vert \geq 0$ for all $x \in \mathbb{R}$ and $\vert x \vert = 0$ if and only if $x = 0$.
 
 >**[THEOREM 2.1.2]** \
 >(a) $|-x| = |x|$ for all $x \in \mathbb{R}$. \
