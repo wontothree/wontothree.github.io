@@ -59,8 +59,14 @@ $$
 
 ### Image and Inverse Image
 
+>**[DEFINITION 1.2.3]** \
+>Let $f$ be a function from $A$ into $B$. \
+>If $E \subset A$, then $f(E)$, the image of $E$ under $f$, is defined by $f(E) = \{f(x) : x \in E\}.$ \
+>If $H \subset B$, the inverse image of $H$, denoted $f^{-1}(H)$, is defined by $f^{-1}(H) = \{x \in A : f(x) \in H \}$. \
+>If $H$ contains a single element of $B$, $H = \{y\}$, we will write $f^{-1}(y)$ instead of $f^{-1}\{y\}$. Thus for $y \subset B$, $f^{-1}(y) = \{x \in A : f(x) = y\}$.
+
 >**[THEOREM 1.2.5]** \
->Let f be a function form $A$ into $B$. If $A_1$ and $A_2$ are subsets of $A$, then \
+>Let $f$ be a function form $A$ into $B$. If $A_1$ and $A_2$ are subsets of $A$, then \
 >(a) $f(A_1 \cup A_2) = f(A_1) \cup f(A_2)$ \
 >(b) $f(A_1 \cap A_2) \subset f(A_1) \cap f(A_2)$
 
