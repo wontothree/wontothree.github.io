@@ -48,12 +48,12 @@ $$
 ## 2 Functions
 
 >**[DEFINITION 1.2.1]** \
->Let $A$ and $B$ be any two sets. A function $f$ from $A$ into $B$ is a subset of $A \times B$ with the property \
->that each $x \in A$ is the first component of preciesly one ordered pair $(x, y)$; that is, for every $x \in A$ there exists $y \in B$ such that $(x, y) \in f$, \
->and if $(x, y)$ and $(x, y')$ are elements of $f$, then $y = y'$.\
+>Let $A$ and $B$ be any two sets. \
+>A function $f$ from $A$ into $B$ is a subset of $A \times B$ with the property that each $x \in A$ is the first component of preciesly one ordered pair $(x, y)$; that is, for every $x \in A$ there exists $y \in B$ such that $(x, y) \in f$, \
+>and if $(x, y)$ and $(x, y')$ are elements of $f$, then $y = y'$.
+>
 >The set $A$ is called the **domain** of $f$, denoted Dom $f$. \
->The **range** of $f$, denoted Range $f$, is defined by  \
->$\text{Range} f = \{y \in B : (x, y) \in f \;\text{for some}\; x \in A\}$
+>The **range** of $f$, denoted Range $f$, is defined by $\text{Range} f = \{y \in B : (x, y) \in f \;\text{for some}\; x \in A\}$.
 
 >If Range $f = B$, then the function $f$ is said to be **onto** $B$
 
