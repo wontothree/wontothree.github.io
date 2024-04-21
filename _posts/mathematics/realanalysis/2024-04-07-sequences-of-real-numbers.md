@@ -18,6 +18,8 @@ Our presentation will be considerably more rigorous - emphasizing proofs rather 
 
 >**[DEFINITION 3.1.1]** \
 >A Sequence $ \{p_n \}$  in $X$ is said to **converge** if there exists a point $p \in X$ such that for every $\epsilon > 0$, there exists a positvie integer $n_0 = n_0(\epsilon)$ such that $p_n \in N_\epsilon (p)$ for all $n \geq n_0$. If this is the case, we say that $\{ p_n \}$ converges to $p$. \
+>In this is the case, we say that $p_n$ converges to $p$, or that $p$  is the limist of the sequence $p_n$, and we write $\lim_{n \rightarrow \infty} p_n = p$ or $p_n \rightarrow p$. \
+>If $p_n$ does not converge, then $p_n$ is said to diverge. \
 >In the definition, the statement $p_n \in N_{\epsilon}(p)$ for all $n \geq n_0$ is equivalent to $d(p_n, p) < \epsilon$ for all $n \geq n_0$.
 
 >**[DEFINITION 3.1.3]** \
