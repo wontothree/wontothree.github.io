@@ -4,7 +4,7 @@ categories:
   - flowofconsciousness
 share: false
 ---
-Because I should live through world regardless of meanings or reasons of life, I strive to improve the quality of my life.
+Because I should live through world regardless of meanings of life, I strive to improve the quality of my life.
 
 The followings are directly related to quality of life.
 

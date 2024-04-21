@@ -10,6 +10,19 @@ use_math: true
 ---
 ## 1 Sets and Operations on Sets
 
+>**[THEOREM 1.1.1]** \
+>If $A, B$ and $C$ are sets, then \
+>(a) $A \cap (B \cup C) = (A \cap B) \cup (A \cap C)$, \
+>(b) $A \cup (B \cap C) = (A \cup B) \cap (A \cup C)$, \
+>(c) $C \setminus (A \cup B) = (C \setminus A) \cup (C \setminus B)$, \
+>(d) $C \setminus (A \cap B) = (C \setminus A) \cap (C \setminus B)$.
+
+If $A$ and $B$ are two sets, the**Cartesian product** of $A$ and $B$, denoted $A \times B$, is defined as the set of all ordered pairs $(a, b)$, where the first component $a$ is from $A$ and the second component $b$ is from $B$.
+
+$$
+A \times B = \{(a, b) : a \in A, b \in B \}
+$$
+
 ## 2 Functions
 
 >**[DEFINITION 1.2.1]** \
