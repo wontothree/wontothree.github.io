@@ -74,6 +74,16 @@ We will emphasize some of the important properties of sequences of real numbers,
 >(b) $\lim_{n \rightarrow \infty} a_nb_n= ab$. \
 >(c) Futhermore, if $a \neq 0$, and $a_n \neq 0$ for all $n$, then $\lim_{n \rightarrow \infty} \dfrac{b_n}{a_n}= \dfrac{b}{a}$.
 
+**Proof (a)**
+
+Since $a_n \rightarrow a$ and $b_n \rightarrow b$, $\forall \epsilon_1 \; \exists n_1 \; s.t. \; \vert a_n - a \vert < \epsilon_1 \; \forall n \geq n_1$ and $\forall \epsilon_2 \; \exists n_2 \; s.t. \; \vert b_n - b \vert < \epsilon_2 \; \forall n \geq n_2$.
+
+Take $\epsilon = \epsilon_1 + \epsilon_2$ and $n_0 = max(n_1, n_2)$.
+
+if $n \geq n_0$, using triangle inequality, $\vert (a_n + b_n) - (a + b) \vert \leq \vert a_n - a \vert + \vert b_n - b \vert \leq \epsilon_1 + \epsilon_2 = \epsilon$.
+
+Therefore, $(a_n + b_n) \rightarrow (a+b)$.
+
 >**[COROLLARY 3.2.2]** \
 >If $\{ a_n \}$ is a convergent sequence of real numbers with $\lim_{n \rightarrow \infty} a_n= a$, then for any $c \in \mathbb{R}$, \
 >(a) $\lim_{n \rightarrow \infty} (a_n + c)= a + c$, and \
