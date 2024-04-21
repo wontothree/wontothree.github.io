@@ -117,7 +117,7 @@ We take a closer look at infinite sets and what it means for an infinite set ot 
 >**[DEFINITION 1.7.5]**
 >If $A$ is a set, by a **sequence** in $A$ we mean a function $f$ from $\mathbb{N}$ into $A$. For each $n \in \mathbb{N}$, let $x_n = f(n)$. Then $x_n$ is called the $n$th term of the sequence $f$
 
-- 고등학교 수학에서와 달리 함수를 통해 수열을 정의한다.
+- 고등학교 수학에서와 달리, 수열은 정의역이 자연수인 함수이다.
 
 >**[THEOREM 1.7.6]**
 >Every infinite subset of a countable set is countable
