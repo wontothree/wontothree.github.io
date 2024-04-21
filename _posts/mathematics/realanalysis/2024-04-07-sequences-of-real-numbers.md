@@ -29,6 +29,8 @@ Our presentation will be considerably more rigorous - emphasizing proofs rather 
 >(b) Every convergent sequence in $X$ is bounded. \
 >(c) If $E \subset X$ and $p$ is a limit point of $E$, then there exists a sequence $\{p_n\}$ in $E$ with $p_n \neq p$ for all $n$ such that $\lim_{n \rightarrow \infty} \{p_n\} = p$.
 
+Proof (a)
+
 We will prove it using proof by contradiction.
 
 Suppose that the sequence $p_n$ converges to two distinct points $p, q \in X$.
@@ -39,15 +41,13 @@ Since $p_n \rightarrow p$, $\exists n_1 \in \mathbb{N}$ s.t. $|p_n - p| < \epsil
 
 Also, since $p_n \rightarrow p$, $\exists n_2 \in \mathbb{N}$ s.t. $|p_n - q| < \epsilon \; \forall n \geq n_2.$
 
-Thus if $n \geq max(n_1, n_2)$, by triangule inequality,
-
-$$
-d(p, q) \leq d(p_n, p) + d(p_n, q) < 2 \epsilon = \dfrac{2}{3} d(p, q)
-$$
+Thus if $n \geq max(n_1, n_2)$, by triangule inequality, $d(p, q) \leq d(p_n, p) + d(p_n, q) < 2 \epsilon = \dfrac{2}{3} d(p, q)$
 
 which is a contradiction.
 
 Thereofre, $p = q$ and the sequence $p_n$ converges to unique point.
+
+Proof (b)
 
 ## 2 Sequences of Real Numbers
 
