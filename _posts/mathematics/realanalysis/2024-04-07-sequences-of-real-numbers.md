@@ -35,7 +35,7 @@ We will prove it using proof by contradiction.
 
 Suppose that the sequence $p_n$ converges to two distinct points $p, q \in X$.
 
-Let $\epsilon = \dfrac{1}{3} d(p, q) = \dfrac{1}{3} |p - q|$.
+Let $\epsilon = \dfrac{1}{3} d(p, q)$.
 
 Since $p_n \rightarrow p$, $\exists n_1 \in \mathbb{N}$ s.t. $|p_n - p| < \epsilon$ $\forall n \geq n_1.$
 
