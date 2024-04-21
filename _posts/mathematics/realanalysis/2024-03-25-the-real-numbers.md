@@ -73,7 +73,7 @@ $$
 >**[THEOREM 1.2.6]** \
 >Let f be a function form $A$ into $B$. If $B_1$ and $B_2$ are subsets of $B$, then \
 >(a) $f^{-1}(B_1 \cup B_2) = f^{-1}(B_1) \cup f^{-1}(B_2)$, \
->(b) $f^{-1}(B_1 \cap B_2) \subset f^{-1}(B_1) \cap f^{-1}(B_2)$, \
+>(b) $f^{-1}(B_1 \cap B_2) = f^{-1}(B_1) \cap f^{-1}(B_2)$, \
 >(c) $f^{-1}(B \setminus B_1) = A \setminus f^{-1}(B_1)$.
 
 ### Inverse Function
