@@ -27,7 +27,7 @@ Our presentation will be considerably more rigorous - emphasizing proofs rather 
 >Let $(X, d)$ be a metric space. \
 >(a) If a sequence $ \{p_n\}$ in $X$ converges, then its limit is unique. \
 >(b) Every convergent sequence in $X$ is bounded. \
->(c) If $E \subset X$ and $p$ is alimit point of $E$, then there exists a sequence $\{p_n\}$ in $E$ with $p_n \neq p$ for all $n$ such that $\lim_{n \rightarrow \infty} \{p_n\} = p$.
+>(c) If $E \subset X$ and $p$ is a limit point of $E$, then there exists a sequence $\{p_n\}$ in $E$ with $p_n \neq p$ for all $n$ such that $\lim_{n \rightarrow \infty} \{p_n\} = p$.
 
 ## 2 Sequences of Real Numbers
 
