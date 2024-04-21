@@ -159,6 +159,20 @@ Therefore, $a_nb_n \rightarrow 0$.
 >and that $\lim_{n \rightarrow \infty} a_n= \lim_{n \rightarrow \infty} b_n = L$. \
 >Then the sequence $\{b_n\}$ converges and $\lim_{n \rightarrow \infty} b_n = L$
 
+Let $\epsilon > 0$ be given.
+
+Since $a_n \rightarrow L$ and $b_n \rightarrow L$,
+
+$\exists n_1 \in \mathbb{N} \; s.t. \; \vert a_n - L \vert < \epsilon \; \forall n \geq n_1$ and $\exists n_2 \in \mathbb{N} \; s.t. \; \vert c_n - L \vert < \epsilon \; \forall n \geq n_2$
+
+Thus, $L - \epsilon < a_n < L + \epsilon$ and $L - \epsilon < c_n < L + \epsilon$.
+
+Take $n_0 = max(n_1, n_2)$.
+
+Since $L - \epsilon < a_n \leq b_n \leq c_n < L + \epsilon \; \forall n \geq n_0$, $\vert b_n - L \vert < \epsilon \; \forall n \geq n_0$.
+
+Therefore $c_n \rightarrow L$.
+
 ### Some special Sequences
 
 >**[THEOREM 3.2.5]** (Binomial Theorem) \
