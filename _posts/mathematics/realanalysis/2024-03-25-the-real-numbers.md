@@ -47,12 +47,13 @@ Mathematical induction is very useful tool in establishing that such a identity 
 Both the rational numbers $\mathbb{Q}$ and real numbers $\mathbb{R}$ are algebraic systems known as *fields*.
 
 >A Field is a set $\mathbb{F}$ with two perations, addition and multiplication, which satisfy the following axioms:
+>
 >1. If $a, b \in F$, then $a + b \in F$ and $a \cdot b \in \mathbb{F}$.
 >2. For all $a, b\in F$, then $a + b = b + a, a \cdot b = b \cdot a$.
 >3. For all $a, b, c \in F$, then $a + (b + c) = (a + b) + c, a \cdot (b \cdot c) = (a \cdot b) \cdot c$
 >4. There exists an element $0 \in F$ such that $a + 0 = a$ for all $a \in F$.
->5. 
->6. 
+>5.
+>6.
 >7.
 >8.
 
