@@ -24,7 +24,7 @@ $$
 A \cap B = \{x : x \in A \; \text{and} \; x \in B \}
 $$
 
-The two sets $A$ and $B$ are disjoint if $A \cap B = \empty$.
+The two sets $A$ and $B$ are disjoint if $A \cap B = \emptyset$.
 
 The relative complement $B \setminus A$, is the set of all elements which are in $B$ but not in $A$.
 
