@@ -90,13 +90,26 @@ Since $a_n \rightarrow a$, by theorem 3.1.4 (b), $a_n$ is bounded.
 
 Thus $\exists M >0 \; s.t. \; \vert a_n \vert \leq M \; \forall \; n \in \mathbb{N}$.
 
-Since $a_n \rightarrow a$ and $b_n \rightarrow b$, $\forall \epsilon_1 \; \exists n_1 \; s.t. \; \vert a_n - a \vert < \epsilon_1 \; \forall n \geq n_1$ and $\forall \epsilon_2 \; \exists n_2 \; s.t. \; \vert b_n - b \vert < \epsilon_2 \; \forall n \geq n_2$.
+Since $a_n \rightarrow a$ and $b_n \rightarrow b$, 
+
+$\forall \epsilon_1 \; \exists n_1 \; s.t. \; \vert a_n - a \vert < \epsilon_1 \; \forall n \geq n_1$ and $\forall \epsilon_2 \; \exists n_2 \; s.t. \; \vert b_n - b \vert < \epsilon_2 \; \forall n \geq n_2$.
 
 Take $\epsilon = M \epsilon_1 + \vert b \vert \epsilon_2$ and $n_0 = max(n_1, n_2)$.
 
 If $n \geq n_0$,
 
-$\vert a_nb_n - ab \vert = \vert a_n (b_n - b) + b (a_n - a) \vert \leq \vert a_n (b_n - b) \vert + \vert b (a_n - a) \vert = \vert a_n \vert \cdot \vert (b_n - b) \vert + \vert b \vert \cdot \vert (a_n - a) \vert \leq M \cdot \vert (b_n - b) \vert + \vert b \vert \cdot \vert (a_n - a) \vert = M \epsilon_1 + \vert b \vert \epsilon_2 = \epsilon$
+$$
+\vert a_nb_n - ab \vert = \vert a_n (b_n - b) + b (a_n - a) \vert
+\\
+\leq \vert a_n (b_n - b) \vert + \vert b (a_n - a) \vert
+\\
+= \vert a_n \vert \cdot \vert (b_n - b) \vert + \vert b \vert \cdot \vert (a_n - a) \vert
+\\
+\leq M \cdot \vert (b_n - b) \vert + \vert b \vert \cdot \vert (a_n - a) \vert \\
+= M \epsilon_1 + \vert b \vert \epsilon_2
+\\
+= \epsilon
+$$
 
 Therefore $a_nb_n \rightarrow ab$
 
