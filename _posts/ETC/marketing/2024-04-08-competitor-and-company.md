@@ -1,6 +1,6 @@
 ---
-title: "[Marketing] Week06"
-excerpt: Marketing Mangement
+title: "[Marketing] Competitor and Company"
+excerpt: Marketing Mangement - Week 06
 categories:
   - marketing
 toc: true
@@ -8,19 +8,6 @@ toc_icon: star
 toc_label: ""
 share: false
 ---
-## 1 경쟁이란 무엇인가
-
-POP(point of parity)를 확보한 후 과연 우리의
-
-3C 분석 중 경쟁 분석을 살펴본다.
-
-경쟁 분석의 목적
-
-- 시장이 요구하는 핵심 성공 요인을 도출한다.
-- 경쟁사와 자사의 자원 및 역량, 전략을 비교 분석한다.
-
-## 2. 경쟁사 분석
-
 ## 수업 메모
 
 6, 7장은 가볍게 다룰 것이다.
@@ -43,7 +30,7 @@ GM, 제약 회사, 현대 제출과 포스코
 
 마케팅이 어려워지는 이유 : 장치적 도구들, MZ면 이렇게 할 거라
 
-## 자사 분석
+### 자사 분석
 
 - SOWT 분석을 통해 (BCG matrix) 위치에 따라 자사 분석이 달라질 수 있다. 그것에 따라 전략이 달라진다.
 - BCG matrix와 SWOT 분석이 중요하다.
@@ -60,6 +47,11 @@ GM, 제약 회사, 현대 제출과 포스코
 - 경험적 positioning : 경험 마케팅
 
 ## 6 경쟁 분석
+
+경쟁 분석의 목적
+
+- 시장이 요구하는 핵심 성공 요인을 도출한다.
+- 경쟁사와 자사의 자원 및 역량, 전략을 비교 분석한다.
 
 |경쟁의 기준|내용|
 |---|---|
