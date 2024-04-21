@@ -239,9 +239,27 @@ p = (1 + a_n)^n
 \geq na_n
 $$
 
-Since $0 < a_n < \dfrac{p}{n}$ and $\dfrac{p}{n} \rightarrow 0$, by squeeze theorem, $a_n \rightarrow 0$.
+Since $0 < a_n < \dfrac{p}{n}$ for all $n \in \mathbb{N}$ and $\dfrac{p}{n} \rightarrow 0$, by squeeze theorem, $a_n \rightarrow 0$.
 
 Therefore, $\lim_{n \rightarrow \infty} \sqrt[n]{p} = \lim_{n \rightarrow \infty} (1 + a_n) = 1$.
+
+**Proof (c)**
+
+Let $x_n = \sqrt[n]{n} - 1 > 0$ for $n \in \mathbb{N}$.
+
+By the binomial theorem,
+
+$$
+n = (x_n + 1)^n
+= 1 + nx_n + \dfrac{n(n-1)}{2}x_n^2 + \dots + x_n^n
+\geq \dfrac{n(n-1)}{2}x_n^2
+$$
+
+for all $n \geq 2$.
+
+Since $0 < x_n < \sqrt{\dfrac{2}{n-1}}$ for all $n \geq 2$ and $\lim_{n \rightarrow \infty} \sqrt{\dfrac{2}{n-1}} = 0$, by squeeze theorem, $x_n \rightarrow 0$.
+
+Therefore, $\lim_{n \rightarrow \infty} \sqrt[n]{n} = \lim_{n \rightarrow \infty} (1 + x_n) = 1$.
 
 ## 3 Monotone Sequences
 
