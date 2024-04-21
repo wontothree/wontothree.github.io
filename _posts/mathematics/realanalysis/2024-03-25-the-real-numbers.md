@@ -92,13 +92,17 @@ Both the rational numbers $\mathbb{Q}$ and real numbers $\mathbb{R}$ are algebra
 >A subset $E$ of $\mathbb{R}$ is **bounded above** if there exists $\beta \in \mathbb{R}$ such that $x \leq \beta$ for every $x \in E$. \
 > Such a $\beta$ is called an upper bound of $E$.
 
-### Least Upper Bound od a Set
+### Least Upper Bound of a Set
 
 >**[DEFINITION 1.4.3]** \
 >Let $E$ be a nonempty subset of $\mathbb{R}$ that is bounded above. \
 > An element of $\alpha \in \mathbb{R}$ is called the **least upper bound** of **supremum** of $E$ if \
 >(i) $\alpha$ is an upper bound of $E$, and \
 >(ii) if $\beta \in \mathbb{R}$ satisfies $\beta < \alpha$, then $\beta$ is not an upper bound of $E$.
+
+>**[THEOREM 1.4.4]** \
+>Let $A$ be a nonempty subset of $\mathbb{R}$ that is bounded above. \
+>An upper bound $\alpha$ of $A$ is the supremum of $A$ if and only if for every $\beta < \alpha$, there exists an element $x \in A$ such that $\beta < x \leq \alpha$.
 
 ### Least Upper Bound Property of $\mathbb{R}$
 
@@ -116,6 +120,9 @@ We look at a number of elementary properties of real numbers which in more eleme
 
 >**[THEOREM 1.5.3]** \
 >For every real number $x > 0$ and every positive integer $n$, there exists a unique positive real number $y$ so that $y^n = x$.
+
+>**[COROLLARY 1.5.4]** \
+>If $a, b$ are positive real numbers and $n$ is a positive integer, then $(ab)^{1/n} = a^{1/n} b^{1/n}$
 
 ## 7 Countable and Uncountable Sets
 
