@@ -206,12 +206,22 @@ $$
 Therefore, by mathematical induction, the given identity is true.
 
 >**[THEOREM 3.2.6]** \
->(a) If $p > 0$, then $\lim_{n \rightarrow \infty} \dfrac{1}{p^n} = 0$. \
+>(a) If $p > 0$, then $\lim_{n \rightarrow \infty} \dfrac{1}{n^p} = 0$. \
 >(b) If $p > 0$, then $\lim_{n \rightarrow \infty} \sqrt[n]{p} = 1$. \
 >(c) $\lim_{n \rightarrow \infty} \sqrt[n]{n} = 1$ \
 >(d) If $p > 1$ and $\alpha$ is real, then $\lim_{n \rightarrow \infty} \dfrac{n^\alpha}{p^n} = 0$. \
 >(e) If $|p| < 1$, then $\lim_{n \rightarrow \infty} p^n = 0$. \
 >(f) For all $p \in \mathbb{R}$, $\lim_{n \rightarrow \infty} \dfrac{p^n}{n!} = 0$.
+
+**Proof.**
+
+Let $\epsilon \in \mathbb{R}$ s.t. $\epsilon > 0 $ be given.
+
+By Archimedian property, $\exists n_0$ s.t. $n_0 \epsilon^{1/p} > 1$ or $\epsilon > \dfrac{1}{n_0^p}$.
+
+If $n \geq n_0$, $\vert \dfrac{1}{n^p} - 0 \vert \leq \vert \dfrac{1}{n_0^p} \vert < \epsilon$.
+
+Therefore, $\dfrac{1}{n^p} \rightarrow 0$
 
 ## 3 Monotone Sequences
 
