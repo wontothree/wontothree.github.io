@@ -17,7 +17,7 @@ use_math: true
 >(c) $C \setminus (A \cup B) = (C \setminus A) \cup (C \setminus B)$, \
 >(d) $C \setminus (A \cap B) = (C \setminus A) \cap (C \setminus B)$.
 
-If $A$ and $B$ are two sets, the**Cartesian product** of $A$ and $B$, denoted $A \times B$, is defined as the set of all ordered pairs $(a, b)$, where the first component $a$ is from $A$ and the second component $b$ is from $B$.
+If $A$ and $B$ are two sets, the **Cartesian product** of $A$ and $B$, denoted $A \times B$, is defined as the set of all ordered pairs $(a, b)$, where the first component $a$ is from $A$ and the second component $b$ is from $B$.
 
 $$
 A \times B = \{(a, b) : a \in A, b \in B \}
@@ -36,6 +36,17 @@ $$
 >If Range $f = B$, then the function $f$ is said to be **onto** $B$
 
 ### Image and Inverse Image
+
+>**[THEOREM 1.2.5]** \
+>Let f be a function form $A$ into $B$. If $A_1$ and $A_2$ are subsets of $A$, then \
+>(a) $f(A_1 \cup A_2) = f(A_1) \cup f(A_2)$ \
+>(b) $f(A_1 \cap A_2) \subset f(A_1) \cap f(A_2)$
+
+>**[THEOREM 1.2.6]** \
+>Let f be a function form $A$ into $B$. If $B_1$ and $B_2$ are subsets of $B$, then \
+>(a) $f^{-1}(B_1 \cup B_2) = f^{-1}(B_1) \cup f^{-1}(B_2)$, \
+>(b) $f^{-1}(B_1 \cap B_2) \subset f^{-1}(B_1) \cap f^{-1}(B_2)$, \
+>(c) $f^{-1}(B \setminus B_1) = A \setminus f^{-1}(B_1)$.
 
 ### Inverse Function
 
