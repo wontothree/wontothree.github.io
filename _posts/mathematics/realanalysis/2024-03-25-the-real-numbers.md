@@ -10,6 +10,28 @@ use_math: true
 ---
 ## 1 Sets and Operations on Sets
 
+### Set Operations
+
+If $A$ and $B$ are sets, the union of $A$ and $B$, denoted $A \cup B$, is the set of all elements that belong either to $A$ or $B$ or to both $A$ and $B$.
+
+$$
+A \cup B = \{x : x \in A \; \text{or} \; x \in B \}
+$$
+
+The intersection of $A$ and $B$, denoted $A \cup B$, is the set of elements that belonfg to both $A$ and $B$; that is
+
+$$
+A \cap B = \{x : x \in A \; \text{and} \; x \in B \}
+$$
+
+The two sets $A$ and $B$ are disjoint if $A \cap B = \empty$.
+
+The relative complement $B \setminus A$, is the set of all elements which are in $B$ but not in $A$.
+
+$$
+B \setminus A = \{x : x \in B \;\text{and} \; x \notin A \}
+$$
+
 >**[THEOREM 1.1.1]** \
 >If $A, B$ and $C$ are sets, then \
 >(a) $A \cap (B \cup C) = (A \cap B) \cup (A \cap C)$, \
