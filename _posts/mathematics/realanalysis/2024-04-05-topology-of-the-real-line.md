@@ -17,6 +17,8 @@ use_math: true
 
 From the definition, $\vert x \vert \geq 0$ for all $x \in \mathbb{R}$ and $\vert x \vert = 0$ if and only if $x = 0$.
 
+다음의 총 8가지 정리는 실수이기만 하면 성립한다.
+
 >**[THEOREM 2.1.2]** \
 >(a) $|-x| = |x|$ for all $x \in \mathbb{R}$. \
 >(b) $|xy| = |x| |y|$ for all $x, y \in \mathbb{R}$. \
