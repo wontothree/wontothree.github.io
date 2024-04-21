@@ -92,9 +92,9 @@ Thus $\exists M >0 \; s.t. \; \vert a_n \vert \leq M \; \forall \; n \in \mathbb
 
 Since $a_n \rightarrow a$ and $b_n \rightarrow b$, 
 
-$\forall \epsilon_1 \; \exists n_1 \; s.t. \; \vert a_n - a \vert < \epsilon_1 \; \forall n \geq n_1$ and $\forall \epsilon_2 \; \exists n_2 \; s.t. \; \vert b_n - b \vert < \epsilon_2 \; \forall n \geq n_2$.
+$\forall \epsilon_1 \; \exists n_1 \in \mathbb{N} \; s.t. \; \vert a_n - a \vert < \epsilon_1 \; \forall n \geq n_1$ and $\forall \epsilon_2 \in \mathbb{N} \; \exists n_2 \; s.t. \; \vert b_n - b \vert < \epsilon_2 \; \forall n \geq n_2$.
 
-Take $\epsilon = M \epsilon_1 + \vert b \vert \epsilon_2$ and $n_0 = max(n_1, n_2)$.
+Take $\epsilon = M \epsilon_2 + \vert b \vert \epsilon_1$ and $n_0 = max(n_1, n_2)$.
 
 If $n \geq n_0$,
 
@@ -106,7 +106,7 @@ $$
 = \vert a_n \vert \cdot \vert (b_n - b) \vert + \vert b \vert \cdot \vert (a_n - a) \vert
 \\
 \leq M \cdot \vert (b_n - b) \vert + \vert b \vert \cdot \vert (a_n - a) \vert \\
-= M \epsilon_1 + \vert b \vert \epsilon_2
+= M \epsilon_2 + \vert b \vert \epsilon_1
 \\
 = \epsilon
 $$
