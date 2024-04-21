@@ -90,11 +90,11 @@ Since $a_n \rightarrow a$, by theorem 3.1.4 (b), $a_n$ is bounded.
 
 Thus $\exists M >0 \; s.t. \; \vert a_n \vert \leq M \; \forall \; n \in \mathbb{N}$.
 
-Take $\epsilon = M \epsilon_2 + \vert b \vert \epsilon_1$ and $n_0 = max(n_1, n_2)$.
+Take $\epsilon = M \epsilon_2 + \vert b \vert \epsilon_1 > 0$ and $n_0 = max(n_1, n_2)$.
 
 Since $a_n \rightarrow a$ and $b_n \rightarrow b$,
 
-$\forall \epsilon_1 \; \exists n_1 \in \mathbb{N} \; s.t. \; \vert a_n - a \vert < \epsilon_1 \; \forall n \geq n_1$ and $\forall \epsilon_2 \in \mathbb{N} \; \exists n_2 \; s.t. \; \vert b_n - b \vert < \epsilon_2 \; \forall n \geq n_2$.
+$\forall \epsilon_1 > 0 \; \exists n_1 \in \mathbb{N} \; s.t. \; \vert a_n - a \vert < \epsilon_1 \; \forall n \geq n_1$ and $\forall \epsilon_2 > 0 \in \mathbb{N} \; \exists n_2 \; s.t. \; \vert b_n - b \vert < \epsilon_2 \; \forall n \geq n_2$.
 
 If $n \geq n_0$,
 
@@ -119,7 +119,17 @@ It is suffice to show that $\dfrac{1}{a_n} \rightarrow \dfrac{1}{a}$.
 
 The result (c) then follows from (b).
 
-Since $a \neq 0$ and $a_n \rightarrow a$, let $\epsilon' = \dfrac{1}{2} \vert a \vert$ and $\exists n_0 \in \mathbb{N}$
+Since $a \neq 0$ and $a_n \rightarrow a$, let $\epsilon' = \dfrac{1}{2} \vert a \vert$ and $\exists n_0 \in \mathbb{N} \; s.t. \; \vert a_n - a \vert < \epsilon' \; \forall n \geq n_0$.
+
+Since $\vert a \vert \leq \vert a_n - a \vert + \vert a_n \vert < \dfrac{1}{2} \vert a \vert + \vert a_n \vert \; \forall \; n \geq n_0$, $\vert a_n \vert > \dfrac{1}{2} \vert a \vert \; \forall \; n \geq n_0$.
+
+Take $\epsilon = \dfrac{1}{\vert a \vert}$, and if $n \geq n_0$,
+
+$$
+\vert \dfrac{1}{a_n} - \dfrac{1}{a} \vert \leq \dfrac{\vert a_n - a \vert}{\vert a_n \vert \vert a \vert} < \dfrac{\dfrac{1}{2} \vert a \vert}{\dfrac{1}{2} \vert a \vert \vert a \vert} = \dfrac{1}{\vert a \vert} = \epsilon
+$$
+
+Therefore $\dfrac{1}{a_n} \rightarrow \dfrac{1}{a}$
 
 >**[COROLLARY 3.2.2]** \
 >If $\{ a_n \}$ is a convergent sequence of real numbers with $\lim_{n \rightarrow \infty} a_n= a$, then for any $c \in \mathbb{R}$, \
