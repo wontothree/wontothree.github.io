@@ -90,11 +90,11 @@ Since $a_n \rightarrow a$, by theorem 3.1.4 (b), $a_n$ is bounded.
 
 Thus $\exists M >0 \; s.t. \; \vert a_n \vert \leq M \; \forall \; n \in \mathbb{N}$.
 
-Since $a_n \rightarrow a$ and $b_n \rightarrow b$, 
+Take $\epsilon = M \epsilon_2 + \vert b \vert \epsilon_1$ and $n_0 = max(n_1, n_2)$.
+
+Since $a_n \rightarrow a$ and $b_n \rightarrow b$,
 
 $\forall \epsilon_1 \; \exists n_1 \in \mathbb{N} \; s.t. \; \vert a_n - a \vert < \epsilon_1 \; \forall n \geq n_1$ and $\forall \epsilon_2 \in \mathbb{N} \; \exists n_2 \; s.t. \; \vert b_n - b \vert < \epsilon_2 \; \forall n \geq n_2$.
-
-Take $\epsilon = M \epsilon_2 + \vert b \vert \epsilon_1$ and $n_0 = max(n_1, n_2)$.
 
 If $n \geq n_0$,
 
@@ -112,6 +112,14 @@ $$
 $$
 
 Therefore $a_nb_n \rightarrow ab$
+
+**Proof (C)**
+
+It is suffice to show that $\dfrac{1}{a_n} \rightarrow \dfrac{1}{a}$.
+
+The result (c) then follows from (b).
+
+Since $a \neq 0$ and $a_n \rightarrow a$, let $\epsilon' = \dfrac{1}{2} \vert a \vert$ and $\exists n_0 \in \mathbb{N}$
 
 >**[COROLLARY 3.2.2]** \
 >If $\{ a_n \}$ is a convergent sequence of real numbers with $\lim_{n \rightarrow \infty} a_n= a$, then for any $c \in \mathbb{R}$, \
