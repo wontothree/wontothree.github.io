@@ -152,6 +152,24 @@ Both the rational numbers $\mathbb{Q}$ and real numbers $\mathbb{R}$ are algebra
 >Let $A$ be a nonempty subset of $\mathbb{R}$ that is bounded above. \
 >An upper bound $\alpha$ of $A$ is the supremum of $A$ if and only if for every $\beta < \alpha$, there exists an element $x \in A$ such that $\beta < x \leq \alpha$.
 
+**Proof.**
+
+Suppose $\alpha = sup A$.
+
+If $\beta \in \mathbb{R}$  satisfies $\beta < \alpha$, $\beta$ is not upper bound of $A$.
+
+Thus, there exists an element $x \in A$ such that $x > \beta$.
+
+On the other hand, since $\alpha$ is an upper bound of $A$, $x < \alpha$ for all $x \in A$.
+
+Therefore, there exists an $x \in A$ such that $\beta < x \leq \alpha$.
+
+Suppose $\alpha$ is an upper bound of $A$ satisfying that for every $\beta < \alpha$, there exists an element $x \in A$ such that $\beta < x$.
+
+Every $\beta$ is not an upper bound of $A$.
+
+Therefore $\alpha = sup A$.
+
 ### Least Upper Bound Property of $\mathbb{R}$
 
 ### Intervals
