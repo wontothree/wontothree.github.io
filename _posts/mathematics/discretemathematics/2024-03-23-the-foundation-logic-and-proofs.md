@@ -10,9 +10,21 @@ use_math: true
 ---
 ## 1. Proposition Logic
 
+A proposition is a declarative sentence that is either true or false, but not both.
+
+>**[DEFINTION 2]** \
+>Let $p$ and $q$ be propositions. The conjection of $p$ and $q$, denoted by $p \wedge q$, is the proposition "$p$ and $q$". The conjunction $p \wedge q$ is true when both $p$ and $q$ are true and false otherwise.
+
 ## 2. Applications of Propositional Logic
 
 ## 3. Propositional Equivalences
+
+>**[DEFINITION 1]** \
+>A compound proposition that is always true, no matter what the truth vales of the propositional variablse that occur in it, is called a tautology. \
+>A compound proposition that is always false is called a contradiction. \
+>A compund proposition that is neither a tautologoy nor a contraadiction is called a contingency.
+
+### 3.2 Logical Equivalences
 
 Logical Equivalences : truth table을 통해 증명할 수 있다.
 
@@ -37,6 +49,10 @@ Logical Equivalences : truth table을 통해 증명할 수 있다.
 |Logical Equivalences Involving Biconditional Statements|
 |---|
 ||
+
+### 3.4 Constructing New Logical Equivalences
+
+The logical equivalences in Table can be used to construct additional logical equivalences.
 
 ## 4. Predicates and Quantifiers
 
