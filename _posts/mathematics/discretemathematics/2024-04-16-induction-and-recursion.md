@@ -50,6 +50,11 @@ Binary trees are a speical type of rooted trees. We will provide recursive defin
 
 ## 4 Recursive Algorithms
 
+We will see that algorithms that successively reduce a problem to the same problem with smaller input are used to solve a wide variety of problems.
+
+>**[DEFINITION 1]** \
+>An algorithm is called recursive if it solves a problem by reducing it to an instance of the same problem with smaller input.
+
 ### 4.3 Recursive and Iteration
 
 ### 4.4 The Merge Sort

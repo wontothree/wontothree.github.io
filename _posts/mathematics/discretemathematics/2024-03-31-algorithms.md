@@ -35,6 +35,8 @@ Pseudocode language
 
 The linear search
 
+Comparing $x$ successively with each term of the list until a match is found, where the solution is the location of that term, unless no match occurs.
+
 ```c
 int sequential_search(int list[], int key, int low, int high)
 {
@@ -46,6 +48,10 @@ int sequential_search(int list[], int key, int low, int high)
 ```
 
 The binary search
+
+This algorithms can be used when the list hase terms occurring in order of increasing size.
+
+The list is split into two smaller sublists of the same szie, or where one of these smaller lists hase one fewer term than the other.
 
 ```c
 int binary_search (int list [], int key, int low, int high)
@@ -65,6 +71,8 @@ int binary_search (int list [], int key, int low, int high)
 ### 1.3 Sorting
 
 The bubble sort
+
+The bubble sort puts a list into increasing order by successively comparing adjacent elements, interchanging them if they are in the wrong order.
 
 ```c
 #include <stdio.h>
