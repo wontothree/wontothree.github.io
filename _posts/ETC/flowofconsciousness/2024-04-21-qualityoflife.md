@@ -29,6 +29,7 @@ The followings are directly related to quality of my life.
 - eye mask
 - sun glass
 - ear plug
+- No phone
 
 ## 4 Work out
 

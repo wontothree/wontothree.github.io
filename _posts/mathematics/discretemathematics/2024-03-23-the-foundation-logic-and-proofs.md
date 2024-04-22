@@ -56,6 +56,23 @@ The logical equivalences in Table can be used to construct additional logical eq
 
 ## 4. Predicates and Quantifiers
 
+"x is greater than 3"
+
+- Subject : x
+- Predicate : a property that subject of the statement can have. - "is greater than 3"
+
+Quantification expresses the extent to which a predicate is true over a range of elements.
+
+>**[DEFINITION 1]** \
+>The universal quantification of $P(x)$ is the statement \
+>"P(x) for all values in the domain." \
+>The notation $\forall x P(x)$ denotes the universal quantification of $P(x)$. Here $\forall$ is called the universal quantifier. We read $\forall x P(x)$ as "for all $x P(x)$" or "for every $xP(x)$". An element ofr which $P(x)$ is false is called a counterexample to $\forall x f(x)$.
+
+>**[DEFINITION 2]** \
+>The existential quantification of $P(x)$ is the proposition \
+>"There exists an element $x$ in the domain such that $P(x)$." \
+>We use the notation $\exists x P(x)$ for the existential quantification of $P(x)$. Here $\exists$ is called the existential quantifier.
+
 De Morgan's Laws for Quanifiers
 
 |Negation|Equivalent Statement|
@@ -65,19 +82,13 @@ De Morgan's Laws for Quanifiers
 
 ## 5. Nested Quantifiers
 
-### 5.2 Understanding Statements Involving Nested Quantifiers
-
-### 5.3 The Order of Quantifiers
-
-### 5.4 Translatin Mathematical Statements into Statements Involving Nested Quantifiers
-
-### 5.5 Translating from Nested Quantifiers into English
-
-### 5.6 Translating English Sentences into Logical Expressions
-
-### 5.7 Negating Nested Quantifiers
+Nested quantifiers commonly occur in mathematics and compuer science.
 
 ## 6. Rules of Inference
+
+To deduce new statements from statements we already have, we use rules of inference which are templates for constructinf valid arguments. Rules of inference are our basic tools for establishing the truth of statements.
+
+We will show rules of inference ofr propositiions and for quanfified statements can be combined.
 
 Truth table or rules of inference -> validity
 
