@@ -222,8 +222,6 @@ isbm number : 바코드(13자리)
 
 예전에는 10자리였다. 요즘에는 13자리이다.
 
-![](../../../img/discretemathematics/residentregistrationnumber.png)
-
 $$
 x_13 = 10 - (x_1 + 3x_2 + )(mod 10)
 $$

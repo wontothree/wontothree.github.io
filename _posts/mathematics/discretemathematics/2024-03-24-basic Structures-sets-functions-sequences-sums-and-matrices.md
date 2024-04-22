@@ -31,6 +31,8 @@ Two, or more, sets can be combined in many differenct ways.
 
 ### 2.2 Set Identities
 
+![](../../../img/discretemathematics/setidentity.png)
+
 ### 2.3 Generalized Unions and Intersections
 
 ### 2.4 Computer Represetation of Sets
@@ -77,7 +79,7 @@ let bit strings of $U$ is 1111 1111 1111 1111 1111 1111 11, bit strings of {a, b
 >The *ceiling function* assigns to the real number $x$ the smallest integer that is greater than or equal to $x$. The value of the ceiling function at $x$ is denoted by $\lceil x \rceil$
 
 |Useful Properties of Floor and Ceiling functions. ($n$ is an integer, $x$ is a real number.)|
-|---|
+|:---:|
 |$\lfloor x \rfloor = n$ if and only if $n \leq x < n + 1$|
 |$\lceil n \rceil = n$ if and only if $n-1 < x \leq n$|
 |$\lfloor x \rfloor = n$ if and only if $x-1 < n \leq x$|
