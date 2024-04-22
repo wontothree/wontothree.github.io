@@ -83,13 +83,33 @@ $$
 
 ## 3 Mathematical Induction
 
-Mathematical induction is very useful tool in establishing that such a identity is valid for all positvie integer $n$.
+Mathematical induction is very useful tool in establishing that a identity is valid for all positvie integer $n$.
 
 >**[THEOREM 1.3.1]** (Principle of Mathematical Induction) \
 >For each $n \in \mathbb{N}$, let $P(n)$ be a statement about the positive integer $n$. If \
 >(a) $P(1)$ is true. \
 >(b) $P(k+1)$ is true whenever $P(k)$ is true, \
 >then $P(n)$ is true for all $n \in \mathbb{N}$.
+
+**Proof.**
+
+I use proof by contradiction.
+
+Assume that $P(1)$ is true and $P(k+1)$ is true whenever $P(k)$ is true, but that there exists a positive integer $n \in \mathbb{N}$ s.t. $f(n)$ is false.
+
+Let $A = \{k \in \mathbb{N} : f(n) \; \text{is false} \}$.
+
+By assumption that $P(1)$ is true, $A$ is a nonempty subset of $\mathbb{N}$.
+
+Thus, by well-ordering principle, $A$ has a smallest element $k_0$.
+
+Since $P(1)$ is true, $k_0 > 1$.
+
+Also, since $k_0$ is the smallest element of $A$, $P(k_0-1)$ is true.
+
+By assumption that $P(k+1)$ is true whenever $P(k)$ is true, $P(k_0)$ is true, which is a contradiction.
+
+Consequently, $P(n)$ must be true for all $n \in \mathbb{N}$.
 
 >**WELL-ORDERING PRINCIPLE** \
 >Every nonempty subset of $\mathbb{N}$ has a smallest element.
