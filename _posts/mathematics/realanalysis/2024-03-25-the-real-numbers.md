@@ -170,6 +170,10 @@ Every $\beta$ is not an upper bound of $A$.
 
 Therefore $\alpha = sup A$.
 
+>**[AXIOM]** Completeness of Real Numbers \
+>Every nonempty subset of $\mathbb{R}$ that is bounded above has a supremum in $\mathbb{R}$. \
+>Every nonempty subset of $\mathbb{R}$ thar is bounded below has a infimum in $\mathbb{R}$.
+
 ### Least Upper Bound Property of $\mathbb{R}$
 
 ### Intervals
