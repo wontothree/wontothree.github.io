@@ -8,31 +8,49 @@ Because I should live through world regardless of meanings of life, I strive to 
 
 The followings are directly related to quality of my life.
 
-1. Health
-2. Food
-3. Sleep
-4. Work out
-5. Skin
+1. Food
+2. Sleep
+3. Work out
+4. Skin
 
-## 1 Health
-
-## 2 Food
+## 1 Food
 
 - Protein
   - animal protein : 30g protein per 100g chicken breast, 5g protein per 1 chicken egg
   - vegetable protein : protein shake
-- Vietamin C
+- Multivitamin
+  |유효 성분|1정 중(mg)|
+  |---|---|
+  |벤포타이민(티아민염산염)|100|
+  |비스벤티아민|30|
+  |리보플라빈|100|
+  |니코틴산아미드|10|
+  |판토텐산칼슘|100|
+  |피리독신염산염|100|
+  |d-비오틴|0.1|
+  |폴산|0.5|
+  |히드록소코발민아세트산염|1|
+  |콜린타르타르산염|100|
+  |이노시톨|100|
+  |콜레칼시페롤농축분말(비타민D)|10|
+  |L-시스테인|25|
+  |산화아연|37.4|
+  |우르소데옥시콜산|30|
+  |셀레늄함유건조효모|40|
+  |산화마그네슘|100|
 
-## 3 Sleep
+- Vitamin C 1000mg
 
-- 22:00 ~ 2:00 : time to sleep is most important
-- eye mask
-- sun glass
-- ear plug
+## 2 Sleep
+
+- 21:00 ~ 2:00 (5 hour)
+- Eye mask
+- Ear plug
 - No phone
+- Sun glass
 
-## 4 Work out
+## 3 Work out
 
 - Bicycle
 
-## 5 Skin
+## 4 Skin
