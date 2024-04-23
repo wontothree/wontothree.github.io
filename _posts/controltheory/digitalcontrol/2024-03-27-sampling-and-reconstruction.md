@@ -46,15 +46,14 @@ $$
 $$
 
 - First factor : a function of the input $e(t)$ and the sampling period $T$
-- Second factor :  a transfer function independent of $e(t)$ (zero-order hold)
-
+- Second factor :  a transfer function independent of $e(t)$ and therefore can be considered to be a transfer function. (zero-order hold).
 The function $E^*(S)$, called the starred transform, is defined as
 
 $$
-E^*(S) := \sum_{n=0}^{\infty}e(nT)\epsilon^{-nTs}
+E^*(s) := \sum_{n=0}^{\infty}e(nT)\epsilon^{-nTs}
 $$
 
-$E^*(S)$ does not appear in the physical system but appear as a result factoring.
+$E^*(s)$ does not appear in the physical system but appear as a result factoring.
 
 ## 3 The Ideal Sampler
 

@@ -79,8 +79,11 @@ $$
 System을 계속해서 확장한다.
 
 - Sampled-data system
+  ![](../../../img/digitalcontrol/sampled-data-system-2.png)
 - Open-loop sampled-data system
+  ![](../../../img/digitalcontrol/open-loop-sampled-data-system-2.png)
 - Open-loop system
+  ![](../../../img/digitalcontrol/open-loop-system-2.png)
 
 A digital filer that solves a linear difference equation with constant coefficients can be represented by a transfer function $D(z)$, such that $M(z) = D(z)E(z)$
 
