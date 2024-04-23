@@ -15,8 +15,10 @@ The followings are directly related to quality of my life.
 
 ## 1 Food
 
-- Protein
-  - animal protein : 30g protein per 100g chicken breast, 5g protein per 1 chicken egg
+- Protein : 0.8~1.7g per 1kg -> 44.8~95.2g
+  - animal protein : 
+  
+    28g protein per 100g chicken breast, 5g protein per 1 chicken egg
   - vegetable protein : protein shake
 - Multivitamin
   |유효 성분|1정 중(mg)|
