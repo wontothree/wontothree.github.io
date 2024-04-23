@@ -16,7 +16,7 @@ The followings are directly related to quality of my life.
 ## 1 Food
 
 - Protein : 0.8~1.7g per 1kg -> 44.8~95.2g
-  - animal protein : 
+  - animal protein :
   
     28g protein per 100g chicken breast, 5g protein per 1 chicken egg
   - vegetable protein : protein shake
@@ -46,7 +46,7 @@ The followings are directly related to quality of my life.
 
 ## 2 Sleep
 
-- 21:00 ~ 2:00 (5 hour)
+- 21:00 ~ 3:00 (6 hour)
 - Eye mask
 - Ear plug
 - No phone

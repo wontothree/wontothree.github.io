@@ -56,7 +56,11 @@ In this section, we develop an expression for the z-transform of the output of o
 
 - $G_p(s)$ : plant transfer function
 - $\dfrac{1-\epsilon^{-Ts}}{s}$ : zero-holder hold transfer function
-- $G(s)$ : zero-order hold와 plant를 하나의 system으로 볼 때 transfer function
+- $G(s)$ : zero-order hold와 plant를 하나의 system으로 볼 때 transfer function. The product of the plant transfer function and the zero-order hold transfer function.
+
+$$
+G(s) = \dfrac{1-\epsilon^{-Ts}}{s}G_p(s)
+$$
 
 $$
 C(s) = G(s) \cdot E^*(s)
@@ -68,7 +72,7 @@ $$
 
 (증명 생략)
 
-- $G^d(z)$ : pulse transfer function
+- Pulse transfer function $G^d(z)$ : z-transform version of $G(s)$
 
 ## 4 Open-Loop Systems Containing Digital Filters
 
@@ -92,10 +96,18 @@ A digital filer that solves a linear difference equation with constant coefficie
 
 ## 9 Review of Continuous-Time State Variables
 
+Presented in the preceding section is a technique for obtaining a set of state equations describing a linear time-variant discrete-time system. This technique is base on transfer functions, and has two major disadvantages.
+
+In taking the transfer function approach to discrete state modelinf, we would have difficulty in choosing velocity as the second state variable. Thus we lose the natural, and desirable, states of the system.
+
+Anothor advantage of the transfer function approach is the difficulty in deriving the pulse transfer functions for high-order systems.
+
+A different approach for obtaining the discrete-time state model of a system is presented in the following section. This approach based on the use of continuous-time state variables.
+
 ## 10 Discrete-Time State Equations
 
 ## 11 Practical Calculations
 
 ## 궁금한 점
 
-- $E(z) = E^*(s) | _{\epsilon^{sT}=z}$ 왜 이런 식으로 표현할까?
+- $E(z) = E^*(s) \vert _{\epsilon^{sT}=z}$ 왜 이런 식으로 표현할까?
