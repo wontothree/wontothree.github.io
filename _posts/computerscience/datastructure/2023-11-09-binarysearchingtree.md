@@ -1,12 +1,8 @@
 ---
-title: "[자료구조] 이진탐색트리"
+title: "[Date Structure] 이진탐색트리"
 excerpt: "두근두근 자료구조 : Ch09"
 categories: 
   - datastructure
-toc: true
-toc_icon: star
-share: false
-use_math: true
 ---
 ## 1. 이진 탐색 트리
 

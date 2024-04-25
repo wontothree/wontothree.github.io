@@ -1,12 +1,8 @@
 ---
-title: "[자료구조] 배열과 구조체"
+title: "[Date Structure] 배열과 구조체"
 excerpt: "두근두근 자료구조 : Ch02"
 categories: 
   - datastructure
-toc: true
-toc_icon: star
-share: false
-use_math: true
 ---
 - 한꺼번에 많은 자료를 표현해야 하는 경우 배열이나 구조체를 사용할 수 있다.
 - 일반적으로 같은 자료형의 데이터 모임이라면 배열을, 다양한 자료형의 데이터 모임이라면 구조체를 사용한다.

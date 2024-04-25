@@ -1,12 +1,8 @@
 ---
-title: "[자료구조] 자료구조와 알고리즘"
+title: "[Date Structure] 자료구조와 알고리즘"
 excerpt: "두근두근 자료구조 : Ch01"
 categories: 
   - datastructure
-toc: true
-toc_icon: star
-share: false
-use_math: true
 ---
 ## 1. 자료구조
 
