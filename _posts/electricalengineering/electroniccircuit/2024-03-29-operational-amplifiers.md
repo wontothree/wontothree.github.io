@@ -32,7 +32,13 @@ Op amp are not used alone; rather, the op amp is connected to passive components
 
 There are two basic circuit configurations employing an op amp and two resistors : the inverting configuration and the noninverting configuration.
 
+Negative feedback
+
+Positive feedback
+
 ### 2.1 The Closed-Loop Gain
+
+- Virtual short circuit : whatever voltage is at 2 will automatically appear at 1 because of the infinite gain
 
 ### 2.2 Effect of Finite Open-Loop Gain
 
@@ -41,6 +47,16 @@ There are two basic circuit configurations employing an op amp and two resistors
 ### 2.4 An Important Application : The Weighted Summer
 
 ## 3 The Noninverting Configuration (비반전 구성)
+
+The input signal is applied directly to the positive input terminal of the op amp while on terminal of resistor is connected to ground.
+
+### 3.1 The Closed-Loop Gain
+
+### 3.2 Effect of Finite Open-Loop Gain
+
+### 3.3 Input and Output Resistance
+
+### 3.4 The Voltage Follower
 
 ## 4 Difference Amplifiers
 
