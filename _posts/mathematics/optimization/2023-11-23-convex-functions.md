@@ -1,5 +1,5 @@
 ---
-title: "[Convex Optimization] Convex Functions"
+title: "[Optimization] Convex Functions"
 excerpt: "Stephen Boyd - Convex Optimization : Ch03"
 categories:
   - optimization

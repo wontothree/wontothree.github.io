@@ -1,5 +1,5 @@
 ---
-title: "[Convex Optimization] Convex Sets"
+title: "[Optimization] Convex Sets"
 excerpt: "Stephen Boyd - Convex Optimization : Ch02"
 categories:
   - optimization

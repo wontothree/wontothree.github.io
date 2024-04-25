@@ -1,5 +1,5 @@
 ---
-title: "[Convex Optimization] Introduction"
+title: "[Optimization] Introduction"
 excerpt: "Stephen Boyd - Convex Optimization : Ch01"
 categories:
   - optimization
