@@ -12,15 +12,19 @@ The followings are directly related to quality of my life.
 2. Sleep
 3. Work out
 4. Skin
+5. Health
 
 ## 1 Food
 
-- Protein : 0.8~1.7g per 1kg -> 44.8~95.2g
-  - animal protein :
-  
-    28g protein per 100g chicken breast, 5g protein per 1 chicken egg
-  - vegetable protein : protein shake
-- Multivitamin
+Protein : 0.8~1.7g per 1kg -> 44.8~95.2g
+
+|||
+|---|---|
+|Animal protein|28g protein per 100g chicken breast|
+||5g protein per 1 chicken egg|
+|Vegetable protein|2.7g per 100g rice|
+
+Multivitamin
 
 |유효 성분|1정 중(mg)|
 |---|---|
@@ -54,6 +58,20 @@ The followings are directly related to quality of my life.
 
 ## 3 Work out
 
+Exercise in Daily Life
+
 - Bicycle
+- Push-up
+- Pull-up
 
 ## 4 Skin
+
+## 5 Health
+
+- Correct Posture
+
+## Reference
+
+- Food : https://m.blog.naver.com/seoulhyundaihospital/222291271166
+- Rice protein : https://www.law.go.kr/LSW//admRulBylInfoPLinkR.do?admRulSeq=2100000225908&admRulNm=%EC%8C%80%EC%9D%98%20%EB%93%B1%EA%B8%89%20%EB%B0%8F%20%EB%8B%A8%EB%B0%B1%EC%A7%88%20%ED%95%A8%EB%9F%89%20%EA%B8%B0%EC%A4%80&bylNo=0003&bylBrNo=00&bylCls=BE&bylClsCd=BE&joEfYd=&bylEfYd=
+- Posture : https://www.healthdirect.gov.au/how-to-improve-your-posture
