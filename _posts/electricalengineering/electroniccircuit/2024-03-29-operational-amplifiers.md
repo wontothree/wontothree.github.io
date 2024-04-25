@@ -3,12 +3,6 @@ title: "[Electronic Circuit] Operational Amplifiers"
 excerpt: "Sedra - Microelectronic Circuits : Ch02"
 categories:
   - electroniccircuit
-toc: true
-toc_sticky: true
-toc_icon: star
-toc_label: "OPAMP"
-share: false
-use_math: true
 ---
 One of the reason for the popularity of the ap amp is its verstaility.
 

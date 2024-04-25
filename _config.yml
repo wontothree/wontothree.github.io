@@ -277,7 +277,7 @@ compress_html:
     envs: development
 
 
-# Defaults
+# Defaults for posting
 defaults:
   # _posts
   - scope:
@@ -287,9 +287,14 @@ defaults:
       layout: single
       author_profile: true
       read_time: true
-      comments: # true
-      share: true
       related: true
+      toc: true
+      toc_sticky: true
+      toc_icon: star
+      toc_label: "CONTENTS"
+      share: false
+      use_math: true
+      comments: # true
       sidebar:
         nav: "sidebar-category"
   # _pages
