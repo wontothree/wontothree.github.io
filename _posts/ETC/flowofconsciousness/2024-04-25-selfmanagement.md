@@ -4,3 +4,5 @@ categories:
   - flowofconsciousness
 share: false
 ---
+- Mangaging money
+- Cleaning room
