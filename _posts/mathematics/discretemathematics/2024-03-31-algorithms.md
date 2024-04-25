@@ -3,10 +3,6 @@ title: "[Discrete Mathematics] Algorithms"
 excerpt: "Kenneth H. Rosen - Discrete Mathematics and Its Applications : Ch03"
 categories:
   - discretemathematics
-toc: true
-toc_icon: star
-share: false
-use_math: true
 ---
 ## 1. Algorithms
 

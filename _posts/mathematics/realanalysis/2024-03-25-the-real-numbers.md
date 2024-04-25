@@ -3,10 +3,6 @@ title: "[Real Analysis] The Real Numbers"
 excerpt: "Manfred - Introduction to Real Analysis : Ch01"
 categories:
   - realanalysis
-toc: true
-toc_icon: star
-share: false
-use_math: true
 ---
 ## 1 Sets and Operations on Sets
 

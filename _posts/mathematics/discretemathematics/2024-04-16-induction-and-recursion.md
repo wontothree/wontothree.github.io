@@ -3,10 +3,6 @@ title: "[Discrete Mathematics] Induction and Recursion"
 excerpt: "Kenneth H. Rosen - Discrete Mathematics and Its Applications : Ch05"
 categories:
   - discretemathematics
-toc: true
-toc_icon: star
-share: false
-use_math: true
 ---
 ## 1 Mathematical Induction
 

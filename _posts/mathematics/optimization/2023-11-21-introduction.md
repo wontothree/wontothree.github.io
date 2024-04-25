@@ -3,10 +3,6 @@ title: "[Convex Optimization] Introduction"
 excerpt: "Stephen Boyd - Convex Optimization : Ch01"
 categories:
   - optimization
-toc: true
-toc_icon: star
-share: false
-use_math: true
 ---
 ## 1. 수학적 최적화
 

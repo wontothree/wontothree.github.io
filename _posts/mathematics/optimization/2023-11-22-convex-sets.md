@@ -3,10 +3,6 @@ title: "[Convex Optimization] Convex Sets"
 excerpt: "Stephen Boyd - Convex Optimization : Ch02"
 categories:
   - optimization
-toc: true
-toc_icon: star
-share: false
-use_math: true
 ---
 ## 1. Affine and convex set
 

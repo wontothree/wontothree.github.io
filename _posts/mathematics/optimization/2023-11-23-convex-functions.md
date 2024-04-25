@@ -3,10 +3,6 @@ title: "[Convex Optimization] Convex Functions"
 excerpt: "Stephen Boyd - Convex Optimization : Ch03"
 categories:
   - optimization
-toc: true
-toc_icon: star
-share: false
-use_math: true
 ---
 ## 3. The conjugate function
 

@@ -3,10 +3,6 @@ title: "[Real Analysis] Topology of the Real Line"
 excerpt: "Manfred - Introduction to Real Analysis : Ch02"
 categories:
   - realanalysis
-toc: true
-toc_icon: star
-share: false
-use_math: true
 ---
 1장이 실수에서의 이야기였다면 2장은 그것을 Matric Space로 확장한다.
 

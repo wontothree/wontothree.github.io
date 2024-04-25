@@ -3,10 +3,6 @@ title: "[Discrete Mathematics] Basic Structures : Sets, Functions, Sequences, Su
 excerpt: "Kenneth H. Rosen - Discrete Mathematics and Its Applications : Ch02"
 categories:
   - discretemathematics
-toc: true
-toc_icon: star
-share: false
-use_math: true
 ---
 ## 1. Sets
 

@@ -3,10 +3,6 @@ title: "[Discrete Mathematics] Number Theory and Cryptography"
 excerpt: "Kenneth H. Rosen - Discrete Mathematics and Its Applications : Ch04"
 categories:
   - discretemathematics
-toc: true
-toc_icon: star
-share: false
-use_math: true
 ---
 ## 1 Disivility and Modular Arithmetic
 

@@ -3,10 +3,6 @@ title: "[Convex Optimization] Convex Optimization Problem"
 excerpt: "Stephen Boyd - Convex Optimization : Ch04"
 categories:
   - optimization
-toc: true
-toc_icon: star
-share: false
-use_math: true
 ---
 ## 1. Optimization problems
 

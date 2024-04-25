@@ -3,10 +3,6 @@ title: "[Real Analysis] Sequences of Real Numbers"
 excerpt: "Manfred - Introduction to Real Analysis : Ch03"
 categories:
   - realanalysis
-toc: true
-toc_icon: star
-share: false
-use_math: true
 ---
 We begin with limits of sequences.
 
