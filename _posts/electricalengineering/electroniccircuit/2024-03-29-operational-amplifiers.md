@@ -4,7 +4,9 @@ excerpt: "Sedra - Microelectronic Circuits : Ch02"
 categories:
   - electroniccircuit
 toc: true
+toc_sticky: false
 toc_icon: star
+toc_label: "OPAMP"
 share: false
 use_math: true
 ---
