@@ -23,8 +23,14 @@ Protein : 0.8~1.7g per 1kg -> 44.8~95.2g
 |Animal protein|28g protein per 100g chicken breast|
 ||5g protein per 1 chicken egg|
 |Vegetable protein|2.7g per 100g rice|
+|Vegetable protein|tofu|
 
-Multivitamin
+|Supplement||
+|---|---|
+|Vitamin C|1000mg|
+|Multivitamin||
+|Protein||
+|Probiotics||
 
 |유효 성분|1정 중(mg)|
 |---|---|
@@ -46,11 +52,10 @@ Multivitamin
 |셀레늄함유건조효모|40|
 |산화마그네슘|100|
 
-- Vitamin C 1000mg
-
 ## 2 Sleep
 
-- 21:00 ~ 3:00 (6 hour)
+- Regular sleep time
+- 21:00 ~ 3:00 (6 hour), at least 22:00~2:00 (4hour)
 - Eye mask
 - Ear plug
 - No phone
@@ -64,11 +69,19 @@ Exercise in Daily Life
 - Push-up
 - Pull-up
 
+Weight training
+
+NFL
+
 ## 4 Skin
 
 ## 5 Health
 
 - Correct Posture
+  - No cross legs
+- Regular eating time
+- Regular sleep time
+- Regular work out
 
 ## Reference
 
