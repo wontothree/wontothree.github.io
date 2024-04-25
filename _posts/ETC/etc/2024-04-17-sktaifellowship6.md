@@ -3,10 +3,6 @@ title: "[Apply] SKT AI Fellowship 6기"
 excerpt: "06. 대규모 Multimodal AI모델을 이용한 영상 검색 시스템"
 categories: 
   - etc
-toc: true
-toc_icon: star
-share: false
-use_math: true
 ---
 https://www.sktaifellowship.com/d48d779c-f591-437b-856d-b018ef539b43
 

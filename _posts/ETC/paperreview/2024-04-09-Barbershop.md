@@ -3,10 +3,6 @@ title: "[Paper Review] Barbershop"
 excerpt: 'Barbershop: GAN-based Image Compositing using Segmentation Masks'
 categories:
   - paperreview
-toc: true
-toc_icon: star
-share: false
-use_math: true
 ---
 ## ABSTRACT
 

@@ -2,7 +2,6 @@
 title: "[Flow of Consciousness] Major and Minor"
 categories:
   - flowofconsciousness
-share: false
 ---
 ## Mathematics
 

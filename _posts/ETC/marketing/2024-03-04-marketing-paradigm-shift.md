@@ -3,10 +3,6 @@ title: "[Marketing] Marketing Paradigm Shift"
 excerpt: Marketing Mangement
 categories:
   - marketing
-toc: true
-toc_icon: star
-toc_label: ""
-share: false
 ---
 ## 마케팅 패러다임과 전략
 

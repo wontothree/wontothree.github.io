@@ -3,10 +3,6 @@ title: "[Digital Control] Open-loop Discrete-time Systems"
 excerpt: "Charles L. Philips - Digital Control System : Ch04"
 categories:
   - digitalcontrol
-toc: true
-toc_icon: star
-share: false
-use_math: true
 ---
 ## 1 Introduction
 

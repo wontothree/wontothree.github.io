@@ -3,8 +3,6 @@ title: "[Nonlinear System] Introduction"
 excerpt: "Jean-Jacques E.Slotine Weiping Li - Applied Nonlinear Control : Ch01"
 categories:
   - nonlinearsystem
-toc: true
-use_math: true
 ---
 ## 1. Why Nonlinear Control?
 

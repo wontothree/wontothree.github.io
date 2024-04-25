@@ -3,10 +3,6 @@ title: "[Digital Control] Discrete-Time Systems and the z-Transform"
 excerpt: "Charles L. Philips - Digital Control System : Ch02"
 categories:
   - digitalcontrol
-toc: true
-toc_icon: star
-share: false
-use_math: true
 ---
 ## 1 Introduction
 

@@ -3,10 +3,6 @@ title: "[Paper Review] Autonomous Vehicles on the Edge : A Survey on Autonomous 
 excerpt: '14 Feb 2022 / 146 citation'
 categories:
   - paperreview
-toc: true
-toc_icon: star
-share: false
-use_math: true
 ---
 ## 1 INTRODUCTION
 

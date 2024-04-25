@@ -3,10 +3,6 @@ title: "[Laboratory] Series RLC Band-pass Filter and Parallel RLC Band-rejection
 excerpt: Unit 03
 categories:
   - laboratory
-toc: true
-toc_icon: star
-share: false
-use_math: true
 ---
 
 ![](../../../img/laboratory/ECDL3_Unit03-01.png)

@@ -3,8 +3,6 @@ title: "[Linear System] State-Space Solutions and Realizations"
 excerpt: "Chi-Tsong Chen - Linear System Theory and Design : Ch04"
 categories:
   - linearsystem
-toc: true
-use_math: true
 ---
 ## 1. Introduction
 

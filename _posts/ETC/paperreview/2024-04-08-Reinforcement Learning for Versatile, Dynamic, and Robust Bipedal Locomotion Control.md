@@ -3,10 +3,6 @@ title: "[Paper Review] Reinforcement Learning for Versatile, Dynamic, and Robust
 excerpt: 'Berkely'
 categories:
   - paperreview
-toc: true
-toc_icon: star
-share: false
-use_math: true
 ---
 End-to-end 강화학습을 통해 이족보행 로봇을 제어하는 최신 연구에 대해 간단하게 소개드리겠습니다. 논문 제목은 “**Reinforcement Learning for Versatile, Dynamic, and Robust Bipedal Locomotion Control”**으로 UC Berkely에서 1월 말에 arXiv에 공개한 연구입니다.
 

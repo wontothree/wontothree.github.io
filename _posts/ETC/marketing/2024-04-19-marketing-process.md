@@ -3,10 +3,6 @@ title: "[Marketing] Marketing Process"
 excerpt: 
 categories:
   - marketing
-toc: true
-toc_icon: star
-toc_label: ""
-share: false
 ---
 ## 전체 과정
 

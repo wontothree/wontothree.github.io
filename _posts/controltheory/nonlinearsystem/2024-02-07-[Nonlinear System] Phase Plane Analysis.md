@@ -3,8 +3,6 @@ title: "[Nonlinear System] Phase Plane Analysis"
 excerpt: "Jean-Jacques E.Slotine Weiping Li - Applied Nonlinear Control : Ch02"
 categories:
   - nonlinearsystem
-toc: true
-use_math: true
 ---
 ## 1. Concepts of Phase Plane Analysis
 

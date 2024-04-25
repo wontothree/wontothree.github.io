@@ -3,10 +3,6 @@ title: "[Marketing] Marketing Plan Presentation"
 excerpt: Marketing Mangement - 15 Minute Presentation
 categories:
   - marketing
-toc: true
-toc_icon: star
-toc_label: ""
-share: false
 ---
 ## 마케팅 제안 후보
 

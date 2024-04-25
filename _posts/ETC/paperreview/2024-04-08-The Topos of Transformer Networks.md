@@ -3,10 +3,6 @@ title: "[Paper Review] The Topos of Transformer Networks"
 excerpt: 'Mattia Villani - Department of Informatics King’s College London London, United Kingdom'
 categories:
   - paperreview
-toc: true
-toc_icon: star
-share: false
-use_math: true
 ---
 ## ABSTRACT
 

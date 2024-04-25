@@ -2,7 +2,6 @@
 title: "[Flow of Consciousness] Sense of Purpose"
 categories:
   - flowofconsciousness
-share: false
 ---
 무엇을 위해서 살아야 할까?
 

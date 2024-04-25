@@ -3,10 +3,6 @@ title: "[Laboratory] Rectifiers : H-W Rectifier, F-W Rectifier, Peak Detector, a
 excerpt: Unit 07
 categories:
   - laboratory
-toc: true
-toc_icon: star
-share: false
-use_math: true
 ---
 
 ![](../../../img/laboratory/ECDL3_Unit07-01.png)

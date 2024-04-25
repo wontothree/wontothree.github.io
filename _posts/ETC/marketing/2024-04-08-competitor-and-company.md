@@ -3,10 +3,6 @@ title: "[Marketing] Competitor and Company"
 excerpt: Marketing Mangement - Week 06
 categories:
   - marketing
-toc: true
-toc_icon: star
-toc_label: ""
-share: false
 ---
 ## 수업 메모
 

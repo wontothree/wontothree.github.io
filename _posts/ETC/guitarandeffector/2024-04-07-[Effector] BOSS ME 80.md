@@ -3,10 +3,6 @@ title: "[Effector] BOSS ME-80"
 excerpt: "Manual"
 categories: 
   - guitarandeffector
-toc: true
-toc_icon: star
-share: false
-use_math: true
 ---
 입력 전압 : 12V
 

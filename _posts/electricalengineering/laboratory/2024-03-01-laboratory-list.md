@@ -3,10 +3,6 @@ title: "[Laboratory] Laboratory List"
 excerpt: "List"
 categories:
   - laboratory
-toc: true
-toc_icon: star
-share: false
-use_math: true
 ---
 |Order|Experiment|Title|
 |---|---|---|

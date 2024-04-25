@@ -2,7 +2,6 @@
 title: "[Flow of Consciousness] Quality of Life"
 categories:
   - flowofconsciousness
-share: false
 ---
 Because I should live through world regardless of meanings of life, I strive to improve the quality of my life.
 

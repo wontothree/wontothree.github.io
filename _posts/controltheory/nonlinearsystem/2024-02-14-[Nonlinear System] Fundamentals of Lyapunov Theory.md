@@ -3,8 +3,6 @@ title: "[Nonlinear System] Fundamentals of Lyapunov Theory"
 excerpt: "Jean-Jacques E.Slotine Weiping Li - Applied Nonlinear Control : Ch03"
 categories:
   - nonlinearsystem
-toc: true
-use_math: true
 ---
 ## 1. Nonlinear Systems and Equilibrium Points
 

@@ -3,10 +3,6 @@ title: "[Paper Review] General Object Foundation Model for Images and Videos at 
 excerpt: 14 Dec 2023
 categories:
   - paperreview
-toc: true
-toc_icon: star
-share: false
-use_math: true
 ---
 ## Abstract
 

@@ -3,8 +3,6 @@ title: "[Optimal Control] Static Optimization"
 excerpt: "Frank L. Lewis - Optimal Control : Ch01"
 categories:
   - optimalcontrol
-toc: true
-use_math: true
 ---
 ## 1. Optimization without Constraints
 

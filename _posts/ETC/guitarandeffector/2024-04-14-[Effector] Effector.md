@@ -3,10 +3,6 @@ title: "[Effector] Effector"
 excerpt: "Tone Making"
 categories: 
   - guitarandeffector
-toc: true
-toc_icon: star
-share: false
-use_math: true
 ---
 일반적인 이펙터 연결 순서
 

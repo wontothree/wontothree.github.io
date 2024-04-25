@@ -3,10 +3,6 @@ title: "[Digital Control] Sampling and Reconstruction"
 excerpt: "Charles L. Philips - Digital Control System : Ch03"
 categories:
   - digitalcontrol
-toc: true
-toc_icon: star
-share: false
-use_math: true
 ---
 - 이 장의 중요한 목표 중 하나는 starred transform을 구하는 것이다.
 

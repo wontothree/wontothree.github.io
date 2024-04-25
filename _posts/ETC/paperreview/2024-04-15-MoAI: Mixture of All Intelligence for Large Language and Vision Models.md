@@ -3,10 +3,6 @@ title: "[Paper Review] MoAI: Mixture of All Intelligence for Large Language and 
 excerpt: 12 Mar 2024
 categories:
   - paperreview
-toc: true
-toc_icon: star
-share: false
-use_math: true
 ---
 ## ABSTRACT
 

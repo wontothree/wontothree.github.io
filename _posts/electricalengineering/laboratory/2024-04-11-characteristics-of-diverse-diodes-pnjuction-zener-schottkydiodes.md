@@ -3,10 +3,6 @@ title: "[Laboratory] Characteristics of Diverse Diodes : PN Juction, Zener, and 
 excerpt: Unit 06
 categories:
   - laboratory
-toc: true
-toc_icon: star
-share: false
-use_math: true
 ---
 
 ![](../../../img/laboratory/ECDL3_Unit6-01.png)

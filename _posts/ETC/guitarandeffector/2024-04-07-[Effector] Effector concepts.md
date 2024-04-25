@@ -3,10 +3,6 @@ title: "[Effector] Effector Concepts"
 excerpt: "Naomune Anzai - 연주자와 엔지니어를 위한 이펙터 교과서"
 categories: 
   - guitarandeffector
-toc: true
-toc_icon: star
-share: false
-use_math: true
 ---
 ## 3 실전적인 이펙터 사용 방법
 

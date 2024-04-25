@@ -3,10 +3,6 @@ title: "[ROS2] Topic Programming with C++"
 excerpt:
 categories: 
   - ros2
-toc: true
-toc_icon: star
-share: false
-use_math: true
 ---
 ## Publish Node 작성
 

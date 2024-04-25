@@ -3,10 +3,6 @@ title: "[Laboratory] Characteristics of Practical Operational Amplifier"
 excerpt: Unit 05
 categories:
   - laboratory
-toc: true
-toc_icon: star
-share: false
-use_math: true
 ---
 
 ![](../../../img/laboratory/ECDL3_Unit05-01.png)

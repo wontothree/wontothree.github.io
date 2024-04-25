@@ -3,10 +3,6 @@ title: "[Laboratory] Active Low-pass Filter"
 excerpt: Unit 04
 categories:
   - laboratory
-toc: true
-toc_icon: star
-share: false
-use_math: true
 ---
 
 ![](../../../img/laboratory/ECDL3_Unit04-01.png)

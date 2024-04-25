@@ -3,8 +3,6 @@ title: "[Linear System] Linear Algebra"
 excerpt: "Chi-Tsong Chen - Linear System Theory and Design : Ch03"
 categories:
   - linearsystem
-toc: true
-use_math: true
 ---
 ## 6. Function of a Square Matrix
 

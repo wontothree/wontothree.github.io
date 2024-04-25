@@ -3,10 +3,6 @@ title: "[ETC] Skin Medicine"
 excerpt: "약"
 categories: 
   - etc
-toc: true
-toc_icon: star
-share: false
-use_math: true
 ---
 ## 처방 1
 

@@ -3,7 +3,6 @@ title: "[Etc] Web Debugging"
 excerpt:
 categories: 
   - etc
-share: false
 ---
 ## 1. 각 categroy page에서도 side navigation bar 보이도록 설정
 

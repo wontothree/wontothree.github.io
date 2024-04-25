@@ -3,10 +3,6 @@ title: "[ROS2] Node Programming with C++"
 excerpt:
 categories: 
   - ros2
-toc: true
-toc_icon: star
-share: false
-use_math: true
 ---
 4가지 예시를 실행해볼 것이다.
 
