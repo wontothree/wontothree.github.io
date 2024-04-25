@@ -23,7 +23,7 @@ Protein : 0.8~1.7g per 1kg -> 44.8~95.2g
 |Animal protein|28g protein per 100g chicken breast|
 ||5g protein per 1 chicken egg|
 |Vegetable protein|2.7g per 100g rice|
-|Vegetable protein|tofu|
+|Vegetable protein|7g per 100g tofu|
 
 |Supplement||
 |---|---|
