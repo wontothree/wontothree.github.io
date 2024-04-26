@@ -62,7 +62,31 @@ The input signal is applied directly to the positive input terminal of the op am
 
 ## 5 Integrators and Differentiators
 
-## 6 DC Imperfections
+## 6 DC Imperfections (직류 결함)
+
+We will consider some of the important nonideal properties of the op amp.
+
+### 6.1 Offset Voltage
+
+적절한 극성과 크기를 갖는 직류 전압 전원을 연산 증폭기의 두 입력 단자 사이에 연결함으로써 연산 증폭기의 출력을 그것의 이상적인 전압인 0V로 되돌릴 수 있다. 이는 이 외부 전원이 연산 증폭기의 입력 오프셋 전압을 상쇄시켰다는 것을 의미한다. 따라서 입력 오프셋 전압은 외부에서 인가한 전압과 크기는 같고 극성은 반대이어야 한다.
+
+입력 오프셋 전압을 포함시킨 연산 증폭기 회로 모델
+
+### 6.2 Input Bias Current and Offset Current
+
+연산 증폭기가 동작하기 위해서는 두 입력 단자에 입력 바이어스 전류라고 불리는 직류 전류가 공급되어야 한다.
+
+입력 바이어스 전류
+
+$$
+\dfrac{I_{B1} + I_{B2}}{2}
+$$
+
+입력 오프셋 전류
+
+$$
+\vert I_{B1} - I_{B2} \vert
+$$
 
 ## 7 Effect of Finite Open-Loop Gain and Bandwidth on Circuit Performance
 
