@@ -60,10 +60,30 @@ z-transform은 임의의 수열에 대해 정의되며, 선형 시불변 차분 
 
 ## 9 State Variables
 
+system을 표현하는 세 가지 방법
+
+1. Differential equation or difference equation
+2. Transfer function
+3. State-space model
+
+In preceding section we defined a discrete-time system as one that can be described by a difference equation. If the discrete-time system is linear and time-invariant we can also represent the system by a transfer function.
+
+The more modern approach to the analysis and synthesis of discrete-time systems employs the state-variable method. The state vaiables represent the minimum amount of information which is necessary to determine both the future states and the system outputs for given input functions : that is, given the system states, the system dynamics and the input functions, ws can determine all subsequent states and outputs.
+
 ## 10 Other State-Variable Formulations
 
 ## 11 Transfer Functions
 
+For a given system, there is no unique state-variable formulation
+
+- A higher-order transfer function as a product of simpler transfer functions
+- A higher-order transfer function as the sum of simper transfer functions through partial-fraction expansion.
+
 ## 12 Solutions of the State Equations
 
 ## 13 Linear Time-varying Systems
+
+## Questions
+
+- If the discrete-time system is linear and time-invariant we can also represent the system by a transfer function. (63.page) : time-variant한 경우에는 시스템을 어떻게 이해할 수 있을까?
+- For certain analysis or design procedures, certain formulations present advantages with respect to calculations, as will eb shown in later chapters. (71.page)

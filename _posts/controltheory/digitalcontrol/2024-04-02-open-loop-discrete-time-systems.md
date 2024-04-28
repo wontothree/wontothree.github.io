@@ -70,6 +70,8 @@ $$
 
 - Pulse transfer function $G^d(z)$ : z-transform version of $G(s)$
 
+ㅂ정리의 의미 : s-domain transfer function에서 time-domain을 거치지 않고 z-transform으로 바꿀 수 있다.
+
 ## 4 Open-Loop Systems Containing Digital Filters
 
 System을 계속해서 확장한다.
