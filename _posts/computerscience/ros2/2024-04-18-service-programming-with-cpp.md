@@ -1,6 +1,6 @@
 ---
 title: "[ROS2] Service Programming with C++"
-excerpt:
+excerpt: 김수영 대표 강의 - 11강
 categories: 
   - ros2
 ---

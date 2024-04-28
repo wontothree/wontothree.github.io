@@ -1,6 +1,6 @@
 ---
 title: "[ROS2] Node Programming with C++"
-excerpt:
+excerpt: 김수영 대표 강의 - 10강
 categories: 
   - ros2
 ---

@@ -109,6 +109,12 @@ A technique is developed in this section for determining the discrete state equa
 
 ## 11 Practical Calculations
 
+## z-Transform
+
+![](../../../img/digitalcontrol/ztransformtable01.png)
+
+![](../../../img/digitalcontrol/ztransformtable02.png)
+
 ## 궁금한 점
 
 - $E(z) = E^*(s) \vert _{\epsilon^{sT}=z}$ 왜 이런 식으로 표현할까?
