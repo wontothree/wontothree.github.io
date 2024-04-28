@@ -48,6 +48,10 @@ z-transform은 임의의 수열에 대해 정의되며, 선형 시불변 차분 
 
 ## 5 Finding z-Transform
 
+![](../../../img/digitalcontrol/ztransform01.png)
+
+![](../../../img/digitalcontrol/ztransform02.png)
+
 ## 6 Solution of Difference Equations
 
 ## 7 The Inverse z-Transform

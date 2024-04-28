@@ -109,7 +109,7 @@ A technique is developed in this section for determining the discrete state equa
 
 ## 11 Practical Calculations
 
-## z-Transform
+## z-Transform Table
 
 ![](../../../img/digitalcontrol/ztransformtable01.png)
 
