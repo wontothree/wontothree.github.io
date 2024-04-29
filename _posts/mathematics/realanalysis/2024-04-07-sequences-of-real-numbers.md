@@ -25,7 +25,8 @@ Our presentation will be considerably more rigorous - emphasizing proofs rather 
 >Let $(X, d)$ be a metric space. \
 >(a) If a sequence $ \{p_n\}$ in $X$ converges, then its limit is unique. \
 >(b) Every convergent sequence in $X$ is bounded. \
->(c) If $E \subset X$ and $p$ is a limit point of $E$, then there exists a sequence $\{p_n\}$ in $E$ with $p_n \neq p$ for all $n$ such that $\lim_{n \rightarrow \infty} \{p_n\} = p$.
+>(c) If $E \subset X$ and $p$ is a limit point of $E$, then there exists a sequence $\{p_n\}$ in $E$ with $p_n \neq p$ for all $n$ such that $\lim_{x\to\infty} \{p_n\} = p$.
+
 
 **Proof (a)**
 
@@ -68,7 +69,7 @@ We will emphasize some of the important properties of sequences of real numbers,
 >then \
 >(a) $\lim_{n \rightarrow \infty} (a_n + b_n) = a + b$, and \
 >(b) $\lim_{n \rightarrow \infty} a_nb_n= ab$. \
->(c) Futhermore, if $a \neq 0$, and $a_n \neq 0$ for all $n$, then $\lim_{n \rightarrow \infty} \dfrac{b_n}{a_n}= \dfrac{b}{a}$.
+>(c) Futhermore, if $a \neq 0$, and $a_n \neq 0$ for all $n$, then $\lim_{x\to\infty} \dfrac{b_n}{a_n}= \dfrac{b}{a}$.
 
 **Proof (a)**
 
