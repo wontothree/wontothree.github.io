@@ -107,7 +107,7 @@ A different approach for obtaining the discrete-time state model of a system is 
 
 ## 10 Discrete-Time State Equations
 
-A technique is developed in this section for determining the discrete state equations of a sampled-data system directly for the continuous-time state equations
+A technique is developed in this section for determining the discrete state equations of a sampled-data system directly from the continuous-time state equations. In fact, the states of the continuous-time model become the states of the discrete model. Thus the natural states of the system are preserved.
 
 ## 11 Practical Calculations
 
