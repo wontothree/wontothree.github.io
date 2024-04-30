@@ -37,3 +37,45 @@ sidebar:
 파일 이름을 위와 같이 설정하면 페이지의 링크가 다음과 같이 생성된다.
 
 ```https://wontothree.github.io/datastructure/Date-Structure-자료구조와-알고리즘/```
+
+## 3. posting에서 속성 단순화
+
+```md
+---
+title: "[ROS2] Robotics"
+excerpt: 
+categories: 
+---
+```
+
+_config.yml 파일에서 다음 부분을 수정하였다.
+
+```yml
+# Defaults for posting
+defaults:
+  # _posts
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: single
+      author_profile: true
+      read_time: true
+      related: true
+      toc: true
+      toc_sticky: true
+      toc_icon: star
+      toc_label: "Contents"
+      share: false
+      use_math: true
+      comments: # true
+      sidebar:
+        nav: "sidebar-category"
+  # _pages
+  - scope:
+      path: "_pages"
+      type: pages
+    values:
+      layout: single
+      author_profile: true 
+```
