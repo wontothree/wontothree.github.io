@@ -174,18 +174,19 @@ author: Anthony
 
 - main page 그래프 지식 구조 시각화 개발하기
 - 각 게시물에서 카테고리 눌렀을 때 category page로 이동하도록 설정하기
-- _pages에서 카테고리 설정 더 편리하게 할 수 있도록 하기
 
 노가다성
 
-- 각 게시물의 제목에서 ch or 번호 지우기
-- contents nav bar 제목 수정
-- file name은 다 소문자로 통일
+- optimization category에서 latex 문법 오류 고치기
 
 ### Complete
 
 - 각 게시물에서 스크롤하면 contents nav bar가 따라가도록
 - category 안에서도 sidebar가 뜨도록 하기
+- 각 게시물의 제목에서 ch or 번호 지우기
+- contents nav bar 제목 수정
+- file name은 다 소문자로 통일
+- _pages에서 카테고리 설정 더 편리하게 할 수 있도록 하기
 
 ## 참고할만한 블로그
 
