@@ -36,7 +36,6 @@ LLMs and LLVMs. LLMs have emerged alongside their competent general- ization cap
   (6) language-language feature.
 - Each pair is con- sidered as a query-key pair for a respective cross- or self-attention module serving as experts, clarifying the fusion of information across diverse modalities.
 
-
 ## 5. CONCLUSION
 
 To achieve real-world scene understanding, we leverage fundamental perception capabilities rooted in cognitive science and machine learning. This involves incor- porating auxiliary visual information from historically rich external CV models, which we seemlessly integrate with visual and language features in MLM using expert modules and gating networks. As a result of these advancements,   MoAI demonstrates improved visual perception capabilities, resulting in significant en- hancements in zero-shot vision language performances. This underscores MoAI’s potential to advance LLVM modeling by effectively leveraging diverse auxiliary visual information and integrating multiple forms of intelligence.
