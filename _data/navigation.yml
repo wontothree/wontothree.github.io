@@ -13,6 +13,18 @@
 #  - title: "Blog"
 #    url: /blog/
 sidebar-category:
+  - title: "Robotics"
+    children:
+      - title: "ROS2"
+        url: /ros2
+      - title: "Digital Control"
+        url: /digitalcontrol
+      - title: "Linear System"
+        url: /linearsystem
+      - title: "Nonlinear System"
+        url: /nonlinearsystem
+      - title: "Optimal Control"
+        url: /optimalcontrol
   - title: "Computer Science"
     children:
       - title: "Java"
@@ -21,8 +33,6 @@ sidebar-category:
         url: /datastructure
       - title: "Machine Learning"
         url: /machinelearning
-      - title: "ROS2"
-        url: /ros2
   - title: "Electrical Engineering"
     children:
       - title: "Digital Logic"
@@ -39,16 +49,6 @@ sidebar-category:
         url: /electroniccircuit
       - title: "Laboratory"
         url: /laboratory
-  - title: "Control Theory"
-    children:
-      - title: "Digital Control"
-        url: /digitalcontrol
-      - title: "Linear System"
-        url: /linearsystem
-      - title: "Nonlinear System"
-        url: /nonlinearsystem
-      - title: "Optimal Control"
-        url: /optimalcontrol
   - title: "Mathematics"
     children:
       - title: "Linear Algebra"
