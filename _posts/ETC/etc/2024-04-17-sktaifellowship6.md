@@ -4,7 +4,7 @@ excerpt: "06. 대규모 Multimodal AI모델을 이용한 영상 검색 시스템
 categories: 
   - etc
 ---
-![](https://www.sktaifellowship.com/d48d779c-f591-437b-856d-b018ef539b43)
+[SKT AI Fellowship 6기](https://www.sktaifellowship.com/d48d779c-f591-437b-856d-b018ef539b43)
 
 ## 세부 설명
 
@@ -47,7 +47,7 @@ categories:
 - VQA, Caption, OCR, GPT-4
 - Representation feature vector 등 정보 추출
 - 예시
-  ![](./../../../img/etc/glee.png)
+  ![](./../../../img/paperreview/glee-framework.png)
 
   https://arxiv.org/pdf/2312.09158.pdf
 
@@ -57,7 +57,7 @@ categories:
 
 - LLM의 prompt로 사용하기 위해 연구가 필요합니다.
 - 예시
-  ![](./../../../img/etc/moai.png)
+  ![](./../../../img/paperreview/moai-mlm.png)
 
   https://arxiv.org/pdf/2403.07508.pdf
 
