@@ -1,6 +1,6 @@
 ---
-title: "[Paper Review] MoAI: Mixture of All Intelligence for Large Language and Vision Models"
-excerpt: 12 Mar 2024
+title: "[Paper Review] MoAI"
+excerpt: "MoAI: Mixture of All Intelligence for Large Language and Vision Models"
 categories:
   - paperreview
 ---
@@ -15,12 +15,12 @@ categories:
 - Through this integration, MoAI significantly outperforms both open-source and closed-source LLVMs in numerous zero-shot VL tasks, particularly those related to real-world scene understanding such as object existence, positions, relations, and OCR without enlarging the model size or curating extra visual instruction tuning datasets.
 - https://github.com/ByungKwanLee/MoAI.
 
-## 1. INTRODUCTION
+## 1. Introduction
 
 - We introduce a new large language and vision model,   MoAI, which handles various auxiliary visual information from external CV models (MoAI- Compressor) and blends three types of intelligence (MoAI-Mixer).
 - MoAI stands out for its exceptional visual perception ability in VL tasks, surpassing both open-source and closed-source LLVMs in zero-shot VL performances. This ability is achieved by considering detailed and comprehensive real-world scene understanding without requiring scaling up either the model size or dataset size.
 
-## 2. RELATED WORKS
+## 2. Related Works
 
 **LLMs and LLVMs.**
 
@@ -41,6 +41,23 @@ categories:
   (6) language-language feature.
 - Each pair is con- sidered as a query-key pair for a respective cross- or self-attention module serving as experts, clarifying the fusion of information across diverse modalities.
 
-## 5. CONCLUSION
+## 3. MoAI: Mixture of All Intelligence
+
+### Model Architecture
+
+![](./../../../img/etc/moai-architecture.png)
+
+### Vision and Language Backbone
+
+- CLIP-L/14 [69] is selected as the vision encoder, due to its guaranteed proficiency in image understanding aligned with text for vision language tasks [11,57–59].
+- The MLM utilized in MoAI is based on InternLM-7B [78], which is a multilingual foundation model instruction-tuned by multilingual datasets with 1.6T tokens through a series of progressive pretraining phases and reinforcement learning from human feedback (RLHF) [14,68,76]. Two linear layers with GELU activation function [29] serve as the bridge connector between vision and language components, denoted by ‘MLP’ in Fig. 3.
+
+### Verbalization
+
+![](./../../../img/etc/moai-mlm.png)
+
+- Since a multimodal language model (MLM) is adopted to construct MoAI, we convert CV model outputs into natural language format in order to make them understandable to the MLM through a process called verbaliza- tion. Fig. 4 illustrates how the four CV model outputs undergo verbalization alongside the creation of auxiliary tokens semantically aligned to the MLM.
+
+## 5. Conclusion
 
 To achieve real-world scene understanding, we leverage fundamental perception capabilities rooted in cognitive science and machine learning. This involves incor- porating auxiliary visual information from historically rich external CV models, which we seemlessly integrate with visual and language features in MLM using expert modules and gating networks. As a result of these advancements,   MoAI demonstrates improved visual perception capabilities, resulting in significant en- hancements in zero-shot vision language performances. This underscores MoAI’s potential to advance LLVM modeling by effectively leveraging diverse auxiliary visual information and integrating multiple forms of intelligence.
