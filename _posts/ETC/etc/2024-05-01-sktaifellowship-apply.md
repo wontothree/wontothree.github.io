@@ -1,6 +1,6 @@
 ---
-title: "[Apply] SKT AI Fellowship 6기"
-excerpt: "06. 대규모 Multimodal AI모델을 이용한 영상 검색 시스템 - 제안서"
+title: "[Apply] 대규모 Multimodal AI모델을 이용한 영상 검색 시스템 - 제안서"
+excerpt:
 categories: 
   - etc
 ---
@@ -10,7 +10,7 @@ categories:
 
 |Process|Descip|Description|
 |---|---|
-|1-1|이미지에서 Yolo 9000|에 해당하는 객체를 추출한다.|
+|1-1|이미지에서 Yolo 9000에 해당하는 객체를 추출한다.|
 |1-2|이미지에서 모든 객체와 객체의 속성, 배경에 대한 정보를 text로 저장한다.|
 |2-1|각 Scene에서 동작을 text로 변환한다.
 |3-1|사용자가 실문을 한다.|
