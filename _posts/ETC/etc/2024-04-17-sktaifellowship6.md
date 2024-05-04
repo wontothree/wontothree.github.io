@@ -4,18 +4,18 @@ excerpt: "06. 대규모 Multimodal AI모델을 이용한 영상 검색 시스템
 categories: 
   - etc
 ---
-[SKT AI Fellowship 6기](https://www.sktaifellowship.com/d48d779c-f591-437b-856d-b018ef539b43)
+[SKT AI Fellowship 6기 - 06. 대규모 Multimodal AI모델을 이용한 영상 검색 시스템](https://www.sktaifellowship.com/d48d779c-f591-437b-856d-b018ef539b43)
 
 ## 세부 설명
 
-- 연구 내용 : 대규모 AI 모델을 이용하여 영상(비디오) 데이터를 분석하고, 분석 결과를 활용해 검색 시스템을 만듭니다.
+- 연구 내용 : 대규모 AI 모델을 이용하여 <span style="color: #2D3748; background-color:#fff5b1;">영상(비디오) 데이터를 분석</span>하고, 분석 결과를 활용해 <span style="color: #2D3748; background-color:#fff5b1;">검색 시스템</span>을 만듭니다.
 - 연구 목적 : 영상 검색 시스템에 AI를 활용할 수 있는 획기적인 방안을 찾아내고, 실제 서비스에 활용할 수 있는 가능성을 발굴합니다.
 - 활용 계획 : 실시간 관제 시스템의 검색 기능으로 추가하여 사용자들에게 편의성을 제공합니다.
 - 관련 경험 / 역량 : 컴퓨터 비전, 자연어 처리, 멀티모달 AI 알고리즘 연구 및 기타 개발 경험
 
 ## 프로젝트 소개
 
-저희가 개발하는 실시간 관제 시스템은 우리의 일상에서 발생하는 영상(비디오)을 기록하고, 사람이나 차량과 같은 객체들의 다양한 속성을 제공합니다. 이러한 정보들은 매일 같이 쌓이게 되는데요, 저희는 LLM, Multimodal AI 기술의 발전이 현실에서 어떻게 활용할 수 있을지 고민하고, 이를 통해 데이터의 새로운 가치를 발굴하고자 합니다.
+저희가 개발하는 실시간 관제 시스템은 우리의 일상에서 발생하는 영상(비디오)을 기록하고, <span style="color: #2D3748; background-color:#fff5b1;">사람이나 차량과 같은 객체들의 다양한 속성을 제공</span>합니다. 이러한 정보들은 매일 같이 쌓이게 되는데요, 저희는 LLM, Multimodal AI 기술의 발전이 현실에서 어떻게 활용할 수 있을지 고민하고, 이를 통해 데이터의 새로운 가치를 발굴하고자 합니다.
 
 ## 제안 배경
 
@@ -32,9 +32,9 @@ categories:
 
 ## 이런 목표를 이루고 싶어요
 
-1. 영상으로부터 유용하고 다양한 데이터 저장 및 추출
-2. LLM이 잘 이해할 수 있도록 취득한 데이터 가공
-3. 질문과 가공된 데이터를 입력하여 영상으로부터 원하는 정보를 취득
+1. 영상으로부터 <span style="color: #2D3748; background-color:#fff5b1;">유용하고 다양한 데이터 저장 및 추출</span>
+2. LLM이 잘 이해할 수 있도록 취득한 <span style="color: #2D3748; background-color:#fff5b1;">데이터 가공</span>
+3. <span style="color: #2D3748; background-color:#fff5b1;">질문과 가공된 데이터를 입력하여 영상으로부터 원하는 정보를 취득</span>
 
 ## 다음과 같은 프로젝트를 진행합니다
 
@@ -64,13 +64,13 @@ categories:
 4 <span style="color: #2D3748; background-color:#fff5b1;">질문, 가공된 데이터를 LLM에 입력</span>하고 <span style="color: #2D3748; background-color:#fff5b1;">원하는 정보를 제공받</span>습니다.
 
 - 추론 모델을 선택하고
-- 전체 영상 프레임을 추론하는 것은 불가능하기 때문에 이 과정도 연구가 필요합니다.
-- 영상을 Scene별 또는 시간대별로 분석하여 하나의 긴 텍스트로 저장해 놓을 수도 있습니다.
+- <span style="color: #2D3748; background-color:#fff5b1;">전체 영상 프레임을 추론하는 것은 불가능</span>하기 때문에 이 과정도 연구가 필요합니다.
+- 영상을 <span style="color: #2D3748; background-color:#fff5b1;">Scene별</span> 또는 <span style="color: #2D3748; background-color:#fff5b1;">시간대별</span>로 분석하여 <span style="color: #2D3748; background-color:#fff5b1;">하나의 긴 텍스트로 저장해 놓을 수</span>도 있습니다.
 - 텍스트가 아닌 vector feature로 저장해놓거나 이를 텍스트와 함께 활용할 수도 있습니다.
 
 결국 <span style="color: #2D3748; background-color:#fff5b1;">AI 모델과 기존 정보를 조합하여 비디오를 잘 표현</span>하고 이를 prompt로 활용해 <span style="color: #2D3748; background-color:#fff5b1;">LLM으로부터 비디오 검색/분석 결과를 얻어내는 것</span>이 이 프로젝트의 방향성입니다. 저희가 작성한 내용과 무관하게 더 좋은 방법과 아이디어가 있다면 언제든지 환영입니다.
 
-!이미지 분석이 아닌 비디오 분석을 하고자 합니다.
+!이미지 분석이 아닌 <span style="color: #2D3748; background-color:#fff5b1;">비디오 분석</span>을 하고자 합니다.
 
 예시)
 
