@@ -25,7 +25,7 @@ categories:
 ## 제안서에 포함해야 할 내용
 
 - [전처리] LLM이 잘 이해할 수 있도록 취득한 데이터 가공 v -> (latent space)
-- [Video Captioner] 영상 데이터 분석(scene에 대한 분석 or video 자체에 대한 분석) / 영상으로부터 유용하고 다양한 데이터 저장 및 추출 v -> (text)
+- [Video Captioner : 전처리] 영상 데이터 분석(scene에 대한 분석 or video 자체에 대한 분석) / 영상으로부터 유용하고 다양한 데이터 저장 및 추출 v -> (text)
 - [Video Captioner] Scene별 또는 시간대별로 분석하여 하나의 긴 텍스트로 저장해놓을 수도 있다. v
 - [Video Captioner] 비디오로부터 추출해야 하는 데이터가 무엇인지 정의 v -> (text, feature vector)
 - [Database] DB에 저장하여 활용 v
