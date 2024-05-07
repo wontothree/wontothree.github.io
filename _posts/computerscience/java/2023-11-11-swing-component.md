@@ -1,6 +1,6 @@
 ---
-title: "[Java] 스윙 컴포넌트"
-excerpt: 천인국 - Power Java
+title: "[Java] Swing Component"
+excerpt: "천인국 - Power Java : Ch11"
 categories:
   - java
 ---

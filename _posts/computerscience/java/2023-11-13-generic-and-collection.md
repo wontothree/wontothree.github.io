@@ -1,6 +1,6 @@
 ---
-title: "[Java] 제네릭과 컬렉션"
-excerpt: 천인국 - Power Java
+title: "[Java] Generic and Collection"
+excerpt: "천인국 - Power Java : Ch13"
 categories:
   - java
 ---

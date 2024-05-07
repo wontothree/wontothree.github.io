@@ -1,6 +1,6 @@
 ---
-title: "[Java] 상속"
-excerpt: 천인국 - Power Java
+title: "[Java] Inheritance"
+excerpt: "천인국 - Power Java : Ch06"
 categories:
   - java
 ---

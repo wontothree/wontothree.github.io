@@ -1,6 +1,6 @@
 ---
-title: "[Java] 자바 프로그래밍 기초"
-excerpt: 천인국 - Power Java
+title: "[Java] Java Programming Basic"
+excerpt: "천인국 - Power Java : Ch02"
 categories:
   - java
 ---

@@ -1,6 +1,6 @@
 ---
-title: "[Java] 멀티 스레딩"
-excerpt: 천인국 - Power Java
+title: "[Java] Multi-threading"
+excerpt: "천인국 - Power Java : Ch16"
 categories:
   - java
 ---

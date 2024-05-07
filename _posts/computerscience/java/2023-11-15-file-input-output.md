@@ -1,9 +1,8 @@
 ---
-title: "[Java] 파일 입출력"
-excerpt: 천인국 - Power Java
+title: "[Java] File Input and Output"
+excerpt: "천인국 - Power Java : Ch15"
 categories:
   - java
-order: 14
 ---
 ## 1. 입출력 스트림
 

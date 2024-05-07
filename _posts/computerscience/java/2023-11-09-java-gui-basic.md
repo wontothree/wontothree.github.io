@@ -1,6 +1,6 @@
 ---
-title: "[Java] 자바 GUI 기초"
-excerpt: 천인국 - Power Java
+title: "[Java] Java GUI Basic"
+excerpt: "천인국 - Power Java : Ch09"
 categories:
   - java
 ---
