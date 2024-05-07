@@ -1,6 +1,6 @@
 ---
-title: "[Paper Review] Autonomous Vehicles on the Edge : A Survey on Autonomous Vehicle Racing"
-excerpt: '14 Feb 2022 / 146 citation'
+title: "[Paper Review] Survey - Autonomous Vehicle Racing"
+excerpt: 'Autonomous Vehicles on the Edge : A Survey on Autonomous Vehicle Racing'
 categories:
   - paperreview
 ---
