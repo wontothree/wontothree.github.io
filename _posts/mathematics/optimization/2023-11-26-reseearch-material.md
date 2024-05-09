@@ -1,5 +1,5 @@
 ---
-title: "[Optimization] Optimization Research Material"
+title: "[Optimization] Research Material"
 excerpt: "Linear Algebra and Learning form Data : Ch06"
 categories:
   - optimization
@@ -26,7 +26,7 @@ https://www.amazon.com/Statistical-Consequences-Fat-Tails-Preasymptotics/dp/1544
 - [PARAMETER-FREE LEARNING AND OPTIMIZATION ALGORITHMS](https://parameterfree.com/2023/08/30/yet-another-icml-award-fiasco/)
 - [Topology & Geometry by Dr Tadashi Tokieda](https://www.youtube.com/playlist?list=PLTBqohhFNBE_09L0i-lf3fYXF5woAbrzJ)
 - Article : https://horizon.kias.re.kr/22985/
-- [A Reparametrization-Invariant Sharpness Measure Based on Information Geometry](https://proceedings.neurips.cc/paper_files/paper/2022/file/b2ba568effcc3ab221912db2fb095ea9-Paper-Conference.pdf)                             
+- [A Reparametrization-Invariant Sharpness Measure Based on Information Geometry](https://proceedings.neurips.cc/paper_files/paper/2022/file/b2ba568effcc3ab221912db2fb095ea9-Paper-Conference.pdf)
 - [Sharpness Minimization Algorithms Do Not Only Minimize Sharpness To Achieve Better Generalization](https://arxiv.org/pdf/2307.11007)
 - [Measuring the Effects of Data Parallelism on Neural Network Training](https://arxiv.org/pdf/1811.03600)
 - https://www.youtube.com/watch?v=6htbyY3rH1w
