@@ -13,3 +13,4 @@ categories:
 
 - MPC의 대가 : [Frank Allgöwer](https://scholar.google.com/citations?user=WQYw3oIAAAAJ&hl=ko)
 - Professor of Aerospace Engineering, Univeristy of Michigan [Ilya Kolmanovsky](https://scholar.google.com/citations?user=h_PvHyYAAAAJ&hl=ko)
+- Associate Professor of Mechanical Engineering, Kyungpook National University [Kyoungseok Han](https://scholar.google.com/citations?user=CEEipNoAAAAJ&hl=en), [Lab Web Site](https://sites.google.com/view/voice-lab/home)
