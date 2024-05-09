@@ -36,4 +36,17 @@ https://www.amazon.com/Statistical-Consequences-Fat-Tails-Preasymptotics/dp/1544
 - [Practical Sharpness-Aware Minimization Cannot Converge All the Way to Optima](https://papers.nips.cc/paper_files/paper/2023/hash/5305b7891e1098dd9773d35cd9333180-Abstract-Conference.html)
 - [Convergence of mean-field Langevin dynamics: Time and space discretization, stochastic gradient, and variance reduction](https://arxiv.org/pdf/2306.07221)
 - [Neural Teleportation](https://arxiv.org/pdf/2012.01118)
-- 
+- https://arxiv.org/pdf/2012.01118
+- https://arxiv.org/pdf/2305.13404
+- https://arxiv.org/pdf/2106.10439
+- https://arxiv.org/pdf/2305.06628 : MIT & Seoul
+- https://arxiv.org/pdf/2402.11867
+- https://openreview.net/forum?id=CIqjp9yTDq
+- https://www.cs.cornell.edu/courses/cs4787/2021sp/notebooks/Slides10.html
+- https://sites.math.washington.edu/~ddrusv/aiming_deep.pdf
+- https://www.bunne.ch/ot_tutorial/
+- https://openreview.net/forum?id=Q38D6xxrKHe
+- https://proceedings.mlr.press/v238/puchkin24a.html
+- https://www.mdpi.com/2227-7390/11/3/682
+- https://www.sciencedirect.com/science/article/pii/S1367578822000037 vvvvvv
+- https://arxiv.org/pdf/2206.03301
