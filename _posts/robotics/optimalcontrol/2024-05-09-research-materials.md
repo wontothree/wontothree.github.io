@@ -4,11 +4,39 @@ excerpt:
 categories:
   - optimalcontrol
 ---
-## Control Map
-
 ![](./../../../img/optimalcontrol/control-map.png)
 
-## Introduction Youtube Video
+## Control technology
+
+- PID control
+- System ddentification
+- Estimation and filtering
+- Model-predictive control
+- Process data analytics
+- Fault detection and identification
+- Decentralized and/or coordinated control
+- Robust control
+- Intellifent control
+- Discrete-event systems
+- Nonlinear control
+- Adaptive control
+- Repetitive control
+- Hybrid dynamical systems
+- Other advanced control technoloy
+- Game theory
+
+## History of MPC
+
+|Years|Application|MPC|
+|---|---|---|
+|1970-2000|Process control|Linear MPC|
+|2001-2010|Automotive control|Explicit, hybrid MPC|
+|2005|Aerospace systems and UAVs|Linear time-varying MPC|
+|2005|Infomation and communication Technologies (wireless nets, cloud)|Distributed/decentralized MPC|
+|2010|Industrial production|Embedded optimization solvers for MPC|
+|today|Machine Learning|Data-driven MPC|
+
+## Introduction Video
 
 [[메릭 웨비나] 모델예측제어 기법(Model Predictive Control) 및 응용사례 소개 - 한경석 교수(경북대학교 기계공학부)](https://www.youtube.com/watch?v=3odSAkMh94U&t=9s)
 
