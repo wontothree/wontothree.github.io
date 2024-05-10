@@ -10,7 +10,7 @@ categories:
 - [ICML](https://icml.cc/)
 - [COLT](https://learningtheory.org/colt2024/)
 - [Neurips](https://neurips.cc/)
-- Optimization for ML : https://opt-ml.org/
+- [Optimization for ML](https://opt-ml.org/)
 
 ## Papers
 
@@ -27,8 +27,8 @@ categories:
 - https://arxiv.org/pdf/2106.10439
 - https://arxiv.org/pdf/2305.06628 : MIT & Seoul
 - https://arxiv.org/pdf/2402.11867
-- https://www.sciencedirect.com/science/article/pii/S1367578822000037 vvvvvv
-- https://arxiv.org/pdf/2206.03301
+- [Convergence of sequences: A survey](https://www.sciencedirect.com/science/article/pii/S1367578822000037)
+- [Recent Advances in Bayesian Optimization](https://arxiv.org/pdf/2206.03301)
 - https://openreview.net/forum?id=Q38D6xxrKHe
 - https://proceedings.mlr.press/v238/puchkin24a.html
 - https://www.mdpi.com/2227-7390/11/3/682
@@ -42,11 +42,12 @@ categories:
 
 ## Blogs
 
+- [REINFORCEMENT LEARNING AND OPTIMAL CONTROL](https://web.mit.edu/dimitrib/www/RLbook.html)
 - Machine Learning Research Blog : https://francisbach.com/rethinking-sgd-noise/
 - Open Problem in Optimization (adaptive gradient method) : https://www.ehazan.com/openproblem/
 - Emtiyaz Khan : https://emtiyaz.github.io/
 - [BOREALIS AI](https://www.borealisai.com/research-blogs/gradient-flow/)
-- [PARAMETER-FREE LEARNING AND OPTIMIZATION ALGORITHMS](https://parameterfree.com/2023/08/30/yet-another-icml-award
+- [PARAMETER-FREE LEARNING AND OPTIMIZATION ALGORITHMS](https://parameterfree.com/2023/08/30/yet-another-icml-award)
 - Article : https://horizon.kias.re.kr/22985/
 - [Optimal Transport in Learning, Control, and Dynamical Systems](https://www.bunne.ch/ot_tutorial/)
 - https://www.cs.cornell.edu/courses/cs4787/2021sp/notebooks/Slides10.html
