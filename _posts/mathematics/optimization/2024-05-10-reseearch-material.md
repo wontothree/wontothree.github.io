@@ -42,7 +42,7 @@ categories:
 
 ## Blogs
 
-- [REINFORCEMENT LEARNING AND OPTIMAL CONTROL](https://web.mit.edu/dimitrib/www/RLbook.html)
+- [MIT Dimitri P. Bertsekas : REINFORCEMENT LEARNING AND OPTIMAL CONTROL](https://web.mit.edu/dimitrib/www/RLbook.html)
 - Machine Learning Research Blog : https://francisbach.com/rethinking-sgd-noise/
 - Open Problem in Optimization (adaptive gradient method) : https://www.ehazan.com/openproblem/
 - Emtiyaz Khan : https://emtiyaz.github.io/

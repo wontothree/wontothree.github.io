@@ -4,6 +4,9 @@ excerpt:
 categories:
   - optimalcontrol
 ---
+## Control Map
+
+![](./../../../img/optimalcontrol/control-map.png)
 
 ## Introduction Youtube Video
 
