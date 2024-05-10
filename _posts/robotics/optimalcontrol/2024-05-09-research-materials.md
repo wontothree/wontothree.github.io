@@ -53,3 +53,11 @@ categories:
 - 기존의 controller는 MIMO system을 어떻게 다룰까?
 - 기존의 controller는 과거만을 바라본다면 MPC는 미래만을 바라본다고 할 수 있을까?
 - MPC의 feedback은 일반적인 의미의 feedback과 동일할까?
+
+### 연구 주제
+
+## 후보 1. MPPI
+
+[Model Predictive Optimized Path Integral Strategies - ICRA Video](https://www.youtube.com/watch?v=-7jHJP37Nio)
+
+## 후보 2. Model-Based RL
