@@ -8,32 +8,19 @@ categories:
 
 ## Control technology
 
-- PID control
-- System ddentification
-- Estimation and filtering
-- Model-predictive control
-- Process data analytics
-- Fault detection and identification
-- Decentralized and/or coordinated control
-- Robust control
-- Intellifent control
-- Discrete-event systems
-- Nonlinear control
-- Adaptive control
-- Repetitive control
-- Hybrid dynamical systems
-- Other advanced control technoloy
-- Game theory
+![](./../../../img/optimalcontrol/control-impact.png)
 
 ## History of MPC
 
-![](./../../../img/optimalcontrol/control-impact.png)
-
-## My Interest
-
-- Stochastic MPC
-- Data-Driven MPC
-- Model-Based RL
+|Years|Application|MPC|
+|---|---|---|
+|1970-2000|Process control|Linear MPC|
+|2001-2010|Automotive control|Explicit, hybrid MPC|
+|2005|Aerospace systems and UAVs|Linear time-varying MPC|
+|2005|Infomation and communication Technologies (wireless nets, cloud)|Distributed/decentralized MPC|
+|2010|Energy, finance, automotive, water|Stochastic MPC|
+|2010|Industrial production|Embedded optimization solvers for MPC|
+|today|Machine Learning|Data-driven MPC|
 
 ## Introduction Video
 
@@ -53,11 +40,11 @@ categories:
 - 기존의 controller는 MIMO system을 어떻게 다룰까?
 - 기존의 controller는 과거만을 바라본다면 MPC는 미래만을 바라본다고 할 수 있을까?
 - MPC의 feedback은 일반적인 의미의 feedback과 동일할까?
+- [박경훈 교수님께 질문] 제어의 각 분야에 대한 설명
 
-### 연구 주제
+## My Interest
 
-## 후보 1. MPPI
-
-[Model Predictive Optimized Path Integral Strategies - ICRA Video](https://www.youtube.com/watch?v=-7jHJP37Nio)
-
-## 후보 2. Model-Based RL
+- Stochastic MPC
+- Data-Driven MPC
+- Model-Based RL
+- MPPI
