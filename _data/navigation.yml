@@ -63,10 +63,10 @@ sidebar-category:
         url: /optimization
   - title: "ETC"
     children:
-      - title: "Guitar and Effector"
-        url: /guitarandeffector
       - title: "Paper Review"
         url: /paperreview
+      - title: "Laboratory Review"
+        url: /researchreview
       - title: "Civil Law"
         url: /law
       - title: "Marketing"
