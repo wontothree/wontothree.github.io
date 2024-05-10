@@ -1,6 +1,6 @@
 ---
 title: "[Optimization] Research Material"
-excerpt: "Linear Algebra and Learning form Data : Ch06"
+excerpt: "Conferences, papers, blogs, githubs, lectures, books"
 categories:
   - optimization
 ---
