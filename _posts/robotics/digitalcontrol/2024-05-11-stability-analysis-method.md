@@ -1,6 +1,6 @@
 ---
 title: "[Digital Control] Stability Analysis Techniques"
-excerpt: "Charles L. Philips - Digital Control System : Ch06"
+excerpt: "Charles L. Philips - Digital Control System : Ch07"
 categories:
   - digitalcontrol
 ---

@@ -79,6 +79,34 @@ For a given system, there is no unique state-variable formulation
 - A higher-order transfer function as a product of simpler transfer functions
 - A higher-order transfer function as the sum of simper transfer functions through partial-fraction expansion.
 
+앞서 전달함수로부터 상태 모델을 유도하였다. 이절에서는 상태 모델로부터 전달 함수를 구하는 두 가지 방법을 알아본다.
+
+1. 이산 시간 시스템의 상태 방정식으로부터 모의 실험 선도를 구성한 후 Mason의 이득 공식을 이용하여 모의 실험 선도로부터 전달함수를 구한다.
+2. 상태 방정식에 z-transform을 취하고 X(z)를 제거한다.
+
+$$
+\dot{x} = Ax + Bu \\
+y = Cx + Du \\
+$$
+
+$$
+sX(s) = AX(s) + BU(s) \\
+Y(s) = CX(s) + DU(s) \\
+$$
+
+$$
+X(s) = (sI-A)^{-1}BU(s) \\
+$$
+
+$$
+Y(s) = CX(s) + DU(s) \\
+= C(sI-A)^{-1}BU(s) + DU(s)
+$$
+
+$$
+\therefore \dfrac{Y(s)}{U(s)} = C(sI-A)^{-1}B + D
+$$
+
 ## 12 Solutions of the State Equations
 
 ## 13 Linear Time-varying Systems
