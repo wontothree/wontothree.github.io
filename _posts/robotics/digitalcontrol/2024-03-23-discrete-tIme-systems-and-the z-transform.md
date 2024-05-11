@@ -115,3 +115,4 @@ $$
 
 - If the discrete-time system is linear and time-invariant we can also represent the system by a transfer function. (63.page) : time-variant한 경우에는 시스템을 어떻게 이해할 수 있을까?
 - For certain analysis or design procedures, certain formulations present advantages with respect to calculations, as will eb shown in later chapters. (71.page)
+- [11] (sI-A)가 invertible한지 어떻게 알 수 있을까?
