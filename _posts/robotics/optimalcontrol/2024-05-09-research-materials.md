@@ -46,7 +46,6 @@ categories:
 
 ## My Interest
 
-- Stochastic MPC
+- Stochastic MPC : MPPI
 - Data-Driven MPC
 - Model-Based RL
-- MPPI
