@@ -2,7 +2,7 @@
 title: "[Effector] Effector Concepts"
 excerpt: "Naomune Anzai - 연주자와 엔지니어를 위한 이펙터 교과서"
 categories: 
-  - guitarandeffector
+  - etc
 ---
 ## 3 실전적인 이펙터 사용 방법
 

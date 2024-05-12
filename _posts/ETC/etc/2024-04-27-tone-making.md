@@ -2,7 +2,7 @@
 title: "[Effector] Tone Making"
 excerpt: "Tone Making"
 categories: 
-  - guitarandeffector
+  - etc
 ---
 ## 1
 
