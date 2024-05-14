@@ -1,6 +1,6 @@
 ---
 title: "Number Theory and Cryptography"
-excerpt: "Discrete Mathematics"
+excerpt: "Discrete Mathematics (Ch04)"
 categories:
   - discretemathematics
 ---
