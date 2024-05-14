@@ -1,6 +1,6 @@
 ---
-title: "[Real Analysis] Topology of the Real Line"
-excerpt: "Manfred - Introduction to Real Analysis : Ch02"
+title: "Topology of the Real Line"
+excerpt: "Real Analysis"
 categories:
   - realanalysis
 ---
@@ -61,3 +61,7 @@ All of these properties are what we intuitively expect a distance function to sa
 ## 궁금한 점
 
 - Matric Space의 의미가 뭘까?
+
+## Reference
+
+Manfred - Introduction to Real Analysis : Ch02

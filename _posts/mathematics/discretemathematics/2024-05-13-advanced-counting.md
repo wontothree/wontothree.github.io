@@ -52,7 +52,49 @@ $$
 
 이제 피보나치 수열의 일반항를 구할 수 있다.
 
+Linear homogeneous recurrence relation with constant coefficients는 모두 풀 수 있다.
+
+Linea nonhomogeneous recurrent relation with constant coefficients를 풀 수 있을까?
+
+>**[Theorem]** \
+>If $\{a_n^{(p)}\}$ is a particular solution of the nonhomogeneous linear recurrence relation with constant coefficients
+
+1. homogeneous solution
+2. particular solution
+
+master
+
+>**[Theorem]** \
+> Suppose that $\{a_n\}$ satisfies the linear nonhomogeneous recurrence relation \
+>$a_n$ = c_1a_{n-1}
+
 ## 3. Divide-and-Conquer Algorithms and Recurrence Relations
+
+$$
+a_2a_1 \times b_2b_1
+\\
+f(n) = 4f(n/2) + 3n
+$$
+
+카르슈바
+
+$$
+f(n) = 3f(n/2) + \dots
+\\
+O(\log_23)
+$$
+
+Divide and conquer example
+
+Master theorem : Big notation을 알려준다. 시간 복잡도가 우리의 목적이다. 이것만 기억하면 된다. Theorem for the relation of $f(n) = af(n/b) + g(n)$은 외울 필요 x
+
+>**[Theorem]** \
+>Let f be an increasing function that satisfies the recurremce relation $f(n) = af(n/b) + cn^d$ whenever $n = b^k$, where $k$ is a positive integer, $a \geq 1$, b is an integer greater than 1, and c and d are real numbers with c positive and d nonnegative. Then
+>
+
+Karatsuba
+
+더하기 빼기만으로 이끌어낸다.
 
 ## 4. Generating Function
 
@@ -63,3 +105,7 @@ $$
 ## Reference
 
 Kenneth H. Rosen - Discrete Mathematics and Its Applications : Chapter 08
+
+## 생각
+
+Divied and Conquer와 반대되는 것이 End-to-End인 것 같다.

@@ -1,6 +1,6 @@
 ---
-title: "[Real Analysis] The Real Numbers"
-excerpt: "Manfred - Introduction to Real Analysis : Ch01"
+title: "The Real Numbers"
+excerpt: "Real Analysis"
 categories:
   - realanalysis
 ---
@@ -250,3 +250,7 @@ We take a closer look at infinite sets and what it means for an infinite set ot 
 ## 궁금한 점
 
 - 첫 번째 order axiom이 field axiom과 중복되는데 왜 존해하는 것일까?
+
+## Reference
+
+Manfred - Introduction to Real Analysis : Ch01

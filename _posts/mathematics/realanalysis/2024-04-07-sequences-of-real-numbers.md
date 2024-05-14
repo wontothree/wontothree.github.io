@@ -1,6 +1,6 @@
 ---
-title: "[Real Analysis] Sequences of Real Numbers"
-excerpt: "Manfred - Introduction to Real Analysis : Ch03"
+title: "Sequences of Real Numbers"
+excerpt: "Real Analysis"
 categories:
   - realanalysis
 ---
@@ -267,3 +267,7 @@ Therefore, $\lim_{n \rightarrow \infty} \sqrt[n]{n} = \lim_{n \rightarrow \infty
 ## 6 Cauchy Sequences
 
 ## 7 Series of Real Numbers
+
+## Reference
+
+Manfred - Introduction to Real Analysis : Ch03
