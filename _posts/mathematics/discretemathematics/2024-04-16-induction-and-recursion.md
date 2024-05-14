@@ -1,6 +1,6 @@
 ---
-title: "[Discrete Mathematics] Induction and Recursion"
-excerpt: "Kenneth H. Rosen - Discrete Mathematics and Its Applications : Ch05"
+title: "Induction and Recursion"
+excerpt: "Discrete Mathematics (Ch05)"
 categories:
   - discretemathematics
 ---
@@ -56,3 +56,7 @@ We will see that algorithms that successively reduce a problem to the same probl
 ### 4.4 The Merge Sort
 
 오늘의 결론 : merge sort
+
+## Reference
+
+Kenneth H. Rosen - Discrete Mathematics and Its Applications : Ch05

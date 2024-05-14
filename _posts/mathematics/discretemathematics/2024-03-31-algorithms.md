@@ -1,6 +1,6 @@
 ---
-title: "[Discrete Mathematics] Algorithms"
-excerpt: "Kenneth H. Rosen - Discrete Mathematics and Its Applications : Ch03"
+title: "Algorithms"
+excerpt: "Discrete Mathematics (Ch03)"
 categories:
   - discretemathematics
 ---
@@ -231,3 +231,7 @@ Insertion  =   1  2  3  4  5  6  7  8  9
 >Let $f$ and $g$ be functions from the set of integers or the set of real numbers to the set of real numbers. We say that $f(x)$ is $\theta(g(x))$ if $f(x)$ is O(g(x)) and $f(x)$ is $\Omega(g(x))$.
 
 ## 3. Complexity of algorithms
+
+## Reference
+
+Kenneth H. Rosen - Discrete Mathematics and Its Applications : Ch03

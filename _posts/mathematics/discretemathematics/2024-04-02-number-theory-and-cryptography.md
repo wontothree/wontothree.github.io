@@ -1,6 +1,6 @@
 ---
-title: "[Discrete Mathematics] Number Theory and Cryptography"
-excerpt: "Kenneth H. Rosen - Discrete Mathematics and Its Applications : Ch04"
+title: "Number Theory and Cryptography"
+excerpt: "Discrete Mathematics"
 categories:
   - discretemathematics
 ---
@@ -286,3 +286,7 @@ $$
 - DLP 로가리즘 브라블럼
 - 교수 전공은 대체키 암호다. 공개키 암호 상관 ㄴㄴ. 아직까지는 양자컴으로부터도 안전할 것이라 생각된다.
 - RSA : 는 컴싸에서도 조금 배우면 할 수 있지만 PQC는 대학원 수학을 알아야만 할 수 있다.
+
+## Reference
+
+Kenneth H. Rosen - Discrete Mathematics and Its Applications : Ch04
