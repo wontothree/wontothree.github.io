@@ -299,7 +299,7 @@ The concepts of the limit superior and limit inferior will also be important in 
 >(c)
 
 >**[Corollary 3.3.3]** \
->$\varlimsup_{n \to \infty} s_n = \varliminf_{n \to \infty} s_n$ if and ony if $\lim_{n \to \infty}$ exists in $\mathbb{R} \$
+>$\varlimsup_{n \to \infty} s_n = \varliminf_{n \to \infty} s_n$ if and ony if $\lim_{n \to \infty}$ exists in $\mathbb{R} \cup \{-\infty, \infty\}$.
 
 ## 6 Cauchy Sequences
 
