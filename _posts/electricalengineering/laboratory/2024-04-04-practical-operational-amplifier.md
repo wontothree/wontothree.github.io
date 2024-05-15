@@ -1,5 +1,5 @@
 ---
-title: "Characteristics of Practical Operational Amplifier"
+title: "Practical Operational Amplifier"
 excerpt: Unit 05
 categories:
   - laboratory

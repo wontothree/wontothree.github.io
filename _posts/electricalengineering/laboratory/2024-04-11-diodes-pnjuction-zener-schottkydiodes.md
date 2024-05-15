@@ -1,10 +1,9 @@
 ---
-title: "Characteristics of Diverse Diodes : PN Juction, Zener, and Schottky Diodes"
+title: "Diodes : PN Juction, Zener, and Schottky Diodes"
 excerpt: Unit 06
 categories:
   - laboratory
 ---
-
 ![](../../../img/laboratory/ECDL3_Unit6-01.png)
 ![](../../../img/laboratory/ECDL3_Unit6-02.png)
 ![](../../../img/laboratory/ECDL3_Unit6-03.png)
