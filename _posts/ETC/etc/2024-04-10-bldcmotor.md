@@ -1,5 +1,5 @@
 ---
-title: "[ETC] Brushless DC Motor"
+title: "BLDC Motor"
 excerpt: ""
 categories: 
   - etc
@@ -79,3 +79,9 @@ $$
 
 - 스텝 모터는 힘이 약하다.
 - 엔코더는 기준점으로 상대 위치이다, 오차가 발생한다.
+
+## BLDC Motor 동작법
+
+- 초록선 : PWM
+- 빨간선 : 12V
+- 검정선 : Ground

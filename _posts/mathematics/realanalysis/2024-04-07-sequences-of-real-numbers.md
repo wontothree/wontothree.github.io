@@ -27,7 +27,6 @@ Our presentation will be considerably more rigorous - emphasizing proofs rather 
 >(b) Every convergent sequence in $X$ is bounded. \
 >(c) If $E \subset X$ and $p$ is a limit point of $E$, then there exists a sequence $\{p_n\}$ in $E$ with $p_n \neq p$ for all $n$ such that $\lim_{x\to\infty} \{p_n\} = p$.
 
-
 **Proof (a)**
 
 We will prove it using proof by contradiction.
@@ -260,9 +259,19 @@ Therefore, $\lim_{n \rightarrow \infty} \sqrt[n]{n} = \lim_{n \rightarrow \infty
 
 ## 3 Monotone Sequences
 
-## 4 Subsequences and the Bolzano- Weierstrass Theorem
+## 4 Subsequences and the Bolzano-Weierstrass Theorem
 
 ## 5 Limit Superior and Inferior of a Sequence
+
+In this section, we will consider subsequences and subsequential limits of a given sequence of real numbers. One of the key results of the section is that every bounded sequence of real numbers bas a convergent subsequence. This result, also known as the sequential version of the Bolzano Weierstrass theorem, is one of the fundemental results of real analysis.
+
+>**[Definition 3.4.1]** \
+>Let $(X, d)$ be a metric space. Given a sequence $\{p_n\}$ in $X$, consider a sequence $\{n_k\}$_{k=1}^\infty of positive integers such that $n_1 < n_2 < n_3 < \dots$. Then the sequence $\{p_{n_k}\}$ is called a subsequence of the sequence $\{p_n\}$.
+
+A point $p \in X$ is a subsequential limit of the sequence $\{p_n\}$ is there exists a subsequence $\{p_{n_k}\}$ of $\{p_n\}$ that converges to p. Also, given a sequence $\{p_n\}$ in $\mathbb{R}$, we say that $\infty$ is a subsequential limit of $\{p_n\}$ if there exists a subsequence $\{p_{n_k}\}$ so that $\{p_{n_k}\} \rightarrow \infty$ as $k \rightarrow \infty$. Similarly for $-\infty$.
+
+>**[Definition 3.4.3]** \
+>Let $(X, d)$ be a metric space and let $\{p_n\}$ be a sequence in $X$. If $\{p_n\}$ converges to $p$.
 
 ## 6 Cauchy Sequences
 
