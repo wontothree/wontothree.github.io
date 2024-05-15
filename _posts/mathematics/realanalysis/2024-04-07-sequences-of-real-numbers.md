@@ -261,12 +261,10 @@ Therefore, $\lim_{n \rightarrow \infty} \sqrt[n]{n} = \lim_{n \rightarrow \infty
 
 ## 4 Subsequences and the Bolzano-Weierstrass Theorem
 
-## 5 Limit Superior and Inferior of a Sequence
-
 In this section, we will consider subsequences and subsequential limits of a given sequence of real numbers. One of the key results of the section is that every bounded sequence of real numbers bas a convergent subsequence. This result, also known as the sequential version of the Bolzano Weierstrass theorem, is one of the fundemental results of real analysis.
 
 >**[Definition 3.4.1]** \
->Let $(X, d)$ be a metric space. Given a sequence $\{p_n\}$ in $X$, consider a sequence $\{n_k\}$_{k=1}^\infty of positive integers such that $n_1 < n_2 < n_3 < \dots$. Then the sequence $\{p_{n_k}\}$ is called a subsequence of the sequence $\{p_n\}$.
+>Let $(X, d)$ be a metric space. Given a sequence $\{p_n\}$ in $X$, consider a sequence $\{n_k\}_{k=1}^{\infty}$ of positive integers such that $n_1 < n_2 < n_3 < \dots$. Then the sequence $\{p_{n_k}\}$ is called a subsequence of the sequence $\{p_n\}$.
 
 A point $p \in X$ is a subsequential limit of the sequence $\{p_n\}$ is there exists a subsequence $\{p_{n_k}\}$ of $\{p_n\}$ that converges to p. Also, given a sequence $\{p_n\}$ in $\mathbb{R}$, we say that $\infty$ is a subsequential limit of $\{p_n\}$ if there exists a subsequence $\{p_{n_k}\}$ so that $\{p_{n_k}\} \rightarrow \infty$ as $k \rightarrow \infty$. Similarly for $-\infty$.
 
@@ -275,6 +273,33 @@ A point $p \in X$ is a subsequential limit of the sequence $\{p_n\}$ is there ex
 
 >**[Corollary 3.4.6] (Bolzano-Weierstrass)** \
 >Every bounded sequence in $\mathbb{R}$ has aconvergent subsequence.
+
+## 5 Limit Superior and Inferior of a Sequence
+
+In this section, we define the limit superior and limit inferior of a sequence of real numbers.
+
+These two limit operations are important because unlike the limit of a sequence, the limit superior and limit inferior of a sequence always exist.
+
+The concepts of the limit superior and limit inferior will also be important in our study of both series of real numbers and power series.
+
+>**[Definition 3.5.1]** \
+>Let $\{s_n\}$ be a sequence in $\mathbb{R}$. \
+>The limit superior of $\{s_n\}$, denoted $\varlimsup_{n \to \infty} s_n$ or $\varlimsup s_n$ , is defined as
+>$$\varlimsup_{n \to \infty} s_n = \lim_{n \to \infty} b_k = \inf_{k \in N} \sup \{s_n : n \geq k\}$$
+>The limit inferior of $\{s_n\}$, denoted $\varliminf_{n \to \infty} s_n$ or $\varliminf s_n$, is defined as
+>$$\varliminf_{n \to \infty} s_n = \lim_{n \to \infty} a_k = \sup_{k \in N} \inf \{s_n : n \geq k\}$$
+
+>**[Theorem 3.5.3]** \
+>Let $\{s_n\}_{n=1}^{\infty}$ be a sequence in $\mathbb{R}$. \
+>(a) Suppose $\varlimsup_{n \to \infty} s_n \in \mathbb{R}$. Then $\beta = \varlimsup_{n \to \infty} s_n$ if and only if for all $\epsilon > 0$ \
+>(i) there exists $n_0 \in \mathbb{N}$ such that $s_n < \beta + \epsilon $ 
+>for all $n \geq n_0$, and \
+>(ii) given $n \in \mathbb{N}$, there exists $k \in \mathbb{N}$ with $k \geq n$ such that $s_k > \beta + \epsilon$. \
+>(b) \
+>(c)
+
+>**[Corollary 3.3.3]** \
+>$\varlimsup_{n \to \infty} s_n = \varliminf_{n \to \infty} s_n$ if and ony if $\lim_{n \to \infty}$ exists in $\mathbb{R} \$
 
 ## 6 Cauchy Sequences
 
