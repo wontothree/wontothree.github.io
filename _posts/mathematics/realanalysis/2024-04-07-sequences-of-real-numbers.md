@@ -27,6 +27,7 @@ Our presentation will be considerably more rigorous - emphasizing proofs rather 
 >(b) Every convergent sequence in $X$ is bounded. \
 >(c) If $E \subset X$ and $p$ is a limit point of $E$, then there exists a sequence $\{p_n\}$ in $E$ with $p_n \neq p$ for all $n$ such that $\lim_{x\to\infty} \{p_n\} = p$.
 
+{: .notice}
 **Proof (a)**
 
 We will prove it using proof by contradiction.
