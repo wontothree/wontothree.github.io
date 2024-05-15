@@ -33,6 +33,8 @@ sidebar-category:
         url: /datastructure
       - title: "Machine Learning"
         url: /machinelearning
+      - title: "Docker"
+        url: /docker
   - title: "Electrical Engineering"
     children:
       - title: "Digital Logic"
