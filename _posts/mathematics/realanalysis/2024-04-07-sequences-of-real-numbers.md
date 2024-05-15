@@ -189,12 +189,32 @@ Therefore, $\lim_{n \rightarrow \infty} \sqrt[n]{n} = \lim_{n \rightarrow \infty
 
 ## 3 Monotone Sequences
 
-## 4 Subsequences and the Bolzano-Weierstrass Theorem
+>**[Definition 3.3.1]** \
+>A sequence $\{a_n\}_{n=1}^{\infty}$ of real numbers is said to be \
+>(a) monotone increasing (or nondecreasing) if $a_n \leq a_{n+1}$ for all $n \in \mathbb{N}$; \
+>(b) monotone decreasing (or nonincreasing) if $a_n \geq a_{n+1}$ for all $n \in \mathbb{N}$; \
+>monotone if it is either monotone increasing or monotone decreasing.
+
+>**[Theorem 3.3.2]** \
+>If $\{a_n\}_{n=1}^{\infty}$ is monotone and bounded, then $\{a_n\}_{n=1}^{\infty}$ converges.
+
+### Nested Intervals Property
+
+>**[Corollary 3.3.3] (Nested Intervals Property)** \
+>If $\{I_n\}_{n=1}^{\infty}$ is a sequence of closed and bounded intervals with $I_n \supset I_{n+1}$ for all $n \in \mathbb{N}$, then
+>$$\cap_{n=1}^{\infty} I_n \neq \emptyset$$.
+
+### Euler's Number $\mathbb{e}$
+
+### Infinite Limits
+
+## 4. Subsequences and the Bolzano-Weierstrass Theorem
 
 In this section, we will consider subsequences and subsequential limits of a given sequence of real numbers. One of the key results of the section is that every bounded sequence of real numbers bas a convergent subsequence. This result, also known as the sequential version of the Bolzano Weierstrass theorem, is one of the fundemental results of real analysis.
 
 >**[Definition 3.4.1]** \
->Let $(X, d)$ be a metric space. Given a sequence $\{p_n\}$ in $X$, consider a sequence $\{n_k\}_{k=1}^{\infty}$ of positive integers such that $n_1 < n_2 < n_3 < \dots$. Then the sequence $\{p_{n_k}\}$ is called a subsequence of the sequence $\{p_n\}$.
+>Let $(X, d)$ be a metric space. Given a sequence $\{p_n\}$ in $X$, consider a sequence $\{n_k\} _{k=1}^{\infty}$
+>of positive integers such that $n_1 < n_2 < n_3 < \dots$. Then the sequence $\{p_{n_k}\}$ is called a subsequence of the sequence $\{p_n\}$.
 
 A point $p \in X$ is a subsequential limit of the sequence $\{p_n\}$ is there exists a subsequence $\{p_{n_k}\}$ of $\{p_n\}$ that converges to p. Also, given a sequence $\{p_n\}$ in $\mathbb{R}$, we say that $\infty$ is a subsequential limit of $\{p_n\}$ if there exists a subsequence $\{p_{n_k}\}$ so that $\{p_{n_k}\} \rightarrow \infty$ as $k \rightarrow \infty$. Similarly for $-\infty$.
 
