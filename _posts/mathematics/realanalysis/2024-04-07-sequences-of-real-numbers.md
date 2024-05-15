@@ -271,7 +271,10 @@ In this section, we will consider subsequences and subsequential limits of a giv
 A point $p \in X$ is a subsequential limit of the sequence $\{p_n\}$ is there exists a subsequence $\{p_{n_k}\}$ of $\{p_n\}$ that converges to p. Also, given a sequence $\{p_n\}$ in $\mathbb{R}$, we say that $\infty$ is a subsequential limit of $\{p_n\}$ if there exists a subsequence $\{p_{n_k}\}$ so that $\{p_{n_k}\} \rightarrow \infty$ as $k \rightarrow \infty$. Similarly for $-\infty$.
 
 >**[Definition 3.4.3]** \
->Let $(X, d)$ be a metric space and let $\{p_n\}$ be a sequence in $X$. If $\{p_n\}$ converges to $p$.
+>Let $(X, d)$ be a metric space and let $\{p_n\}$ be a sequence in $X$. If $\{p_n\}$ converges to $p$, then every subsequence of $\{p_n\}$ also converges to $p$.
+
+>**[Corollary 3.4.6] (Bolzano-Weierstrass)** \
+>Every bounded sequence in $\mathbb{R}$ has aconvergent subsequence.
 
 ## 6 Cauchy Sequences
 
