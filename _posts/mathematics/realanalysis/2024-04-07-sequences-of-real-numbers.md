@@ -37,21 +37,10 @@ Also, since $p_n \rightarrow p, \exists n_2 \in \mathbb{N} \; s.t. \; \vert p_n 
 Thus if $n \geq max(n_1, n_2)$, by triangule inequality, $d(p, q) \leq d(p_n, p) + d(p_n, q) < 2 \epsilon = \dfrac{2}{3} d(p, q)$, which is a contradiction.
 Thereofre, $p = q$ and the sequence $p_n$ converges to unique point.
 
-**Proof (b)**
-{:}
+{: .notice}
+**Proof (b)** Let $\{p_n\}$ be a convergent sequence in $X$ such that converges to $p \in X$. Take $\epsilon = 1$. For this $\epsilon, \exists n_0 \in \mathbb{N} \; s.t. \; d(p_n, p) < \epsilon \; \forall n > n_0$. Let $M = max(d(p, p_1), d(p, p_2), \dots, d(p, p_{n_0}), 1)$. Then $d(p, p_n) \leq M \; \forall n \in \mathbb{N}$. Therefore $p_n$ is bounded.
 
-Let $\{p_n\}$ be a convergent sequence in $X$ such that converges to $p \in X$.
-
-Take $\epsilon = 1$.
-
-For this $\epsilon, \exists n_0 \in \mathbb{N} \; s.t. \; d(p_n, p) < \epsilon \; \forall n > n_0$.
-
-Let $M = max(d(p, p_1), d(p, p_2), \dots, d(p, p_{n_0}), 1)$.
-
-Then $d(p, p_n) \leq M \; \forall n \in \mathbb{N}$.
-
-Therefore $p_n$ is bounded.
-
+{: .notice}
 **Proof (c)**
 
 ## 2 Sequences of Real Numbers
@@ -65,30 +54,11 @@ We will emphasize some of the important properties of sequences of real numbers,
 >(b) $\lim_{n \rightarrow \infty} a_nb_n= ab$. \
 >(c) Futhermore, if $a \neq 0$, and $a_n \neq 0$ for all $n$, then $\lim_{x\to\infty} \dfrac{b_n}{a_n}= \dfrac{b}{a}$.
 
-**Proof (a)**
+{: .notice}
+**Proof (a)** Since $a_n \rightarrow a$ and $b_n \rightarrow b$, $\forall \epsilon_1 \; \exists n_1 \; s.t. \; \vert a_n - a \vert < \epsilon_1 \; \forall n \geq n_1$ and $\forall \epsilon_2 \; \exists n_2 \; s.t. \; \vert b_n - b \vert < \epsilon_2 \; \forall n \geq n_2$. Take $\epsilon = \epsilon_1 + \epsilon_2$ and $n_0 = max(n_1, n_2)$. if $n \geq n_0$, using triangle inequality, $\vert (a_n + b_n) - (a + b) \vert \leq \vert a_n - a \vert + \vert b_n - b \vert \leq \epsilon_1 + \epsilon_2 = \epsilon$. Therefore, $(a_n + b_n) \rightarrow (a+b)$.
 
-Since $a_n \rightarrow a$ and $b_n \rightarrow b$, $\forall \epsilon_1 \; \exists n_1 \; s.t. \; \vert a_n - a \vert < \epsilon_1 \; \forall n \geq n_1$ and $\forall \epsilon_2 \; \exists n_2 \; s.t. \; \vert b_n - b \vert < \epsilon_2 \; \forall n \geq n_2$.
-
-Take $\epsilon = \epsilon_1 + \epsilon_2$ and $n_0 = max(n_1, n_2)$.
-
-if $n \geq n_0$, using triangle inequality, $\vert (a_n + b_n) - (a + b) \vert \leq \vert a_n - a \vert + \vert b_n - b \vert \leq \epsilon_1 + \epsilon_2 = \epsilon$.
-
-Therefore, $(a_n + b_n) \rightarrow (a+b)$.
-
-**Proof (b)**
-
-Since $a_n \rightarrow a$, by theorem 3.1.4 (b), $a_n$ is bounded.
-
-Thus $\exists M >0 \; s.t. \; \vert a_n \vert \leq M \; \forall \; n \in \mathbb{N}$.
-
-Take $\epsilon = M \epsilon_2 + \vert b \vert \epsilon_1 > 0$ and $n_0 = max(n_1, n_2)$.
-
-Since $a_n \rightarrow a$ and $b_n \rightarrow b$,
-
-$\forall \epsilon_1 > 0 \; \exists n_1 \in \mathbb{N} \; s.t. \; \vert a_n - a \vert < \epsilon_1 \; \forall n \geq n_1$ and $\forall \epsilon_2 > 0 \in \mathbb{N} \; \exists n_2 \; s.t. \; \vert b_n - b \vert < \epsilon_2 \; \forall n \geq n_2$.
-
-If $n \geq n_0$,
-
+{: .notice}
+**Proof (b)** Since $a_n \rightarrow a$, by theorem 3.1.4 (b), $a_n$ is bounded. Thus $\exists M >0 \; s.t. \; \vert a_n \vert \leq M \; \forall \; n \in \mathbb{N}$. Take $\epsilon = M \epsilon_2 + \vert b \vert \epsilon_1 > 0$ and $n_0 = max(n_1, n_2)$. Since $a_n \rightarrow a$ and $b_n \rightarrow b$, $\forall \epsilon_1 > 0 \; \exists n_1 \in \mathbb{N} \; s.t. \; \vert a_n - a \vert < \epsilon_1 \; \forall n \geq n_1$ and $\forall \epsilon_2 > 0 \in \mathbb{N} \; \exists n_2 \; s.t. \; \vert b_n - b \vert < \epsilon_2 \; \forall n \geq n_2$. If $n \geq n_0$,
 $$
 \vert a_nb_n - ab \vert = \vert a_n (b_n - b) + b (a_n - a) \vert
 \\
@@ -101,25 +71,18 @@ $$
 \\
 = \epsilon
 $$
-
 Therefore $a_nb_n \rightarrow ab$
 
+{: .notice}
 **Proof (C)**
-
 It is suffice to show that $\dfrac{1}{a_n} \rightarrow \dfrac{1}{a}$.
-
 The result (c) then follows from (b).
-
 Since $a \neq 0$ and $a_n \rightarrow a$, let $\epsilon' = \dfrac{1}{2} \vert a \vert$ and $\exists n_0 \in \mathbb{N} \; s.t. \; \vert a_n - a \vert < \epsilon' \; \forall n \geq n_0$.
-
 Since $\vert a \vert \leq \vert a_n - a \vert + \vert a_n \vert < \dfrac{1}{2} \vert a \vert + \vert a_n \vert \; \forall \; n \geq n_0$, $\vert a_n \vert > \dfrac{1}{2} \vert a \vert \; \forall \; n \geq n_0$.
-
 Take $\epsilon = \dfrac{1}{\vert a \vert}$, and if $n \geq n_0$,
-
 $$
 \vert \dfrac{1}{a_n} - \dfrac{1}{a} \vert \leq \dfrac{\vert a_n - a \vert}{\vert a_n \vert \vert a \vert} < \dfrac{\dfrac{1}{2} \vert a \vert}{\dfrac{1}{2} \vert a \vert \vert a \vert} = \dfrac{1}{\vert a \vert} = \epsilon
 $$
-
 Therefore $\dfrac{1}{a_n} \rightarrow \dfrac{1}{a}$
 
 >**[COROLLARY 3.2.2]** \
@@ -127,22 +90,18 @@ Therefore $\dfrac{1}{a_n} \rightarrow \dfrac{1}{a}$
 >(a) $\lim_{n \rightarrow \infty} (a_n + c)= a + c$, and \
 >(b) $\lim_{n \rightarrow \infty} c\;a_n= c\;a$.
 
+{: .notice}
 **Proof.** If we define the sequence $c_n$ by $c_n = c$ for all $n \in \mathbb{N}$, then the conclusions follow by (a) and (b) of the previous theorem.
 
 >**[THEOREM 3.2.3]** \
 >Let $\{ a_n \}$ and $\{ b_n \}$ be a sequences of real numbers. If $\{ b_n \}$ is bounded and $\lim_{n \rightarrow \infty} a_n= 0$, then
 >$\lim_{n \rightarrow \infty} a_n b_n= 0$
 
-**Proof.** 
-
-Since $b_n$ is bounded, $\exists M > 0 \; s.t. \; \vert b_n \vert < M \;\forall \; n \in \mathbb{N}$.
-
+{: .notice}
+**Proof.** Since $b_n$ is bounded, $\exists M > 0 \; s.t. \; \vert b_n \vert < M \;\forall \; n \in \mathbb{N}$.
 Let $\epsilon > 0$ be given.
-
 Since $a_n \rightarrow 0$, $\exists n_0 = n_0(\epsilon) \in \mathbb{N} \; s.t. \; \vert a_n - 0 \vert < \dfrac{\epsilon}{M} \; \forall n \geq n_0$.
-
 Thus, if $n \geq n_0$, $\vert a_nb_n - 0 \vert \leq \vert a_n \vert \vert b_n \vert \leq \dfrac{\epsilon}{M} \cdot M = \epsilon$.
-
 Therefore, $a_nb_n \rightarrow 0$.
 
 >**[THEOREM 3.2.4]** squeeze theorem \
@@ -150,18 +109,13 @@ Therefore, $a_nb_n \rightarrow 0$.
 >and that $\lim_{n \rightarrow \infty} a_n= \lim_{n \rightarrow \infty} b_n = L$. \
 >Then the sequence $\{b_n\}$ converges and $\lim_{n \rightarrow \infty} b_n = L$
 
+{: .notice}
 Let $\epsilon > 0$ be given.
-
 Since $a_n \rightarrow L$ and $b_n \rightarrow L$,
-
 $\exists n_1 \in \mathbb{N} \; s.t. \; \vert a_n - L \vert < \epsilon \; \forall n \geq n_1$ and $\exists n_2 \in \mathbb{N} \; s.t. \; \vert c_n - L \vert < \epsilon \; \forall n \geq n_2$
-
 Thus, $L - \epsilon < a_n < L + \epsilon$ and $L - \epsilon < c_n < L + \epsilon$.
-
 Take $n_0 = max(n_1, n_2)$.
-
 Since $L - \epsilon < a_n \leq b_n \leq c_n < L + \epsilon \; \forall n \geq n_0$, $\vert b_n - L \vert < \epsilon \; \forall n \geq n_0$.
-
 Therefore $c_n \rightarrow L$.
 
 ### Some special Sequences
@@ -172,14 +126,11 @@ We consider some special sequences of real numbers that occur frequently in the 
 >For $a \in \mathbb{R}$, $n \in \mathbb{N},$ \
 >$(1 + a)^n = \sum_{k=0}^n {n \choose k} a^k = {n \choose 0} + {n \choose 1} a + \dots + {n \choose n} a^n$
 
+{: .notice}
 **Proof.**
-
 We will use Mathematical induction.
-
 When $n = 1$, ${1 \choose 0} + {1 \choose 1} a = 1 + 1$, which means the given identity is true.
-
 Suppose that the given identity is true, which is ${n \choose 0} + {n \choose 1} a + \dots + {n \choose n} a^n$.
-
 $$
 (1 + a)^{n+1} = (1 + a) (1 + a)^n
 \\
@@ -191,9 +142,7 @@ $$
 \\
 = {n+1 \choose 0} + {n+1 \choose 1} a + \dots + {n+1 \choose n} a^{n+1} + {n+1 \choose n+1} a^{n+1}
 $$
-
 , which means the given identity is true when $n = n + 1$.
-
 Therefore, by mathematical induction, the given identity is true.
 
 >**[THEOREM 3.2.6]** \
@@ -204,52 +153,38 @@ Therefore, by mathematical induction, the given identity is true.
 >(e) If $|p| < 1$, then $\lim_{n \rightarrow \infty} p^n = 0$. \
 >(f) For all $p \in \mathbb{R}$, $\lim_{n \rightarrow \infty} \dfrac{p^n}{n!} = 0$.
 
+{: .notice}
 **Proof (a)**
-
 Let $\epsilon \in \mathbb{R}$ s.t. $\epsilon > 0 $ be given.
-
 By Archimedian property, $\exists n_0$ s.t. $n_0 \epsilon^{1/p} > 1$ or $\epsilon > \dfrac{1}{n_0^p}$.
-
 If $n \geq n_0$, $\vert \dfrac{1}{n^p} - 0 \vert \leq \vert \dfrac{1}{n_0^p} \vert < \epsilon$.
-
 Therefore, $\dfrac{1}{n^p} \rightarrow 0$
 
+{: .notice}
 **Proof (b)**
-
 When $p = 1$, $\lim_{n \rightarrow \infty} \sqrt[n]{p} = \lim_{n \rightarrow \infty} 1 = 1$.
-
 When $p < 1$, $\exists q = \dfrac{1}{p}$.
-
 If is suffice to show that $\lim_{n \rightarrow \infty} \sqrt[n]{p} = 1$ for $p > 1$.
-
 Since $p > 1$, $\sqrt[n]{p} > 1$ and $\sqrt[n]{p} = p^{1/n} = 1 + a_n$ for $n \in \mathbb{N}$ and some $a_n > 0$.
-
 $$
 p = (1 + a_n)^n
 = {n \choose 0} + {n \choose 1} a_n + \dots + {n \choose n} a_n^n
 \geq na_n
 $$
-
 Since $0 < a_n < \dfrac{p}{n}$ for all $n \in \mathbb{N}$ and $\dfrac{p}{n} \rightarrow 0$, by squeeze theorem, $a_n \rightarrow 0$.
-
 Therefore, $\lim_{n \rightarrow \infty} \sqrt[n]{p} = \lim_{n \rightarrow \infty} (1 + a_n) = 1$.
 
+{: .notice}
 **Proof (c)**
-
 Let $x_n = \sqrt[n]{n} - 1 > 0$ for $n \in \mathbb{N}$.
-
 By the binomial theorem,
-
 $$
 n = (x_n + 1)^n
 = 1 + nx_n + \dfrac{n(n-1)}{2}x_n^2 + \dots + x_n^n
 \geq \dfrac{n(n-1)}{2}x_n^2
 $$
-
 for all $n \geq 2$.
-
 Since $0 < x_n < \sqrt{\dfrac{2}{n-1}}$ for all $n \geq 2$ and $\lim_{n \rightarrow \infty} \sqrt{\dfrac{2}{n-1}} = 0$, by squeeze theorem, $x_n \rightarrow 0$.
-
 Therefore, $\lim_{n \rightarrow \infty} \sqrt[n]{n} = \lim_{n \rightarrow \infty} (1 + x_n) = 1$.
 
 ## 3 Monotone Sequences
