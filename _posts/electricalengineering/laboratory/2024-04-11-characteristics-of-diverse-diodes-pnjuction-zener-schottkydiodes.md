@@ -1,5 +1,5 @@
 ---
-title: "[Laboratory] Characteristics of Diverse Diodes : PN Juction, Zener, and Schottky Diodes"
+title: "Characteristics of Diverse Diodes : PN Juction, Zener, and Schottky Diodes"
 excerpt: Unit 06
 categories:
   - laboratory

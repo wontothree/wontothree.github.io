@@ -1,10 +1,9 @@
 ---
-title: "[Laboratory] Rectifiers : H-W Rectifier, F-W Rectifier, Peak Detector, and Super Diode"
+title: "Rectifiers : H-W Rectifier, F-W Rectifier, Peak Detector, and Super Diode"
 excerpt: Unit 07
 categories:
   - laboratory
 ---
-
 ![](../../../img/laboratory/ECDL3_Unit07-01.png)
 ![](../../../img/laboratory/ECDL3_Unit07-02.png)
 ![](../../../img/laboratory/ECDL3_Unit07-03.png)
@@ -23,4 +22,3 @@ categories:
 ![](../../../img/laboratory/ECDL3_Unit07-16.png)
 ![](../../../img/laboratory/ECDL3_Unit07-17.png)
 ![](../../../img/laboratory/ECDL3_Unit07-18.png)
-

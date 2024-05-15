@@ -1,5 +1,5 @@
 ---
-title: "[Laboratory] Laboratory List"
+title: "Laboratory List"
 excerpt: "List"
 categories:
   - laboratory

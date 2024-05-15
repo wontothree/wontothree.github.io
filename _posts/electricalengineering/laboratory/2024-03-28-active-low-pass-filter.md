@@ -1,5 +1,5 @@
 ---
-title: "[Laboratory] Active Low-pass Filter"
+title: "Active Low-pass Filter"
 excerpt: Unit 04
 categories:
   - laboratory
