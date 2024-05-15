@@ -196,7 +196,7 @@ Therefore, $\lim_{n \rightarrow \infty} \sqrt[n]{n} = \lim_{n \rightarrow \infty
 >monotone if it is either monotone increasing or monotone decreasing.
 
 >**[Theorem 3.3.2]** \
->If $\{a_n\}_{n=1}^{\infty}$ is monotone and bounded, then $\{a_n\}_{n=1}^{\infty}$ converges.
+>If $a_n$ is monotone and bounded, then $a_n$ converges.
 
 ### Nested Intervals Property
 
