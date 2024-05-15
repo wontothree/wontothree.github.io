@@ -29,22 +29,16 @@ Our presentation will be considerably more rigorous - emphasizing proofs rather 
 
 {: .notice}
 **Proof (a)**
-
 We will prove it using proof by contradiction.
-
 Suppose that the sequence $p_n$ converges to two distinct points $p, q \in X$.
-
 Let $\epsilon = \dfrac{1}{3} d(p, q)$.
-
 Since $p_n \rightarrow p, \exists n_1 \in \mathbb{N} \; s.t. \; \vert p_n - p \vert < \epsilon \; \forall n \geq n_1.$
-
 Also, since $p_n \rightarrow p, \exists n_2 \in \mathbb{N} \; s.t. \; \vert p_n - q \vert < \epsilon \; \forall n \geq n_2.$
-
 Thus if $n \geq max(n_1, n_2)$, by triangule inequality, $d(p, q) \leq d(p_n, p) + d(p_n, q) < 2 \epsilon = \dfrac{2}{3} d(p, q)$, which is a contradiction.
-
 Thereofre, $p = q$ and the sequence $p_n$ converges to unique point.
 
 **Proof (b)**
+{:}
 
 Let $\{p_n\}$ be a convergent sequence in $X$ such that converges to $p \in X$.
 
