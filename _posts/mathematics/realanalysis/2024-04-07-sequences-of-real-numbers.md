@@ -318,14 +318,14 @@ These two limit operations are important because unlike the limit of a sequence,
 The concepts of the limit superior and limit inferior will also be important in our study of both series of real numbers and power series.
 
 >**[Definition 3.5.1]** \
->Let $\{s_n\}$ be a sequence in $\mathbb{R}$. \
->The limit superior of $\{s_n\}$, denoted $\varlimsup_{n \to \infty} s_n$ or $\varlimsup s_n$ , is defined as
+>Let $s_n$ be a sequence in $\mathbb{R}$. \
+>The limit superior of $s_n$, denoted $\varlimsup_{n \to \infty} s_n$ or $\varlimsup s_n$ , is defined as
 >$$\varlimsup_{n \to \infty} s_n = \lim_{n \to \infty} b_k = \inf_{k \in N} \sup \{s_n : n \geq k\}$$
->The limit inferior of $\{s_n\}$, denoted $\varliminf_{n \to \infty} s_n$ or $\varliminf s_n$, is defined as
+>The limit inferior of $s_n$, denoted $\varliminf_{n \to \infty} s_n$ or $\varliminf s_n$, is defined as
 >$$\varliminf_{n \to \infty} s_n = \lim_{n \to \infty} a_k = \sup_{k \in N} \inf \{s_n : n \geq k\}$$
 
 >**[Theorem 3.5.3]** \
->Let $\{s_n\}_{n=1}^{\infty}$ be a sequence in $\mathbb{R}$. \
+>Let $s_n$ be a sequence in $\mathbb{R}$. \
 >(a) Suppose $\varlimsup_{n \to \infty} s_n \in \mathbb{R}$. Then $\beta = \varlimsup_{n \to \infty} s_n$ if and only if for all $\epsilon > 0$ \
 >(i) there exists $n_0 \in \mathbb{N}$ such that $s_n < \beta + \epsilon $ 
 >for all $n \geq n_0$, and \
