@@ -65,8 +65,6 @@ sidebar-category:
     children:
       - title: "Paper Review"
         url: /paperreview
-      - title: "Laboratory Review"
-        url: /laboratoryreview
       - title: "Civil Law"
         url: /law
       - title: "Marketing"

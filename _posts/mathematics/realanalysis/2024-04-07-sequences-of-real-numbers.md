@@ -141,10 +141,11 @@ Thus, if $n \geq n_0$, $\vert a_nb_n - 0 \vert \leq \vert a_n \vert \vert b_n \v
 
 Therefore, $a_nb_n \rightarrow 0$.
 
->**[THEOREM 3.2.4]** squeeze theorem \
->Suppose $\{a_n\}$, $\{b_n\}$, and $\{c_n\}$ are sequences of real numbers for which there exists $n_0 \in \mathbb{N}$ such that $a_n \leq b_n \leq c_n$ for all $n \in \mathbb{N}$, $n \geq n_0$, \
->and that $\lim_{n \rightarrow \infty} a_n= \lim_{n \rightarrow \infty} b_n = L$. \
+>**[THEOREM 3.2.4] (Squeeze theorem)** \
+>Suppose $\{a_n\}$, $\{b_n\}$, and $\{c_n\}$ are sequences of real numbers for which there exists $n_0 \in \mathbb{N}$ such that $a_n \leq b_n \leq c_n$ for all $n \in \mathbb{N}$, $n \geq n_0$, and that $\lim_{n \rightarrow \infty} a_n= \lim_{n \rightarrow \infty} b_n = L$. \
 >Then the sequence $\{b_n\}$ converges and $\lim_{n \rightarrow \infty} b_n = L$
+
+이 정리를 이용해서 정말 다양한 수열의 극한값을 계산할 수 있다.
 
 Let $\epsilon > 0$ be given.
 
@@ -199,6 +200,8 @@ Therefore, by mathematical induction, the given identity is true.
 >(d) If $p > 1$ and $\alpha$ is real, then $\lim_{n \rightarrow \infty} \dfrac{n^\alpha}{p^n} = 0$. \
 >(e) If $|p| < 1$, then $\lim_{n \rightarrow \infty} p^n = 0$. \
 >(f) For all $p \in \mathbb{R}$, $\lim_{n \rightarrow \infty} \dfrac{p^n}{n!} = 0$.
+
+(a)를 증명해야 (d)를 증명할수 있고, (d)를 증명해야 (e)를 증명할 수 있고, (e)를 증명해야 (f)를 증명할 수 있다. 해석학에서는 고등학교 수학부터 당연시 사용하던 (e)를 엄밀하게 증명한다.
 
 **Proof (a)**
 
