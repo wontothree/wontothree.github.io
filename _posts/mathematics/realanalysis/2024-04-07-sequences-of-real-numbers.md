@@ -258,9 +258,7 @@ In this section, we will consider monotone sequences of real numbers. One of the
 >(b) monotone decreasing (or nonincreasing) if $a_n \geq a_{n+1}$ for all $n \in \mathbb{N}$; \
 >(c) monotone if it is either monotone increasing or monotone decreasing.
 
-A sequence $a_n$ is strictly increasing if $a_n < a_{n+1}$ for all $n \in \mathbb{N}$.
-
-A sequence $a_n$ is strictly decreasing if $a_n > a_{n+1}$ for all $n \in \mathbb{N}$.
+A sequence $a_n$ is strictly increasing if $a_n < a_{n+1}$ for all $n \in \mathbb{N}$. A sequence $a_n$ is strictly decreasing if $a_n > a_{n+1}$ for all $n \in \mathbb{N}$.
 
 >**[Theorem 3.3.2]** \
 >If $a_n$ is monotone and bounded, then $a_n$ converges.
@@ -272,6 +270,11 @@ A sequence $a_n$ is strictly decreasing if $a_n > a_{n+1}$ for all $n \in \mathb
 >$\cap_{n=1}^{\infty} I_n \neq \emptyset$.
 
 ### Euler's Number $\mathbb{e}$
+
+>**[Example 3.3.5]** \
+>We consider in detain the very important sequence $t_n = (1 + \dfrac{1}{n})^n$. \
+>We will show that the sequence $t_n$ is monotone increasing and bounded above, and thus has a limit. \
+>The standard notation for this limit is $\mathbb{e} = \lim_{n \to \infty} (1 + \dfrac{1}{n})^n$.
 
 ### Infinite Limits
 
