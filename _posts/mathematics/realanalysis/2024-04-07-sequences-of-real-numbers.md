@@ -271,12 +271,21 @@ A sequence $a_n$ is strictly increasing if $a_n < a_{n+1}$ for all $n \in \mathb
 
 ### Euler's Number $\mathbb{e}$
 
+굉장히 아름다운 부분이다.
+
 >**[Example 3.3.5]** \
 >We consider in detain the very important sequence $t_n = (1 + \dfrac{1}{n})^n$. \
 >We will show that the sequence $t_n$ is monotone increasing and bounded above, and thus has a limit. \
 >The standard notation for this limit is $\mathbb{e} = \lim_{n \to \infty} (1 + \dfrac{1}{n})^n$.
 
 ### Infinite Limits
+
+먼저 무한대로 발산을 엄밀하게 정의한다. 정의역에서 존재성을 가지고 정의하면 진술이 편해진다. 
+
+>**[Definition 3.3.6]** \
+>Let $a_n$ be a sequence of real numbers. \
+>We say that $a_n$ approaches infinity, or that $a_n$ diverges to $\infty$, denoted $a_n \rightarrow \infty$, \
+>if for every positive real number $M$, there exists an integer $n_0 \in \mathbb{N}$ such that $a_n > M$ for all $n \geq n_0$.
 
 >**[Theorem 3.3.7]** \
 >If $a_n$ is monotone increasing and not bounded above, then $a_n \rightarrow \infty$ as $n \rightarrow \infty$.
@@ -286,13 +295,16 @@ A sequence $a_n$ is strictly increasing if $a_n < a_{n+1}$ for all $n \in \mathb
 In this section, we will consider subsequences and subsequential limits of a given sequence of real numbers. One of the key results of the section is that every bounded sequence of real numbers bas a convergent subsequence. This result, also known as the sequential version of the Bolzano Weierstrass theorem, is one of the fundemental results of real analysis.
 
 >**[Definition 3.4.1]** \
->Let $(X, d)$ be a metric space. Given a sequence $\{p_n\}$ in $X$, consider a sequence $\{n_k\} _{k=1}^{\infty}$
->of positive integers such that $n_1 < n_2 < n_3 < \dots$. Then the sequence $\{p_{n_k}\}$ is called a subsequence of the sequence $\{p_n\}$.
+>Let $(X, d)$ be a metric space. \
+>Given a sequence $p_n$ in $X$, consider a sequence $n_k$
+>of positive integers such that $n_1 < n_2 < n_3 < \dots$. \
+>Then the sequence $p_{n_k}$ is called a subsequence of the sequence $p_n$.
 
 A point $p \in X$ is a subsequential limit of the sequence $\{p_n\}$ is there exists a subsequence $\{p_{n_k}\}$ of $\{p_n\}$ that converges to p. Also, given a sequence $\{p_n\}$ in $\mathbb{R}$, we say that $\infty$ is a subsequential limit of $\{p_n\}$ if there exists a subsequence $\{p_{n_k}\}$ so that $\{p_{n_k}\} \rightarrow \infty$ as $k \rightarrow \infty$. Similarly for $-\infty$.
 
->**[Definition 3.4.3]** \
->Let $(X, d)$ be a metric space and let $\{p_n\}$ be a sequence in $X$. If $\{p_n\}$ converges to $p$, then every subsequence of $\{p_n\}$ also converges to $p$.
+>**[Theorem  3.4.3]** \
+>Let $(X, d)$ be a metric space and let $\{p_n\}$ be a sequence in $X$. \
+>If $\{p_n\}$ converges to $p$, then every subsequence of $\{p_n\}$ also converges to $p$.
 
 >**[Corollary 3.4.6] (Bolzano-Weierstrass)** \
 >Every bounded sequence in $\mathbb{R}$ has aconvergent subsequence.
