@@ -4,7 +4,7 @@ excerpt: "Real Analysis"
 categories:
   - realanalysis
 ---
-## 1 Sets and Operations on Sets
+## 1. Sets and Operations on Sets
 
 ### Set Operations
 
@@ -41,7 +41,7 @@ $$
 A \times B = \{(a, b) : a \in A, b \in B \}
 $$
 
-## 2 Functions
+## 2. Functions
 
 >**[DEFINITION 1.2.1]** \
 >Let $A$ and $B$ be any two sets. \
@@ -77,7 +77,7 @@ $$
 >**[DEFINITION 1.2.7]** \
 >A function $f$ from $A$ into $B$ is said to be one-to-one if whenever $x_1 \neq x_2$, then $f(x_1) \neq f(x_2)$
 
-## 3 Mathematical Induction
+## 3. Mathematical Induction
 
 Mathematical induction is very useful tool in establishing that a identity is valid for all positvie integer $n$.
 
@@ -110,7 +110,7 @@ Consequently, $P(n)$ must be true for all $n \in \mathbb{N}$.
 >**WELL-ORDERING PRINCIPLE** \
 >Every nonempty subset of $\mathbb{N}$ has a smallest element.
 
-## 4 The Least Upper Bound Property
+## 4. The Least Upper Bound Property
 
 Both the rational numbers $\mathbb{Q}$ and real numbers $\mathbb{R}$ are algebraic systems known as *fields*.
 
@@ -134,7 +134,10 @@ Both the rational numbers $\mathbb{Q}$ and real numbers $\mathbb{R}$ are algebra
 
 >**[DEFINITION 1.4.1]** \
 >A subset $E$ of $\mathbb{R}$ is **bounded above** if there exists $\beta \in \mathbb{R}$ such that $x \leq \beta$ for every $x \in E$. \
-> Such a $\beta$ is called an upper bound of $E$.
+> Such a $\beta$ is called an upper bound of $E$. \
+>A subset $E$ of $\mathbb{R}$ is **bounded below** if there exists $\alpha \in \mathbb{R}$ such that $\alpha \leq x$ for every $x \in E$. \
+>Such a $\alpha$ is called an lower bound of $E$. \
+>A set $E$ is **bounded** if $E$ is bounded both abouve and below.
 
 ### Least Upper Bound of a Set
 
