@@ -137,7 +137,7 @@ Both the rational numbers $\mathbb{Q}$ and real numbers $\mathbb{R}$ are algebra
 > Such a $\beta$ is called an upper bound of $E$. \
 >A subset $E$ of $\mathbb{R}$ is **bounded below** if there exists $\alpha \in \mathbb{R}$ such that $\alpha \leq x$ for every $x \in E$. \
 >Such a $\alpha$ is called an lower bound of $E$. \
->A set $E$ is **bounded** if $E$ is bounded both abouve and below.
+>A set $E$ is **bounded** if $E$ is bounded both above and below.
 
 ### Least Upper Bound of a Set
 
@@ -176,6 +176,12 @@ Therefore $\alpha = sup A$.
 ### Least Upper Bound Property of $\mathbb{R}$
 
 ### Intervals
+
+Using the order properties of $\mathbb{R}$, we can define certain subsets of $\mathbb{R}$ known as intervals.
+
+>**[Definition 1.4.8]** \
+>For $a, b \in \mathbb{R}, a \leq b$, the open inveral (a, b) is defined as $(a, b) = \{x \in \mathbb{R} : a < x < b\}$, \\
+> whereas the closed interval [a, b] is defined as $[a, b] = \{x \in \mathbb{R} : a \leq x \leq b\}$.
 
 ## 5 Consequences of the Least Upper Bound Property
 
