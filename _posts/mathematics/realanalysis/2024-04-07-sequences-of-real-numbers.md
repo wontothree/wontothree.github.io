@@ -268,8 +268,8 @@ A sequence $a_n$ is strictly decreasing if $a_n > a_{n+1}$ for all $n \in \mathb
 ### Nested Intervals Property
 
 >**[Corollary 3.3.3] (Nested Intervals Property)** \
->If $I_n$ is a sequence of closed and bounded intervals with $I_n \supset I_{n+1}$ for all $n \in \mathbb{N}$, then
->$$\cap_{n=1}^{\infty} I_n \neq \emptyset$$.
+>If $I_n$ is a sequence of closed and bounded intervals with $I_n \supset I_{n+1}$ for all $n \in \mathbb{N}$, then \
+>$\cap_{n=1}^{\infty} I_n \neq \emptyset$.
 
 ### Euler's Number $\mathbb{e}$
 
