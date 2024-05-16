@@ -307,9 +307,9 @@ A point $p \in X$ is a subsequential limit of the sequence $\{p_n\}$ is there ex
 >If $\{p_n\}$ converges to $p$, then every subsequence of $\{p_n\}$ also converges to $p$.
 
 >**[Corollary 3.4.6] (Bolzano-Weierstrass)** \
->Every bounded sequence in $\mathbb{R}$ has aconvergent subsequence.
+>Every bounded sequence in $\mathbb{R}$ has convergent subsequence.
 
-## 5 Limit Superior and Inferior of a Sequence
+## 5. Limit Superior and Inferior of a Sequence
 
 In this section, we define the limit superior and limit inferior of a sequence of real numbers.
 
