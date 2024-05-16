@@ -6,7 +6,7 @@ categories:
 ---
 1장이 실수에서의 이야기였다면 2장은 그것을 Matric Space로 확장한다.
 
-## 1 Metric Spaces
+## 1. Metric Spaces
 
 >**[DEFINITION 2.1.1]** \
 >For a real number $x$ the absolute value of $x$, denoted $|x|$, is deinfed by $|x|$ ...
@@ -44,19 +44,20 @@ $$
 >(2) $d(x, y) = 0$ if and only if $x = y$, \
 >(3) $d(x, y) = d(y, x)$, \
 >(4) $d(x, y) \geq d(x, z) + d(z, y)$ for all $x, y, z \in \mathbb{R}$ \
->is called a **matic** or **distance function** on $X$. The set $X$ with metric of $d$ is called a **metric space**, and is denoted by $(X, d)$
+>is called a **metric** or **distance function** on $X$. \
+>The set $X$ with metric of $d$ is called a **metric space**, and is denoted by $(X, d)$
 
 All of these properties are what we intuitively expect a distance function to satisfy.
 
 수열의 극한의 정의에서 거리 함수가 사용된다.
 
-## 2 Open and Closed Sets
+## 2. Open and Closed Sets
 
-## 3 Compact Sets
+## 3. Compact Sets
 
-## 4 Compact Subsets of $\mathbb{R}$
+## 4. Compact Subsets of $\mathbb{R}$
 
-## 5 The Cantor Set
+## 5. The Cantor Set
 
 ## 궁금한 점
 

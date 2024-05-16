@@ -120,9 +120,9 @@ Both the rational numbers $\mathbb{Q}$ and real numbers $\mathbb{R}$ are algebra
 >2. For all $a, b\in F$, then $a + b = b + a, a \cdot b = b \cdot a$.
 >3. For all $a, b, c \in F$, then $a + (b + c) = (a + b) + c, a \cdot (b \cdot c) = (a \cdot b) \cdot c$
 >4. There exists an element $0 \in F$ such that $a + 0 = a$ for all $a \in F$.
->5.
->6.
->7.
+>5. \
+>6. \
+>7. \
 >8.
 
 >The real numbers $\mathbb{R}$ contain a subset $\mathbb{P}$ known as the positive real numbers satisfying the following: \
@@ -143,7 +143,7 @@ Both the rational numbers $\mathbb{Q}$ and real numbers $\mathbb{R}$ are algebra
 
 >**[DEFINITION 1.4.3]** \
 >Let $E$ be a nonempty subset of $\mathbb{R}$ that is bounded above. \
-> An element of $\alpha \in \mathbb{R}$ is called the **least upper bound** of **supremum** of $E$ if \
+> An element of $\alpha \in \mathbb{R}$ is called the **least upper bound** or **supremum** of $E$ if \
 >(i) $\alpha$ is an upper bound of $E$, and \
 >(ii) if $\beta \in \mathbb{R}$ satisfies $\beta < \alpha$, then $\beta$ is not an upper bound of $E$.
 
