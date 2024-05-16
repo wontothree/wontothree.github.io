@@ -1,5 +1,5 @@
 ---
-title: "[Flow of Consciousness] Self Management"
+title: "Self Management"
 categories:
   - flowofconsciousness
 ---

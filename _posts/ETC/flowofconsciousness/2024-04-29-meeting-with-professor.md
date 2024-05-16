@@ -1,5 +1,5 @@
 ---
-title: "[Flow of Consciousness] Meeting with Professor"
+title: "Meeting with Professor"
 categories:
   - flowofconsciousness
 ---

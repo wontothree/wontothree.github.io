@@ -1,5 +1,5 @@
 ---
-title: "[Flow of Consciousness] Sense of Purpose"
+title: "Sense of Purpose"
 categories:
   - flowofconsciousness
 ---

@@ -1,5 +1,5 @@
 ---
-title: "[Flow of Consciousness] Jourmey to Rome"
+title: "Jourmey to Rome"
 categories:
   - flowofconsciousness
 ---

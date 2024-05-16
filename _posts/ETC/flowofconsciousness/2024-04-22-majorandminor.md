@@ -1,5 +1,5 @@
 ---
-title: "[Flow of Consciousness] Major and Minor"
+title: "Major and Minor"
 categories:
   - flowofconsciousness
 ---

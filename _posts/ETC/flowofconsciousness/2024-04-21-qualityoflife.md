@@ -1,5 +1,5 @@
 ---
-title: "[Flow of Consciousness] Quality of Life"
+title: "Quality of Life"
 categories:
   - flowofconsciousness
 ---
