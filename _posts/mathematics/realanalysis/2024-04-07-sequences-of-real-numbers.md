@@ -247,13 +247,19 @@ Since $0 < x_n < \sqrt{\dfrac{2}{n-1}}$ for all $n \geq 2$ and $\lim_{n \rightar
 
 Therefore, $\lim_{n \rightarrow \infty} \sqrt[n]{n} = \lim_{n \rightarrow \infty} (1 + x_n) = 1$.
 
-## 3 Monotone Sequences
+## 3. Monotone Sequences
+
+In this section, we will consider monotone sequences of real numbers. One of the advantages of such sequences is that they will either converge tn $\mathbb{R}$, or diverge to $+\infty$ or $-\infty$.
 
 >**[Definition 3.3.1]** \
->A sequence $\{a_n\}_{n=1}^{\infty}$ of real numbers is said to be \
+>A sequence $a_n$ of real numbers is said to be \
 >(a) monotone increasing (or nondecreasing) if $a_n \leq a_{n+1}$ for all $n \in \mathbb{N}$; \
 >(b) monotone decreasing (or nonincreasing) if $a_n \geq a_{n+1}$ for all $n \in \mathbb{N}$; \
->monotone if it is either monotone increasing or monotone decreasing.
+>(c) monotone if it is either monotone increasing or monotone decreasing.
+
+A sequence $a_n$ is strictly increasing if $a_n < a_{n+1}$ for all $n \in \mathbb{N}$.
+
+A sequence $a_n$ is strictly decreasing if $a_n > a_{n+1}$ for all $n \in \mathbb{N}$.
 
 >**[Theorem 3.3.2]** \
 >If $a_n$ is monotone and bounded, then $a_n$ converges.
