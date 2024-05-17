@@ -147,6 +147,8 @@ Both the rational numbers $\mathbb{Q}$ and real numbers $\mathbb{R}$ are algebra
 >(i) $\alpha$ is an upper bound of $E$, and \
 >(ii) if $\beta \in \mathbb{R}$ satisfies $\beta < \alpha$, then $\beta$ is not an upper bound of $E$.
 
+Upper bound의 정의만으로 upper bound인 조건과 upper bound가 아닌 조건만을 이용하여 least upper bound를 정의한다.
+
 >**[THEOREM 1.4.4]** \
 >Let $A$ be a nonempty subset of $\mathbb{R}$ that is bounded above. \
 >An upper bound $\alpha$ of $A$ is the supremum of $A$ if and only if for every $\beta < \alpha$, there exists an element $x \in A$ such that $\beta < x \leq \alpha$.
@@ -192,6 +194,8 @@ We look at a number of elementary properties of real numbers which in more eleme
 
 >**[THEOREM 1.5.2]** \
 >If $x, y \in \mathbb{R}$ and $x < y$, then there exists $r \in \mathbb{Q}$ such that $x < r < y$.
+
+부등식을 작성하게 해주는 중요한 두 가지 정리이다.
 
 >**[THEOREM 1.5.3]** \
 >For every real number $x > 0$ and every positive integer $n$, there exists a unique positive real number $y$ so that $y^n = x$.
