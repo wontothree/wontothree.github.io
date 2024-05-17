@@ -15,7 +15,7 @@ Our presentation will be considerably more rigorous - emphasizing proofs rather 
 >**[DEFINITION 3.1.1]** \
 >A Sequence $ \{p_n \}$  in $X$ is said to **converge** if there exists a point $p \in X$ such that for every $\epsilon > 0$, there exists a positvie integer $n_0 = n_0(\epsilon)$ such that $p_n \in N_\epsilon (p)$ for all $n \geq n_0$. If this is the case, we say that $\{ p_n \}$ converges to $p$. \
 >In this is the case, we say that $p_n$ converges to $p$, or that $p$  is the limist of the sequence $p_n$, and we write $\lim_{n \rightarrow \infty} p_n = p$ or $p_n \rightarrow p$. \
->If $p_n$ does not converge, then $p_n$ is said to diverge. \
+>If $p_n$ does not converge, then $p_n$ is said to **diverge**. \
 >In the definition, the statement $p_n \in N_{\epsilon}(p)$ for all $n \geq n_0$ is equivalent to $d(p_n, p) < \epsilon$ for all $n \geq n_0$.
 
 >**[DEFINITION 3.1.3]** \
@@ -145,7 +145,11 @@ Therefore, $a_nb_n \rightarrow 0$.
 >Suppose $\{a_n\}$, $\{b_n\}$, and $\{c_n\}$ are sequences of real numbers for which there exists $n_0 \in \mathbb{N}$ such that $a_n \leq b_n \leq c_n$ for all $n \in \mathbb{N}$, $n \geq n_0$, and that $\lim_{n \rightarrow \infty} a_n= \lim_{n \rightarrow \infty} b_n = L$. \
 >Then the sequence $\{b_n\}$ converges and $\lim_{n \rightarrow \infty} b_n = L$
 
-이 정리를 이용해서 정말 다양한 수열의 극한값을 계산할 수 있다.
+Squeeze theorem (sandwich theorem)을 이용해서 정말 다양한 수열의 극한값을 구한다.
+
+**Proof.**
+
+Suppose $\{a_n\}$, $\{b_n\}$, and $\{c_n\}$ are sequences of real numbers for which there exists $n_0 \in \mathbb{N}$ such that $a_n \leq b_n \leq c_n$ for all $n \in \mathbb{N}$, $n \geq n_0$, and that $\lim_{n \rightarrow \infty} a_n= \lim_{n \rightarrow \infty} b_n = L$.
 
 Let $\epsilon > 0$ be given.
 
@@ -257,9 +261,9 @@ In this section, we will consider monotone sequences of real numbers. One of the
 
 >**[Definition 3.3.1]** \
 >A sequence $a_n$ of real numbers is said to be \
->(a) monotone increasing (or nondecreasing) if $a_n \leq a_{n+1}$ for all $n \in \mathbb{N}$; \
->(b) monotone decreasing (or nonincreasing) if $a_n \geq a_{n+1}$ for all $n \in \mathbb{N}$; \
->(c) monotone if it is either monotone increasing or monotone decreasing.
+>(a) **monotone increasing** (or nondecreasing) if $a_n \leq a_{n+1}$ for all $n \in \mathbb{N}$; \
+>(b) **monotone decreasing** (or nonincreasing) if $a_n \geq a_{n+1}$ for all $n \in \mathbb{N}$; \
+>(c) **monotone** if it is either monotone increasing or monotone decreasing.
 
 A sequence $a_n$ is strictly increasing if $a_n < a_{n+1}$ for all $n \in \mathbb{N}$. A sequence $a_n$ is strictly decreasing if $a_n > a_{n+1}$ for all $n \in \mathbb{N}$.
 
@@ -354,3 +358,10 @@ $$
 ## Reference
 
 Manfred - Introduction to Real Analysis : Ch03
+
+## 증명에 관하여
+
+- 증명 과정에서 어떤 목적에 의해 어떤 수를 도입할 때는 그 수의 소속을 밝혀야 한다. 자연수, 정수, 실수 등
+- 증명의 두입부에서 필요한 수들을 정의하는 과정인 필수적이다.
+- 정리를 증명할 때는 가장 먼저 해야 할 것 : 정리를 가정과 결론으로 나누고 정리의 가정을 증명의 가정으로 그래로 취한다.
+- 수열의 극한을 구한다는 것은 epsilon에 대한 특정한 부등식을 작성한다는 것이다. 부등식을 어떻게 작성할지가 핵심이다. Archimedian property, binomial theorem 등을 이용할 수 있다. 하지만 squeeze theorem을 이용하면  epsilon에 대한 부등식이 아닌 부등식을 이용해서 극한값을 구할 수 있다.
