@@ -322,6 +322,10 @@ A point $p \in X$ is a **subsequential limit** of the sequence $\{p_n\}$ is ther
 >**[Corollary 3.4.6] (Bolzano-Weierstrass)** \
 >Every bounded sequence in $\mathbb{R}$ has convergent subsequence.
 
+We continus in this way to obtain a sequence of nested interval $I_1 \supset I_2 \supset I_3 \dots \supset I_k \supset \dots$ and a subsequence $x_{n_k} \in I_k$ for $k \in \mathbb{N}$.
+
+집합 $I$를 두 개로 나눴을 때 무한한 집합을 택해서 계속해서 나눈다.
+
 ## 5. Limit Superior and Inferior of a Sequence
 
 In this section, we define the limit superior and limit inferior of a sequence of real numbers.
