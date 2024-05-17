@@ -270,6 +270,12 @@ A sequence $a_n$ is strictly increasing if $a_n < a_{n+1}$ for all $n \in \mathb
 >**[Theorem 3.3.2]** \
 >If $a_n$ is monotone and bounded, then $a_n$ converges.
 
+사실상 bounded above면 충분하다.
+
+이 정리는 수열의 수렴성 뿐만 아니라 수렴값에 대한 정보도 제공한다. 수열의 supremum으로 수렴한다고 말한다.
+
+집합의 supremum을 통해 극한값을 알 수 있다.
+
 ### Nested Intervals Property
 
 >**[Corollary 3.3.3] (Nested Intervals Property)** \
