@@ -4,6 +4,18 @@ excerpt:
 categories: 
   - ros2
 ---
+## 기본 명령어
+
+terminal에서 파일 열기
+
+```bash
+cat [file name]
+```
+
+```bash
+vi [file name]
+```
+
 ```bash
 source [환경 설정 파일명]
 ```
