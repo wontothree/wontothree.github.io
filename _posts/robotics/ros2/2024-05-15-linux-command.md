@@ -4,6 +4,7 @@ excerpt:
 categories: 
   - ros2
 ---
+<<<<<<< HEAD
 ## 기본 명령어
 
 terminal에서 파일 열기
@@ -24,6 +25,18 @@ sudo pat-get install [install 대상]
 
 스크립트 파일을 수정한 후에 재부팅하지 않고 수정된 내용을 바로 적용하기 위해 사용한다.
 
+=======
+## Folder 생성과 삭제
+
+```bash
+mkdir [folder name]
+```
+
+```bash
+rm -rf [folder name]
+```
+
+>>>>>>> e69be62 (update)
 ```bash
 source [환경 설정 파일명]
 ```
