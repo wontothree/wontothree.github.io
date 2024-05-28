@@ -1,5 +1,5 @@
 ---
-title: "Algorithms"
+title: "[Discrete Mathematics] Algorithms"
 excerpt: "Discrete Mathematics (Ch03)"
 categories:
   - discretemathematics

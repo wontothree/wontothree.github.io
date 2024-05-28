@@ -1,5 +1,5 @@
 ---
-title: "Discrete Probability"
+title: "[Discrete Mathematics] Discrete Probability"
 excerpt: "Discrete Mathematics (Ch07)"
 categories:
   - discretemathematics

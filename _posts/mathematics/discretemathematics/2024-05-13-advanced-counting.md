@@ -1,5 +1,5 @@
 ---
-title: "Advanced Counting"
+title: "[Discrete Mathematics] Advanced Counting"
 excerpt: "Discrete Mathematics (Ch08)"
 categories:
   - discretemathematics

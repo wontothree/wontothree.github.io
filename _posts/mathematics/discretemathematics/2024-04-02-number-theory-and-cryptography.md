@@ -1,5 +1,5 @@
 ---
-title: "Number Theory and Cryptography"
+title: "[Discrete Mathematics] Number Theory and Cryptography"
 excerpt: "Discrete Mathematics (Ch04)"
 categories:
   - discretemathematics

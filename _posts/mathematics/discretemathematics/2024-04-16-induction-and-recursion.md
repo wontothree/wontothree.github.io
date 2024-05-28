@@ -1,5 +1,5 @@
 ---
-title: "Induction and Recursion"
+title: "[Discrete Mathematics] Induction and Recursion"
 excerpt: "Discrete Mathematics (Ch05)"
 categories:
   - discretemathematics

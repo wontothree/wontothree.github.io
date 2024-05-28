@@ -1,5 +1,5 @@
 ---
-title: "The Foundation : Logic and Proofs"
+title: "[Discrete Mathematics] The Foundation : Logic and Proofs"
 excerpt: "Discrete Mathematics (Ch01)" 
 categories:
   - discretemathematics

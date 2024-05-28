@@ -1,5 +1,5 @@
 ---
-title: "Basic Structures : Sets, Functions, Sequences, Sums, and Matrices"
+title: "[Discrete Mathematics] Basic Structures : Sets, Functions, Sequences, Sums, and Matrices"
 excerpt: "Discrete Mathematics (Ch02)"
 categories:
   - discretemathematics
