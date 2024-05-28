@@ -25,6 +25,8 @@ sidebar-category:
         url: /nonlinearsystem
       - title: "Optimal Control"
         url: /optimalcontrol
+      - title: "Computer Vision"
+        url: /computervision     
   - title: "Computer Science"
     children:
       - title: "Java"
