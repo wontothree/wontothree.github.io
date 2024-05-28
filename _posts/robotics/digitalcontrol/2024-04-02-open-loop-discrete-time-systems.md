@@ -68,7 +68,7 @@ $$
 
 (증명 생략)
 
-- Pulse transfer function $G^d(z)$ : z-transform version of $G(s)$
+- Pulse transfer function $G^d(z)$ : z-transform version of $G(s)$, zero-order hold + plant + sampler로 이루어진 system
 
 ㅂ정리의 의미 : s-domain transfer function에서 time-domain을 거치지 않고 z-transform으로 바꿀 수 있다.
 
