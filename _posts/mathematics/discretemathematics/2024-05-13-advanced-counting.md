@@ -96,11 +96,47 @@ Karatsuba
 
 더하기 빼기만으로 이끌어낸다.
 
+Closed-Pair Problem
+
 ## 4. Generating Function
+
+### 4.1 Introduction
+
+### 4.2 Useful Facts Abour Power Series
+
+>**[Definition 2]** \
+>Let $u$ be a real number and $k$ a nonnegativie integer. Then the extended binomial coefficient .. is defined by
+
+>**[Theorem 2]** \
+>$(1 + x)^n = \sum_{k=0}^\infty \combination (n, k) x^k$
+
+### 4.3 Counting Problem and Generating Functions
+
+### 4.4 Using Generating Functions to Solve Recurrence Relations
 
 ## 5. Inclusion-Exclusion
 
+>**[Theorem 1] THE PRINCIPLE OF INCLUSION-EXCLUSION** \
+>Let $A_1, A_2, \dots, A_n$ be finite sets. \
+>
+
 ## 6. Applications of Inclusion-Exclusion
+
+### 6.2 An Alternative Form of Inclusion-Exclusion
+
+### 6.3 The Sieve of Eratosthenes
+
+### 6.4 The Number of Onto Functions
+
+>**[Theorem 1]** \
+>Let $m$ and $n$ be positive integers with $m \geq n$. Then, there are
+>$n^m - C(n, 1) (n-1)^m + C(n, 2) (n-2)^m \dots$
+
+### 6.4 Derangements
+
+>**[Theorem 2]** \
+>The number of deranements of a set with $n$ elements is \
+>$D_n = n! [1 - \dfrac{1}{1!}]$
 
 ## Reference
 
