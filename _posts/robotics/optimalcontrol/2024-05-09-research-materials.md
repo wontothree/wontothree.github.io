@@ -43,6 +43,8 @@ categories:
 - 기존의 controller는 과거만을 바라본다면 MPC는 미래만을 바라본다고 할 수 있을까?
 - MPC의 feedback은 일반적인 의미의 feedback과 동일할까?
 - [박경훈 교수님께 질문] 제어의 각 분야에 대한 설명
+- Sampling time or horizon을 왜 일정하게 하려고 노력할까? v
+- GPU 가속을 어떻게 할 수 있을까? v
 
 ## My Interest
 
