@@ -84,3 +84,9 @@ with vision.ImageSegmenter.create_from_options(options) as segmenter:
     print(f'Segmentation mask of {image_file_name}:')
     resize_and_show(output_image)
 ```
+
+## Reference
+
+https://github.com/google-ai-edge/mediapipe/issues/3503
+
+https://colab.research.google.com/github/googlesamples/mediapipe/blob/main/examples/image_segmentation/python/image_segmentation.ipynb?hl=ko#scrollTo=OMjuVQiDYJKF
