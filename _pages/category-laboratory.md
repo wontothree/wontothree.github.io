@@ -1,10 +1,10 @@
 ---
-title: "EMF"
+title: "Laboratory"
 layout: archive
-permalink: /emf
+permalink: /laboratory
 sidebar:
     nav: "sidebar-category"
 ---
 
-{% assign posts = site.categories.emf %}
+{% assign posts = site.categories.laboratory %}
 {% for post in posts %} {% include archive-single.html type=page.entries_layout %} {% endfor %}
