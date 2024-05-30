@@ -9,17 +9,17 @@ categories:
 terminal에서 파일 열기
 
 ```bash
-cat [file name]
+cat [file_name]
 ```
 
 ```bash
-vi [file name]
+vi [file_name]
 ```
 
 install
 
 ```bash
-sudo pat-get install [install 대상]
+sudo pat-get install [install_대상]
 ```
 
 스크립트 파일을 수정한 후에 재부팅하지 않고 수정된 내용을 바로 적용하기 위해 사용한다.
@@ -27,15 +27,15 @@ sudo pat-get install [install 대상]
 ## Folder 생성과 삭제
 
 ```bash
-mkdir [folder name]
+mkdir [folder_name]
 ```
 
 ```bash
-rm -rf [folder name]
+rm -rf [folder_name]
 ```
 
 ```bash
-source [환경 설정 파일명]
+source [환경_설정_파일명]
 ```
 
 ## bashrc
