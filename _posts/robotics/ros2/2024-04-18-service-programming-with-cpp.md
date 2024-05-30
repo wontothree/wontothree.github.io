@@ -4,8 +4,6 @@ excerpt:
 categories: 
   - ros2
 ---
-## 
-
 ```cpp
 #include <memory>
 #include "custom_interfaces/srv/turning_control.hpp"
@@ -199,4 +197,4 @@ int main(int argc, char **argv)
 
 ## Reference
 
- 김수영 대표 강의 - 11강
+김수영 대표 강의 - 11강

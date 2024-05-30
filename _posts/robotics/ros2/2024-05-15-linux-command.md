@@ -1,10 +1,9 @@
 ---
-title: "Linux Command"
+title: "[ROS2] Linux Command"
 excerpt:
 categories: 
   - ros2
 ---
-<<<<<<< HEAD
 ## 기본 명령어
 
 terminal에서 파일 열기

@@ -4,7 +4,6 @@ excerpt: "ROS2 Documentation Foxy - Writing a simple publisher and subscriber (C
 categories: 
   - ros2
 ---
-
 ## Publisher
 
 src/publisher_member_function.cpp
