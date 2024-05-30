@@ -1,6 +1,6 @@
 ---
 title: "[ROS2] Node and Package"
-excerpt: 김수영 대표 강의 - 5강
+excerpt:
 categories: 
   - ros2
 ---
@@ -121,3 +121,4 @@ rqt_graph
 
 - [ROS2 DOCS : Topics vs Services vs Actions](https://docs.ros.org/en/foxy/How-To-Guides/Topics-Services-Actions.html#topics)
 - [ROS2 하루에 입문하기 - 02장 ROS2 사용방법(Topic, Service, Action 등)](https://robertchoi.gitbook.io/ros2/02-ros2)
+- 김수영 대표 강의 - 5강

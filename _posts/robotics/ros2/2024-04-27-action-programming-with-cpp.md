@@ -1,6 +1,6 @@
 ---
 title: "[ROS2] Topic Programming with C++"
-excerpt: 김수영 대표 강의 - 17강
+excerpt:
 categories: 
   - ros2
 ---
@@ -344,3 +344,7 @@ int main(int argc, char **argv) {
   return 0;
 }
 ```
+
+## Reference
+
+김수영 대표 강의 - 17강

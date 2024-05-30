@@ -1,6 +1,6 @@
 ---
 title: "[ROS2] Node Programming with C++"
-excerpt: 김수영 대표 강의 - 10강
+excerpt:
 categories: 
   - ros2
 ---
@@ -203,3 +203,7 @@ int main(int argc, char **argv) {
   return 0;
 }
 ```
+
+## Reference
+
+김수영 대표 강의 - 10강
