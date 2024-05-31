@@ -1,6 +1,6 @@
 ---
-title: "Rectifiers : H-W Rectifier, F-W Rectifier, Peak Detector, and Super Diode"
-excerpt: Unit 07
+title: "[Lab3 Unit 05 Diode (2/3)] Rectifiers : H-W Rectifier, F-W Rectifier, Peak Detector, and Super Diode"
+excerpt:
 categories:
   - laboratory
 ---

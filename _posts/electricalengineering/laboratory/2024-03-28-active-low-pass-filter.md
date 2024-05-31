@@ -1,6 +1,6 @@
 ---
-title: "Active Low-pass Filter"
-excerpt: Unit 04
+title: "[Lab3 Unit 04 Opamp (1/2)] Active Low-pass Filter"
+excerpt:
 categories:
   - laboratory
 ---

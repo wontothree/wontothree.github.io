@@ -1,6 +1,6 @@
 ---
-title: "Series RLC Band-pass Filter and Parallel RLC Band-rejection Filter"
-excerpt: Unit 03
+title: "[Lab3 Unit 03 Passive Filter (2/2)] Series RLC Band-pass Filter and Parallel RLC Band-rejection Filter"
+excerpt:
 categories:
   - laboratory
 ---
