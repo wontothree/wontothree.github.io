@@ -1,5 +1,5 @@
 ---
-title: "[Lab3 Unit 08 Diode (3/3)] Regulator, Limitor, and Clamping"
+title: "[Lab3] Regulator, Limitor, and Clamping"
 excerpt:
 categories:
   - laboratory

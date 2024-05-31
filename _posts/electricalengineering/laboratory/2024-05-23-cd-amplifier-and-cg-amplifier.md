@@ -1,5 +1,5 @@
 ---
-title: "[Lab3 Unit 11 Mosfet (3/4)] CD Amplifier and CG Amplifier"
+title: "[Lab3] CD Amplifier and CG Amplifier"
 excerpt:
 categories:
   - laboratory

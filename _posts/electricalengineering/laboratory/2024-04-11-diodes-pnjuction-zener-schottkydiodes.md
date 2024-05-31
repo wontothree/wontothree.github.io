@@ -1,5 +1,5 @@
 ---
-title: "[Lab3 Unit 06 Diode (1/3)] Diodes : PN Juction, Zener, and Schottky Diodes"
+title: "[Lab3] Diodes : PN Juction, Zener, and Schottky Diodes"
 excerpt:
 categories:
   - laboratory

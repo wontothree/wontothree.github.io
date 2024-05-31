@@ -1,5 +1,5 @@
 ---
-title: "[Lab3 Unit 10 Mosfet (2/4)] Small-Signal Model of MOSFET and Common-Source Amplifier"
+title: "[Lab3] Small-Signal Model of MOSFET and Common-Source Amplifier"
 excerpt:
 categories:
   - laboratory

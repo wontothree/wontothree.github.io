@@ -1,5 +1,5 @@
 ---
-title: "[Lab3 Unit 12 Mosfet (4/4)] Single-Stage CS Amplifier, Multi-Stage CS-SF Amplifier, and Multi-Stage CS-CS-SF Amplifier"
+title: "[Lab3] Single-Stage CS Amplifier, Multi-Stage CS-SF Amplifier, and Multi-Stage CS-CS-SF Amplifier"
 excerpt:
 categories:
   - laboratory

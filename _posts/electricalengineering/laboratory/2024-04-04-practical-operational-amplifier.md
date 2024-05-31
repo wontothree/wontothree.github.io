@@ -1,5 +1,5 @@
 ---
-title: "[Lab3 Unit 05 Opamp (2/2)] Practical Operational Amplifier"
+title: "[Lab3] Practical Operational Amplifier"
 excerpt:
 categories:
   - laboratory
