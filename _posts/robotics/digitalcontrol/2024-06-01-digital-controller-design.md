@@ -1,5 +1,5 @@
 ---
-title: "[Digital Control] Stability Analysis Techniques"
+title: "[Digital Control] Digital Controller Design"
 excerpt: "Charles L. Philips - Digital Control System : Ch08"
 categories:
   - digitalcontrol
@@ -29,8 +29,16 @@ In this chapter we consider the total design problem : How do we design a digita
 
 ## 4. Phase-Lag Compensation
 
-## 5. Phase-Lead Design Procedure
+## 5. Phase-Lead Compensation
 
 ## 6. Phase-Lead Design Procedure
 
 ## 7. Lag-Lead Compensation
+
+## 8. Integration and Differentiation Filters
+
+## 9. PID Controller
+
+## 10. PID Controller Design
+
+## 11. Design by Root Locus
