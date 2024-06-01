@@ -1,5 +1,5 @@
 ---
-title: "[Lab3] Diodes : PN Juction, Zener, and Schottky Diodes"
+title: "[Laboratory3] Diodes : PN Juction, Zener, and Schottky Diodes"
 excerpt:
 categories:
   - laboratory

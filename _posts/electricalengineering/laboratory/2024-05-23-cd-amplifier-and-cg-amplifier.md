@@ -1,5 +1,5 @@
 ---
-title: "[Lab3] CD Amplifier and CG Amplifier"
+title: "[Laboratory3] CD Amplifier and CG Amplifier"
 excerpt:
 categories:
   - laboratory

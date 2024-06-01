@@ -1,5 +1,5 @@
 ---
-title: "[Lab3] Regulator, Limitor, and Clamping"
+title: "[Laboratory3] Regulator, Limitor, and Clamping"
 excerpt:
 categories:
   - laboratory

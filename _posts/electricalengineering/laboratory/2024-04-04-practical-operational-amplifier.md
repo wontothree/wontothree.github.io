@@ -1,5 +1,5 @@
 ---
-title: "[Lab3] Practical Operational Amplifier"
+title: "[Laboratory3] Practical Operational Amplifier"
 excerpt:
 categories:
   - laboratory

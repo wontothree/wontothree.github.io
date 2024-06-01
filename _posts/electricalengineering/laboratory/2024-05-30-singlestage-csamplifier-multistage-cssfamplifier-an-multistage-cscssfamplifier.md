@@ -1,5 +1,5 @@
 ---
-title: "[Lab3] Single-Stage CS Amplifier, Multi-Stage CS-SF Amplifier, and Multi-Stage CS-CS-SF Amplifier"
+title: "[Laboratory3] Single-Stage CS Amplifier, Multi-Stage CS-SF Amplifier, and Multi-Stage CS-CS-SF Amplifier"
 excerpt:
 categories:
   - laboratory

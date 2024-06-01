@@ -1,5 +1,5 @@
 ---
-title: "[Lab3] Active Low-pass Filter"
+title: "[Laboratory3] Active Low-pass Filter"
 excerpt:
 categories:
   - laboratory

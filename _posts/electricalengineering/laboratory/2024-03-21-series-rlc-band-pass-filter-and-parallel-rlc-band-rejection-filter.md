@@ -1,5 +1,5 @@
 ---
-title: "[Lab3] Series RLC Band-pass Filter and Parallel RLC Band-rejection Filter"
+title: "[Laboratory3] Series RLC Band-pass Filter and Parallel RLC Band-rejection Filter"
 excerpt:
 categories:
   - laboratory
