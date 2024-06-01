@@ -11,6 +11,10 @@ In this chapter we consider the total design problem : How do we design a digita
 - Phase-lag and phase-lead controller
 - Proportional-plus-integral-plus-integral(PID) controller
 
+All numerical design procedures are based on an inexact model of the physical system.
+
+Design is generally too complex if the accurate simulation model is used.
+
 ## 2. Control System Specifications
 
 ### Steady-State Accuracy
@@ -26,6 +30,18 @@ In this chapter we consider the total design problem : How do we design a digita
 ### Control Effort
 
 ## 3. Compensaion
+
+We will limit the discussion to the design of compensators for single-input, single output systems
+
+- Cascade (or series) compensation
+- Feedback (or parallel) compensation
+
+$$
+D(w) = a_0 \left[ \dfrac{1 + w/\omega_{w0}}{1 + w/\omega_{wp}} \right]
+$$
+
+- If $\omega_{w0} < \omega_{wp}$ : phase-lead compensation
+- If $\omega_{w0} > \omega_{wp}$ : phase-lag compensation
 
 ## 4. Phase-Lag Compensation
 
