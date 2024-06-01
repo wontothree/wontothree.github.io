@@ -35,6 +35,8 @@ $$
 
 ## 7. The Nyquist Criterion
 
+Gain margin과 phase margin을 구할 때 필요하다.
+
 ## 8. The Bode Diagram
 
 ## 9. Interpretation of the Frequency Response
