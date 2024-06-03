@@ -1,5 +1,5 @@
 ---
-title: "[Laboratory3] Rectifiers : H-W Rectifier, F-W Rectifier, Peak Detector, and Super Diode"
+title: "[Laboratory3] H-W Rectifier, F-W Rectifier, Peak Detector, and Super Diode"
 excerpt:
 categories:
   - laboratory
