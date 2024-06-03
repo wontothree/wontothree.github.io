@@ -51,3 +51,13 @@ categories:
 - Stochastic MPC : MPPI
 - Data-Driven MPC
 - Model-Based RL
+
+## MPPI
+
+https://sites.gatech.edu/acds/mppi/
+
+http://dyros.snu.ac.kr/the-people-of-dyros-new/
+
+https://untitledtblog.tistory.com/133
+
+https://github.com/sisl/MPOPIS
