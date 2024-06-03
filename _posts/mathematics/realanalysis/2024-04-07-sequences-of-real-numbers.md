@@ -363,6 +363,31 @@ $$
 
 ## 6 Cauchy Sequences
 
+We consider a criterion that for sequences in $\mathbb{R}$ is sufficient to ensure convergence of the sequence.
+
+>**[definition 3.6.1]** \
+>Let (X, d) be a matric space. \
+>A sequence $p_n$ in $X$ is a Cauchy sequence if for every $\epsilon > 0$, there exists a positive integer $n_0$ such that $d(p_n, p_m)$ for all integers $n, m \geq n_0$.
+
+>**[Theorem 3.6.2]** \
+>Let (X, d) be a metric space. \
+>(a)  Every convergent sequence in $X$ is a Cauchy sequence. \
+>(b) Every Cauchy sequence is bounded.
+
+>**[Theorem 3.6.4]** \
+>If $p_n$ is a Cauchy sequence in a metric space $X$ that has a convergent subsequence, then the sequence $p_n$ converges.
+
+>**[Theorem 3.6.5]** \
+>Every Cauchy sequence of real numbers converges.
+
+>**[Theorem 3.6.6]** \
+>A metric space (X, d) is said to be completet if every Cauchy sequence in $X$ converges to a point in $X$.
+
+### Contractive Sequences
+
+>**[Definition 3.6.8]** \
+>A sequence p_n in a metric space (X, d) is contractive if there exists a real number $b$, 0 < b < 1, such that $d(p_{n+1}, p_n) \leq b d(p_n, p_{n-1})$ for all $n \in mathbb{N}, n \geq 2$.
+
 ## 7 Series of Real Numbers
 
 ## Reference
