@@ -1,5 +1,5 @@
 ---
-title: "[Laboratory3] Effect Design"
+title: "[Laboratory3] HW Rectifier, FW Rectifier, Peak Dector, and Super Diode"
 excerpt:
 categories:
   - laboratory
