@@ -369,7 +369,7 @@ We consider a criterion that for sequences in $\mathbb{R}$ is sufficient to ensu
 
 >**[definition 3.6.1]** \
 >Let (X, d) be a matric space. \
->A sequence $p_n$ in $X$ is a Cauchy sequence if for every $\epsilon > 0$, there exists a positive integer $n_0$ such that $d(p_n, p_m)$ for all integers $n, m \geq n_0$.
+>A sequence $p_n$ in $X$ is a Cauchy sequence if for every $\epsilon > 0$, there exists a positive integer $n_0$ such that $d(p_n, p_m) < \epsilon$ for all integers $n, m \geq n_0$.
 
 >**[Theorem 3.6.2]** \
 >Let (X, d) be a metric space. \
