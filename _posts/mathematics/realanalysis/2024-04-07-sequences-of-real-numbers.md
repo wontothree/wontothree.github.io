@@ -358,7 +358,7 @@ $\overline{\lim\limits_{\overline{n\to 0}}} s_n $
 >(a) Suppose $\overline{\lim\limits_{n \to \infty}} s_n \in \mathbb{R}$. Then $\beta = \overline{\lim\limits_{n \to \infty}} s_n$ if and only if for all $\epsilon > 0$ \
 >(i) there exists $n_0 \in \mathbb{N}$ such that $s_n < \beta + \epsilon $
 >for all $n \geq n_0$, and \
->(ii) given $n \in \mathbb{N}$, there exists $k \in \mathbb{N}$ with $k \geq n$ such that $s_k > \beta + \epsilon$.
+>(ii) given $n \in \mathbb{N}$, there exists $k \in \mathbb{N}$ with $k \geq n$ such that $s_k > \beta - \epsilon$.
 >
 >(b) $\overline{\lim\limits_{n \to \infty}} s_n = \infty$ if and only if given $M$ and $n \in \mathbb{N}$, there exists $k \in \mathbb{N}$ with $k \geq n$ such that $s_k \geq M$.
 >
