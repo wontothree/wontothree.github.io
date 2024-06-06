@@ -63,6 +63,42 @@ All of these properties are what we intuitively expect a distance function to sa
 
 ## 2. Open and Closed Sets
 
+The purpose of this section is to give a precise meaning to the adjectivies open and closed for arbitrary subsets of $\mathbb{R}$ or a metric space $(X, d)$.
+
+>**[Definition 2.2.1]** \
+>Let (X, d) be a matric space and let $p \in \mathbb{X}$. \
+>For $\epsilon >0$, the set $N_\epsilon(p) = \{ x \in \mathbb{X} : d(p, x) < \epsilon\}$ is called an $\epsilon$-neighborhood of the point $p$.
+
+>**[Definition 2.2.3]** \
+>Let $E$ be a subset of $X$. A point $p \in E$ is called an interior point of $E$ if there exist an $\epsilon > 0$ such that $N_\epsilon(p) \subset E$. \
+>The set of interior points of $E$ is denoted by Int(E), and is called the in terior of $E$.
+
+### Open and Closed Sets
+
+>**[Definition 2.2.5]** \
+>(a) A subset $O$ of $\mathbb{R}$ is open if every point of $O$ is an interior point of $O$.
+>(b) A subset $F$ of $\mathbb{R}$ is closed if $F^c = \mathbb{R} \setminus F$ is open.
+
+>**[Theorem 2.2.7]** \
+>Every open interval in $\mathbb{R}$ is an open subset of $\mathbb{R}$.
+
+>**[Theorem 2.2.8]** \
+
+>**[Theorem 2.2.9]** \
+>Let $(X, d)$ be a metric space. Then \
+>(a) for any collection $\big\{ O_\alpha\big\}_{\alpha \in A}$ of open subsets of $X$, $\cup_{\alpha \in A} O_\alpha$ is open, and \
+>(b) for any finite collection $\big\{ O_1, \dots, O_n \big\}$ of open subsets of $X$, \cup_{j=1}^n is open.
+
+### Limit Points
+
+### Closure of a Set
+
+### Characterization of the Open Subsets of $\mathbb{R}^1$
+
+### Relatively Open and Closed Sets
+
+### Connected Sets
+
 ## 3. Compact Sets
 
 ## 4. Compact Subsets of $\mathbb{R}$
