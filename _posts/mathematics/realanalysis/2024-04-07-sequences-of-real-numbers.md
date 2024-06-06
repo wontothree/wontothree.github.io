@@ -345,20 +345,22 @@ $$
 >**[Definition 3.5.1]** \
 >Let $s_n$ be a sequence in $\mathbb{R}$.
 >
->The limit superior of $s_n$, denoted $\varlimsup_{n \to \infty} s_n$ or $\varlimsup s_n$ , is defined as \
->$\varlimsup_{n \to \infty} s_n =  \lim\limits_{k \to \infty} b_k = \inf\limits_{k \in N} \sup [s_n : n \geq k]$
+>The limit superior of $s_n$, denoted $\overline{\lim\limits_{n \to \infty}}$ or $\overline{\lim} s_n$ , is defined as \
+>$\overline{\lim\limits_{n \to \infty}} s_n =  \lim\limits_{k \to \infty} b_k = \inf\limits_{k \in N} \sup [s_n : n \geq k]$
 >
->The limit inferior of $s_n$, denoted $\lim\limits_{\overline{n\to 0}}s_n$ or $\varliminf\limits s_n$, is defined as \
->$\lim\limits_{\overline{n\to 0}}s_n = \lim\limits_{k \to \infty} a_k = \sup\limits_{k \in N} \inf [s_n : n \geq k]$
+>The limit inferior of $s_n$, denoted $\lim\limits_{\overline{n\to 0}}s_n$ or $\underline{\lim} s_n$, is defined as \
+>$\lim\limits_{\overline{n\to 0}} s_n = \lim\limits_{k \to \infty} a_k = \sup\limits_{k \in N} \inf [s_n : n \geq k]$
+
+$\overline{\lim\limits_{\overline{n\to 0}}} s_n $
 
 >**[Theorem 3.5.3]** \
 >Let $s_n$ be a sequence in $\mathbb{R}$. \
->(a) Suppose $\varlimsup_{n \to \infty} s_n \in \mathbb{R}$. Then $\beta = \varlimsup_{n \to \infty} s_n$ if and only if for all $\epsilon > 0$ \
+>(a) Suppose $\varlimsup_{n \to \infty} s_n \in \mathbb{R}$. Then $\overline{\lim\limits_{n \to \infty}} s_n$ if and only if for all $\epsilon > 0$ \
 >(i) there exists $n_0 \in \mathbb{N}$ such that $s_n < \beta + \epsilon $
 >for all $n \geq n_0$, and \
 >(ii) given $n \in \mathbb{N}$, there exists $k \in \mathbb{N}$ with $k \geq n$ such that $s_k > \beta + \epsilon$. \
->(b) $\varlimsup_{n \rightarrow \infty} s_n= \infty$ if and only if given $M$ and $n \in \mathbb{N}$, there exists $k \in \mathbb{N}$ with $k \geq n$ such that $s_k \geq M$. \
->(c) $\varlimsup_{n \rightarrow \infty} s_n= -\infty$ if and only if $s_n \rightarrow -\infty$ as $n \rightarrow \infty$.
+>(b) $\overline{\lim\limits_{n \to \infty}} s_n = \infty$ if and only if given $M$ and $n \in \mathbb{N}$, there exists $k \in \mathbb{N}$ with $k \geq n$ such that $s_k \geq M$. \
+>(c) $\overline{\lim\limits_{n \to \infty}} s_n = -\infty$ if and only if $s_n \rightarrow -\infty$ as $n \rightarrow \infty$.
 
 >**[Corollary 3.5.5]** \
 >$\varlimsup_{n \to \infty} s_n = \varliminf_{n \to \infty} s_n$ if and ony if $\lim_{n \to \infty}$ exists in $\mathbb{R} \cup (-\infty, \infty)$.
