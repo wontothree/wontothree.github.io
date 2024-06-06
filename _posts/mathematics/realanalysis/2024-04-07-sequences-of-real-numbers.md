@@ -398,8 +398,9 @@ $$
 
 >**[Definition 3.7.1]** \
 >Let $(a_n)_{n=1}^\infty$ be a sequence of real numbers. Let $(s_n)_{n=1}^\infty$ be the sequence obtained from $a_n$, where for each $n \in \mathbb{N}$, $s_n = \sum_{k=1}^na_n$. \
+>
 >The sequence $s_n$ is called an infinite series, or series, and is denoted either as $\sum_{k=1}^\infty a_k$ or $a_1 + a_2 + \dots + a_n + \dots$. \
->For each $n \in \mathbb{N}$, $s_n$ is called the $n$th partial sum of the series and $a_n$ is called the $n$th term of the series. \
+>For each $n \in \mathbb{N}$, $s_n$ is called the $n$th partial sum of the series and $a_n$ is called the $n$th term of the series.
 >
 >The series $\sum_{k=1}^\infty a_k$ converges if and only if the sequence $s_n$ of $n$th partial sums converges in $\mathbb{R}$. \
 >If $\lim_{n \rightarrow \infty} s_n = s$, then $s$ is called the sum of the series, and we write $s = \sum_{k=1}^\infty a_k$. \
