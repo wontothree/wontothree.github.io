@@ -1,5 +1,5 @@
 ---
-title: "Sequences of Real Numbers"
+title: "[Real Analysis] Sequences of Real Numbers"
 excerpt: "Real Analysis"
 categories:
   - realanalysis
