@@ -352,14 +352,14 @@ $$
 >**[Theorem 3.5.3]** \
 >Let $s_n$ be a sequence in $\mathbb{R}$. \
 >(a) Suppose $\varlimsup_{n \to \infty} s_n \in \mathbb{R}$. Then $\beta = \varlimsup_{n \to \infty} s_n$ if and only if for all $\epsilon > 0$ \
->(i) there exists $n_0 \in \mathbb{N}$ such that $s_n < \beta + \epsilon $ 
+>(i) there exists $n_0 \in \mathbb{N}$ such that $s_n < \beta + \epsilon $
 >for all $n \geq n_0$, and \
 >(ii) given $n \in \mathbb{N}$, there exists $k \in \mathbb{N}$ with $k \geq n$ such that $s_k > \beta + \epsilon$. \
->(b) \
->(c)
+>(b) $\varlimsup_{n \rightarrow \infty} s_n= \infty$ if and only if given $M$ and $n \in \mathbb{N}$, there exists $k \in \mathbb{N}$ with $k \geq n$ such that $s_k \geq M$. \
+>(c) $\varlimsup_{n \rightarrow \infty} s_n= -\infty$ if and only if $s_n \rightarrow -\infty$ as $n \rightarrow \infty$.
 
->**[Corollary 3.3.3]** \
->$\varlimsup_{n \to \infty} s_n = \varliminf_{n \to \infty} s_n$ if and ony if $\lim_{n \to \infty}$ exists in $\mathbb{R} \cup \{-\infty, \infty\}$.
+>**[Corollary 3.5.5]** \
+>$\varlimsup_{n \to \infty} s_n = \varliminf_{n \to \infty} s_n$ if and ony if $\lim_{n \to \infty}$ exists in $\mathbb{R} \cup (-\infty, \infty)$.
 
 ## 6 Cauchy Sequences
 
