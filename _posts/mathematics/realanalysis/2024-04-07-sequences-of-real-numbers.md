@@ -413,6 +413,12 @@ The Cauchy criterion provides necessary and sufficient conditions for the conver
 >**[Theorem 3.7.3]** (Cauchy Criterion) \
 >The series $\sum_{k=1}^\infty$ a_k converges if and only if given $\epsilon >0$, there exists a positive integer $n_0$ such that $\sum_{k=n+1}^m a_k < \epsilon$ for all $m > n \geq n_0$.
 
+>**[Corollary 3.7.5]** \
+>If $\sum_{k=1}^\infty a_k$ converges, then $\lim_{k \rightarrow \infty} a_k = 0$.
+
+>**[Theorem 3.7.6]** \
+>Suppose $a_k \geq 0$ for all $k \in \mathbb{N}$. Then $\sum_{k=1}^\infty a_k$ converges if and only if $s_n$ is bounded above.
+
 ## Reference
 
 Manfred - Introduction to Real Analysis : Ch03
