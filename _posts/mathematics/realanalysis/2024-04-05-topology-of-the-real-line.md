@@ -87,9 +87,28 @@ The purpose of this section is to give a precise meaning to the adjectivies open
 >**[Theorem 2.2.9]** \
 >Let $(X, d)$ be a metric space. Then \
 >(a) for any collection $\big\{ O_\alpha\big\}_{\alpha \in A}$ of open subsets of $X$, $\cup_{\alpha \in A} O_\alpha$ is open, and \
->(b) for any finite collection $\big\{ O_1, \dots, O_n \big\}$ of open subsets of $X$, \cup_{j=1}^n is open.
+>(b) for any finite collection $\big\{ O_1, \dots, O_n \big\}$ of open subsets of $X$, $\cap_{j=1}^n$ is open.
+
+>**[Theorem 2.2.10]** \
+>Let (X, d) be a metric space. Then \
+>(a) for any collection $(F_\alpha)_{\alpha \in A}$ of closed subsets of $X$, $\cap_{\alpha \in A}$ is closed, and \
+>(b) for any finite collection $(F_1, \dots, F_n)$ of closed subsets of $X$, $\cup_{j=1}^n F_j$ is closed.
 
 ### Limit Points
+
+>**[Definition 2.2.12]** \
+>Let $E$ be a subset of a metric space $X$. \
+>(a) A point $p \in X$ is a limit point $E$ if every $\epsilon$-neighborhood $N_\epsilon(p)$ of $p$ contains a point $q \in E$$ with $q \neq q$. \
+>(b)A point $p \in E$ that is not a limit point of $E$ is called an isolated point of $E$.
+
+>**[Theorem 2.2.14]** \
+>A subset $F$ of a metric space $X$ is closed if and only if $F$ conains all its limit points.
+
+>**[Theorem 2.2.15]** \
+>
+
+>**[Corollary 2.2.16] \
+>A finite set has no limit points.
 
 ### Closure of a Set
 
