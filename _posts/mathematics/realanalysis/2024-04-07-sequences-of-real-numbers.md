@@ -355,7 +355,7 @@ $\overline{\lim\limits_{\overline{n\to 0}}} s_n $
 
 >**[Theorem 3.5.3]** \
 >Let $s_n$ be a sequence in $\mathbb{R}$. \
->(a) Suppose $\varlimsup_{n \to \infty} s_n \in \mathbb{R}$. Then $\overline{\lim\limits_{n \to \infty}} s_n$ if and only if for all $\epsilon > 0$ \
+>(a) Suppose $\overline{\lim\limits_{n \to \infty}} s_n \in \mathbb{R}$. Then $\overline{\lim\limits_{n \to \infty}} s_n$ if and only if for all $\epsilon > 0$ \
 >(i) there exists $n_0 \in \mathbb{N}$ such that $s_n < \beta + \epsilon $
 >for all $n \geq n_0$, and \
 >(ii) given $n \in \mathbb{N}$, there exists $k \in \mathbb{N}$ with $k \geq n$ such that $s_k > \beta + \epsilon$. \
