@@ -59,7 +59,32 @@ Physical limits on the system inputs and states can be directly inclued into the
 If the input must line in a set $\mathbb{U}$ and the state must line in a set $\mathbb{X}$ for alll time samples, then the NMPC optimization problem becomes
 
 $$
-\mathbf{u*} = \argmin_u V_N(\mathbf{u}) \;\; \text{s.t.} \; u_k \in \mathbb{U}, x_{k+1} \in \mathbb{X}
+\mathbf{u*} = \operatorname{argmin} V_N(\mathbf{u}) \;\; \text{s.t.} \; u_k \in \mathbb{U}, x_{k+1} \in \mathbb{X}
 $$
 
 Solving this problem is non-trivial and usually forms the bulk of the computational work required to obtain the next control action in NMPC. Consquently, the smaple times must be sufficiently large to allow for a solution to be foound.
+
+## III. Solving the NMPC Optimization Problem
+
+## VI. NMPC Applied to an Inverted Pendulum
+
+- Controlling an inverted pendulum is challenging task becuase it exhibits nonlinear dynamic behaviour, it is unstable about the desired operating point
+- A cart which can freely move along a straight beam
+- Rigid pendulum is attached to the cart and able to rotate freely
+- Motor is used to drive the belt, which in turn moves the cart along the rail
+- Objective : to swing the pendulum into the upright position and then stabilise the pendulum around this upright position.
+- Input : motor (a single input)
+- Output : the pendulum angle and the cart position
+
+![](./../../../img/optimalcontrol/invertedpendulummodel.png)
+
+$$
+\dot{x}(t) = g(x(t), u(t))
+$$
+
+where $x^T(t) = [p(t), \theta (t), v(t), \omega (t)]$
+
+- $p(t)$ : cart position
+- $\theta (t)$ : pendulum angle
+- $v(t)$ : cart velocity
+- $\omega (t)$ : pendulum angular velocity

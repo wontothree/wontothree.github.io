@@ -18,9 +18,8 @@ categories:
 >(b) If $r > 1$, then $\sum_{k=1}^\infty = \infty$. \
 >(c) If $r \leq 1 \leq R$, then the test is inconclusive.
 
-
 >**[Theorem 7.1.9] (Root Test)** \
->Let $\sum a_k$ be a series of nonnegative terms and let $\alpha = \overline{\lim\limits_{k \to \infty}}` \sqrt[k]{a_k}$ \
+>Let $\sum a_k$ be a series of nonnegative terms and let $\alpha = \overline{\lim\limits_{k \to \infty}} \sqrt[k]{a_k}$ \
 >(a) If $\alpha < 1$, then $\sum_{k=1}^\infty a_k < \infty$ \
 >(b) If $\alpha > 1$, then $\sum_{k=1}^\infty a_k = \infty$ \
 >(c) If $\alpha = 1$, then the test is inconclusive.
