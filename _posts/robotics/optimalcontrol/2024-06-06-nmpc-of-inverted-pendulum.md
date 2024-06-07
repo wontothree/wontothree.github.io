@@ -88,3 +88,38 @@ where $x^T(t) = [p(t), \theta (t), v(t), \omega (t)]$
 - $\theta (t)$ : pendulum angle
 - $v(t)$ : cart velocity
 - $\omega (t)$ : pendulum angular velocity
+
+$$
+g(x(t), u(t)) =
+\begin{bmatrix}
+v(t) \\
+\omega (t) \\
+\dfrac{a_1\omega_1(x(t), u(t)) + \omega_2(x(t))\cos\theta (t)}{d(x(t))} \\
+\dfrac{\omega_1(x(t), u(t))\cos\theta (t) + a_2\omega_2(x(t))}{d(x(t))}
+\end{bmatrix}
+$$
+
+The remaining terms
+
+- $\omega_1(x(t), u(t)) = k_1u(t) - (\omega (t))^2 \sin\theta (t) - k_2 u(t)$
+- $\omega_2(x(t)) = g\sin\theta (t) - k_3 \omega (t)$
+- $d(x(t)) = b - \cos^2\theta (t)$
+
+The constant terms
+
+- $a_1 = \dfrac{J_p}{ml}$
+- $a_2 = \dfrac{1}{l}$
+- $b = \dfrac{J_p}{ml^2}$
+- $k_1 = \dfrac{c_1}{ml}$
+- $k_2 = \dfrac{f_c - c_2}{ml}$
+- $k_3 = \dfrac{f_p}{ml}$
+
+Where
+
+- $J_p$ : the moment of inertia of the pendulum in relation to the axis or rotation
+- $m$ : the equivalent mass of the cart and pendulum
+- $l$ : the distance from the axis of ratation to the centre of mass of the system
+- $f_c$ : dynamic friction of the cart
+- $f_p$ : rotational friction coefficient
+- $c_1$ : control force to PWM signal ratio
+- $c_2$ : control force to cart velocity ratio
