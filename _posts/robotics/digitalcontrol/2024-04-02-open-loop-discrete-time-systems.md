@@ -70,7 +70,22 @@ $$
 
 - Pulse transfer function $G^d(z)$ : z-transform version of $G(s)$, zero-order hold + plant + sampler로 이루어진 system
 
-ㅂ정리의 의미 : s-domain transfer function에서 time-domain을 거치지 않고 z-transform으로 바꿀 수 있다.
+정리의 의미 : s-domain transfer function에서 time-domain을 거치지 않고 z-transform으로 바꿀 수 있다.
+
+>**[Example 4.2]**
+
+$$
+A(s) = \dfrac{1 - e^{-Ts}}{s(s+1)}
+= F^*(s)B(s)
+\\
+F^*(s) = 1 - e^{-Ts}, B(s) = \dfrac{1}{s(s+1)}
+\\
+A^*(s) = F^*(s)B^*(s)
+\\
+A(z) = F(z)B(z)
+= (1 - z^{-1}) \dfrac{(1-e^{-T})z}{(z-1)(z-e^{-T})}
+= \dfrac{1-e^{-T}}{z-e^{-T}}
+$$
 
 ## 4 Open-Loop Systems Containing Digital Filters
 
