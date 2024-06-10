@@ -12,6 +12,8 @@ An IC op amp is made up of about 20 transistor together with registors, and one 
 
 We will treat the op amp as a circuit building block and study its terminal characteristics and applications.
 
+실무에서 회로 설계에 opamp를 사용하는 경우의 90%는 voltage follower, inverting amplifier, non-inverting amplifer를 위해서이다.
+
 ## 1 The Ideal Op amp
 
 ### 1.1 The Op-AMP Terminals
@@ -91,3 +93,12 @@ $$
 ## 7 Effect of Finite Open-Loop Gain and Bandwidth on Circuit Performance
 
 ## 8 Large-Signal Operation of Op amps
+
+## [Addition] Voltage Follower (Voltage Buffer)
+
+입력되는 전압 신호에 맞춰 출력되는 신호도 입력되는 전압 신호가 될 수 있도록 하는 설계 방법
+
+## Reference
+
+Sedra - Microelectronic Circuits : Ch02 \
+https://blog.naver.com/ansdbtls4067/221412447707
