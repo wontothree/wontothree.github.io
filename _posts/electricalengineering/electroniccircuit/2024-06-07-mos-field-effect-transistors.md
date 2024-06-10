@@ -1,5 +1,5 @@
 ---
-title: "[Electronic Circuit] MOS Field-Effect Transistors (MOSFETs)s"
+title: "[Electronic Circuit] MOS Field-Effect Transistors (MOSFETs)"
 excerpt: "Sedra - Microelectronic Circuits : Ch05"
 categories:
   - electroniccircuit

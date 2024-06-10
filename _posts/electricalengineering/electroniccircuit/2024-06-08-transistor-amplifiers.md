@@ -9,7 +9,6 @@ We study
 - The models that are used to represent both transistor types in tha analysis and design of small-signal linear amplifiers
 - The three basic configurations in which each of the two transistor types can be connected to create an amplifier
 
-
 ## 1. Basic Principles
 
 ## 2. Small-Signal Operatoin and Models
