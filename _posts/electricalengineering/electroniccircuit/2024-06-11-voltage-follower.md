@@ -97,44 +97,45 @@ With most newer opamp designs the resistor is not necessary, especially if the o
 
 ### 2. Simple Discrete Emitter Followers
 
-가장 간단하고 잘 알려진 전압 포로우어는 에미터 포로우어로서, 공통 콜렉터 스테이지로도 알려져 있습니다. 콜렉터는 공급 레일에 연결되어 있기 때문에 AC 그라운드 포텐셜에 있습니다. 이것들은 모든 종류의 오디오 회로에서 매우 흔했지만, 오프앰프와 비교했을 때 거의 모든 면에서 성능이 매우 나쁩니다. 입력 임피던스는 출력에 연결된 부하에 따라 달라지므로 고정된 높은 입력 임피던스를 유지하는 대신, 부하가 추가되거나 변경되거나 제거될 때 변동합니다. 입력에서 출력까지 0.65V의 DC 오프셋이 있으며, 에미터에서 그라운드 또는 공급 레일로의 DC 로드가 필요합니다(트랜지스터가 NPN인지 PNP인지에 따라 레일이 달라집니다). 부하는 대부분 저항이지만, 이로 인해 출력 구동 능력이 비대칭적이 됩니다. 트랜지스터를 통해 합리적인 전류를 공급할 수는 있지만, 그의 전류 침하 능력은 저항 값에 따라 달라집니다.
+**The simplest and best known voltage follower is the emitter follower, also known as a common collector stage.**  The collector is at AC ground potential, because it's connected to the supply rail.  These used to be very common in all kinds of audio circuits, but they perform very poorly in almost all respects compared to an opamp.  Input impedance depends on the load that's connected to the output, so rather than maintain a high defined input impedance, it varies when the load is added, changed or removed.  There's a 0.65V DC offset from input to output, and it needs a DC load from the emitter to ground or a supply rail (which rail depends on whether the transistor is NPN or PNP).  The load is most commonly a resistor, but that causes the output drive capability to be asymmetrical.  While it can source a reasonable current via the transistor, its current sinking capability depends on the resistor value.
 
 |Opamp Voltage Follower|Emitter Follower|
 |---|---|
 |손실이 없다.|All simple follower circuits have a small loss of level, typically providing an output of between 0.99 and 0.999 of the input level, depending on the gain of the transistor(s) used, the topology and the source and load impedances.|
 |Opamps avoid this by using very high internal gain and lots of feedback, so while there is still some interdependence it's usually so small that you will be unable to measure the difference.|Unlike opamps, the input and output impedances of emitter followers are interdependent, so changing one also changes the other.|
 
+
 ![](../../../img/electroniccircuit/voltagefollower-fig2.png)
 
-위의 예에서 두 회로는 1k 에미터 부하를 가지고 있으며, 대규모 출력 전압 스윙이 필요한 경우 외부 부하 임피던스는 10k보다 작아서는 안됩니다. **낮은 부하 임피던스가 예상된다면 R2를 줄여야 하지만, 이는 입력 임피던스를 감소시키고 정적 전류를 증가시킵니다.** ±15V 공급에서 이 단일 트랜지스터 스테이지는 3에서 5개의 오프앰프보다 더 많은 전류를 소비하지만, 성능은 전혀 좋지 않습니다. 두 회로의 성능은 대략적으로 유사하며, 아래에 더 자세히 설명된 것처럼 출력을 캐패시터로 결합하여 보완 에미터 포로우어를 생성하기 위해 두 회로를 함께 사용할 수도 있습니다.
+As shown above, **the two circuits have a 1k emitter load, and the external load impedance should not be less than 10k if a large output voltage swing is required.  If lower load impedances are expected, R2 needs to be reduced, but that reduces the input impedance and increases the quiescent current drawn.**  With ±15V supplies, this single transistor stage draws more current than 3 to 5 opamps (depending on type), but doesn't perform anywhere near as well.  The performance of both circuits is roughly similar, and you can even use both together with the outputs joined with caps to create a complementary emitter follower as shown further below.
 
-표시된 값으로 보면 트랜지스터의 입력 임피던스(100k 바이어스 저항을 무시한)는 부하가 없을 때 약 500k입니다. 10k 부하가 연결될 때 약 ~450k로 감소합니다. 입력 임피던스는 대략적으로 트랜지스터의 이득(hFE는 시뮬레이션에서 500)으로 곱해진 에미터 저항과 병렬로 연결된 부하 임피던스(입력 바이어스 저항인 R1)의 값입니다. 트랜지스터의 바이어스 전류로 인해 R1에는 1.8V가 드롭됩니다(18µA 베이스 전류) 및 실리콘 트랜지스터의 베이스와 에미터 사이의 전형적인 700mV 이하의 에미터에 약 -2.5V가 있습니다.
+With the values shown, the input impedance of the transistor (ignoring the 100k bias resistors) is about 500k with no load, falling to ~450k when the 10k load is connected.  Input impedance is roughly the value of the load impedance in parallel with the emitter resistor, multiplied by the transistor's gain (hFE of 500 in my simulation), and in parallel with the input bias resistor (R1).  Because of the transistor's bias current, there is 1.8V dropped across R1 (18µA base current) and a little over -2.5V at the emitter due to the typical 700mV between base and emitter of a silicon transistor.
 
-여기 표시된 회로 대부분은 이중 공급을 사용하지만, 하나의 공급만 사용 가능한 경우 에미터 포로우어는 에미터가 대략 공급 전압의 절반에 위치하도록 바이어스가 설정되어야 합니다. 가장 일반적인 배치가 다음에 나와 있습니다. 표시된 전압에서 보듯이, Q1의 에미터는 최적의 7.5V가 아닌 약 6V 위에 있습니다. 최적의 바이어스 포인트를 얻으려면 R1을 69k로 줄여야 하지만, 신호 수준이 RMS 몇 볼트를 넘지 않는 한 두 개의 동일한 저항을 사용하는 것은 꽤 괜찮습니다.
+Most of the circuits shown here use a dual supply, but when only one supply is available the emitter follower must be biased so the emitter is at roughly half the supply voltage.  The most common arrangement is shown next.  As you can see from the voltages shown, the emitter of Q1 sits at a little over 6V rather than the optimum 7.5V.  R1 needs to be reduced to 69k to obtain the optimum bias point, but as long as the signal level never exceeds a couple of volts (RMS) the use of two equal resistors is quite alright.
 
 ![](../../../img/electroniccircuit/voltagefollower-fig3.png)
 
-(a)에 표시된 두 저항을 사용하면 입력 임피던스가 감소한다는 것을 이해하는 것이 중요합니다. 이제 입력 임피던스는 R1과 R2, 그리고 트랜지스터의 입력 임피던스가 병렬로 연결된 값입니다. 여기에서는 에미터 전압이 원하는 값보다 낮아짐을 보여주기 위해 동일한 값의 저항이 사용되었습니다. 입력 임피던스를 줄이는 것은 더 높은 값의 저항을 사용하거나 바이어스 공급으로써 우회된 전압 분할기를 사용하는 두 번째 바이어스 방식을 사용함으로써 피할 수 있습니다. 두 번째 버전은 장점이 있습니다. 바로 어떠한 전원 공급 잡음도 베이스 회로로 전달되지 않는다는 것입니다. 전압 분할기 (R1과 R2)는 에미터에서 거의 반 공급 전압을 얻기 위해 일부러 불균형으로 조정되었습니다.
+**It's important to understand that the use of two resistors as shown in (a) reduces the input impedance.**  It's now R1 in parallel with R2 in parallel with the transistor's input impedance.  Equal value resistors were used here to demonstrate that the emitter voltage will be less than desired.  Reduced input impedance can be avoided by either using higher value resistors or the second biasing scheme, using a bypassed voltage divider as the bias supply.  The second version has the advantage that any power supply noise is not passed on to the base circuit.  The voltage divider (R1 and R2) is deliberately unbalanced to obtain close to half supply at the emitter.
 
 ![](../../../img/electroniccircuit/voltagefollower-fig4.png)
 
-바이어스 방식에는 직전 단계의 출력과 에미터 포로우어의 베이스를 직접 결합하는 직결 방식을 포함하여 여러 가지 변형이 있습니다. 또한 에미터 신호가 전압 분할기의 중앙 탭에 피드백되는 부스트래핑이라는 기술이 있습니다. 여기서 C2는 그라운드가 아닌 에미터에 연결됩니다. 이 트릭은 양의 피드백으로 임피던스를 증폭시킵니다. R3의 양 끝에서의 AC 전압이 거의 동일하도록 보장함으로써 R3의 AC에 대한 표면 임피던스가 최소한 한 자릿수 이상 증가하지만 DC 조건에는 영향을 미치지 않습니다.
+There are many variations on biasing schemes, including direct coupling the base of the emitter follower to the output of the preceding stage.  There's also a technique known as bootstrapping, where the emitter signal is fed back to the centre tap of the voltage divider as shown above - C2 connects to the emitter rather than ground.  This trick boosts impedance with positive feedback.  By ensuring that the AC voltage at each end of R3 is almost the same, its apparent impedance for AC is increased by at least an order of magnitude, but DC conditions aren't affected.
 
-부스트래핑된 에미터 포로우어의 입력 임피던스는 약 340k입니다. 따라서 AC 입력에 대해서는 R3이 거의 영향을 미치지 않음을 알 수 있습니다. 물론 DC 저항은 여전히 100k이므로 트랜지스터의 베이스 전류에 의한 전압 강하는 변경되지 않습니다. 부스트래핑은 매우 오랜 기간 동안 이 방식으로 사용되어 왔으며, 심지어 밸브 회로에도 적용할 수 있습니다.
+The input impedance of the bootstrapped emitter follower is around 340k, so it should be apparent that R3 has little influence for the AC input.  The DC resistance is still 100k of course, so the voltage drop caused by the transistor's base current isn't changed.  Bootstrapping has been used in this way for a very long time, and it can even be applied to valve circuits.
 
-그러나 부스트래핑에는 몇 가지 단점이 있습니다. 먼저, 표시된 값으로는 1.5Hz에서 2dB의 이득 증가가 있습니다. 사실, C1, C2 및 관련 저항의 조합에 의해 다소 이상한 8에서 9dB/ 옥타브의 하이패스 필터가 생성되며, 시작하기 전에 피크를 생성하는 예상보다 높은 Q('품질 요소')가 있습니다. 이 필터의 효과(및 Q)는 소스 임피던스에 따라 달라져서 '실제 세계'에서의 응용에서 예측할 수 없을 수 있습니다. 소스 임피던스가 높을수록 이득이 감소하고, 소스 임피던스가 100k일 때(그림 4) 전혀 이득이 없습니다. 소스가 100kΩ인 경우 저주파 응답은 -3dB 이하로 약 1Hz에 이르게 됩니다. 대부분의 문서에서는 이 점을 거의 다루지 않지만, '흥미로운' 저주파수 효과에 대한 잠재적 위험에 대해 알지 못하면 함정이 될 수 있습니다.
+Bootstrapping has a couple of downsides though, firstly that there's a 2dB gain boost at 1.5Hz with the values shown.  In effect, a rather odd 8 to 9dB/ octave high pass filter is created by the combination of C1, C2 and the associated resistors, and it has a higher than expected Q ('quality factor') that creates a peak before it starts to roll off.  The effect (and Q) of this filter depends on the source impedance, so it can be unpredictable in 'real world' applications.  With a high source impedance, the amount of boost is reduced, and when the source impedance is 100k (for Figure 4) there's no boost at all.  The low frequency response extends to just below 1Hz (-3dB) with a 100kΩ source.  This point is rarely raised in most articles you might come across, but it can be a trap if you don't know about the potential for 'interesting' low frequency effects.
 
-둘째, 부스트래핑 회로는 양의 피드백을 사용하므로 입력에서 DC 변경이 발생할 경우 일시적인 불안정성을 일으킵니다. 또 다른 문제는 회로가 상당한 결정 시간을 가질 수 있으므로 전원이 인가된 후에는 DC 조건이 안정화될 때까지 여러 초(또는 구성 요소 값에 따라 더 많은 경우) 기다려야 할 수 있습니다. 이것 또한 양의 피드백의 사용으로 인한 것이며, 이것은 사용된 저항 및 캐패시터 값에 따라 결정되는 저주파수 감쇠된 진동을 유발합니다.
+Secondly, because the bootstrap circuit uses positive feedback, it will cause transient instability if there is a DC change at the input.  Another issue that arises is that the circuit may have a significant settling time, so after power is applied you may have to wait for several seconds (or more, depending on component values) before the DC conditions are stable.  This is also due to the use of positive feedback, which causes a damped low frequency oscillation at a frequency determined by the resistor and capacitor values used.
 
-부스트래핑된 입력 회로를 사용하는 것이 최선의 선택인지 결정하기 전에 회로를 구성하고 응용 프로그램과 함께 테스트하는 것이 중요합니다. 양의 피드백 때문에 임피던스는 신호 주파수에 따라 달라지며, 트랜지스터의 밀러 캐패시턴스 및 임의의 캐패시턴스도 높은 주파수에서 입력 임피던스를 제한할 수 있습니다.
+It's essential to build the circuit and test it with your application before you decide that using a bootstrapped input circuit is the best option.  Because of the positive feedback, the impedance depends on the signal frequency, and it is also affected by the Miller capacitance of the transistor as well as any stray capacitance, limiting input impedance at higher frequencies.
 
-단일 공급으로 표시되었지만, 부스트래핑은 이 기사에 표시된 모든 변형에 적용할 수 있습니다(JFET 및 오프앰프 포함). 이중 공급을 사용하는 회로의 경우, 부스트랩 캡을 그들의 접합점에 연결하여 접지에 대한 하나의 저항과 베이스에 대한 하나의 저항(세 개의 저항 대신 두 개의 저항)만 필요합니다. 이렇게 하면 DC 오프셋을 줄이기 위해 입력 저항의 값을 줄일 수 있습니다. 저항은 같은 값이 아니어도 되지만, 주어진 회로에 대한 정확한 동작을 보려면 회로를 구축하고 테스트하거나 적어도 시뮬레이션을 실행해야 합니다(시뮬레이션은 일반적으로 실제와 매우 유사할 것입니다).
+Although shown with a single supply, bootstrapping can be applied to any variant shown in this article (including JFETs and opamps).  For the circuits using dual supplies, only one resistor to ground and one to the base is needed (two resistors instead of three), with the bootstrap cap connected to their junction.  This lets you reduce the value of the input resistor to reduce DC offset if you wish to do so.  The resistors don't have to be the same value, but to see exactly what happens with any given circuit requires that you build and test it, or at least run a simulation (which will usually be very close to reality).
 
 ![](../../../img/electroniccircuit/voltagefollower-fig5.png)
 
-위에 표시된 버전은 단순히 빼놓을 수 없을 정도로 흥미로운데요. 많은 제약이 있지만, 그럼에도 불구하고 이 회로는 입력이 그라운드를 포함할 수 있는 몇몇 단일 공급 IC의 입력 단계로 사용됩니다(예: LM358, LM386 등). 이 회로는 일반적으로 에미터 포로우어로 작동하면서도 AC 입력이 그라운드로 참조됩니다. 입력은 별도의 음수 콜렉터 전압 공급이 없는 상태에서 최대 약 ±600mV까지 스윙할 수 있습니다. 이 회로는 트랜지스터가 정상적으로 작동할 수 있도록 콜렉터와 베이스 사이에 충분한 전압 차이를 제공하기 위해 베이스-에미터 접합 전압에 의존합니다.
+The version shown above is simply too interesting to omit.  It has many limitations, but despite that it's used as the input stage for some single supply ICs where the input is allowed to include ground (e.g. LM358, LM386 and a few others).  While it might not seem possible, the circuit acts as a normal emitter follower with an AC input that's referred to ground.  The input can swing to a maximum of about ±600mV, despite the fact that there is no separate negative collector voltage supply.  The circuit relies on the base-emitter junction voltage to provide just enough voltage differential between the collector and base to allow the transistor to function normally.
 
-이 회로는 특별한 경우지만 매우 유용할 수 있습니다. 그것은 그림에 표시된 대로 DC 결합될 수 있거나 다른 회로에서 설명한 것처럼 커패시터로 결합될 수 있습니다. 소스와 입력 사이에 커패시터가 사용될 때(도면에 점선으로 표시됨), 트랜지스터 게인과 에미터 저항에 따라 베이스 전압이 상승합니다. 100k로(그리고 BC559C와 같은 트랜지스터의 hFE가 약 420인 경우), 베이스 전압은 약 2.7V까지 상승하여 약 ±2.6V(1.9V RMS)의 훨씬 더 높은 입력(및 출력) 전압을 허용합니다. 여기에 표시된 다른 대부분의 회로와 마찬가지로 실험을 해야 합니다. 일반적으로 커패시터 결합을 사용하더라도 트랜지스터 매개 변수의 변화가 문제를 일으킬 수 있기 때문에 대략 700mV RMS 이상의 입력 신호로 만족하지 않을 것입니다.
+**The circuit is a special case, but can be very useful.**  It can be DC coupled as shown, or capacitor coupled as with the other circuits described here.  When a coupling cap is used between the source and input (shown dotted in the drawing), the base voltage will rise depending on the transistor gain and emitter resistance.  With 100k (and using a transistor with an hFE of around 420 for a BC559C), the base voltage will rise to about 2.7V, allowing a considerably higher input (and output) voltage of about ±2.6V (1.9V RMS).  As with most other circuits shown here, you will need to experiment.  In general, I wouldn't be happy with an input signal of more than around 700mV RMS even with capacitor coupling, because transistor parameter variations could easily cause problems otherwise.
 
 ...
 
@@ -143,13 +144,3 @@ With most newer opamp designs the resistor is not necessary, especially if the o
 https://blog.naver.com/ansdbtls4067/221412447707 \
 https://sound-au.com/articles/followers.html \
 https://cmosedu.com/jbaker/courses/ee420L/s17/students/ferret1/Lab%206/lab6.html
-
-### 기타
-
-intro
-
-일부 사람들은 연산 증폭기가 '나쁘다'고 주장하고, 오직 디스크리트 설계를 사용해야 한다고 주장하지만, 이는 가장 평범한 연산 증폭기에만 해당됩니다. 심지어 저렴한 µA741 연산 증폭기도 많은 디스크리트 설계보다 왜곡 수치가 더 좋습니다(노이즈와 속도는 심각하게 제한되지만). 일부 고급 회로는 일부 연산 증폭기보다 더 나을 수 있지만, 많은 부품과 상당한 PCB 공간이 필요합니다.
-
-모든 회로를 직접 구축하고 측정할 수는 없기 때문에, SIMetrix 시뮬레이터에서 파생된 결과를 사용합니다. 시뮬레이터가 일부 측면에서 낙관적일 수 있지만, 친숙한 트랜지스터와 기본 연산 증폭기를 사용하여 시뮬레이션하기 때문에 결과는 비교 가능합니다. 시뮬레이션을 위해 1.414V RMS(2V 피크)의 신호 전압을 사용했습니다. 이는 많은 일반 회로에서 현실적인 작동 수준입니다.
-
-연산 증폭기 회로는 일반적으로 ±15V의 이중 전원을 사용하여 설명될 것입니다. 디스크리트 팔로워도 일반적으로 이중 전원을 사용하지만, 필요에 따라 단일 전원을 사용할 수 있습니다. DC 오프셋을 제거하는 가장 좋은 방법은 출력 커플링 커패시터를 추가하는 것입니다. 이중 전원을 사용하는 경우에도 일반적으로 필요합니다.
