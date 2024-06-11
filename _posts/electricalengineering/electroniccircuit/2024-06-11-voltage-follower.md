@@ -61,57 +61,39 @@ Many single opamps have provision for an offset null potentiometer, so that inpu
 
 ### 1. Opamp Voltage Followers
 
-기본 오프앰프 회로부터 설명하겠습니다. 이것들은 우리가 추구하는 매개변수의 기준을 설정하기 때문에 가장 먼저 다룰 것입니다. 대부분의 경우, 이산 트랜지스터 설계는 오프앰프 기반의 팔로어에 비해 아예 가깝지 않습니다. 우리가 주로 관심을 가지는 주요 매개변수는 입력 임피던스, 출력 임피던스, 그리고 이득입니다. 보통 팔로어는 이득을 가지지 않는다는 사실을 인정하지만, 내부 이득이 너무 낮으면 신호 손실이 발생합니다. 이것은 밸브 캐소드 팔로어에서도 보통 1dB 미만이지만, 여전히 피드백에 의존하여 원하는 성능을 얻기 위해 활성 필터와 같은 회로의 효과를 저해할 수 있는 수준의 신호 손실입니다.
+The basic opamp circuits will be covered first, because they set the goal posts for the parameters that we aspire to.  With few exceptions, discrete transistor designs don't even come close to the opamp based followers.  The main parameters we are interested in are input impedance, output impedance, and gain.  While it's accepted that followers in general don't have gain as such, if the internal gain is too low, then there will be a loss of signal.  It's usually less than 1dB even with a valve cathode follower, but it's still a loss of level that will compromise the effectiveness of circuits such as active filters that rely on feedback to get the desired performance.
 
-아래에서 출력 임피던스에 대한 상세한 토론이 있지만, 여기서도 경고가 필요합니다. 전형적인 오프앰프는 피드백이 있는 상태에서 출력 임피던스가 1Ω 미만인 경우가 많지만, 단락 전류에는 한계가 있으며, 최대 출력 스윙은 부하 임피던스(따라서 최대 출력 전류)에 의존합니다.
+There is a full discussion about output impedance below, but a word of warning is needed here as well.  While a typical opamp may offer an output impedance (with feedback) of less than 1Ω, there is also a limit to the short-circuit current, and the maximum output swing is dependent on the load impedance (and hence the peak output current).
 
-**이것은 너무 낮은 부하 임피던스를 사용하면 최대 출력 전압을 얻을 수 없으며, 왜곡이 증가하는 것을 의미합니다. 대부분의 일반적인 오프앰프는 2k 이상의 부하 임피던스로 제한되지만, 600Ω 부하를 처리할 수 있는 것도 많고, 더 낮은 임피던스를 처리할 수 있는 것도 몇 개 있습니다. 만약 낮은 임피던스를 구동해야 한다면, 데이터 시트를 확인하여 필요한 출력 전류와 전압을 얻을 수 있는지 확인해야 합니다. 그렇지 않으면 회로가 원하는 대로 작동하지 않을 수 있습니다.**
+**This means that if you use a load impedance that's too low, you will not be able to get the maximum output voltage, and distortion is increased - often dramatically.**  Most common opamps are limited to a load impedance of 2k or more, but there are also quite a few that can handle 600Ω loads, and a few that can handle even lower impedances.  If you need to drive a low impedance, you must check datasheets to verify that you can get both the output current and voltage you need, or the circuit may not be acceptable for your purposes.
 
 ![](../../../img/electroniccircuit/voltagefollower-fig1.png)
 
-그림 1은 표준 오프앰프 버퍼, 비인버팅 및 인버팅을 보여줍니다. 이 중에서도 비인버팅 구성이 가장 일반적이며, 양쪽 입력이 동일한 전압으로 구동되기 때문에 공통모드 왜곡을 유발하기는 하지만, 가장 많이 사용되는 회로 중 하나입니다. 많은 ESP 프로젝트에서 비인버팅 버퍼를 사용하며, 특히 활성 필터 회로에서 흔히 볼 수 있습니다. 입력 임피던스는 R1에 의해 설정됩니다(100k - 일부 오프앰프에서는 훨씬 더 높을 수 있음), 이는 오프앰프의 입력 임피던스와 병렬로 연결됩니다.
+Figure 1 shows the standard opamp buffers, non-inverting and inverting.  Of these, the non-inverting configuration is the most common, and although it does invoke common-mode distortion (because both inputs are driven to the same voltage), it is one of the most used circuits known.  A great many ESP projects use non-inverting buffers, and they are particularly common with active filter circuits.  The input impedance is set by R1 (100k - although it may be a great deal higher with some opamps), and that's in parallel with the opamp's input impedance.
 
-오프셋 널 연결은 선택 사항이며, 절대적인 DC 레벨을 유지해야 할 때에만 필요합니다. 핀 번호와 포트 값은 다양하며, 사용 중인 오프앰프에 대한 올바른 연결 및 값은 데이터 시트를 확인하여 결정해야 합니다. 대부분의 경우 오프셋 널이 필요하지 않으며, 특히 커패시터 커플링을 사용하는 경우에는 그렇습니다.
+The offset null connections are optional, and are only necessary if an absolute DC level must be maintained.  Pin numbers and pot value vary, so the datasheet must be consulted to determine the proper connections and value for the opamp being used.  In most cases the offset null isn't necessary, particularly when capacitor coupling is used.
 
-일반적으로 오디오에서 DC 오프셋을 최소화하는 것은 그다지 중요하지 않습니다. 특히 공급 전압이 ±5V 이상인 경우에는 그렇습니다. 왜냐하면 충분한 '헤드룸'이 있으며, 심지어 몇 백 밀리볼트의 오프셋도 문제가 되지 않습니다. 출력 커패시터는 DC 구성 요소를 제거하고 모두가 만족합니다. 그러나 낮은 오프셋이 필요한 경우에는 각 입력에서 지구/ 그라운드까지의 DC 저항을 동일하게 유지함으로써 달성됩니다. 이것은 인버팅 회로에서 위에 표시되어 있으며, 비인버팅 입력에서 지구로 우회된 저항입니다. 그 값은 R1과 R2의 병렬 저항과 같습니다 - 소스 저항/ 임피던스가 제로인 경우를 가정합니다.
+Minimising DC offset is usually not particularly important for audio, especially when the supply voltages are greater than ±5V or so, because there's plenty of 'headroom' and even a few hundred millivolts of offset isn't an issue.  The output capacitor removes the DC component and everyone is happy.  However, if you do need a low offset, that's achieved by keeping the DC resistance from each input to earth/ ground equal.  This is shown above in the inverting circuit, with a bypassed resistor to earth from the non-inverting input.  Its value is equal to the resistance of R1 and R2 in parallel - assuming that the source resistance/ impedance is zero.
 
-저항은 신호에 열 잡음이 추가되지 않도록 커패시터로 우회되므로 신호 대 잡음 비율이 감소합니다. 이러한 배열은 이전에 매우 흔했지만, 대부분의 최신 오프앰프는 사용하지 않은 입력을 단순히 지구화하여 (연속 저항 없음) 사용할 수 있을 정도로 충분히 우수합니다. 입력 저항 균형을 보장하는 것이 거의 필요하지 않지만, 고이득 DC 증폭기를 설계 중이라면 각 입력의 저항을 동일하게 유지하는 것이 좋습니다.
+The resistor is bypassed by a capacitor so that the resistor's thermal noise is not added to the signal, thereby reducing the signal to noise ratio.  This arrangement used to be very common, but most modern opamps are good enough to let you simply earth the unused input (no series resistance).  It is rarely necessary to ensure input resistance balance, but if you are designing a high gain DC amplifier then it's advisable to keep the resistance at each input the same.
 
 ### 1.1 Non-Inverting Configuration
 
-내용 소개에서 언급한 것처럼 비인버팅 구성의 주요 이점은 매우 높은 입력 임피던스입니다. 바이폴라 입력을 갖는 오프앰프를 사용하더라도 높은 입력 임피던스는 주로 DC 오프셋에만 영향을 미합니다. 물론 측정 가능한 입력 임피던스는 있으며, 임피던스가 약 1메가옴 이상 필요한 경우 FET 입력 오프앰프를 사용하는 것이 좋습니다. 오프앰프 제조업체는 일반적으로 장치가 사용된 방식에 따라 입력 임피던스를 직접 명시하지 않습니다. 그러나 입력 바이어스 전류는 명시되며, 이는 특정 입력 저항에 대한 DC 오프셋을 계산하는 데 사용할 수 있습니다. 또한 입력 바이어스 값으로 근사적인 입력 임피던스를 계산할 수 있지만, 다양한 이유로 항상 신뢰할 수는 없습니다.
-
-입력 임피던스를 측정할 수도 있지만, 이는 다소 어려울 수 있습니다. 쉬운 방법은 발생기와 직렬로 저항을 추가하고, 그 값을 조정하여 레벨이 절반(6dB)으로 떨어질 때까지입니다. 발생기의 임피던스가 무시할 정도로 작다고 가정합니다(일반적으로 50Ω에서 600Ω 사이). 그러면 오프앰프의 입력 임피던스는 직렬 저항과 동일합니다. 그러나 오프앰프는 100% 음수 피드백으로 사용되므로, RC4558과 같이 상당히 기본적인 오프앰프조차도 입력 임피던스가 몇 메가옴인 경우가 거의 분명합니다. 데이터 시트는 전형적인 입력 저항을 2MΩ로 명시하지만, 제 경험상 이는 다소 비관적인 것으로 생각됩니다. 입력 바이어스 전류는 대략 50nA(전형적)입니다.
-
-입력 저항이 1메가옴 이상인 경우 실제로는 측정이 매우 어려울 수 있습니다. 오프앰프의 바이어스 전류가 유용한 측정을 하기 전에 공급 전압에 닿을 수 있습니다. 저항값을 낮게 하고 전압 감소를 기반으로 입력 저항을 계산할 수 있습니다. 이것을 오묘하게 설명하겠습니다. 왜냐하면 이것은 오므의 법칙과 기본적인 수학만으로 이루어져 있으므로 더 쉽게 기억할 수 있습니다.
-
-입력에 0Ω가 직렬로 연결된 상태에서 출력을 측정합니다. 1V RMS라고 가정합니다. 오프앰프의 입력 핀과 직렬로 가변 저항(예: 1M 포트)을 추가하고 출력 전압이 900mV RMS로 떨어질 때까지 조절합니다. (가변 저항을 조절합니다.) 500k 정도의 직렬 저항이 있다고 가정하면, 저항에 100mV가 드롭되고, 오프앰프의 입력 핀에서 900mV가 사용 가능합니다. 측정된 전압이나 전류에 어떤 DC 성분도 포함되어 있지 않도록 확인하세요.
-
-Iin = 100mV / 500k = 200nA
-Rin = 900mV / 200nA = 4.5 MΩ
-시리즈 저항이 그다지 높지 않아서 오프앰프가 포화되지 않으며 (양쪽 전원 레일로 흔들립니다), 그러나 이는 일반 운전 조건에서 오프앰프의 입력 저항을 상당히 정확하게 측정할 수 있도록 충분합니다. 비슷한 기술이 출력 임피던스를 결정하는 데 사용되며, 이는 이 기사의 이후에 검토하겠습니다.
-
-일부 오프앰프는 입력 저항 (오프앰프의 바이어스 저항)이 너무 높으면 음수로 흔들릴 수 있으며, 다른 것들은 양수로 흔들립니다. 입력 단계가 PNP 또는 NPN 트랜지스터를 사용하는지에 따라 달라집니다. PNP 입력 트랜지스터는 입력 전압을 양수 전원으로 당기고, NPN 트랜지스터는 음수 전원으로 당깁니다. 우리가 팔로워에 대해 이야기하고 있으므로 비비전 경우 출력이 입력을 따릅니다.
-
-FET 입력 오프앰프 (JFET 또는 CMOS)는 무시할 만한 입력 전류를 소비합니다. 예를 들어 TL072는 전형적인 입력 바이어스 전류가 65pA이고 입력 저항이 1012Ω (1 TΩ)로 명시되어 있습니다. 이러한 높은 저항을 측정하려는 모든 시도는 저항이 아니라 절연체를 측정하고 있기 때문에 실패합니다. 대부분의 FET 입력 오프앰프는 대부분의 응용 프로그램에 필요한 것보다 훨씬 높은 입력 임피던스를 가지고 있다고 가정하는 것이 안전합니다. PCB 누설은 오프앰프 자체보다 훨씬 먼저 영향을 미칠 수 있습니다.
-
-물론 회로가 예외적으로 높은 입력 저항이 필요한 경우가 있고, 그럴 경우 특별한 구성 기술이 필요합니다. 대부분의 경우, 일반적인 목적의 회로 (특히 오디오)는 몇 메가옴을 넘는 임피던스를 필요로하지 않으며, 초고 임피던스는 여기서 검토되지 않을 것입니다. 관심있는 분들은 1GΩ 프리앰프를 보여주는 프로젝트가 있습니다 (자세한 내용은 고임피던스 입력 단계 / 프로젝트 161을 참조하십시오).
-
 ### 1.2 Inverting Configuration
 
-인버팅 오프앰프 버퍼 스테이지에는 몇 가지 주요 단점이 있습니다. 입력 임피던스는 입력 및 피드백 저항에 의해 설정됩니다. 이들은 인버팅 버퍼의 유니티 이득을 위해 두 값이 동일해야 합니다. (> 100k) 매우 높은 값을 가지는 것은 잡음이 심각한 문제가 되기 때문에 권장되지 않습니다. 일반적으로 인버팅 버퍼를 사용하여 고임피던스 저수준 신호를 처리하는 것은 회로 잡음 때문에 좋은 생각이 아닙니다. 입력 임피던스는 단순히 입력 저항의 값이며 측정할 필요가 없습니다.
+Inverting opamp buffer stages have a couple of major disadvantages.  **The input impedance is set by the input and feedback resistors.  These must both be the same value for a unity gain inverting buffer.  It's inadvisable to make them very high values (> 100k) because noise becomes a serious issue.**  In general, it's not a good idea to use the inverting buffer for high impedance low-level signals due to the circuit noise.  The input impedance is simply the value of the input resistor, and it doesn't need to be measured.
 
-또한 입력 공통 모드 입력 전압이 거의 제로에 가까운 장점이 있어 최소한의 공통 모드 왜곡이 보장됩니다. 이는 대부분의 양호한 오프앰프에서 왜곡이 거의 측정할 수준으로 유지되기 때문에 거의 문제가 되지 않습니다. 그러나 이것은 모든 전자 설계의 여러 가지 트레이드 오프 중 하나이며, 모든 단점에는 보통 이득이 있지만 둘 다 대부분의 설계에는 실제로 중요하지 않을 수 있습니다.
+There is also an advantage, in that the input common mode input voltage is close to zero, ensuring minimum common-mode distortion.  While this is rarely a problem for most decent opamps where distortion remains at close to immeasurable levels, it's something to be aware of.  This is one of many trade-offs that are required in all aspects of electronics design - for every disadvantage, there is usually an advantage, but neither may be of any real consequence for most designs.
 
-인버팅 구성은 또한 노이즈 이득이 2이므로 오프앰프가 유니티 노이즈 이득을 가지는 비인버팅 버퍼보다 노이즈를 더 많이 기여합니다. 위에서 언급했듯이 왜곡이 보통 더 낮아지는 이점이 있습니다. 공통 모드 전압이 없으므로 입력 신호에 관계없이 두 오프앰프 입력은 모두 영볼트에 가깝게 있습니다(듀얼 공급을 가정함). 그러나 대부분의 오프앰프에서 왜곡 감소는 일반적으로 매우 작으며, 이를 비인버팅 버퍼를 사용하지 않는 핑계로 사용하는 것은 현명하지 않습니다.
+The inverting configuration also has a noise gain of 2, so the opamp contributes more noise than a non-inverting buffer which has unity noise gain.  As mentioned above, there is a benefit in that distortion is usually lower because there's no common mode voltage, and both opamp inputs sit at close to zero volts regardless of input signal (assuming a dual supply).  However, the reduction of distortion is generally rather small with most opamps, and using that as an excuse for not using a non-inverting buffer would be unwise.
 
-'노이즈 이득'이란 무엇입니까? 인버팅 버퍼의 구성을 살펴보면 피드백 및 입력 저항이 이득이 2인 비인버팅 앰프와 같다는 것을 알 수 있습니다. 소스 임피던스가 입력 저항에 비해 낮은 경우에는 잡음이 2배로 증폭되지만 신호는 -1로만 증폭됩니다. 노이즈 이득은 신호 대비 노이즈가 얼마나 증폭되는지의 측정입니다. 이는 모든 인버팅 오프앰프 스테이지에 적용됩니다 - 노이즈 이득은 신호 이득에 1을 더한 것과 같습니다.
+  What is 'noise gain'?  If you examine the configuration of an inverting buffer, you'll see that the feedback and input resistors are just what you'd expect to see in a non-inverting amp with a gain of 2.  When the source impedance is low compared to the input resistor, noise is therefore amplified by 2, but the signal is only amplified by -1.  The noise gain is simply a measure of how much the noise is amplified compared to the signal.  This applies to all inverting opamp stages - the noise gain is equal to the signal gain plus 1.
 
-'+ve' 오프앰프 입력으로 대지에 연결된 저항(그림 1에 '선택 사항'으로 표시됨)을 포함하는 것이 일반적이었습니다(또는 예전에 일반적이었습니다). 이 저항의 값은 입력이 교류 또는 직류 결합되는지에 따라 달라집니다. 입력에 캐패시터가 직렬로 연결된 경우, R3는 피드백 저항(R2)과 동일한 값을 가져야 합니다. 캡이 없는 경우(직류 결합), R3는 R1 및 R2 값의 절반인 50k가 됩니다. R3가 대지로의 단락으로 대체되면 인버팅 버퍼의 출력에서의 직류 오프셋은 약 13mV 정도가 됩니다. 예를 들어, 사용된 오프앰프에 따라 달라집니다.
+It's common (or it used to be common) to include a resistor (shown in Figure 1 as 'Optional') in series with the +ve opamp input to ground (R3).  The value depends on whether the input is AC or DC coupled.  If there's a cap in series with the input, R3 will have the same value as the feedback resistance (R2).  With no cap (DC coupled), R3 will be equal to half the value of R1 and R2 - 50k as shown.  If R3 is replaced by a short to ground, the DC offset at the output of the inverting buffer will be around 13mV, vs. well under 1mV when the resistor is used.  Of course, this depends on the opamp used.
 
-**따라서 추가 저항은 입력 스테이지의 직류 오프셋을 크게 줄이지만, 저항은 노이즈를 최소화하기 위해 캐패시터로 바이패스해야 합니다. 바이패스 캡은 관심 있는 가장 낮은 주파수까지의 잡음을 바이패스할 만큼 충분히 커야 합니다. 20Hz의 응답이 필요한 경우, 캡의 리액턴스는 그 주파수의 1/10에 해당하는 저항이어야 합니다 - 2Hz. 예를 들어, 50k 저항은 1.59µF의 바이패스 캡을 필요로 합니다(최소 2µF를 사용하십시오). 1/f(또는 '슛') 잡음을 바이패스하는 것을 기대하는 것은 현실적이지 않으므로 DC를 측정할 때 작은 불확실성이 발생할 수 있습니다.**
+**So, while the extra resistor removes much of the input stage DC offset, the resistor must be bypassed with a capacitor to minimise noise.  The bypass cap needs to be large enough to bypass noise down to the lowest frequency of interest.  If you need response to 20Hz, the cap's reactance needs to be equal to the resistance at one tenth of that frequency - 2Hz.  For example, a 50k resistor needs a bypass cap of 1.59µF (use at least 2µF as shown, 10µF is fine).  It's unrealistic to expect the cap to bypass 1/f (aka 'shot') noise, so there may be a small uncertainty when measuring DC.**
 
-대부분의 최신 오프앰프 설계에서는 이 저항이 필요하지 않습니다. 특히 오프앰프에 오프셋 널 터미널이 있는 경우에는 더욱 그렇습니다. 오디오의 경우, 이 저항은 거의 사용되지 않습니다. 왜냐하면 그냥 불필요하게 부품을 추가하기 때문입니다. DC에 응답하는 것이 필요하지 않는 한 출력은 항상 캐패시터로 결합되어야 합니다.
+With most newer opamp designs the resistor is not necessary, especially if the opamp has offset null terminals.  For audio, it's rarely used because it simply adds more parts for no useful purpose.  The output should always be capacitively coupled unless response to DC is a requirement.
 
 ### 2. Simple Discrete Emitter Followers
 
