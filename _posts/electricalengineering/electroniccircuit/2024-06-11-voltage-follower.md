@@ -42,59 +42,22 @@ Voltage Follower
 
 ### Introduction
 
-For the most part, this article looks at more primitive techniques used as voltage followers - primarily transistor emitter-followers and JFETs, and the valve (tube) cathode follower will also be discussed as part of the historical view.
-
 ||Invering Configuration|Non-Inverting Configuration|
 |---|---|---|
-|장점|The greatest benefit of the non-inverting connection is that input impedance is very high, and if you use a FET input opamp it can be very close to infinite.  Output current is determined by the opamp you use, as is the DC offset which may be problematical with extremely high input impedance.  Noise is usually fairly low, but with high impedances it will be dominated by the noise voltage from the input resistor unless the source bypasses the noise (as happens with a capacitor (aka 'condenser') microphone for example).|Using an inverting opamp configuration solves he common mode distortion problem, because there is virtually none.|
+|장점|input impedance is very high (if FET input opamp it can be very close to infinite)  Output current is determined by the opamp you use, as is the DC offset which may be problematical with extremely high input impedance.  Noise is usually fairly low, but with high impedances it will be dominated by the noise voltage from the input resistor unless the source bypasses the noise (as happens with a capacitor (aka 'condenser') microphone for example).|solves the common mode distortion problem, because there is virtually none.|
 |단점|The non-inverting connection suffers from (slightly) higher distortion because the common mode voltage is high (i.e. the voltage seen by both inputs at the same time), but with modern opamps this is rarely a problem.  The distortion can be measured with (very) good equipment, but there are now opamps that have such low distortion that it's almost impossible to measure it.  It is very rare indeed for the distortion to be audible, and if so, it usually means something else is wrong with the circuit.|The inverting connection has the disadvantage that its input impedance is limited by the resistor values used.  They can't be too high or noise becomes a major problem for low level signals.|
 
-An important point to make is that an impedance converter circuit should ideally be able to source and sink current equally well.  If it can't, the output may be asymmetrical with some loads.  Sourcing current is taken to mean that the circuit is providing current to the load, while sinking current means that it's drawing current from the load.  Any follower should also be able to provide the same peak voltage (positive and negative) to its rated load, and preferably down to the lowest load impedance likely to be encountered (real life is unpredictable).
+**An important point to make is that an impedance converter circuit should ideally be able to source and sink current equally well.**  If it can't, the output may be asymmetrical with some loads.  Sourcing current is taken to mean that the circuit is providing current to the load, while sinking current means that it's drawing current from the load.  Any follower should also be able to provide the same peak voltage (positive and negative) to its rated load, and preferably down to the lowest load impedance likely to be encountered (real life is unpredictable).
 
-Simple emitter followers can't usually provide fully symmetrical operation unless their operating current is unrealistically high.  In some cases you can offset the output voltage so that there's less voltage across the transistor, and more across the resistor, and that can restore symmetry for a defined load impedance and reduce distortion.  However, creating deliberate asymmetry isn't a cure-all and will only work if you know exactly what you're doing.
+**Simple emitter followers can't usually provide fully symmetrical operation** unless their operating current is unrealistically high.  In some cases you can offset the output voltage so that there's less voltage across the transistor, and more across the resistor, and that can restore symmetry for a defined load impedance and reduce distortion.  However, creating deliberate asymmetry isn't a cure-all and will only work if you know exactly what you're doing.
 
-Be very aware that simple circuits such as emitter followers have relatively poor power supply rejection ratios (PSRR), so hum or noise on the supplies will affect the signal to some extent.  Simple emitter followers as shown in Figure 2 will have a PSRR to the emitter circuit of around -27dB, and about -44dB to the collector circuit, with a 10k source impedance.  These figures depend on the component values and (especially) the source impedance, so are only a guide.
+**Be very aware that simple circuits such as emitter followers have relatively poor power supply rejection ratios (PSRR), so hum or noise on the supplies will affect the signal to some extent.**  Simple emitter followers as shown in Figure 2 will have a PSRR to the emitter circuit of around -27dB, and about -44dB to the collector circuit, with a 10k source impedance.  These figures depend on the component values and (especially) the source impedance, so are only a guide.
 
-Of the circuits discussed here, very few are suitable for buffering DC voltages.  Because there are DC offsets that can seriously affect the performance of many of the circuits, they are only suitable for AC operation, meaning that there is a requirement for an output coupling capacitor to block the DC component.  In many cases, an input coupling capacitor will also be used, especially if the source has a DC potential.
+Of the circuits discussed here, very few are suitable for buffering DC voltages.  Because there are DC offsets that can seriously affect the performance of many of the circuits, they are only suitable for AC operation, **meaning that there is a requirement for an output coupling capacitor to block the DC component.  In many cases, an input coupling capacitor will also be used, especially if the source has a DC potential.**
 
 Many single opamps have provision for an offset null potentiometer, so that input transistor DC offsets can be zeroed, allowing the circuit to operate accurately with DC voltages.  This is rarely necessary in audio frequency circuits because the DC is removed by a capacitor, but it's essential for high accuracy circuits that include a DC component that must be preserved.  Note that there are many advanced techniques to obtain very high accuracy for DC (such as chopper stabilised amplifiers), but these are not covered here because they are specialised (and usually expensive) parts and aren't necessary or desirable for normal audio frequencies.
 
-중요한 점은 임피던스 변환기 회로는 이상적으로 전류를 동등하게 공급하고 흡수할 수 있어야 한다는 것입니다. 그렇지 않으면 출력이 일부 부하에 대해 비대칭이 될 수 있습니다. 전류를 공급하는 것은 회로가 부하에 전류를 제공하는 것을 의미하며, 전류를 흡수하는 것은 회로가 부하에서 전류를 끌어오는 것을 의미합니다. 모든 팔로워는 정격 부하에 대해 동일한 피크 전압(양 및 음)을 제공할 수 있어야 하며, 실생활에서는 예측할 수 없기 때문에 가능한 한 낮은 부하 임피던스에 대해 제공할 수 있어야 합니다.
-
-단순한 에미터 팔로워는 일반적으로 작동 전류가 비현실적으로 높지 않는 한 완전히 대칭적인 동작을 제공할 수 없습니다. 일부 경우에는 출력 전압을 오프셋하여 트랜지스터에 걸리는 전압을 줄이고 저항에 걸리는 전압을 늘려 대칭성을 회복하고 왜곡을 줄일 수 있습니다. 그러나 의도적인 비대칭성을 만드는 것은 만능 해결책이 아니며, 정확히 알고 있는 경우에만 작동합니다.
-
-간단한 에미터 팔로워와 같은 회로는 전원 공급 거부비율(PSRR)이 상대적으로 낮기 때문에 전원에 있는 험이나 노이즈가 신호에 영향을 미칠 수 있다는 점을 명심해야 합니다. 그림 2에 나와 있는 간단한 에미터 팔로워는 10k 소스 임피던스에서 에미터 회로에 대해 약 -27dB, 콜렉터 회로에 대해 약 -44dB의 PSRR을 가집니다. 이 수치는 부품 값과 소스 임피던스에 따라 달라지므로 단지 가이드로만 사용해야 합니다.
-
-여기에서 논의된 회로 중 매우 소수만이 DC 전압을 버퍼링하는 데 적합합니다. 많은 회로에서 성능에 심각한 영향을 미칠 수 있는 DC 오프셋이 있기 때문에 AC 동작에만 적합합니다. 이는 DC 성분을 차단하기 위한 출력 커플링 커패시터가 필요함을 의미합니다. 많은 경우, 소스가 DC 전위를 가지고 있는 경우 입력 커플링 커패시터도 사용됩니다.
-
-단일 연산 증폭기에는 입력 트랜지스터의 DC 오프셋을 0으로 만들어 DC 전압으로 정확하게 작동할 수 있도록 오프셋 조정 포텐셔미터를 제공하는 경우가 많습니다. 이는 오디오 주파수 회로에서는 필요하지 않습니다. 왜냐하면 DC는 커패시터에 의해 제거되지만, DC 성분을 보존해야 하는 고정밀 회로에서는 필수적입니다. 매우 높은 정확성을 얻기 위한 많은 고급 기술이 있지만, 이들은 고가의 부품이기 때문에 여기서는 다루지 않습니다. 이들은 일반 오디오 주파수에서는 필요하지 않거나 바람직하지 않습니다.
-
-중요 사항: 이 페이지에 표시된 모든 회로는 출력이 직결되어 있습니다(커패시터 유무와 관계없이). 회로가 실드 케이블을 통해 '실제 세계'와 인터페이스하려는 경우, 출력에 직렬로 저항을 배치해야 합니다. 그렇지 않으면 발진할 가능성이 높으며, 매우 높은 주파수에서 발생할 수 있어 일반적인 20-50MHz 오실로스코프에서는 나타나지 않을 수 있습니다. 저항은 최소 50Ω이 필요하며, 일반적으로 이 역할에서 100Ω 저항을 사용합니다.
-일부 경우에는 트랜지스터의 베이스 연결과 PCB 트랙 사이에 가능한 한 작은 PCB 트랙으로 직접 직렬로 '베이스 스토퍼' 저항을 추가해야 할 수도 있습니다. 저항 값은 최소 100Ω에서 최대 1k 이상까지 다양할 수 있지만, 저항 값이 높아지면 노이즈 성능이 저하된다는 점을 기억해야 합니다. 때로는 트랜지스터나 연결된 부품을 손가락으로 만졌을 때 들리는 소음이나 왜곡이 변하거나 사라지는 것을 발견하면 베이스 저항이 필요하다는 것을 알 수 있습니다.
-
-에미터 팔로워나 단일 이득 연산 증폭기가 발진할 수 있다는 것은 불가능해 보일 수 있지만, 고Q 튜닝 회로(예: 동축 케이블 길이)가 출력에 직접 연결되면 확실히 발진할 수 있습니다. 이러한 발진은 RF(라디오 주파수)로 발생할 수 있으며, 이를 감지하지 못할 수 있지만 왜곡 성능이 저하되거나 경우에 따라 오디오 주파수 버즈로 들릴 수 있습니다. 저항은 튜닝 회로를 감쇄시켜 일반적인 상황에서 발진이 발생하지 않도록 합니다.
-
-위에서 언급한 모든 것에도 불구하고, 여전히 디스크리트 설계가 더 나은 옵션인 경우가 있습니다. 저렴한 연산 증폭기가 처리할 수 있는 것보다 높은 전압이 필요하거나 쉽게 공급할 수 있는 것보다 높은 출력 전류가 필요한 경우, 디스크리트 설계가 가장 간단하고 저렴한 옵션일 수 있습니다. 또한 1MHz 이상의 대역폭이 필요한 경우나 사용 가능한 IC로 충족되지 않는 다른 특별한 요구 사항이 있는 경우에도 마찬가지입니다. 디스크리트 회로를 구축할 필요가 없을 수도 있지만, 연산 증폭기가 모든 것을 처리할 수 있는 것은 아닙니다.
-
-이해해야 할 중요한 요소 중 하나는 양극성 트랜지스터의 고유한 에미터 저항(re - 문자 그대로 '작은 r e')입니다. 이는 에미터 전류에 따라 달라지며, 일반적으로 다음과 같이 계산됩니다.
-
-=
-26
-𝐼
-𝑒
-re= 
-I 
-e
-​
-26
-​
-  (단위: 밀리암페어)
-
-따라서 에미터 전류가 1mA인 경우 re는 26Ω입니다. 10mA에서는 2.6Ω로 감소하고, 100µA에서는 260Ω로 증가합니다. 이 비선형성은 바이폴라 트랜지스터를 사용하는 모든 회로에서 왜곡의 주요 원인이 됩니다. 작동 중에 에미터 전류가 변하는 경우(대부분의 회로에서 발생함) 특히 그렇습니다. 모든 증폭 장치에서 유사한 메커니즘이 존재하며, 반대로 주장이 있더라도 알려진 증폭 장치 중 진정으로 선형적인 것은 없습니다. 특히 진공관은 더욱 그렇습니다. JFET 및 MOSFET의 경우, 하나의 왜곡 메커니즘은 드레인 전류에 따른 gm(상호 전도도)의 변화이지만, 이 외에도 복잡한 여러 메커니즘이 있으며 여기서는 다루지 않습니다. 설계 과정에서는 항상 '독특한' 부품을 사용하는 것이 아니라 적절한 회로 기술을 사용하여 비선형성을 최소화해야 합니다.
-
-또한, 여기에서 다루는 회로는 몇 가지 예외를 제외하고는 기본적인 형태에 불과하며, 특정 용도로 최적화되지 않았다는 점을 인식하는 것이 중요합니다.
-
-이론적인 전압 팔로워는 무한한 입력 임피던스와 0옴의 출력 임피던스를 가집니다. 물론 '이상적인' 것은 시뮬레이터 외에는 존재하지 않지만, 시뮬레이션 중에는 여전히 유용한 도구입니다. 연산 증폭기는 이상적인 경우에 가깝기 때문에 차이가 거의 학문적인 차이에 불과합니다. JFET 입력 연산 증폭기의 입력 임피던스는 보통 기가옴 범위에 있으며, 출력 임피던스는 최대 몇 옴에 불과합니다. 출력 전압은 전원 전압에 의해 제한되며, 출력 전류는 연산 증폭기 자체에 의해 설정됩니다. 일반적으로 약 ±25mA 정도이지만, 그렇게 많이 부하가 걸리면 사용 가능한 출력 전압이 줄어듭니다.
+**An 'ideal' (i.e. theoretical) voltage follower has an infinite input impedance and an output impedance of zero ohms.**  Obviously the 'ideal' doesn't exist other than in simulators, but it's still a useful tool during simulation because opamps (in particular) come close enough to the ideal case that any difference is largely academic.  The input impedance of a JFET input opamp is usually in the gigohms range, and the output impedance is a few ohms at most.  The output voltage is limited by the power supply voltages, and the output current is set by the opamp itself.  It's usually about ±25mA or so, but if loaded that heavily the available output voltage is reduced.
 
 ### 1. Opamp Voltage Followers
 
@@ -146,7 +109,7 @@ FET 입력 오프앰프 (JFET 또는 CMOS)는 무시할 만한 입력 전류를 
 
 '+ve' 오프앰프 입력으로 대지에 연결된 저항(그림 1에 '선택 사항'으로 표시됨)을 포함하는 것이 일반적이었습니다(또는 예전에 일반적이었습니다). 이 저항의 값은 입력이 교류 또는 직류 결합되는지에 따라 달라집니다. 입력에 캐패시터가 직렬로 연결된 경우, R3는 피드백 저항(R2)과 동일한 값을 가져야 합니다. 캡이 없는 경우(직류 결합), R3는 R1 및 R2 값의 절반인 50k가 됩니다. R3가 대지로의 단락으로 대체되면 인버팅 버퍼의 출력에서의 직류 오프셋은 약 13mV 정도가 됩니다. 예를 들어, 사용된 오프앰프에 따라 달라집니다.
 
-따라서 추가 저항은 입력 스테이지의 직류 오프셋을 크게 줄이지만, 저항은 노이즈를 최소화하기 위해 캐패시터로 바이패스해야 합니다. 바이패스 캡은 관심 있는 가장 낮은 주파수까지의 잡음을 바이패스할 만큼 충분히 커야 합니다. 20Hz의 응답이 필요한 경우, 캡의 리액턴스는 그 주파수의 1/10에 해당하는 저항이어야 합니다 - 2Hz. 예를 들어, 50k 저항은 1.59µF의 바이패스 캡을 필요로 합니다(최소 2µF를 사용하십시오). 1/f(또는 '슛') 잡음을 바이패스하는 것을 기대하는 것은 현실적이지 않으므로 DC를 측정할 때 작은 불확실성이 발생할 수 있습니다.
+**따라서 추가 저항은 입력 스테이지의 직류 오프셋을 크게 줄이지만, 저항은 노이즈를 최소화하기 위해 캐패시터로 바이패스해야 합니다. 바이패스 캡은 관심 있는 가장 낮은 주파수까지의 잡음을 바이패스할 만큼 충분히 커야 합니다. 20Hz의 응답이 필요한 경우, 캡의 리액턴스는 그 주파수의 1/10에 해당하는 저항이어야 합니다 - 2Hz. 예를 들어, 50k 저항은 1.59µF의 바이패스 캡을 필요로 합니다(최소 2µF를 사용하십시오). 1/f(또는 '슛') 잡음을 바이패스하는 것을 기대하는 것은 현실적이지 않으므로 DC를 측정할 때 작은 불확실성이 발생할 수 있습니다.**
 
 대부분의 최신 오프앰프 설계에서는 이 저항이 필요하지 않습니다. 특히 오프앰프에 오프셋 널 터미널이 있는 경우에는 더욱 그렇습니다. 오디오의 경우, 이 저항은 거의 사용되지 않습니다. 왜냐하면 그냥 불필요하게 부품을 추가하기 때문입니다. DC에 응답하는 것이 필요하지 않는 한 출력은 항상 캐패시터로 결합되어야 합니다.
 
