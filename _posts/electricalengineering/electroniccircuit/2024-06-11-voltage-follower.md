@@ -11,9 +11,9 @@ categories:
 - 자체적인 온도 변화나 제조된 부품마다 약간의 동작의 차이를 보이는 특성은 출력되는 신호에 거의 영향을 미치지 않고, opamp가 연결된 외부 수동 소자에 의하여 그 동작이 좌우되기 때문에 회로 설계에서 빈번하게 사용된다.
 - Opamp의 입력 임피던스는 거의 무한대이고, 출력 임피던스는 거의 0이다.
 
-## 2. Opamp의 응용 회로의 종류
+### 2. Opamp의 응용 회로의 종류
 
-## 3. Opamp의 특징
+### 3. Opamp의 특징
 
 - 공급 전압 :
 - Gain Bandwidth
@@ -26,11 +26,15 @@ Voltage Follower (Voltage Buffer)
 
 ### Preamble
 
-전압 팔로워는 어떤 기술을 사용하여 구축하든지 간에 전류 증폭기입니다. 소스에서 사용할 수 있는 전류가 적은 이유는 일반적으로 회로가 높은 임피던스를 가지고 있기 때문입니다. 따라서 다음 회로를 구동할 충분한 전류를 공급할 수 없습니다. 대부분의 경우, 우리는 전압 증폭기에 관심을 가지는데, 이는 신호의 진폭을 증가시키기 때문입니다. 전압 증폭기는 소스의 전압이 유용하기에 너무 낮을 때 사용됩니다. 실제로 대부분의 회로는 전압 증폭과 전류 증폭을 결합하지만, 후자는 종종 주요 목표가 아닙니다. 후자는 회로(특히 연산 증폭기)와 함께 '무료'로 제공됩니다.
+||Voltage Follower|Voltage Amplifier|
+|---|---|---|
+|정의|a current amplifier regardless of the technology used to build it|increase the amplitude of the signal|
+|용도|A small available current from the source is usually due to the circuit having a high impedance, so it cannot supply enough current to drive the following circuitry.|These are used when the voltage from the source is too low to be useful.|
 
-전압 증폭기와 전류 증폭기를 결합하면, 결과적으로 출력 전압과 전류 공급 능력이 모두 증가한 전력 증폭기로 간주될 수 있습니다. 작은 신호 응용에서는 거의 모든 연산 증폭기 회로가 실제로 '전력 증폭기'이지만, 일반적으로 기대하는 것에 비해 출력 전력이 미미하기 때문에 그렇게 불리지 않습니다. 예를 들어, 대부분의 연산 증폭기는 최대 몇 밀리와트의 전력만을 공급할 수 있습니다.
+Voltage Follower
 
-여기서 논의되는 전압 팔로워는 단지 전류 증폭기일 뿐, 신호의 진폭을 증가시키지 않습니다. 실제로 대부분의 경우 전압을 약간 감소시키며, 출력 전압은 입력 전압의 약 0.9에서 0.99 사이로 다양합니다. 그러나 부하에서 나오는 전류는 회로의 토폴로지에 따라 몇 백 배에서 몇 천 배까지 증가할 수 있습니다. 대부분의 경우, '증폭된' 전류는 여전히 몇 밀리암페어에 불과하지만, 섹션 10에 나오는 복합 트랜지스터는 몇 밀리암페어의 입력으로부터 많은 앰프의 출력 전류를 제공할 수 있습니다.
+- increase only current : the current from the load can be increased by a factor of between a few hundred up to many thousands of times, depending on the topology of the circuit.
+- do not increase amplifude of the signal : Indeed, most actually reduce the voltage slightly, with outputs varying between around 0.9 to 0.99 of the input voltage. 
 
 초보자에게는 출력 임피던스와 출력 전류가 완전히 다른 개념이며, 하나가 다른 것을 의미하지 않는다는 것을 이해하는 것이 어려울 수 있습니다. 이 기사의 목적은 소스의 출력 전류가 회로에서 필요로 하는 것보다 현저히 적을 때, 중요한 전류 이득을 얻기 위한 다양한 방법을 보여주는 것입니다.
 
@@ -38,19 +42,22 @@ Voltage Follower (Voltage Buffer)
 
 ### Introduction
 
-요즘 전압 팔로워가 필요할 때는 거의 항상 단일 이득 증폭기로 연결된 연산 증폭기(opamp)를 사용합니다. 이 증폭기는 반전 및 비반전 두 가지로 구성될 수 있으며, 각각 고유한 장점과 제한 사항을 가지고 있습니다. 비반전 연결은 공통 모드 전압(즉, 두 입력이 동시에 보는 전압)이 높기 때문에 (약간) 높은 왜곡을 겪지만, 현대의 연산 증폭기로는 이 문제가 거의 발생하지 않습니다. 매우 우수한 장비로 측정할 수는 있지만, 왜곡이 거의 측정되지 않는 연산 증폭기도 있습니다. 왜곡이 들릴 정도로 발생하는 경우는 드물며, 그렇다면 회로의 다른 부분에 문제가 있을 가능성이 큽니다.
+For the most part, this article looks at more primitive techniques used as voltage followers - primarily transistor emitter-followers and JFETs, and the valve (tube) cathode follower will also be discussed as part of the historical view.
 
-비반전 연결의 가장 큰 장점은 입력 임피던스가 매우 높다는 것입니다. FET 입력 연산 증폭기를 사용하면 거의 무한대에 가까워질 수 있습니다. 출력 전류는 사용하는 연산 증폭기에 의해 결정되며, DC 오프셋은 매우 높은 입력 임피던스를 가진 경우 문제를 일으킬 수 있습니다. 노이즈는 일반적으로 낮지만, 높은 임피던스에서는 입력 저항으로 인한 노이즈 전압이 지배적일 수 있습니다(예를 들어, 콘덴서 마이크와 같은 소스의 경우 노이즈를 우회함).
+||Invering Configuration|Non-Inverting Configuration|
+|---|---|---|
+|장점|The greatest benefit of the non-inverting connection is that input impedance is very high, and if you use a FET input opamp it can be very close to infinite.  Output current is determined by the opamp you use, as is the DC offset which may be problematical with extremely high input impedance.  Noise is usually fairly low, but with high impedances it will be dominated by the noise voltage from the input resistor unless the source bypasses the noise (as happens with a capacitor (aka 'condenser') microphone for example).|Using an inverting opamp configuration solves he common mode distortion problem, because there is virtually none.|
+|단점|The non-inverting connection suffers from (slightly) higher distortion because the common mode voltage is high (i.e. the voltage seen by both inputs at the same time), but with modern opamps this is rarely a problem.  The distortion can be measured with (very) good equipment, but there are now opamps that have such low distortion that it's almost impossible to measure it.  It is very rare indeed for the distortion to be audible, and if so, it usually means something else is wrong with the circuit.|The inverting connection has the disadvantage that its input impedance is limited by the resistor values used.  They can't be too high or noise becomes a major problem for low level signals.|
 
-반전 연산 증폭기 구성을 사용하면 공통 모드 왜곡 문제가 해결됩니다. 왜냐하면 공통 모드 왜곡이 거의 없기 때문입니다. 반전 연결의 단점은 사용된 저항 값에 의해 입력 임피던스가 제한된다는 것입니다. 저항 값이 너무 높으면 저수준 신호의 경우 노이즈가 주요 문제가 됩니다.
+An important point to make is that an impedance converter circuit should ideally be able to source and sink current equally well.  If it can't, the output may be asymmetrical with some loads.  Sourcing current is taken to mean that the circuit is providing current to the load, while sinking current means that it's drawing current from the load.  Any follower should also be able to provide the same peak voltage (positive and negative) to its rated load, and preferably down to the lowest load impedance likely to be encountered (real life is unpredictable).
 
-이 글에서는 주로 트랜지스터 에미터 팔로워와 JFET를 사용하는 더 원시적인 기술을 전압 팔로워로 다루며, 역사적 관점에서 진공관 캐소드 팔로워도 논의할 것입니다.
+Simple emitter followers can't usually provide fully symmetrical operation unless their operating current is unrealistically high.  In some cases you can offset the output voltage so that there's less voltage across the transistor, and more across the resistor, and that can restore symmetry for a defined load impedance and reduce distortion.  However, creating deliberate asymmetry isn't a cure-all and will only work if you know exactly what you're doing.
 
-일부 사람들은 연산 증폭기가 '나쁘다'고 주장하고, 오직 디스크리트 설계를 사용해야 한다고 주장하지만, 이는 가장 평범한 연산 증폭기에만 해당됩니다. 심지어 저렴한 µA741 연산 증폭기도 많은 디스크리트 설계보다 왜곡 수치가 더 좋습니다(노이즈와 속도는 심각하게 제한되지만). 일부 고급 회로는 일부 연산 증폭기보다 더 나을 수 있지만, 많은 부품과 상당한 PCB 공간이 필요합니다.
+Be very aware that simple circuits such as emitter followers have relatively poor power supply rejection ratios (PSRR), so hum or noise on the supplies will affect the signal to some extent.  Simple emitter followers as shown in Figure 2 will have a PSRR to the emitter circuit of around -27dB, and about -44dB to the collector circuit, with a 10k source impedance.  These figures depend on the component values and (especially) the source impedance, so are only a guide.
 
-모든 회로를 직접 구축하고 측정할 수는 없기 때문에, SIMetrix 시뮬레이터에서 파생된 결과를 사용합니다. 시뮬레이터가 일부 측면에서 낙관적일 수 있지만, 친숙한 트랜지스터와 기본 연산 증폭기를 사용하여 시뮬레이션하기 때문에 결과는 비교 가능합니다. 시뮬레이션을 위해 1.414V RMS(2V 피크)의 신호 전압을 사용했습니다. 이는 많은 일반 회로에서 현실적인 작동 수준입니다.
+Of the circuits discussed here, very few are suitable for buffering DC voltages.  Because there are DC offsets that can seriously affect the performance of many of the circuits, they are only suitable for AC operation, meaning that there is a requirement for an output coupling capacitor to block the DC component.  In many cases, an input coupling capacitor will also be used, especially if the source has a DC potential.
 
-연산 증폭기 회로는 일반적으로 ±15V의 이중 전원을 사용하여 설명될 것입니다. 디스크리트 팔로워도 일반적으로 이중 전원을 사용하지만, 필요에 따라 단일 전원을 사용할 수 있습니다. DC 오프셋을 제거하는 가장 좋은 방법은 출력 커플링 커패시터를 추가하는 것입니다. 이중 전원을 사용하는 경우에도 일반적으로 필요합니다.
+Many single opamps have provision for an offset null potentiometer, so that input transistor DC offsets can be zeroed, allowing the circuit to operate accurately with DC voltages.  This is rarely necessary in audio frequency circuits because the DC is removed by a capacitor, but it's essential for high accuracy circuits that include a DC component that must be preserved.  Note that there are many advanced techniques to obtain very high accuracy for DC (such as chopper stabilised amplifiers), but these are not covered here because they are specialised (and usually expensive) parts and aren't necessary or desirable for normal audio frequencies.
 
 중요한 점은 임피던스 변환기 회로는 이상적으로 전류를 동등하게 공급하고 흡수할 수 있어야 한다는 것입니다. 그렇지 않으면 출력이 일부 부하에 대해 비대칭이 될 수 있습니다. 전류를 공급하는 것은 회로가 부하에 전류를 제공하는 것을 의미하며, 전류를 흡수하는 것은 회로가 부하에서 전류를 끌어오는 것을 의미합니다. 모든 팔로워는 정격 부하에 대해 동일한 피크 전압(양 및 음)을 제공할 수 있어야 하며, 실생활에서는 예측할 수 없기 때문에 가능한 한 낮은 부하 임피던스에 대해 제공할 수 있어야 합니다.
 
@@ -69,10 +76,8 @@ Voltage Follower (Voltage Buffer)
 
 위에서 언급한 모든 것에도 불구하고, 여전히 디스크리트 설계가 더 나은 옵션인 경우가 있습니다. 저렴한 연산 증폭기가 처리할 수 있는 것보다 높은 전압이 필요하거나 쉽게 공급할 수 있는 것보다 높은 출력 전류가 필요한 경우, 디스크리트 설계가 가장 간단하고 저렴한 옵션일 수 있습니다. 또한 1MHz 이상의 대역폭이 필요한 경우나 사용 가능한 IC로 충족되지 않는 다른 특별한 요구 사항이 있는 경우에도 마찬가지입니다. 디스크리트 회로를 구축할 필요가 없을 수도 있지만, 연산 증폭기가 모든 것을 처리할 수 있는 것은 아닙니다.
 
-이해해야 할 중요한 요소 중 하나는 양극성 트랜지스터의 고유한 에미터 저항(re - 문자 그대로 '작은 r e')입니다. 이는 에미터 전류에 따라 달라지며, 일반적으로 다음과 같이 계산됩니다...
+이해해야 할 중요한 요소 중 하나는 양극성 트랜지스터의 고유한 에미터 저항(re - 문자 그대로 '작은 r e')입니다. 이는 에미터 전류에 따라 달라지며, 일반적으로 다음과 같이 계산됩니다.
 
-𝑟
-𝑒
 =
 26
 𝐼
@@ -81,7 +86,6 @@ re=
 I 
 e
 ​
- 
 26
 ​
   (단위: 밀리암페어)
@@ -92,24 +96,13 @@ e
 
 이론적인 전압 팔로워는 무한한 입력 임피던스와 0옴의 출력 임피던스를 가집니다. 물론 '이상적인' 것은 시뮬레이터 외에는 존재하지 않지만, 시뮬레이션 중에는 여전히 유용한 도구입니다. 연산 증폭기는 이상적인 경우에 가깝기 때문에 차이가 거의 학문적인 차이에 불과합니다. JFET 입력 연산 증폭기의 입력 임피던스는 보통 기가옴 범위에 있으며, 출력 임피던스는 최대 몇 옴에 불과합니다. 출력 전압은 전원 전압에 의해 제한되며, 출력 전류는 연산 증폭기 자체에 의해 설정됩니다. 일반적으로 약 ±25mA 정도이지만, 그렇게 많이 부하가 걸리면 사용 가능한 출력 전압이 줄어듭니다.
 
-### Acronyms
-
-이 글에서 몇 가지 약어를 찾을 수 있습니다. 대부분은 익숙할 것이지만, 다시 확인하지 않아도 되도록 여기에 반복해서 기재했습니다.
-
-BJT: 바이폴라 접합 트랜지스터 (예: 2N2222 또는 BC549 등 표준 트랜지스터)
-FET: 전계 효과 트랜지스터
-JFET: 접합 전계 효과 트랜지스터
-MOSFET: 금속 산화물 반도체 전계 효과 트랜지스터
-CMOS: 상보성 금속 산화물 반도체 (상보성 MOSFET)
-Opamp: 연산 증폭기 (op-amp 또는 op amp)
-
 ### 1. Opamp Voltage Followers
 
 기본 오프앰프 회로부터 설명하겠습니다. 이것들은 우리가 추구하는 매개변수의 기준을 설정하기 때문에 가장 먼저 다룰 것입니다. 대부분의 경우, 이산 트랜지스터 설계는 오프앰프 기반의 팔로어에 비해 아예 가깝지 않습니다. 우리가 주로 관심을 가지는 주요 매개변수는 입력 임피던스, 출력 임피던스, 그리고 이득입니다. 보통 팔로어는 이득을 가지지 않는다는 사실을 인정하지만, 내부 이득이 너무 낮으면 신호 손실이 발생합니다. 이것은 밸브 캐소드 팔로어에서도 보통 1dB 미만이지만, 여전히 피드백에 의존하여 원하는 성능을 얻기 위해 활성 필터와 같은 회로의 효과를 저해할 수 있는 수준의 신호 손실입니다.
 
 아래에서 출력 임피던스에 대한 상세한 토론이 있지만, 여기서도 경고가 필요합니다. 전형적인 오프앰프는 피드백이 있는 상태에서 출력 임피던스가 1Ω 미만인 경우가 많지만, 단락 전류에는 한계가 있으며, 최대 출력 스윙은 부하 임피던스(따라서 최대 출력 전류)에 의존합니다.
 
-이것은 너무 낮은 부하 임피던스를 사용하면 최대 출력 전압을 얻을 수 없으며, 왜곡이 증가하는 것을 의미합니다. 대부분의 일반적인 오프앰프는 2k 이상의 부하 임피던스로 제한되지만, 600Ω 부하를 처리할 수 있는 것도 많고, 더 낮은 임피던스를 처리할 수 있는 것도 몇 개 있습니다. 만약 낮은 임피던스를 구동해야 한다면, 데이터 시트를 확인하여 필요한 출력 전류와 전압을 얻을 수 있는지 확인해야 합니다. 그렇지 않으면 회로가 원하는 대로 작동하지 않을 수 있습니다.
+**이것은 너무 낮은 부하 임피던스를 사용하면 최대 출력 전압을 얻을 수 없으며, 왜곡이 증가하는 것을 의미합니다. 대부분의 일반적인 오프앰프는 2k 이상의 부하 임피던스로 제한되지만, 600Ω 부하를 처리할 수 있는 것도 많고, 더 낮은 임피던스를 처리할 수 있는 것도 몇 개 있습니다. 만약 낮은 임피던스를 구동해야 한다면, 데이터 시트를 확인하여 필요한 출력 전류와 전압을 얻을 수 있는지 확인해야 합니다. 그렇지 않으면 회로가 원하는 대로 작동하지 않을 수 있습니다.**
 
 ![](../../../img/electroniccircuit/voltagefollower-fig1.png)
 
@@ -161,11 +154,14 @@ FET 입력 오프앰프 (JFET 또는 CMOS)는 무시할 만한 입력 전류를 
 
 가장 간단하고 잘 알려진 전압 포로우어는 에미터 포로우어로서, 공통 콜렉터 스테이지로도 알려져 있습니다. 콜렉터는 공급 레일에 연결되어 있기 때문에 AC 그라운드 포텐셜에 있습니다. 이것들은 모든 종류의 오디오 회로에서 매우 흔했지만, 오프앰프와 비교했을 때 거의 모든 면에서 성능이 매우 나쁩니다. 입력 임피던스는 출력에 연결된 부하에 따라 달라지므로 고정된 높은 입력 임피던스를 유지하는 대신, 부하가 추가되거나 변경되거나 제거될 때 변동합니다. 입력에서 출력까지 0.65V의 DC 오프셋이 있으며, 에미터에서 그라운드 또는 공급 레일로의 DC 로드가 필요합니다(트랜지스터가 NPN인지 PNP인지에 따라 레일이 달라집니다). 부하는 대부분 저항이지만, 이로 인해 출력 구동 능력이 비대칭적이 됩니다. 트랜지스터를 통해 합리적인 전류를 공급할 수는 있지만, 그의 전류 침하 능력은 저항 값에 따라 달라집니다.
 
-모든 간단한 포로우어 회로는 일정 수준의 손실이 있으며, 전형적으로 사용되는 트랜지스터의 이득, 토폴로지 및 소스 및 부하 임피던스에 따라 입력 레벨의 0.99에서 0.999 사이의 출력을 제공합니다. 오프앰프와 달리 에미터 포로우어의 입력 및 출력 임피던스는 상호 의존적이므로 하나를 변경하면 다른 하나도 변경됩니다. 오프앰프는 매우 높은 내부 이득과 많은 피드백을 사용하여 이러한 문제를 피합니다. 따라서 여전히 약간의 상호 의존성이 있지만 차이를 측정할 수 없을 정도로 작습니다.
+|Opamp Voltage Follower|Emitter Follower|
+|---|---|
+|손실이 없다.|All simple follower circuits have a small loss of level, typically providing an output of between 0.99 and 0.999 of the input level, depending on the gain of the transistor(s) used, the topology and the source and load impedances.|
+|Opamps avoid this by using very high internal gain and lots of feedback, so while there is still some interdependence it's usually so small that you will be unable to measure the difference.|Unlike opamps, the input and output impedances of emitter followers are interdependent, so changing one also changes the other.|
 
 ![](../../../img/electroniccircuit/voltagefollower-fig2.png)
 
-위의 예에서 두 회로는 1k 에미터 부하를 가지고 있으며, 대규모 출력 전압 스윙이 필요한 경우 외부 부하 임피던스는 10k보다 작아서는 안됩니다. 낮은 부하 임피던스가 예상된다면 R2를 줄여야 하지만, 이는 입력 임피던스를 감소시키고 정적 전류를 증가시킵니다. ±15V 공급에서 이 단일 트랜지스터 스테이지는 3에서 5개의 오프앰프보다 더 많은 전류를 소비하지만, 성능은 전혀 좋지 않습니다. 두 회로의 성능은 대략적으로 유사하며, 아래에 더 자세히 설명된 것처럼 출력을 캐패시터로 결합하여 보완 에미터 포로우어를 생성하기 위해 두 회로를 함께 사용할 수도 있습니다.
+위의 예에서 두 회로는 1k 에미터 부하를 가지고 있으며, 대규모 출력 전압 스윙이 필요한 경우 외부 부하 임피던스는 10k보다 작아서는 안됩니다. **낮은 부하 임피던스가 예상된다면 R2를 줄여야 하지만, 이는 입력 임피던스를 감소시키고 정적 전류를 증가시킵니다.** ±15V 공급에서 이 단일 트랜지스터 스테이지는 3에서 5개의 오프앰프보다 더 많은 전류를 소비하지만, 성능은 전혀 좋지 않습니다. 두 회로의 성능은 대략적으로 유사하며, 아래에 더 자세히 설명된 것처럼 출력을 캐패시터로 결합하여 보완 에미터 포로우어를 생성하기 위해 두 회로를 함께 사용할 수도 있습니다.
 
 표시된 값으로 보면 트랜지스터의 입력 임피던스(100k 바이어스 저항을 무시한)는 부하가 없을 때 약 500k입니다. 10k 부하가 연결될 때 약 ~450k로 감소합니다. 입력 임피던스는 대략적으로 트랜지스터의 이득(hFE는 시뮬레이션에서 500)으로 곱해진 에미터 저항과 병렬로 연결된 부하 임피던스(입력 바이어스 저항인 R1)의 값입니다. 트랜지스터의 바이어스 전류로 인해 R1에는 1.8V가 드롭됩니다(18µA 베이스 전류) 및 실리콘 트랜지스터의 베이스와 에미터 사이의 전형적인 700mV 이하의 에미터에 약 -2.5V가 있습니다.
 
@@ -202,3 +198,13 @@ FET 입력 오프앰프 (JFET 또는 CMOS)는 무시할 만한 입력 전류를 
 https://blog.naver.com/ansdbtls4067/221412447707 \
 https://sound-au.com/articles/followers.html \
 https://cmosedu.com/jbaker/courses/ee420L/s17/students/ferret1/Lab%206/lab6.html
+
+### 기타
+
+intro
+
+일부 사람들은 연산 증폭기가 '나쁘다'고 주장하고, 오직 디스크리트 설계를 사용해야 한다고 주장하지만, 이는 가장 평범한 연산 증폭기에만 해당됩니다. 심지어 저렴한 µA741 연산 증폭기도 많은 디스크리트 설계보다 왜곡 수치가 더 좋습니다(노이즈와 속도는 심각하게 제한되지만). 일부 고급 회로는 일부 연산 증폭기보다 더 나을 수 있지만, 많은 부품과 상당한 PCB 공간이 필요합니다.
+
+모든 회로를 직접 구축하고 측정할 수는 없기 때문에, SIMetrix 시뮬레이터에서 파생된 결과를 사용합니다. 시뮬레이터가 일부 측면에서 낙관적일 수 있지만, 친숙한 트랜지스터와 기본 연산 증폭기를 사용하여 시뮬레이션하기 때문에 결과는 비교 가능합니다. 시뮬레이션을 위해 1.414V RMS(2V 피크)의 신호 전압을 사용했습니다. 이는 많은 일반 회로에서 현실적인 작동 수준입니다.
+
+연산 증폭기 회로는 일반적으로 ±15V의 이중 전원을 사용하여 설명될 것입니다. 디스크리트 팔로워도 일반적으로 이중 전원을 사용하지만, 필요에 따라 단일 전원을 사용할 수 있습니다. DC 오프셋을 제거하는 가장 좋은 방법은 출력 커플링 커패시터를 추가하는 것입니다. 이중 전원을 사용하는 경우에도 일반적으로 필요합니다.
