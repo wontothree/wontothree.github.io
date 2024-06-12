@@ -1,5 +1,5 @@
 ---
-title: "[Laboratory3] CS Amplifier, CS-SF Amplifier, and CS-CS-SF Amplifier"
+title: "[Laboratory3] CS-SF Amplifier and CS-CS-SF Amplifier"
 excerpt:
 categories:
   - laboratory
