@@ -40,6 +40,15 @@ $$
 ## 5. Jury's Stability Test
 
 - Since the stability boundary in the z-plane is different from that in the s-plane, the Routh-Hurwiz criterion cannot be directly applied to discrete-time systems if the system characteristic equation is expressed as a function of z.
+- Routh-Hurwiz : 시스템의 특성 방정식이 z의 함수로 표현된 이산 시간 시스템에서는 Routh-Hurwiz 판별법을 바로 적용할 수 없다.
+- Jury 안정도 테스트 : z의 함수로 나타나는 특성 방정식에 바로 적용할 수 있다.
+
+![](../../../img/digitalcontrol/jury.png)
+
+Jury 안정도 테스트
+
+1. 세 조건 $Q(1) > 0, (-1)^nQ(-1) > 0, \vert a_0 \vert < a_n$을 확인한다. 이 조건 중 하나라도 만족되지 않으면 테스트를 중단한다.
+2. 각 행이 계산될 때 (7-15)의 조건을 확인하여 배열을 구성한다. 어느 조건이라도 만족되지 않으면 검사를 중단한다.
 
 ## 6. Root Locus
 
