@@ -13,4 +13,10 @@ categories:
 
 ## 3 Derivation Precedure
 
+![](../../../img/digitalcontrol/fig5-4.png)
+
+$$
+C^*(s) = \dfrac{G^*(s)}{1+\bar{GH}^*(s)}R^*(s)
+$$
+
 ## 4 State-Varable Models
