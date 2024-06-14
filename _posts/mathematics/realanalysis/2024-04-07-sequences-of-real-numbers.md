@@ -267,7 +267,7 @@ In this section, we will consider monotone sequences of real numbers. One of the
 
 A sequence $a_n$ is strictly increasing if $a_n < a_{n+1}$ for all $n \in \mathbb{N}$. A sequence $a_n$ is strictly decreasing if $a_n > a_{n+1}$ for all $n \in \mathbb{N}$.
 
->**[Theorem 3.3.2]** \
+>**[Theorem 3.3.2]** (Monotone Convergence Theorem) \
 >If $a_n$ is monotone and bounded, then $a_n$ converges.
 
 사실상 bounded above면 충분하다.
