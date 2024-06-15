@@ -115,7 +115,7 @@ The purpose of this section is to give a precise meaning to the adjectivies open
 >**[Theorem 2.2.15]** \
 >
 
->**[Corollary 2.2.16] \
+>**[Corollary 2.2.16]** \
 >A finite set has no limit points.
 
 ### Closure of a Set
@@ -126,7 +126,7 @@ The purpose of this section is to give a precise meaning to the adjectivies open
 >**[Theorem 2.2.18]** \
 >(a) $\bar{E}$ is closed \
 >(b) $E = \bar{E}$ if and only if $E$ is closed \
->(c) $\bar{E} \sub F$ for every closed set $F \sub X$ such that $E \sub F$
+>(c) $\bar{E} \subset F$ for every closed set $F \subset X$ such that $E \subset F$
 
 >**[Definition 2.2.19]** \
 >A subset of $D$ of a metric space $X$ is dense in $X$ if $\bar{D}=X$.
