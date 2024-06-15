@@ -20,6 +20,8 @@ One of the first topics encountered in the study of calculus is the concept of l
 
 ## 1. Metric Spaces
 
+We begin our study of metric spaces with a review of distance between points in the real numbers or its geometric interpretation as the real line.
+
 >**[DEFINITION 2.1.1]** \
 >For a real number $x$ the absolute value of $x$, denoted $|x|$, is deinfed by $|x|$ ...
 
@@ -104,7 +106,7 @@ The purpose of this section is to give a precise meaning to the adjectivies open
 
 >**[Definition 2.2.12]** \
 >Let $E$ be a subset of a metric space $X$. \
->(a) A point $p \in X$ is a limit point $E$ if every $\epsilon$-neighborhood $N_\epsilon(p)$ of $p$ contains a point $q \in E$$ with $q \neq q$. \
+>(a) A point $p \in X$ is a limit point $E$ if every $\epsilon$-neighborhood $N_{\epsilon}(p)$ of $p$ contains a point $q \in E$$ with $q \neq q$. \
 >(b)A point $p \in E$ that is not a limit point of $E$ is called an isolated point of $E$.
 
 >**[Theorem 2.2.14]** \
