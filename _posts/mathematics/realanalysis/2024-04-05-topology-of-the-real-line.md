@@ -12,6 +12,12 @@ Topology : The branch of mathematics concerned with the study of these topics - 
 
 One of the primary goals of topology is to provide an appropriate setting for the study of many important mathematical concepts - limit point of a set and the limit process.
 
+One of the first topics encountered in the study of calculus is the concept of limit, which requites the notion of closeness, ot the distance between points becoming small.
+
+- On the real linea or in the euclidean plane, the distance between points is usually measured as the length of the stright line segment joining the points.
+- However, in may instances our points are functions defined on some set.
+- For this reason, we introduce the concept of distance on an arbitrary set and study metric spaces in general
+
 ## 1. Metric Spaces
 
 >**[DEFINITION 2.1.1]** \

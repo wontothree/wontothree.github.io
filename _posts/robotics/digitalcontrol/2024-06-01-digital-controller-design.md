@@ -55,6 +55,15 @@ $$
 
 ## 9. PID Controller
 
+- 비례-적분-미분 제어기
+- lead-lag compensator의 특수한 형태
+
+![](../../../img/digitalcontrol/fig8-21.png)
+
+- $K_P$ : 경로 적분의 이득
+- $K_I$ : 미분 경로의 이득
+- $K_D$ : 적분 경로의 이득
+
 ## 10. PID Controller Design
 
 ## 11. Design by Root Locus
