@@ -120,6 +120,17 @@ The purpose of this section is to give a precise meaning to the adjectivies open
 
 ### Closure of a Set
 
+>**[Definition 2.2.17]** \
+>If E is a seubset of ametric space $X$, let $E'$ denote the set of limit points of $E$. The closure of $E$, denoted $\bar{E}$ is defined as $\bar{E}= E \cup E'$.
+
+>**[Theorem 2.2.18]** \
+>(a) $\bar{E}$ is closed \
+>(b) $E = \bar{E}$ if and only if $E$ is closed \
+>(c) $\bar{E} \sub F$ for every closed set $F \sub X$ such that $E \sub F$
+
+>**[Definition 2.2.19]** \
+>A subset of $D$ of a metric space $X$ is dense in $X$ if $\bar{D}=X$.
+
 ### Characterization of the Open Subsets of $\mathbb{R}^1$
 
 ### Relatively Open and Closed Sets
