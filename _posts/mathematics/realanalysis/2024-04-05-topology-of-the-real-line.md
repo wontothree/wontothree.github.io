@@ -94,8 +94,8 @@ The purpose of this section is to give a precise meaning to the adjectivies open
 
 >**[Theorem 2.2.9]** \
 >Let $(X, d)$ be a metric space. Then \
->(a) for any collection $\big\{ O_\alpha\big\}_{\alpha \in A}$ of open subsets of $X$, $\cup_{\alpha \in A} O_\alpha$ is open, and \
->(b) for any finite collection $\big\{ O_1, \dots, O_n \big\}$ of open subsets of $X$, $\cap_{j=1}^n$ is open.
+>(a) for any collection $[ O_\alpha]_{\alpha \in A}$ of open subsets of $X$, $\cup_{\alpha \in A} O_\alpha$ is open, and \
+>(b) for any finite collection $[ O_1, \dots, O_n ]$ of open subsets of $X$, $\cap_{j=1}^n$ is open.
 
 >**[Theorem 2.2.10]** \
 >Let (X, d) be a metric space. Then \
@@ -126,7 +126,7 @@ The purpose of this section is to give a precise meaning to the adjectivies open
 >**[Theorem 2.2.18]** \
 >(a) $\bar{E}$ is closed \
 >(b) $E = \bar{E}$ if and only if $E$ is closed \
->(c) $\bar{E} \subset F$ for every closed set $F \subset X$ such that $E \subset F$
+>(c) $\bar{E} \subset F$ for every closed set $F \subset X$ such that $E \sub F$
 
 >**[Definition 2.2.19]** \
 >A subset of $D$ of a metric space $X$ is dense in $X$ if $\bar{D}=X$.
