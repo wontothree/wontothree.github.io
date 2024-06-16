@@ -257,6 +257,8 @@ Therefore, $\lim_{n \rightarrow \infty} \sqrt[n]{n} = \lim_{n \rightarrow \infty
 
 ## 3. Monotone Sequences
 
+수열이 monotone 하다는 것은 굉장히 강력한 조건이다.
+
 In this section, we will consider monotone sequences of real numbers. One of the advantages of such sequences is that they will either converge tn $\mathbb{R}$, or diverge to $+\infty$ or $-\infty$.
 
 >**[Definition 3.3.1]** \
@@ -297,13 +299,19 @@ A sequence $a_n$ is strictly increasing if $a_n < a_{n+1}$ for all $n \in \mathb
 
 >**[Definition 3.3.6]** \
 >Let $a_n$ be a sequence of real numbers. \
->We say that $a_n$ approaches infinity, or that $a_n$ diverges to $\infty$, denoted $a_n \rightarrow \infty$, \
+>We say that $a_n$ approaches infinity, or that $a_n$ **diverges to $\infty$**, denoted $a_n \rightarrow \infty$, \
 >if for every positive real number $M$, there exists an integer $n_0 \in \mathbb{N}$ such that $a_n > M$ for all $n \geq n_0$.
+
+발산의 정의가 수렴의 정의와 굉장히 유사하다.
+
+$for every $\epsilon > 0$, there exists a positvie integer $n_0 = n_0(\epsilon)$ such that $p_n \in N_\epsilon (p)$ for all $n \geq n_0$
 
 >**[Theorem 3.3.7]** \
 >If $a_n$ is monotone increasing and not bounded above, then $a_n \rightarrow \infty$ as $n \rightarrow \infty$.
 
 ## 4. Subsequences and the Bolzano-Weierstrass Theorem
+
+Supremum property와 동치이다.
 
 In this section, we will consider subsequences and subsequential limits of a given sequence of real numbers. One of the key results of the section is that every bounded sequence of real numbers bas a convergent subsequence. This result, also known as the sequential version of the Bolzano Weierstrass theorem, is one of the fundemental results of real analysis.
 
