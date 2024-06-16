@@ -306,7 +306,7 @@ A sequence $a_n$ is strictly increasing if $a_n < a_{n+1}$ for all $n \in \mathb
 
 발산의 정의가 수렴의 정의와 굉장히 유사하다.
 
-$for every $\epsilon > 0$, there exists a positvie integer $n_0 = n_0(\epsilon)$ such that $p_n \in N_\epsilon (p)$ for all $n \geq n_0$
+for every $\epsilon > 0$, there exists a positvie integer $n_0 = n_0(\epsilon)$ such that $p_n \in N_\epsilon (p)$ for all $n \geq n_0$
 
 >**[Theorem 3.3.7]** \
 >If $a_n$ is monotone increasing and not bounded above, then $a_n \rightarrow \infty$ as $n \rightarrow \infty$.
@@ -360,6 +360,10 @@ $$
 >
 >The limit inferior of $s_n$, denoted $\lim\limits_{\overline{n\to 0}}s_n$ or $\underline{\lim} s_n$, is defined as \
 >$\lim\limits_{\overline{n\to 0}} s_n = \lim\limits_{k \to \infty} a_k = \sup\limits_{k \in N} \inf [s_n : n \geq k]$
+
+집합과 수열을 이어주는 개념
+
+잡합의 개념이었던 sup를 수열의 limsup을 정의함으로써 연결된다.
 
 $\overline{\lim\limits_{\overline{n\to 0}}} s_n $
 
