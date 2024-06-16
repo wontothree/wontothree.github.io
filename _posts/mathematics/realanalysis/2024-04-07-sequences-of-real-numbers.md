@@ -21,6 +21,8 @@ Our presentation will be considerably more rigorous - emphasizing proofs rather 
 >**[DEFINITION 3.1.3]** \
 > A sequence $\{p_n\}$ in X is said to be **bounded** if there exists $p \in X$ and a positvie constant $M$ such that $d(p, p_n) \leq M$ for all $n \in \mathbb{N}$.
 
+앞서 집합의 bounded를 정의했다면, 수열의 bounded도 정의한다.
+
 >**[THEOREM 3.1.4]** \
 >Let $(X, d)$ be a metric space. \
 >(a) If a sequence $ \{p_n\}$ in $X$ converges, then its limit is unique. \

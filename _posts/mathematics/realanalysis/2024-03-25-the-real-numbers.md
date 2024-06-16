@@ -182,8 +182,8 @@ Therefore $\alpha = sup A$.
 Using the order properties of $\mathbb{R}$, we can define certain subsets of $\mathbb{R}$ known as intervals.
 
 >**[Definition 1.4.8]** \
->For $a, b \in \mathbb{R}, a \leq b$, the open inveral (a, b) is defined as $(a, b) = \{x \in \mathbb{R} : a < x < b\}$, \\
-> whereas the closed interval [a, b] is defined as $[a, b] = \{x \in \mathbb{R} : a \leq x \leq b\}$.
+>For $a, b \in \mathbb{R}, a \leq b$, the open inveral (a, b) is defined as $(a, b) = [x \in \mathbb{R} : a < x < b]$, \
+>whereas the closed interval [a, b] is defined as $[a, b] = [x \in \mathbb{R} : a \leq x \leq b]$.
 
 ## 5 Consequences of the Least Upper Bound Property
 
