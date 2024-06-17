@@ -48,15 +48,53 @@ Another useful measure of a random variable is its variane, which tell us how sp
 >
 >The deviation of $X$ at $s \in S$ is $X(s)-E(s)$, the difference between the value of $X$ and the mean of $X$.
 
->**[Theorem]** \
+>**[Theorem 2]** \
 >The expected numnber of successes when $n$ Bernoulli trials are performed, where $p$ is the probibility of success on each trial, is $np$.
 
 Linearity of Expectations
 
->**[Theorem]** \
+>**[Theorem 3]** \
 >If $X_i, i = 1, 2, \dots, n$ with $n$ a positive integer, are random variable on $S$, if a and b are real numbers, then \
 >(i) E(X_1 + X_2 + \dots + X_n) \
 >(ii) E(aX + b) = aE(X) + b.
+
+### 4.5 The Geometric Distribution
+
+The random variable $X$ that equals the number of flips expected before a coin comes up tails is an example of a random variable with a geometric distribution.
+
+>**[Definition 2]** \
+>A random variable $X$ has a geometric distribution with parameter $p$ if $p(X=k) = (1-p)^{k-1}p$ for $k = 1, 2, 3, \dots$, where $p$ is a real number with $0 \leq p \leq 1$.
+
+### 4.6 Independent Random Variables
+
+Independent events, and now independent of two random variables
+
+>**[Definition 3]** \
+>The random variable $X$ and $Y$ on a sample $S$ are independent if
+>
+>$p(X=r_1 \;\text{and}\; Y=r_2) = p(X=r_1) \cdot p(Y=r_2)$.
+
+### 4.7 Variance
+
+>**[Definition 4]** \
+>Let $X$ be a random variable on a sample space $S$. The variance of $X$, denoted by
+>
+>$V(X)$, is $V(X) = \sum_{s \in S}(X(s)-E(X))^2p(s)$.
+>
+>That is, $V(X)$ is the weighted average of the square of the deviation of $X$. The standard deviation of $X$, denoted $\sigma(X)$, is defined to be $\sqrt{V(X)}$.
+
+>**[Theorem 6]** \
+>If $X$ is a random variable on a sample space $S$, then $V(X) = E(X^2) - E(X)^2$.
+
+>**[Corollary 1]** \
+>If $X$ is a random variable on a sample space $S$ and $E(X) = \mu$, then $V(X) = E(X-\mu)^2$.
+
+### 4.8 Chebyshev's Inequality
+
+>**[Theorem 8]** \
+>Let $X$ be a random variable on a sample sapce $S$ with probility function $p$. If $r$ is a positive real number, then
+>
+>$p(\vert X(s)-E(X) \vert \geq r) \leq V(X)/r^2$
 
 ## Reference
 
