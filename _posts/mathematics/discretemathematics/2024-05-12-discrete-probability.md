@@ -37,8 +37,16 @@ Monte Carlo algorithms always produce answers to problems, but a small probility
 
 ## 4. Expected Value and Variance
 
->**[Definition]** \
->The expected value (or expectation) of the random variable $X(s)$ on the sample space $S$ is equal to $E(X) = \sum_{s \in S}p(s)X(s)$.
+## 4.1 Introduction
+
+The expected value of a random variable is the sum over all elements in a sample space of the product of the probibility of the element the value of the random variable at this element. Conseuqently, the expected value is a wighted average of the values of a random variable
+
+Another useful measure of a random variable is its variane, which tell us how spread out the values of this random variable are.
+
+>**[Definition 1]** \
+>The expected value (or expectation) of the random variable $X(s)$ on the sample space $S$ is equal to $E(X) = \sum_{s \in S}p(s)X(s)$. \
+>
+>The deviation of $X$ at $s \in S$ is $X(s)-E(s)$, the difference between the value of $X$ and the mean of $X$.
 
 >**[Theorem]** \
 >The expected numnber of successes when $n$ Bernoulli trials are performed, where $p$ is the probibility of success on each trial, is $np$.
