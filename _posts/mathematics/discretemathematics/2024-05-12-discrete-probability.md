@@ -8,6 +8,27 @@ categories:
 
 ## 2. Probibility Theory
 
+- Experiment : a procedure that yields one of a given set of possible outcomes
+- Sample space (of the experiment) : the set of possible outcomes
+- Event : a subset of the sample space
+- Event space : the power set of the sample space
+
+### 2.4 Conditional Probability
+
+### 2.7 Random Variables
+
+>**[Definition 6]** \
+>A random variable is a function from the sample space of an experiment to the set of real numbers.
+
+### 2.8 The Birthday Problem
+
+### 2.9 Monte Carlo Algorithms
+
+- Deterministic algorithm : always proceeds in the same way whenever given the same input
+- Probabilistic algorithm : algorithms that make random choices at one or more steps
+
+Monte Carlo algorithms always produce answers to problems, but a small probility remains that rhere answers may be incorrect. However, the probability that the answer is incorrect decreases rapidly when the algorithm carries out sufficient computation.
+
 ## 3. Bayes' Theorem
 
 >**[Theorem]** \
