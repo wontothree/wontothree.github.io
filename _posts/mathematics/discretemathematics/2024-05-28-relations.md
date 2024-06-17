@@ -93,6 +93,9 @@ $n^4$을 $n^3$으로 낮췄다.
 
 ## 6. Partial Orderings
 
+>**[Definition 1]** \
+>A relation $R$ on a set $S$ is called a partial ordering or partial order if it is reflexive, antisymmetric, and transitive. A set $S$ together with a partial ordering $R$ is called a partially ordered set or poset, and is denoted by $(S, R)$. Members of $S$ are called elements of the poset.
+
 >**[Theorem 1] The principle of well-ordered induction** \
 >Suppose that $S$ is a well-ordered set. Then $P(x)$ is true for all $x \in S$, if
 
