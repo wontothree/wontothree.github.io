@@ -12,7 +12,9 @@ categories:
 
 >**STRONG INDUCTION** To prove that $P(n)$ is true for all positive integers $n$, where $P(n)$ is a propositional function, we complete two steps: \
 >**BASIS STEP** : We verify that the proposition $P(1)$ is true. \
->**INDUCTIVE STEP** : We show that the conditional statement $[P(1) \wedge P(2) \wedge \dots \wedge P(3)] \rightarrow P(k+1)$ is true for all positive integers $k$.
+>**INDUCTIVE STEP** : We show that the conditional statement \
+>$[P(1) \wedge P(2) \wedge \dots \wedge P(3)] \rightarrow P(k+1)$ \
+>is true for all positive integers $k$.
 
 ## 3 Recursive Definition and Structural Induction
 

@@ -1,10 +1,9 @@
 ---
 title: "[Discrete Mathematics] Relations"
-excerpt: "Discrete Mathematics (Ch09)"
 categories:
   - discretemathematics
 ---
-## 1. Relations and Their Propertiesx
+## 1. Relations and Their Properties
 
 ### 1.2 Functions as Relations
 
@@ -16,10 +15,15 @@ categories:
 ### 1.4 Properties of Relations
 
 >**[Defintion 3]** \
->A relation $R$ on a set $A$ is caleed $reflexive$ if $(a, a) \in \mathbb{R}$ for every element $a \in \mathbb{A}$.
+>A relation $R$ on a set $A$ is caleed **reflexive** if $(a, a) \in \mathbb{R}$ for every element $a \in \mathbb{A}$.
+
+>**[Definition 4]** \
+>A relation $R$ on a set $A$ is called **symmetric** if $(b, a) \in R$ whenever $(a, b) \in R$, for all $a, b \in A$.
+>
+>A relation $R$ on  a set $A$ is such that for all $a, b \in A$, if $(a, b) \in R$ and $(b, a) \in R$, then $a = b$ is called **antisymmetric**.
 
 >**[Definition 5]** \
->A relation $R$ on a set $A$ is called transitive if whenever $(a, b) \in \mathbb{R}$ and $(b, c) \in \mathbb{R}$, then $(a, c) \in mathbb{R}$, for all $a, b, c \in A$.
+>A relation $R$ on a set $A$ is called **transitive** if whenever $(a, b) \in \mathbb{R}$ and $(b, c) \in \mathbb{R}$, then $(a, c) \in mathbb{R}$, for all $a, b, c \in A$.
 
 transisitve는 찾기 어렵다.
 
