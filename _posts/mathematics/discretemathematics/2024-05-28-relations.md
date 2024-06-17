@@ -23,7 +23,7 @@ categories:
 >A relation $R$ on  a set $A$ is such that for all $a, b \in A$, if $(a, b) \in R$ and $(b, a) \in R$, then $a = b$ is called **antisymmetric**.
 
 >**[Definition 5]** \
->A relation $R$ on a set $A$ is called **transitive** if whenever $(a, b) \in \mathbb{R}$ and $(b, c) \in \mathbb{R}$, then $(a, c) \in mathbb{R}$, for all $a, b, c \in A$.
+>A relation $R$ on a set $A$ is called **transitive** if whenever $(a, b) \in \mathbb{R}$ and $(b, c) \in \mathbb{R}$, then $(a, c) \in \mathbb{R}$, for all $a, b, c \in A$.
 
 transisitve는 찾기 어렵다.
 
@@ -76,6 +76,9 @@ $n^4$을 $n^3$으로 낮췄다.
 ## 5. Equivalence Relations
 
 ### 5.2 Equivalence Relations
+
+>**[Definition 1]** \
+>A relation on a set $A$ is called an equivalence relation if it is reflexive, symmetric, and transitive.
 
 ### 5.3 Equivalence Classes
 
