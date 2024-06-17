@@ -15,12 +15,12 @@ categories:
 ### 1.4 Properties of Relations
 
 >**[Defintion 3]** \
->A relation $R$ on a set $A$ is caleed **reflexive** if $(a, a) \in \mathbb{R}$ for every element $a \in \mathbb{A}$.
+>A relation $R$ on a set $A$ is caleed **reflexive** if $(a, a) \in R$ for every element $a \in \mathbb{A}$.
 
 >**[Definition 4]** \
 >A relation $R$ on a set $A$ is called **symmetric** if $(b, a) \in R$ whenever $(a, b) \in R$, for all $a, b \in A$.
 >
->A relation $R$ on  a set $A$ is such that for all $a, b \in A$, if $(a, b) \in R$ and $(b, a) \in R$, then $a = b$ is called **antisymmetric**.
+>A relation $R$ on  a set $A$ such that for all $a, b \in A$, if $(a, b) \in R$ and $(b, a) \in R$, then $a = b$ is called **antisymmetric**.
 
 >**[Definition 5]** \
 >A relation $R$ on a set $A$ is called **transitive** if whenever $(a, b) \in \mathbb{R}$ and $(b, c) \in \mathbb{R}$, then $(a, c) \in \mathbb{R}$, for all $a, b, c \in A$.
@@ -82,11 +82,16 @@ $n^4$을 $n^3$으로 낮췄다.
 
 ### 5.3 Equivalence Classes
 
+>**[Definition 3]** \
+>Let $R$ be an equivalence relation on a set A. The set of all elements that are related to an element $a$ of $A$ is called the **equivalence class** of $a$. The equivalence class of $a$ with respect subscript $R$ and write $[a]$ for this equivalence class.
+>
+>$[a]_R = [b | (a, b) \in R]$
+
 교안 35page 3by3로 문제 나옴
 
 ### 5.4 Equivalence Classes and Partitions
 
-## 6. partial Orderings
+## 6. Partial Orderings
 
 >**[Theorem 1] The principle of well-ordered induction** \
 >Suppose that $S$ is a well-ordered set. Then $P(x)$ is true for all $x \in S$, if
