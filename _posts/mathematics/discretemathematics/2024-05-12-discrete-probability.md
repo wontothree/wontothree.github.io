@@ -37,7 +37,7 @@ Monte Carlo algorithms always produce answers to problems, but a small probility
 
 ## 4. Expected Value and Variance
 
-## 4.1 Introduction
+### 4.1 Introduction
 
 The expected value of a random variable is the sum over all elements in a sample space of the product of the probibility of the element the value of the random variable at this element. Conseuqently, the expected value is a wighted average of the values of a random variable
 

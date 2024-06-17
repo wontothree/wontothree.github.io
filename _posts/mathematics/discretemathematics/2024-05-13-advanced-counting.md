@@ -42,7 +42,7 @@ $$
 > A linear homogeneous recurrence relation of degree $k$ with constant coefficients is a recurrence relation of the form $a_n = c_1a_{n-1} + c_2a_{n-2} + \dots + c_ka_{n-k}$, where $c_1, c_2, \dots, c_k$ are real numbers, and $c_k \neq 0$.
 
 >**[Theorem]** \
-> Suppose that $r^2 - c_1r - c_2 = 0$ ahs two distinct roots $r_1$ and $r_2, where $c_1 and $c_2$ be real numbers. Then
+> Suppose that $r^2 - c_1r - c_2 = 0$ ahs two distinct roots $r_1$ and $r_2$, where $c_1$ and $c_2$ be real numbers. Then
 >$\{a_n\}$ is a solution of the recurrence relation $a_n = c_1a_{n-1} + c_2a_{n-2}$
 >a_n = \alpha_1 r^n + \alpha_2 r_2^n for $n \geq 0$, where $\alpha_1$ and $\alpha_2$ are constants.
 
@@ -117,7 +117,7 @@ Closed-Pair Problem
 ## 5. Inclusion-Exclusion
 
 >**[Theorem 1] THE PRINCIPLE OF INCLUSION-EXCLUSION** \
->Let $A_1, A_2, \dots, A_n$ be finite sets. \
+>Let $A_1, A_2, \dots, A_n$ be finite sets.
 >
 
 ## 6. Applications of Inclusion-Exclusion
