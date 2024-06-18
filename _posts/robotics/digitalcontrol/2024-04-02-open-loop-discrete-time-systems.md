@@ -110,6 +110,8 @@ A digital filer that solves a linear difference equation with constant coefficie
 
 ## 8 State-Variable Models
 
+2장에서 사용된 상태변수 기법을 이용하여 이 장에서 다루게 될 개루프 샘플값 시스템의 상태변수 모델을 구할 수 있다.
+
 ## 9 Review of Continuous-Time State Variables
 
 Presented in the preceding section is a technique for obtaining a set of state equations describing a linear time-variant discrete-time system. This technique is base on transfer functions, and has two major disadvantages.
@@ -122,7 +124,21 @@ A different approach for obtaining the discrete-time state model of a system is 
 
 ## 10 Discrete-Time State Equations
 
-A technique is developed in this section for determining the discrete state equations of a sampled-data system directly from the continuous-time state equations. In fact, the states of the continuous-time model become the states of the discrete model. Thus the natural states of the system are preserved.
+연속시간 상태 방정식으로부터 이산상태 방정식을 직접 유도하는 방법을 학습한다.
+
+연속 시간 모델의 상태 변수는 이산 시간 모델의 상태 변수가 된다.
+
+$$
+\bold{\dot{v}}(t) = \bold{A}_c\bold{x}(t) + \bold{B}_c(t)
+\\
+y(t) = \bold{C}_c(t) + D_cu(t)
+$$
+
+$$
+\bold{v}(k+1) = \bold{A}\bold{x}(k) + \bold{B}(k)
+\\
+y(k) = \bold{C}(k) + Du(k)
+$$
 
 ## 11 Practical Calculations
 
