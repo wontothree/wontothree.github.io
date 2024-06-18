@@ -140,6 +140,14 @@ $$
 y(k) = \bold{C}(k) + Du(k)
 $$
 
+$$
+\bold{x}(kT) = \bold{v}(kT)
+\\
+\bold{A} = \Phi_c(T)
+\\
+\bold{B} = \int_{kT}^{kT+T}\bold{Phi}_c(kT+T-\tau)\bold{B}d\tau
+$$
+
 ## 11 Practical Calculations
 
 ## z-Transform Table
