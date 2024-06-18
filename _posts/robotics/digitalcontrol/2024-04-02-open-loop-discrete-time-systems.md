@@ -129,23 +129,21 @@ A different approach for obtaining the discrete-time state model of a system is 
 연속 시간 모델의 상태 변수는 이산 시간 모델의 상태 변수가 된다.
 
 $$
-\mathbf{\dot{v}}(t) = \mathbf{A}_c\mathbf{x}(t) + \mathbf{B}_c(t)
+\begin {align*}
+\mathbf{\dot{v}}(t) &= \mathbf{A}_c\mathbf{x}(t) + \mathbf{B}_c(t)
 \\
-y(t) = \mathbf{C}_c(t) + D_cu(t)
-$$
-
-$$
-\mathbf{v}(k+1) = \mathbf{A}\mathbf{x}(k) + \mathbf{B}(k)
+y(t) &= \mathbf{C}_c(t) + D_cu(t)
 \\
-y(k) = \mathbf{C}(k) + Du(k)
-$$
-
-$$
-\mathbf{x}(kT) = \mathbf{v}(kT)
+\mathbf{v}(k+1) &= \mathbf{A}\mathbf{x}(k) + \mathbf{B}(k)
 \\
-\mathbf{A} = \Phi_c(T)
+y(k) &= \mathbf{C}(k) + Du(k)
 \\
-\mathbf{B} = \int_{kT}^{kT+T}\mathbf{Phi}_c(kT+T-\tau)\mathbf{B}d\tau
+\mathbf{x}(kT) &= \mathbf{v}(kT)
+\\
+\mathbf{A} &= \Phi_c(T)
+\\
+\mathbf{B} &= \int_{kT}^{kT+T}\mathbf{Phi}_c(kT+T-\tau)\mathbf{B}d\tau
+\end {align*}
 $$
 
 ## 11 Practical Calculations
