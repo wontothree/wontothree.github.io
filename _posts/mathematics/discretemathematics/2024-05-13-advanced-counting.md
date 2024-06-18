@@ -38,10 +38,10 @@ $$
 
 ## 2. Solving linear Recurrence Relations
 
->**[Definition]** \
+>**[Definition 1]** \
 > A linear homogeneous recurrence relation of degree $k$ with constant coefficients is a recurrence relation of the form $a_n = c_1a_{n-1} + c_2a_{n-2} + \dots + c_ka_{n-k}$, where $c_1, c_2, \dots, c_k$ are real numbers, and $c_k \neq 0$.
 
->**[Theorem]** \
+>**[Theorem 1]** \
 > Suppose that $r^2 - c_1r - c_2 = 0$ ahs two distinct roots $r_1$ and $r_2$, where $c_1$ and $c_2$ be real numbers. Then
 >$\{a_n\}$ is a solution of the recurrence relation $a_n = c_1a_{n-1} + c_2a_{n-2}$
 >a_n = \alpha_1 r^n + \alpha_2 r_2^n for $n \geq 0$, where $\alpha_1$ and $\alpha_2$ are constants.
@@ -52,9 +52,12 @@ $$
 
 이제 피보나치 수열의 일반항를 구할 수 있다.
 
+>**[Theorem 2]** \
+>Let $c_1$ and $c_2$ be real numbers with $c_2 \neq 0$. Suppose that $r^2 - c_1r c_2 = 0$ has only one root $r_0$. A sequence $a_n$ is a solution of the recurrence relation $a_n = c_1 a_{n-1} + c_2 a_{n-2}$ if and only if $a_n = \alpha_1 r_0^n + \alpha_2 n r_0^n$, for $n = 0, 1, 2, \dots$, where $\alpha_1$ and $\alpha_2$ are constants.
+
 Linear homogeneous recurrence relation with constant coefficients는 모두 풀 수 있다.
 
-Linea nonhomogeneous recurrent relation with constant coefficients를 풀 수 있을까?
+Linear nonhomogeneous recurrent relation with constant coefficients를 풀 수 있을까?
 
 >**[Theorem]** \
 >If $\{a_n^{(p)}\}$ is a particular solution of the nonhomogeneous linear recurrence relation with constant coefficients
