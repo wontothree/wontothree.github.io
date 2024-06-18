@@ -142,7 +142,7 @@ y(k) &= \mathbf{C}(k) + Du(k)
 \\
 \mathbf{A} &= \Phi_c(T)
 \\
-\mathbf{B} &= \int_{kT}^{kT+T}\mathbf{Phi}_c(kT+T-\tau)\mathbf{B}d\tau
+\mathbf{B} &= \int_{kT}^{kT+T}\mathbf{\Phi}_c(kT+T-\tau)\mathbf{B}d\tau
 \end {align*}
 $$
 
