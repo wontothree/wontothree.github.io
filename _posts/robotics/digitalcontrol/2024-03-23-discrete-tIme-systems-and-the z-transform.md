@@ -109,6 +109,24 @@ $$
 
 ## 12 Solutions of the State Equations
 
+상태 방정식의 해를 구할 때 핵심은 상태 천이 행렬을 계산하는 것이다.
+
+$$
+\bold{x}(k+1) = A\bold{x}(k) + B\bold{u}(k)
+\\
+\bold{y}(k) = C\bold{x}(k) + D\bold{u}(k)
+$$
+
+의 일반해는 다음과 같다.
+
+$$
+\bold{x} = \bold{A}^k\bold{x}(0) + \sum_{j=0}^{k-1}\bold{A}^{k-1-j}\bold{B}\bold{u}(j)
+\\
+=\bold{\Phi}(k)\bold{x}(0) + \sum_{j=0}^{k-1}\bold{\Phi}(k-1-j)\bold{B}\bold{u}(j)
+$$
+
+where $\bold{\Phi}(k) = \bold{A}^k$. (상태천이행렬)
+
 ## 13 Linear Time-varying Systems
 
 ## Questions
