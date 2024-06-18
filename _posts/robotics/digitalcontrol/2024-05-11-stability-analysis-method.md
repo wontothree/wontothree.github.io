@@ -52,7 +52,27 @@ Jury 안정도 테스트
 1. 세 조건 $Q(1) > 0, (-1)^nQ(-1) > 0, \vert a_0 \vert < a_n$을 확인한다. 이 조건 중 하나라도 만족되지 않으면 테스트를 중단한다.
 2. 각 행이 계산될 때 (7-15)의 조건을 확인하여 배열을 구성한다. 어느 조건이라도 만족되지 않으면 검사를 중단한다.
 
-## 6. Root Locus
+## 6. Root Locus (근 궤적)
+
+![](../../../img/digitalcontrol/fig7-6.png)
+
+그림 7-6의 LTI sampled data hold system에서
+
+$$
+\dfrac{C(z)}{R(z)} = \dfrac{KG(z)}{1+K\bar{GH}(z)}
+$$
+
+특성 방정식은 다음과 같다.
+
+$$
+1 + K\bar{GH}(z) = 0
+$$
+
+근 궤적 : z-plane에서 K의 함수로 위 특정 방정식의 근의 궤적을 그린 그림
+
+![](../../../img/digitalcontrol/table7-3.png)
+
+![](../../../img/digitalcontrol/table7-3-1.png)
 
 ## 7. The Nyquist Criterion
 
