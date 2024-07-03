@@ -28,7 +28,9 @@ sidebar-category:
       - title: "Optimal Control"
         url: /optimalcontrol
       - title: "Computer Vision"
-        url: /computervision     
+        url: /computervision 
+      - title: "Reinforcement Learning"
+        url: /reinforcementlearning         
   - title: "Computer Science"
     children:
       - title: "Java"
