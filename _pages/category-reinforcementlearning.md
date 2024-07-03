@@ -7,4 +7,4 @@ sidebar:
 ---
 
 {% assign posts = site.categories.reinforcementlearning %}
-{% for post in posts %} {% include archive-single.html type=page.entrie
+{% for post in posts %} {% include archive-single.html type=page.entries_layout %} {% endfor %}
