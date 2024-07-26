@@ -1,5 +1,5 @@
 ---
-title: "Simple publisher and subscriber"
+title: "[ROS2] Simple publisher and subscriber"
 excerpt: "ROS2 Documentation Foxy - Writing a simple publisher and subscriber (C++)"
 categories: 
   - ros2
