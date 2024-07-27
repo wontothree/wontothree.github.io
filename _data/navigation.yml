@@ -19,6 +19,8 @@ sidebar-category:
         url: /ros2
       - title: "Path Planning"
         url: /pathplanning
+      - title: "Cart Pole"
+        url: /cartpole
       - title: "Digital Control"
         url: /digitalcontrol
       - title: "Linear System"
@@ -27,10 +29,10 @@ sidebar-category:
         url: /nonlinearsystem
       - title: "Optimal Control"
         url: /optimalcontrol
-      - title: "Computer Vision"
-        url: /computervision 
       - title: "Reinforcement Learning"
-        url: /reinforcementlearning         
+        url: /reinforcementlearning  
+      - title: "Computer Vision"
+        url: /computervision       
   - title: "Computer Science"
     children:
       - title : "C++"
