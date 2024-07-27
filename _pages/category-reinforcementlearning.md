@@ -1,5 +1,5 @@
 ---
-title: "Refinforcement Learning"
+title: "Reinforcement Learning"
 layout: archive
 permalink: /reinforcementlearning
 sidebar:
