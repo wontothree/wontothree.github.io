@@ -17,10 +17,10 @@ sidebar-category:
     children:
       - title: "ROS2"
         url: /ros2
-      - title: "Path Planning"
-        url: /pathplanning
       - title: "Cart Pole"
         url: /cartpole
+      - title: "Path Planning"
+        url: /pathplanning
       - title: "Digital Control"
         url: /digitalcontrol
       - title: "Linear System"
