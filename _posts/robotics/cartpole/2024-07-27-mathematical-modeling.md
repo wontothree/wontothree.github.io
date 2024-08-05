@@ -11,6 +11,8 @@ categories:
 
 ## Mathematical Modeling
 
+뉴턴 역학을 이용해서 inverted pendulum을 모델링할 수 있다.
+
 ![](../../../img/cartpole/cartpole-modeling.png)
 
 ![](../../../img/cartpole/cartpole-modeling-2.png)
