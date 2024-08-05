@@ -1,17 +1,32 @@
 # wontothree.github.io
 
-[Technical Blog](https://wontothree.github.io/)
+[Blog](https://wontothree.github.io/)
 
 ## Folder Tree
 
+```md
     |- _data
       |- navigation.yml : navigation bar and side bar
       |- ui-text.yml :
     |- _include : html file들이 들어있다.
     |- _layout : page마다 design과 직접적으로 연관된 html file들이 들어있다. _include에 있는 html file들을 불러오는 경우가 많다.
+      |- archive-taxonomy.html : 특정 분류(카테코리, 태그 등)의 아카이브 페이지를 위한 템플릿
+      |- archive.html : 포스트나 컨텐츠의 아카이브 페이지를 위한 기본 템플릿
+      |- categories.html : 카테고리 페이지 템플릿
+      |- category.html : 특정 카테고리의 세부 페이지 템플릿
+      |- collection.html : 컬렉션 페이지를 위한 템플릿
+      |- compress.html : 특정 용도로 사용될 수 있는 템플릿, 예를 들어 페이지 압축을 위한 템플릿일 수 있음
+      |- default.html : 기본 페이지 템플릿으로 다른 페이지 템플릿이 없는 경우 기본으로 사용될 수 있음
+      |- home.html : 홈페이지 템플릿
+      |- posts.html : 포스트 목록 페이지를 위한 템플릿
+      |- search.html : 검색 결과 페이지 템플릿
+      |- single.html : 단일 포스트나 페이지의 템플릿
+      |- splash.html : 초기 화면 또는 스플래시 화면을 위한 템플릿
+      |- tag.html : 특정 태그의 세부 페이지 템플릿
+      |- tags.html : 태그 목록 페이지 템플릿
     |- _pages : main page에서 navigation bar category를 타고 들어갔을 때 나오는 페이지
     |- _posts : articles
-    |- _sass : minimal-mistakes.scss에 import 할 수 있는 scss 파일들을 모아 둔 폴더이다. minimal-mistakes.scss는 최종적으로 📁_assets/css/main.scss에 import 된다. 블로그와 컴포넌트들을 시각적으로 디자인하는 스타일시트 파일들이다. css와 유사하다.
+    |- _sass : minimal-mistakes.scss에 import 할 수 있는 scss 파일들을 모아 둔 폴더이다. minimal-mistakes.scss는 최종적으로 _assets/css/main.scss에 import 된다. 블로그와 컴포넌트들을 시각적으로 디자인하는 스타일시트 파일들이다. css와 유사하다.
       |- minimal-mistakes
         |- skins
         |- vendor
@@ -34,8 +49,16 @@
         |- _tables.scss
         |- _utilities.scss
         |- _variables.scss
-      |- minimal-mistakes.scss
+      |- minimal-mistakes.scss : minimal-mistakes 폴더에 있는 scss 파일들을 import한다.
     |- assets
+      |- css
+        |- main.scss
+      |- js
+        |- lunr
+        |- plugins
+        |- vendor
+        |- _main.js
+        |- main.min.js
     |- img : pictures in articles
     |- _config.yml : 전체적인 설정
     |- .travis.yml
@@ -47,6 +70,9 @@
     |- package.json
     |- Rakefile
     |- staticman.yml
+```
+
+_includes와 _layouts가 html과 관련된 파일들이고, _sass와 _assets이 css와 관련된 파일들이다.
 
 ## 이해
 
