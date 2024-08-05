@@ -9,22 +9,10 @@ author: Anthony
     {% include head.html %}
     {% include head/custom.html %}
 
-    <style>
-      .latex-container {
-          width: 100%;
-          overflow-x: auto;
-          border: 1px solid #ccc;
-          padding: 10px;
-          margin: 10px 0;
-          background-color: #f9f9f9;
-      }
-    </style>
-
     {% if page.use_math %}
       {% include mathjax_support.html %}
     {% endif %}
   </head>
-
 
   <body class="layout--{{ page.layout | default: layout.layout }}{% if page.classes or layout.classes %}{{ page.classes | default: layout.classes | join: ' ' | prepend: ' ' }}{% endif %}">
     {% include_cached skip-links.html %}
@@ -34,14 +22,14 @@ author: Anthony
       {{ content }}
 
       <!-- Math content with scroll -->
-      <div class="latex-container">
+      <!-- <div class="latex-container">
         $$ 
         \begin{align}
         a + b + c + d + e + f + g + h + i + j + k + l + m + n + o + p + q + r + s + t + u + v + w + x + y + z = a + b + c + d + e + f + g + h + i + j + k + l + m + n + o + p + q + r + s + t + u + v + w + x + y + z = a + b + c + d + e + f + g + h + i + j + k + l + m + n + o + p + q + r + s + t + u + v + w + x + y + z = a + b + c + d + e + f + g + h + i + j + k + l + m + n + o + p + q + r + s + t + u + v + w + x + y + z = a + b + c + d + e + f + g + h + i + j + k + l + m + n + o + p + q + r + s + t + u + v + w + x + y + z = a + b + c + d + e + f + g + h + i + j + k + l + m + n + o + p + q + r + s + t + u + v + w + x + y + z = a + b + c + d + e + f + g + h + i + j + k + l + m + n + o + p + q + r + s + t + u + v + w + x + y + z = a + b + c + d + e + f + g + h + i + j + k + l + m + n + o + p + q + r + s + t + u + v + w + x + y + z = \\
         \sum_{i=1}^{n} i^2 + \frac{1}{\sqrt{2\pi}} e^{-x^2/2} + \int_{a}^{b} f(x)\,dx + \text{some\ long\ text\ to\ trigger\ scrolling}
         \end{align}
         $$
-      </div>
+      </div> -->
       <!-- End of Math content -->
 
     </div>
@@ -60,6 +48,38 @@ author: Anthony
     </div>
 
     {% include scripts.html %}
+
+    <!-- JavaScript to dynamically wrap LaTeX elements -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        // Function to wrap LaTeX elements
+        function wrapLatexElements() {
+          // Select all LaTeX elements (MathJax or KaTeX)
+          const mathElements = document.querySelectorAll('.katex, .mathjax');
+          mathElements.forEach(element => {
+            // Check if the element is already inside a container
+            if (!element.parentNode.classList.contains('latex-container')) {
+              // Create a container div
+              const container = document.createElement('div');
+              container.classList.add('latex-container');
+
+              // Move the LaTeX element into the container
+              element.parentNode.insertBefore(container, element);
+              container.appendChild(element);
+            }
+          });
+        }
+
+        // Wrap LaTeX elements after MathJax has processed them
+        if (window.MathJax) {
+          MathJax.Hub.Queue(function() {
+            wrapLatexElements();
+          });
+        } else {
+          wrapLatexElements();
+        }
+      });
+    </script>
 
   </body>
 </html>
