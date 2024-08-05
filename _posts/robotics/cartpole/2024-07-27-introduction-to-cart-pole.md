@@ -15,7 +15,7 @@ categories:
 - States of Observation Space
   - Cart Position (X) : $-4.8 \leq X \leq 4.8$
   - Cart Velocity (m/s) ($\dot{X}$) : $-\infty \leq \dot{X} \leq \infty$
-  - Pole angle of rotation (radian) ($\theta$) : $-0.418 (-24 \degree) \leq \theta \leq 0.418 (24 \degree)$
+  - Pole angle of rotation (radian) ($\theta$) : $-0.418 (-24^\circ) \leq \theta \leq 0.418 (24^\circ)$
   - Pole Angular Velocity ($\dot{\theta}$) : $-\infty \leq \dot{\theta} \leq \infty$
 
 ## Reference
