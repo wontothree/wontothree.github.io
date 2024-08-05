@@ -62,8 +62,8 @@ Therefore,
 
 $$
 \begin{align*}
-  & \ddot{\theta} = \dfrac{1}{(M+m) \left( l + m(L/2)^2 \right) - m^2 (L/2)^2 \cos^2\theta}  \left[ -m^2 \left(\dfrac{L}{2}\right)^2 \dot{\theta}^2 \sin\theta \cos\theta + (M + m) mg \left(\dfrac{L}{2}\right) \sin\theta + m \left(\dfrac{L}{2}\right) F \cos\theta \right] \\
+  & \ddot{\theta} = \dfrac{1}{(M+m) \left( l + m (L/2)^2 \right) - m^2 (L/2)^2 \cos^2\theta}  \left[ -m^2 \left(\dfrac{L}{2}\right)^2 \dot{\theta}^2 \sin\theta \cos\theta + (M + m) mg \left(\dfrac{L}{2}\right) \sin\theta + m \left(\dfrac{L}{2}\right) \cos\theta F \right] \\
   
-  & \ddot{x} = \dfrac{1}{(M+m) \left( l + m  \right) - m^2 (L/2)^2 \cos^2\theta} \left[  m^2 \left(\dfrac{L}{2}\right)^2 \sin\theta \cos\theta g - m \left(I + m \left(\dfrac{L}{2}\right)^2 \right)\left(\dfrac{L}{2}\right) \sin\theta \dot{\theta} (I + m \left(\dfrac{L}{2}\right)^2 F) \right] \\
+  & \ddot{x} = \dfrac{1}{(M+m) \left( l + m (L/2)^2 \right) - m^2 (L/2)^2 \cos^2\theta} \left[  m^2 \left(\dfrac{L}{2}\right)^2 \sin\theta \cos\theta g - m \left(I + m \left(\dfrac{L}{2}\right)^2 \right)\left(\dfrac{L}{2}\right) \sin\theta \dot{\theta}^2 + \left(I + m \left(\dfrac{L}{2}\right)^2 \right) F \right] \\
 \end{align*}
 $$
