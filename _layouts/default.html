@@ -9,6 +9,17 @@ author: Anthony
     {% include head.html %}
     {% include head/custom.html %}
 
+    <style>
+      .latex-container {
+          width: 100%;
+          overflow-x: auto;
+          border: 1px solid #ccc;
+          padding: 10px;
+          margin: 10px 0;
+          background-color: #f9f9f9;
+      }
+    </style>
+
     {% if page.use_math %}
       {% include mathjax_support.html %}
     {% endif %}
