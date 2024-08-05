@@ -18,7 +18,6 @@ categories:
   - Pole angle of rotation (radian) ($\theta$) : $-0.418 (-24 \degree) \leq \theta \leq 0.418 (24 \degree)$
   - Pole Angular Velocity ($\dot{\theta}$) : $-\infty \leq \dot{\theta} \leq \infty$
 
-
 ## Reference
 
 [[You Tube] Introduction to OpenAI Gym (Gymnasium): Cart-Pole Environment - Reinforcement Learning Tutorial](https://www.youtube.com/watch?v=2sp_eucoX2I)
