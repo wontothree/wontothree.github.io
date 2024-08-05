@@ -4,6 +4,11 @@ excerpt:
 categories:
   - cartpole
 ---
+## Assumptions
+
+- 카트와 바닥 간의 마찰은 없다고 가정한다.
+- 카트와 막대는 모두 질량 분포가 일정하여 막대의 중력이 막대의 기하학적 중심에 작용한다고 가정한다.
+
 ## Mathematical Modeling
 
 ![](../../../img/cartpole/cartpole-modeling.png)
