@@ -49,6 +49,8 @@ $$
 \end{align}
 $$
 
+5, 6번 식을 미분하여 다음의 식을 얻는다.
+
 $$
 \begin{align*}
   & \dot{x}_m = \dot{x} - \dfrac{L}{2} \dot{\theta} \cos\theta \\
@@ -65,7 +67,17 @@ $$
 \end{align*}
 $$
 
-Therefore,
+연립하여 다음 식을 얻을 얻는다.
+
+$$
+\begin{align*}
+  & I \ddot{\theta} = m \ddot{x} \dfrac{L}{2} \cos\theta - m \left( \dfrac{L}{2} \right)^2 \ddot{\theta} + mg \left( \dfrac{L}{2} \right) \sin\theta \\
+
+  & (M + m) \ddot{x} + m \dfrac{L}{2} (\dot{\theta}^2 \sin\theta - \ddot{\theta} \cos\theta) = F
+\end{align*}
+$$
+
+## 결론
 
 $$
 \begin{align*}
