@@ -40,7 +40,7 @@ categories:
     & \sum F_x = F - R_x = M\ddot{x}
   \end{align}
   $$
-<div>
+</div>
 
 ![](../../../img/cartpole/distance-relation.png)
 
