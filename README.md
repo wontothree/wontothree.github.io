@@ -72,7 +72,7 @@
     |- staticman.yml
 ```
 
-_includes와 _layouts가 html과 관련된 파일들이고, _sass와 _assets이 css와 관련된 파일들이다.
+_includes와 _layouts에는 html과 관련된 파일들이 있고, _sass와 _assets에는 css와 관련된 파일들 있다.
 
 ## 이해
 
@@ -223,6 +223,8 @@ author: Anthony
 
 - main page 그래프 지식 구조 시각화 개발하기
 - 각 게시물에서 카테고리 눌렀을 때 category page로 이동하도록 설정하기
+- scrollable latex 자동화하기
+- 사진 크기 줄이기
 
 노가다성
 
@@ -236,6 +238,7 @@ author: Anthony
 - contents nav bar 제목 수정
 - file name은 다 소문자로 통일
 - _pages에서 카테고리 설정 더 편리하게 할 수 있도록 하기
+- latex에 대해 scrollable 기능 만들기
 
 ## 참고할만한 블로그
 

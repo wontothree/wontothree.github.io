@@ -13,9 +13,9 @@ categories:
 
 뉴턴 역학을 이용해서 inverted pendulum을 모델링할 수 있다.
 
-![](../../../img/cartpole/cartpole-modeling.png)
+![](../../../img/cartpole/cartpole-modeling.png){: width="400" height="200"}
 
-![](../../../img/cartpole/cartpole-modeling-2.png)
+![](../../../img/cartpole/cartpole-modeling-2.png){: width="400" height="200"}
 
 - $x$ : Distance of cart from initial position [$m$]
 - $\theta$ : Tilt angle of rod [$rad$]
@@ -25,7 +25,7 @@ categories:
 - $L$ : Length of rod [$m$]
 - $F$ : Force applied at cart [$N$]
 
-![](../../../img/cartpole/free-body-diagram.png)
+![](../../../img/cartpole/free-body-diagram.png){: width="400" height="200"}
 
 카트와 막대 간의 반력을 $R$이라 정의하자.
 
@@ -42,7 +42,7 @@ categories:
   $$
 </div>
 
-![](../../../img/cartpole/distance-relation.png)
+![](../../../img/cartpole/distance-relation.png){: width="400" height="200"}
 
 <div class="latex-container">
   $$
