@@ -45,27 +45,27 @@ where $x(k)$ and $u(k)$ are the model state and input vectors at the kth samplin
 Notation
 
 <div class="latex-container">
-$$
-\mathbf{u}(k) =
-\begin{equation*}
-   \begin{bmatrix}
-   u(k \vert k)  \\
-   u(k+1 \vert k)  \\
-   \vdots \\
-   u(k + N - 1 \vert k)
-   \end{bmatrix}
-\end{equation*},
-\;\;\;
-\mathbf{x}(k) =
-\begin{equation*}
-   \begin{bmatrix}
-   u(k + 1 \vert k)  \\
-   u(k + 2 \vert k)  \\
-   \vdots \\
-   u(k + N \vert k)
-   \end{bmatrix}
-\end{equation*}
-$$
+  $$
+  \mathbf{u}(k) =
+  \begin{equation*}
+    \begin{bmatrix}
+    u(k \vert k)  \\
+    u(k+1 \vert k)  \\
+    \vdots \\
+    u(k + N - 1 \vert k)
+    \end{bmatrix}
+  \end{equation*},
+  \;\;\;
+  \mathbf{x}(k) =
+  \begin{equation*}
+    \begin{bmatrix}
+    u(k + 1 \vert k)  \\
+    u(k + 2 \vert k)  \\
+    \vdots \\
+    u(k + N \vert k)
+    \end{bmatrix}
+  \end{equation*}
+  $$
 </div>
 
 $u(k + i \vert k)$ and $x(k + i \vert k)$ : input and state vectors at time $k + i$ that are predicted at time $k$
