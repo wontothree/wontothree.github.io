@@ -133,7 +133,15 @@ Prediction models
 
 ### 4.1 Linear plant model
 
-For linear systems, the dependence of predictions $x(k)$ on $u(k)$
+For linear systems, the dependence of predictions $\mathbf{x}(k)$ on $\mathbf{u}(k)$ is linear.
+
+A quadratic predicted cost is thereforece a quadratic function of the input sequence $\mathbf{u}(k)$.
+
+Thus $J(k)$ can be expressed as a function of $\mathbf{u}$ in the form
+
+$$
+J(k) = \mathbf{u}^T(k)H\mathbf{u}(k) + 2f^T \mathbf{u}(k) + g
+$$
 
 ### 4.2 Nonlinear plant model
 
