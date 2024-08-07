@@ -95,7 +95,7 @@ where $Q, R$ are positvie definite(or semi-definite for Q) matrices.
 The optimal inpute sequence for the problem of minimizing $J(k)$ is denoted $u^*(k)$:
 
 $$
-\mathbf{u}^* = \argmin_u J(k)
+\mathbf{u}^* = \underset{u}{\mathrm{argmin}} J(k)
 $$
 
 If the plant is subject to input and state constraints, then these could be included in the optimization as equivalent constraints on $\mathbf{u}(k).$
