@@ -44,24 +44,20 @@ Notation
 
 $$
 \mathbf{u}(k) =
-\begin{equation*}
-  \begin{bmatrix}
+\begin{bmatrix}
   u(k \vert k)  \\
   u(k+1 \vert k)  \\
   \vdots \\
   u(k + N - 1 \vert k)
-  \end{bmatrix}
-\end{equation*},
+\end{bmatrix},
 \;\;\;
 \mathbf{x}(k) =
-\begin{equation*}
-  \begin{bmatrix}
+\begin{bmatrix}
   u(k + 1 \vert k)  \\
   u(k + 2 \vert k)  \\
   \vdots \\
   u(k + N \vert k)
-  \end{bmatrix}
-\end{equation*}
+\end{bmatrix}
 $$
 
 $u(k + i \vert k)$ and $x(k + i \vert k)$ : input and state vectors at time $k + i$ that are predicted at time $k$
