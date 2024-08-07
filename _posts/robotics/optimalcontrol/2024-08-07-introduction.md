@@ -143,11 +143,71 @@ $$
 J(k) = \mathbf{u}^T(k)H\mathbf{u}(k) + 2f^T \mathbf{u}(k) + g
 $$
 
+where $H$ is a constant positive definite (or possibly positive semidefinite) matrix, and f, g are respectively a vector and scalar which depend on $x(k)$.
+
+Linear input and state constraints likewise imply linear constraints on $\mathbf{u}(k)$ which can be expressed
+
+$$
+A_c \mathbf{u}(k) \leq b_c
+$$
+
+where $A_c$ is a constant matrix and, depending on the form of the constraints, the vector $b_c$ may be a function of $x(k)$.
+
+The online MPC optimization thereforece comprises the minimization over $\mathbf{u}$ of a quadratic objective subject to linear constraints (quadratic programming problem):
+
+$$
+\underset{u}{\mathrm{minimize}} \;\;\; \mathbf{u}^T H \mathbf{u} + 2f^T \mathbf{u} \\
+\mathrm{subject \; to} \;\;\; A_c \mathbf{u} \leq b_c
+$$
+
+Given that $H$ is a positive definite matrix and the constraints are linear, it is easy to show the optimization problem is a convex problem.
+
+Matlab's QP solver : 2GHZ PC - 10ms - 10 variables and 100 constrains
+
 ### 4.2 Nonlinear plant model
+
+If a nonlinear prediction model is employed, then due to the nonlinear dependence of the state predictions $\mathbf{x}(k)$ on $\mathbf{u}(k)$, the MPC optimization problem is significantly harder that for the linear model case.
+
+This is because the cost in equation, which can be written as $J(\mathbf{u}(k), x(k))$, and the constraints, $g(\mathbf{u}(k), x(k)) \leq 0$, are in general nonconvex functions of $\mathbf{u}(k)$, so that the optimization problem :
+
+$$
+\underset{u}{\mathrm{minimize}} \;\;\; J(\mathbf{u}, x(k)) \\
+\mathrm{subject \; to} \;\;\; g(\mathbf{u}, x(k)) \leq 0
+$$
+
+becomes nonconvex nonlinear programming (NLP) problem.
+
+As a result there will in general be no guarantee that a solver will converge to a global minimym, and the times requited to find even a local solution are typically orders of magnitude greater than for QP problems of simililar size.
+
+To solve the MPC optimization derived from an inverted pendulum control with 10 variables in $\mathbf{u}$, solution times of 10sec are typically need on a 2GHZ PC.
+
+Unlike QP solvers, the computational loads of solvers for nonlinear programming problems are strongly problem-dependent.
 
 ### 4.3 Discrete and continuous-time prediction models
 
+control periode < sampling periode
+
 ## 5. Constraint Handling
+
+While the equality constraints are usually handled implicitly (i.e the plant model is used to write predicted state trajectories as functions of initial conditions and input trajectories), the inequality constraints are imposed as explicit constraints within the online optimization problem.
+
+This course is concerned with linear inequality constrains
+
+**Input constraints.**
+
+absolute constraint
+
+$$
+\underline{u} \leq u(k) \leq \overline{u}
+$$
+
+**State constraints.**
+
+### 5.1 De-tuned optimal control
+
+### 5.2 Anti-windup strategies
+
+### 5.3 Model predictive control
 
 ## Question
 
@@ -157,3 +217,6 @@ $$
 - By continually shifting the horizon over which future inputs are optimized, it attempts to compensate for the fact that this horizon is finite.
 - Provided the cost and constraints are designed correctly, a receding horizon strategy can ensure that the performance of the closed-loop system is at least as good as that of the optimal prediction.
 - Prediction models may be deterministic, stochastic, or fuzzy.
+- QP : 선형 상태 공간 모델을 x에 대해 정리하여 비용함수의 x 자리에 대입한 식?
+- Prediction model == plant model ?
+- 1.4.3 이해 안 됨.
