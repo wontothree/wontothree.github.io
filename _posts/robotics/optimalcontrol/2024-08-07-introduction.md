@@ -34,11 +34,9 @@ The future response of the controlled plant is predicted using a dynamic model.
 
 This course is concerned mainly with the case od discrete-time linear systems with state-space representation
 
-<div class="latex-container">
 $$
 x(k+1) = Ax(k) + Bu(k)
 $$
-</div>
 
 where $x(k)$ and $u(k)$ are the model state and input vectors at the kth sampling instant.
 
@@ -70,11 +68,9 @@ $u(k + i \vert k)$ and $x(k + i \vert k)$ : input and state vectors at time $k +
 
 Prediction model
 
-<div class="latex-container">
 $$
 x(k + i \vert k) = A x(k + i \vert k) + B u(k + i \vert k), \;\;\; i = 0, 1, \dots
 $$
-</div>
 
 with initial condition $x(k \vert k) = x(k)$
 
