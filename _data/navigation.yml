@@ -21,6 +21,8 @@ sidebar-category:
         url: /cartpole
       - title: "Path Planning"
         url: /pathplanning
+      - title: "Slam"
+        url: /slam
       - title: "Digital Control"
         url: /digitalcontrol
       - title: "Linear System"
