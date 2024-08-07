@@ -98,9 +98,9 @@ $$
 u(k) = u^*(k \vert k)
 $$
 
-The process of computing $\mathbf{u}^*(k)$ 
+The process of computing $\mathbf{u}^{*}(k)$
 
-by minimizing the predicted cost and implementing the first element of $\mathbf{u}^*$
+by minimizing the predicted cost and implementing the first element of $\mathbf{u}^{*}$
 
 is then repeated at each sampling instant $k = 0, 1, \dots$.
 
@@ -114,7 +114,34 @@ The prediction horizon remains the same length despite the repetition of the opt
 
 ### 3.4 Historical development
 
+- 1960-70 : Receding horizon approaches were used to define computational methods for optimal control problems that have no closed-form solution.
+- 1980 : a means exploiting continual improvements in computational resources to improve performance
+- Recent : a eneral technique for deriving stabilizing controllers for constrained systems. And the availability of faster computers and improvements in computational efficiency of predictive controllers have extended its range of applications to include fast sampling systems.
+
 ## 4. Prediction Model
+
+A very wide class of plant model can be incorporated in a predictive control strategy.
+
+Plant models
+
+- linear
+- nonlinear
+- discrete
+- continuous-time
+
+Prediction models
+
+- deterministic
+- stochastic
+- fuzzy
+
+### 4.1 Linear plant model
+
+For linear systems, the dependence of predictions $x(k)$ on $u(k)$
+
+### 4.2 Nonlinear plant model
+
+### 4.3 Discrete and continuous-time prediction models
 
 ## 5. Constraint Handling
 
@@ -125,3 +152,4 @@ The prediction horizon remains the same length despite the repetition of the opt
 - receding horizon strategy?
 - By continually shifting the horizon over which future inputs are optimized, it attempts to compensate for the fact that this horizon is finite.
 - Provided the cost and constraints are designed correctly, a receding horizon strategy can ensure that the performance of the closed-loop system is at least as good as that of the optimal prediction.
+- Prediction models may be deterministic, stochastic, or fuzzy.
