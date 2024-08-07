@@ -98,7 +98,9 @@ $$
 u(k) = u^*(k \vert k)
 $$
 
-The process of computing $\mathbf{u}^*(k)$ by minimizing the predicted cost and implementing the first element of $\mathbf{u}^*$
+The process of computing $\mathbf{u}^*(k)$ 
+
+by minimizing the predicted cost and implementing the first element of $\mathbf{u}^*$
 
 is then repeated at each sampling instant $k = 0, 1, \dots$.
 
