@@ -23,6 +23,7 @@ $$
 
 We can predict the state trajectory over a prediction horizon $N$ using the model, so that suitable control action can be taken in order to move the state to the origin.
 
+<div class="latex-container">
 $$
 \begin{align*}
   x_2 =& \; f(x_1, u_1) \\
@@ -30,22 +31,27 @@ $$
   x_{N+1} =& \; f_N(x_N, u_N) \\
 \end{align*}
 $$
+</div>
 
 The state at some point in the future depends only on the initial state $x_1$ and all the inputs from $[u_1, u_2, \cdots, u_N]$.
 
 It is possible to choose an input sequence
 
+<div class="latex-container">
 $$
 \mathbf{u} = [u_1, \cdots, u_N]
 $$
+</div>
 
 that moves the initial state $x_1$ towards a desired region (generally origin).
 
 This goal is achieved by minimizing a cost function
 
+<div class="latex-container">
 $$
 V(\mathbf{u}) = \sum_{k=1}^N x_{k+1}^T Q x_{k+1} + u_k^T R u_k
 $$
+</div>
 
 - $Q \in \mathbb{R}^{n \times n}$ : positive semi-definite matrix used to penalise state-movements about the origin
 - $R$ : positive definite matrix that penalises input movements from the origin.
@@ -58,9 +64,11 @@ Physical limits on the system inputs and states can be directly inclued into the
 
 If the input must line in a set $\mathbb{U}$ and the state must line in a set $\mathbb{X}$ for alll time samples, then the NMPC optimization problem becomes
 
+<div class="latex-container">
 $$
 \mathbf{u*} = \operatorname{argmin} V_N(\mathbf{u}) \;\; \text{s.t.} \; u_k \in \mathbb{U}, x_{k+1} \in \mathbb{X}
 $$
+</div>
 
 Solving this problem is non-trivial and usually forms the bulk of the computational work required to obtain the next control action in NMPC. Consquently, the smaple times must be sufficiently large to allow for a solution to be foound.
 
@@ -78,9 +86,11 @@ Solving this problem is non-trivial and usually forms the bulk of the computatio
 
 ![](./../../../img/optimalcontrol/invertedpendulummodel.png)
 
+<div class="latex-container">
 $$
 \dot{x}(t) = g(x(t), u(t))
 $$
+</div>
 
 where $x^T(t) = [p(t), \theta (t), v(t), \omega (t)]$
 
@@ -89,6 +99,7 @@ where $x^T(t) = [p(t), \theta (t), v(t), \omega (t)]$
 - $v(t)$ : cart velocity
 - $\omega (t)$ : pendulum angular velocity
 
+<div class="latex-container">
 $$
 g(x(t), u(t)) =
 \begin{bmatrix}
@@ -98,6 +109,7 @@ v(t) \\
 \dfrac{\omega_1(x(t), u(t))\cos\theta (t) + a_2\omega_2(x(t))}{d(x(t))}
 \end{bmatrix}
 $$
+</div>
 
 The remaining terms
 
