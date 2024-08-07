@@ -84,7 +84,7 @@ Solving this problem is non-trivial and usually forms the bulk of the computatio
 - Input : motor (a single input)
 - Output : the pendulum angle and the cart position
 
-![](./../../../img/optimalcontrol/invertedpendulummodel.png)
+![](./../../../img/optimalcontrol/invertedpendulummodel.png){: .align-center width="400" height="200"}
 
 <div class="latex-container">
 $$
