@@ -1,36 +1,20 @@
 ---
-title: "[Cart Pole] Introduction to Cart Pole"
+title: "[Cart Pole] Project Cart Pole"
 categories:
   - cartpole
 ---
 ## Project
 
 - Subject : Inverted Pendulum Desgin and Control using MPC and RL
+- Team Member : Sewon Kim (me)
+- Project Duration : July 25 - September 10
 
-## Cart Pole
+## Project Contents
 
-- Cart : moving horizontally
-- Pole : freely rotating around its base
-- Action Space : horizontal forces that can be applied to the cart (left or right)
-  - Action 0 : left
-  - Action 1 : right
-- Control Object : to find sequence of actions such that the pole is kept in the vertical position
-- States of Observation Space
-  - Cart Position (X) : $-4.8 \leq X \leq 4.8$
-  - Cart Velocity (m/s) ($\dot{X}$) : $-\infty \leq \dot{X} \leq \infty$
-  - Pole angle of rotation (radian) ($\theta$) : $-0.418 (-24^\circ) \leq \theta \leq 0.418 (24^\circ)$
-  - Pole Angular Velocity ($\dot{\theta}$) : $-\infty \leq \dot{\theta} \leq \infty$
-
-## Reference
-
-[[You Tube] Introduction to OpenAI Gym (Gymnasium): Cart-Pole Environment - Reinforcement Learning Tutorial](https://www.youtube.com/watch?v=2sp_eucoX2I)
-
-[[Post] Cart Pole Control Environment in OpenAI Gym (Gymnasium)- Introduction to OpenAI Gym](https://aleksandarhaber.com/cart-pole-control-environment-in-openai-gym-gymnasium-introduction-to-openai-gym/)
-
-[[GitHub] Demonstration-of-Cart-Pole-OpenAI-Gym-Reinforcement-Learning-Environment-in-Python-](https://github.com/AleksandarHaber/Demonstration-of-Cart-Pole-OpenAI-Gym-Reinforcement-Learning-Environment-in-Python-)
-
-[[You Tube] Detailed Explanation and Python Implementation of Q-Learning Algorithm in OpenAI Gym (Cart-Pole)](https://www.youtube.com/watch?v=KMjQmG5Uzis)
-
-[[Post] Detailed Explanation and Python Implementation of the Q-Learning Algorithm with Tests in Cart Pole OpenAI Gym Environment – Reinforcement Learning Tutorial](https://aleksandarhaber.com/q-learning-in-python-with-tests-in-cart-pole-openai-gym-environment-reinforcement-learning-tutorial/)
-
-[[GitHub] Q-Learning-Algorithm-in-Python-with-Cart-Pole-OpenAI-Gym--Gymnasium-Environment](https://github.com/AleksandarHaber/Q-Learning-Algorithm-in-Python-with-Cart-Pole-OpenAI-Gym--Gymnasium-Environment)
+1. Linear Inverted Pendulum의 역학을 수학적으로 Modeling한다.
+2. AutoDesk를 이용하여 Inverted Pendulum을 기구 설계한다.
+3. Inverted Pendulum의 hardware를 제작한다.
+4. Simulation 환경을 구성한다.
+5. MPC controller와 end-to-end based controller를 설계하고 simulation 환경에서 테스트한다.
+6. 두 제어기를 Inverted Pendulum Hardware에서 동작시킨다.
+7. 두 제어기를 정량적으로 비교한다.
