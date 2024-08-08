@@ -2,7 +2,7 @@
 title: "[Cart Pole - Paper Review] NMPC of an Inverted Pendulum"
 excerpt:
 categories:
-  - cartpole
+  - optimalcontrol
 ---
 ## I. Introudction
 
