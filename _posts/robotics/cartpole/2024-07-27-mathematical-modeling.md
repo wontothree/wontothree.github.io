@@ -1,5 +1,5 @@
 ---
-title: "[Cart Pole] Mathematical Modeling of Linear Inverted Pendulum"
+title: "[Cart Pole] Mathematical Modeling"
 excerpt:
 categories:
   - cartpole
