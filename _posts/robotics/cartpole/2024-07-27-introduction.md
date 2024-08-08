@@ -9,7 +9,7 @@ categories:
 - Team Member : Sewon Kim (me)
 - Project Duration : July 25 - September 10
 
-## Project Contents
+## Contents
 
 1. Linear Inverted Pendulum의 역학을 수학적으로 Modeling한다.
 2. AutoDesk를 이용하여 Inverted Pendulum을 기구 설계한다.
