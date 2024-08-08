@@ -1,5 +1,5 @@
 ---
-title: "[Cart Pole] Project Cart Pole"
+title: '[Cart Pole] Introduction to Project "Inverted Pendulum Desgin and Control using MPC and RL"'
 categories:
   - cartpole
 ---
