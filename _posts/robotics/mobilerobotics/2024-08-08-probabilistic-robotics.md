@@ -1,6 +1,7 @@
 ---
 title: "[Mobile Robotics] Probabilistic Robotics"
-excerpt:
+excerpt: Wolfram Burgrad
 categories:
   - mobilerobotics
 ---
+## 
