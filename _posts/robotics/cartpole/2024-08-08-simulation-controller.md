@@ -1,12 +1,8 @@
 ---
-title: "[Cart Pole] Introduction to Cart Pole"
+title: "[Cart Pole] Simulation and Controller"
 categories:
   - cartpole
 ---
-## Project
-
-- Subject : Inverted Pendulum Desgin and Control using MPC and RL
-
 ## Cart Pole
 
 - Cart : moving horizontally
