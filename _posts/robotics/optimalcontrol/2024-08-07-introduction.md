@@ -199,19 +199,44 @@ This course is concerned with linear inequality constrains
 
 **Input constraints.**
 
-absolute constraint
+absolute constraint:
 
 $$
 \underline{u} \leq u(k) \leq \overline{u}
 $$
 
+rate constraints:
+
+$$
+\underline{\Delta u} \leq u(k) - u(k-1) \leq \overline{\Delta u}
+$$
+
+Input constraints commonly arise as a result of actuator limits, e.g. torque saturation in d.c. motors and flow saturation in valvues.
+
 **State constraints.**
+
+Linear state constraints have the general form
+
+$$
+\overline{g_c} \leq G_c x(k) \leq \underline{g_c}
+$$
+
+where $G_c$ is a constant matrix and $\overline{g_c}, \underline{g_c}$ are constant vectors.
 
 ### 5.1 De-tuned optimal control
 
+It may be possible to acount for input constraints by increasing the input weighting $R$ in the LQ performance cost untile the associated optimal feedback law satisfies constraints in the desired operating region.
+
 ### 5.2 Anti-windup strategies
 
+Anti-windup methods aim to prevent the instability that can occur in controllers which incorporate integral action when input constraints are active.
+
 ### 5.3 Model predictive control
+
+## Summary of Section 1
+
+- MPC is a feedback law based on prediction, optimization, and receding horizon implementation. The optimization is performed over open-loop predictions, which are based on a plant model.
+- Constraints on system inputs and states can be hard or soft. Constraints are hendled sub-optimally using de-tued optimal control or anti-windup strategies whereas MPC enables constraints to be handled optimally.
 
 ## Question
 
@@ -224,3 +249,8 @@ $$
 - QP : 선형 상태 공간 모델을 x에 대해 정리하여 비용함수의 x 자리에 대입한 식?
 - Prediction model == plant model ?
 - 1.4.3 이해 안 됨.
+- actuator
+- State constraints may be active during transients, e.g. aircraft stall speed, or in steady-state operation as a result of e.g. economic constraints on process operation.
+- hard..
+- fig4, 5의 의미
+- Constraints on system inputs and states can be hard or soft. Constraints are hendled sub-optimally using de-tued optimal control or anti-windup strategies whereas MPC enables constraints to be handled optimally.
