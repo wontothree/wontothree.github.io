@@ -1,12 +1,12 @@
 ---
-title: "[Cart Pole] Introduction to 'Inverted Pendulum Desgin and Control using MPC and RL'"
+title: "[Cart Pole] Introduction"
 categories:
   - cartpole
 ---
 ## Project
 
-- Subject : Inverted Pendulum Desgin and Control using MPC and RL
-- Team Member : Sewon Kim (me)
+- Nmae : Inverted Pendulum Desgin and Control using MPC and RL
+- Team Member : Sewon Kim
 - Project Duration : July 25 - September 10
 
 ## Contents
