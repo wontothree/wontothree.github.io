@@ -1,6 +1,5 @@
 ---
 title: "[MPC] Introduction"
-excerpt: "Mark Cannon Lecture note"
 categories:
   - optimalcontrol
 ---
