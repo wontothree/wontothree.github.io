@@ -98,9 +98,9 @@ $$
 u(k) = u^*(k \vert k)
 $$
 
-The process of computing $\mathbf{u}^{*}(k)$ 
+The process of computing $\mathbf{u}^{*}(k)$
 
-by minimizing the predicted cost and implementing the first element of $\mathbf{u}^{*}$ 
+by minimizing the predicted cost and implementing the first element of $\mathbf{u}^{*}$
 
 is then repeated at each sampling instant $k = 0, 1, \dots$.
 
@@ -250,9 +250,7 @@ Anti-windup methods aim to prevent the instability that can occur in controllers
   - prediction model : 가정한 plant model. 실제 plant model로부터 도출된 모델
 - QP : 선형 상태 공간 모델을 x에 대해 정리하여 비용함수의 x 자리에 대입한 식?
 - 1.4.3 이해 안 됨.
-- actuator
 - State constraints may be active during transients, e.g. aircraft stall speed, or in steady-state operation as a result of e.g. economic constraints on process operation.
-- hard..
 - fig4, 5의 의미
 - Constraints on system inputs and states can be hard or soft. Constraints are hendled sub-optimally using de-tued optimal control or anti-windup strategies whereas MPC enables constraints to be handled optimally.
 
@@ -306,92 +304,32 @@ stochastic optimiation은 plant model이 stochastic해지는 것인가? (?)
   - 해가 global unique하다.
   - solver가 풀기 쉽다.
   - 저 미방을 완전히 풀어서 원래 최적화 문제에 대입하여 qp의 cost function을 얻을 수 있다.
+- 비선형 시스템은 각각이 연구 주제다.
+- 여기서는 T는 제어 주기이자 예측 주기(샘플링)이다.
+- 먼저 연속 시간에서 모델링을 하고 이산화 모델을 만든다. 처음부터 이산화된 모델이 주어졌다면 그대로 사용하면 된다. 핵심은 MPC를 사용하기 위해서는 이산화된 모델을 사용해야 한다는 것이다.
+- Soft and hard constraint
+  - MPC에서 hard constraint : 최적화 문제에서 constraint
+  - MPC에서 soft constraint : cost function에서 추가된 term
+- discretize한다는 것은 다른 모든 것은 그대로 둔 채 plant model만 discretiz하면 되나? Yes
+- De-tuned optimal control 와 Anti-windup strategies는 아직 mpc가 아니다.
+  - R을 높이면 u를 적게 사용할 것이다. R에 대한 가중치를 키우면 상대적으로 Q에 대한 가중치가 작아져서 u는 빠르게 수렴할지라도 y는 빠르게 수렴하지 않는다.
+  - 저 두 가지보다 mpc가 조금 더 똑똑하다. 저 두 가지는 input constraint를 고려하지 않았다.
+- 입력의 변수 수 : 입력의 원소의 개수 x 샘플링 수
+- 지금은 disturbance에 radnom 성이 없다. 100번 해도 동일한 결론이 나온다. random 성이 들어가면 100번 중에 다른 결론이 나온다. stochastic optimization에서는 disturbance를 random variable로 두고,  상태변수도 random variable이 된다. 가우시안이다 등의 가정을 한다. state도 평균과 분산이 있을 것이다. 이때 최적이라는 것이 굉장히 애매하다. 그래서 평균을 취한다. cost function에 expection이 들어간다. cost function도 이산화해야 한다. MPC는 어짜피 이산화 버전만을 다룬다. summaton을 한다는 것 자체가 이산화되어 있다는 것이다. 이미 이산화된 버전이다.
 
-비선형 시스템은 각각이 연구 주제다.
-
-T : 최적화 문제를 한 번 푸는 주기
-
-제어 주기는 T
-
-여기서는 T는 제어 주기이자 예측 주기(샘플링)이다.
-
-먼저 연속 시간에서 모델링을 하고 이산화 모델을 만든다.
-
-처음부터 이산화된 모델이 주어졌다면
-
-핵심은 이산화된 모델을 사용하자.
-
-MPC에서 hard constraint : 최적화 문제에서 constraint
-
-MPC에서 soft constraint : cost function에서 추가된 term
-
-discretize한다는 것은 다른 모든 것은 그대로 둔 채 plant model만 discretiz하면 되나? (?)
-
-De-tuned optimal control 와 Anti-windup strategies는 아직 mpc가 아니다.
-
-R을 높이면 u를 적게 사용할 것이다.
-
-R에 대한 가중치를 키우면 상대적으로 Q에 대한 가중치가 작아져서 u는 빠르게 수렴할지라도 y는 빠르게 수렴하지 않는다.
-
-저 두 가지보다 mpc가 조금 더 똑똑하다.
-
-저 두 가지는 input constraint를 고려하지 않았다.
-
-입력의 변수 수 : 입력의 원소의 개수 x 샘플링 수
-
-
-지금은 disturbance에 radnom 성이 없다.
-
-100번 해도 동일한 결론이 나온다.
-
-random 성이 들어가면 100번 중에 다른 결론이 나온다.
-
-stochastic한 모델
-
-disturbance를 random variable로 두고 
-
-상태변수도 random variable이 된다.
-
-가우시안이다 등의 가정을 한다.
-
-state도 평균과 분산이 있을 것이다.
-
-이때 최적이라는 것이 굉장히 애매하다.
-
-그래서 평균을 취한다.
-
-cost function에 expection이 들어간다.
-
-cost function도 이산화해야 한다.
-
-MPC는 어짜피 이산화를 말하기 때문에
-
-summaton을 한다는 것 자체가 이산화되어 있다는 것이다.
-
-이미 이산화된 버전이다.
-
-cost function을 구성하는
+cost function을 구성하는 x(t), x(k) 중에 고민해야 한다.
 
 $$
 L(x, u) = x^TQx + u^TRu
 $$
 
-x(t), x(k) 중에 고민해야 한다.
+- 이산화 한다고 하더라도 L은 건드릴 필요가 없다. 연속시간이었다면 적분을 했어야 했을 것이다.
+- soft constraint을 주는 대표적인 세 가지 방법이 있다.
+  - 가장 메이저한 방법이 barrior function을 사용하는 것이다. 지수 스케일의 barrior function 등 $\sum L + barrier$
+  - slack vairable을 이용하는 방법도 있다.
 
-L은 건드릴 필요가 없다.
-
-연속시간이었다면 적분을 했어야 한다.
-
-slack variable -> soft constraint
-
+$$
 J = sum L + r
 
 s.t. x \leq 1 + r
-
-제일 유명한 건
-
-barrior function을 사용하면
-
-\sum L + barrier
-
-지수 스케일의 barrier
+$$
