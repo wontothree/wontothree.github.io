@@ -1,8 +1,8 @@
 ---
-title: "[Cart Pole - Paper Review] NMPC of an Inverted Pendulum"
+title: "[Paper Review] NMPC of an Inverted Pendulum"
 excerpt:
 categories:
-  - optimalcontrol
+  - paperreview
 ---
 ## I. Introudction
 

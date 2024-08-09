@@ -1,5 +1,5 @@
 ---
-title: "[Optimal Control] "
+title: "[Optimal Control] 랩미팅"
 excerpt:
 categories:
   - optimalcontrol
