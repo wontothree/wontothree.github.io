@@ -13,7 +13,7 @@ categories:
 
 ![](../../../img/cartpole/cartpole-3d.png){: .align-center width="400" height="200"}
 
-## Material
+## Materials
 
 |Index|용도|재료명|
 |---|---|---|
@@ -40,6 +40,15 @@ categories:
 |21|납땜|만능기판|
 
 Sheet Metal Outsourcing Cost : 12만원
+
+## Research Note
+
+### 동력 전달 방식
+
+1. 톱니바퀴
+2. 벨트
+
+|
 
 ## Sheet Metal
 

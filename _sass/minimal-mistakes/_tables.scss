@@ -2,6 +2,13 @@
    TABLES
    ========================================================================== */
 
+  .table-container {
+  display: flex;
+  justify-content: center; /* Center-aligns the table */
+  overflow-x: auto; /* Allows for horizontal scrolling if needed */
+  padding: 0 1em; /* Optional: Adds padding for aesthetics */
+}
+
 table {
   display: block;
   margin-bottom: 1em;
