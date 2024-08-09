@@ -1,5 +1,5 @@
 ---
-title: "[Reinforcement Learning] Markov Decision Process"
+title: "[RL] Markov Decision Process"
 excerpt:
 categories: 
   - reinforcementlearning

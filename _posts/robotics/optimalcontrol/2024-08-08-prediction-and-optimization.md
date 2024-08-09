@@ -116,6 +116,8 @@ Note that matrices $H, F$ and $G$ can be computed offline.
 
 ### 1.1 LTV prediction models
 
+
+
 ## 2. Unconstrainted optimization
 
 ### 2.1 Horizon length and performance

@@ -1,5 +1,5 @@
 ---
-title: "[Reinforcement Learning] 밴디트 문제"
+title: "[RL] Bendit Problem"
 excerpt:
 categories: 
   - reinforcementlearning

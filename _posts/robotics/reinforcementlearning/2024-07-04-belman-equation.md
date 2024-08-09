@@ -1,5 +1,5 @@
 ---
-title: "[Reinforcement Learning] Bellman Equation"
+title: "[RL] Bellman Equation"
 excerpt:
 categories: 
   - reinforcementlearning
