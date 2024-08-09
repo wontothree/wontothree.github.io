@@ -1,5 +1,5 @@
 ---
-title: "[Cart Pole] Simulation and Controller"
+title: "[Cart Pole] Simulation Environment"
 categories:
   - cartpole
 ---
