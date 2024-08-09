@@ -156,11 +156,219 @@ $$
   &= \sum_{s'} p(s' \vert s, a) r(s, a, s') + \gamma \sum_{s'} p(s' \vert s, a) \mathbb{E}_\pi \left[ G_{t+1} \vert S_{t+1} = s' \right] \\
   &= \sum_{s'} p(s' \vert s, a) \left[  r(s, a, s') + \gamma \mathbb{E}_\pi \left[ G_{t+1} \vert S_{t+1} = s' \right] \right] \\
   &= \sum_{s'} p(s' \vert s, a) \left[  r(s, a, s') + \gamma v_\pi (s') \right] \\
+  &= \sum_{s'} p(s' \vert s, a) \left[  r(s, a, s') + \gamma \sum_{a'} \pi (a' \vert s') q_\pi (s', a') \right] \\
 \end{align*}
 $$
 
+마지막 식이 행동 가치 함수를 이용한 벨만 방정식이다.
+
 ## 4. 벨만 최적 방정식
+
+벨만 방정식은 어떤 정책 $\pi$에 대해 설립하는 방정식이다.
+
+우리가 궁극적으로 찾으려고 하는 것은 최적 정책이다.
+
+- 최적 정책 : 모든 상태에서 상태 가치 함수가 최대인 정책
+- 벨만 최적 방정식 : 최적 정책에 대해 성립하는 방정식
+
+이번 절에서는 벨만 최적 방정식에 대해 알아보겠다.
+
+다음은 어떠한 정책에 대해서 성립하는 벨만 방정식이다.
+
+$$
+\begin{align*}
+  v_\pi (s) &= \sum_{a, s'} \pi (a \vert s) p(s' \vert s, a) \left[ r(s, a, s') + \gamma v_\pi (s') \right] \\
+  &= \sum_{a} \pi (a \vert s) \sum_{s'} p(s' \vert s, a) \left[ r(s, a, s') + \gamma v_\pi (s') \right] \\
+\end{align*}
+$$
+
+최적 정책을 $\pi_*(a \vert s)$라고 하면 다음과 같은 벨만 방정식이 성립한다.
+
+$$
+v_* (s) = \sum_{a} \pi_* (a \vert s) \sum_{s'} p(s' \vert s, a) \left[ r(s, a, s') + \gamma v_* (s') \right]
+$$
+
+이 식에서 최적 정책의 가치 함수는 $v_*(s)$이다.
+
+벨만 최적 방정식
+
+$$
+v_*(s) = \max_a \sum_{s'} p(s' \vert s, a) \left[ r(s, a, s') + \gamma v_*(s) \right]
+$$
+
+이 식과 같이 최댓값은 max 연산자를 사용하여 표현할 수 있다.
+
+### 4.2 행동 가치 함수의 벨만 최적 방정식
+
+행동 가치 함수 (Q 함수)에 대해서도 벨만 최적 방정식을 구할 수 있다.
+
+최적 행동 가치 함수 : 최적 정책에서의 행동 가치 함수
+
+Q 함수의 벨만 방정식
+
+$$
+q_\pi (s, a) = \sum_{s'} p(s' \vert s, a) \left[ r(s, a, s') + \gamma \sum_{a'} \pi (a' \vert s') q_\pi (s' \vert a') \right]
+$$
+
+Q함수에 대한 벨만 최적 방정식
+
+$$
+\begin{align*}
+  q_* (s, a) &= \sum_{s'} p(s' \vert s, a) \left[ r(s, a, s') + \gamma \sum_{a'} \pi_* (a' \vert s') q_* (s' \vert a') \right] \\
+  &= \sum_{s'} p(s' \vert s, a) \left[ r(s, a, s') + \gamma \max_{a'} q_* (s' \vert a') \right] \\
+\end{align*}
+$$
+
+MDP에서는 결정적 최적 정책이 하나 이상 존재한다.
+
+결정적 정책 : 특정 상태에서 반드시 특정 행동을 선택하는 정책
+
+최적 정책은 $\mu_*(s)$와 같이 함수로 나타낼 수 있다.
+
+문제에 따라 최적 정책이 여러 개일 수 있지만 그 가치 함수들의 값은 모두 같다.
+
+따라서 최적 정책의 가치 함수는 $v_*(s)$라는 하나의 기호로 나타낼 수 있다.
+
+마찬가지로 Q 함수도 $q_*(s, a)$도 하나만 존재한다.
 
 ## 5. 벨만 최적 방정식의 예
 
+두 칸짜리 그리드 월드
+
+보상은 에이전트가 L1에서 L2로 이동할 때 +1, 벽에 부딪히면 -1이다.
+
+사과는 몇 번이고 다시 생성된다.
+
+### 5.1 벨만 최적 방정식 적용
+
+두 칸짜리 그리드 월드 문제에 벨만 최적 방정식을 적용할 것이다.
+
+벨만 최적 방정식
+
+$$
+v_*(s) = \max_a \sum_{s'} p(s' \vert s, a) \left[ r(s, a, s') + \gamma v_*(s) \right]
+$$
+
+상태 전이가 결정적이라고 가정하자.
+
+- $s' = f(s, a)$이면 $p(s' \vert s, a) = 1$
+- $s' \neq f(s, a)$이면 $p(s' \vert s, a) = 0$
+
+$s' = f(s, a)$일 때,
+
+$$
+v_*(s) = \max_a \left[ r(s, a, s') + \gamma v_*(s') \right]
+$$
+
+이제 할인율이 0.9일 때 두 칸짜리 그리드 월드에 벨만 최적 방정식을 적용하자.
+
+$$
+\begin{align*}
+  v_*(L1) &= \max \left[ -1 + 0.9 v_*(L1), 1 + 0.9 v_*(L2) \right] \\
+  v_*(L2) &= \max \left[ 0.9 v_*(L1), -1 + 0.9 v_*(L2) \right] \\
+\end{align*}
+$$
+
+벨만 방정식(연립 방정식)의 해는 다음과 같다.
+
+$$
+\begin{cases}
+  v_*(L1) = 5.26 \\
+  v_*(L2) = 4.73
+\end{cases}
+$$
+
+### 5.2 최적 정책 구하기
+
+우리가 궁극적으로 알고 싶은 것은 최적 정책이다.
+
+최적 행동 가치 함수 $q_*(s, )a$를 알고 있다면, 상태 s에서의 최적 행동은 다음과 같이 구할 수 있다.
+
+$$
+\mu_*(s) = \underset{a}{\operatorname{argmax}} \; q_* (s, a)
+$$
+
+argmax는 최댓값을 만들어내는 인수를 반환한다.
+
+최적 상태 가치 함수 $v_*(s)$를 알고 있다면 최적 행동을 다음과 같이 얻을 수 있다.
+
+$$
+\mu_*(s) = \underset{a}{\operatorname{argmax}} \; p(s' \vert s, a) \left[ r(s, a, s') + \gamma v_*(s') \right]
+$$
+
+두 식은 탐욕 정책이다.
+
+탐욕 정책은 국소적인 후보 중에서 최선의 행동을 찾는다. 이번처럼 벨만 최적 방정식에서는 현재 상태 s와 다음 상태 s'만 관련이 있으며, 단순히 다음 상태만을 고려하여 가치가 가장 큰 행동을 선택한다.
+
+마지막으로 얻은 식을 이용하여 두 칸짜리 그리드 월드 문제의 최적 정책을 찾아보자.
+
+취할 수 있는 행동은 left와 right뿐이다.
+
+Left를 선택하면 상태 L1로 전이하여 보상 -1을 얻는다.
+
+할인율은 0.9
+
+$$
+\sum_{s'} p(s' \vert s, a) \left[ r(s, a, s') + \gamma \max_{a'} q_* (s' \vert a') \right] = -1 + 0.9 v_*(L1) = -1 + 0.9 * 5.26 = 3.734
+$$
+
+Right를 선택하면 상태 L2로 전이하여 보상 1을 얻는다.
+
+$$
+1 + 0.9 v_*(L2) = 1 + 0.9 * 4.73 = 5.257
+$$
+
+따라서 값이 더 큰 행동은 Right이다.
+
+상태 L1에서의 최적의 행동은 Right라는 뜻이다.
+
+같은 방식으로 상태 L2에서의 최적 행동은 Left이다.
+
+따라서 L1에서는 오른쪽으로, L2에서는 왼쪽으로 이동하는 행동이 최적 정책이다.
+
+최적 상태 가치 함수를 알면 최적 정책을 구할 수 있다.
+
 ## 6. 정리
+
+벨만 방정식을 도출하고 단순한 문제를 벨만 방정식을 이용하여 풀었다.
+
+벨만 방정식을 이용하여 연립 방정식으 ㄹ얻고 이를 통해 가치 함수를 구할 수 있었다.
+
+실제 문제에서는 계산량이 너무 많아져서 연립 방정식을 이용하는 방법은 적용할 수 없다.
+
+하지만 벨만 방정식은 많은 강화 학습 알고리즘에 중요한 기초를 제공한다.
+
+강화 학습의 궁극적인 목표는 최적 정책 찾기이다.
+
+이번 장에서는 벨만 최적 방정식에 대해서 배웠다.
+
+벨만 최적 방정식은 최적 정책에서 성립하는 특별한 벨만 방정식이다.
+
+최적 정책의 가치 함수를 구할 수 있다면 쉽게 최적 정책을 찾을 수 있다.
+
+벨만 방정식
+
+$$
+\begin{align*}
+  v_\pi (s) &= \sum_{a, s'} \pi (a \vert s) p(s' \vert s, a) \left[ r(s, a, s') + \gamma v_\pi (s') \right] \\
+  q_\pi (s, a) &= \sum_{s'} p(s' \vert s, a) \left[ r(s, a, s') + \gamma \sum_{a'} \pi (a' \vert s') q_\pi (s', a') \right]
+\end{align*}
+$$
+
+벨만 최적 방정식
+
+$$
+\begin{align*}
+  v_* (s) &= \max_a \; \sum_{s'} p(s' \vert s, a) \left[ r(s, a, s') + \gamma v_* (s') \right] \\
+  q_* (s, a) &= \sum_{s'} p(s' \vert s, a) \left[ r(s, a, s') + \gamma \max_{a'} \; q_* (s', a') \right]
+\end{align*}
+$$
+
+최적 정책
+
+$$
+\begin{align*}
+  \mu_*(s) &= \underset{a}{\operatorname{argmax}} \; q_* (s, a) \\
+  &=  \underset{a}{\operatorname{argmax}} \; \sum_{s'} p(s' \vert s, a) \left[ r(s, a, s') + \gamma v_*(s') \right]
+\end{align*}
+$$
