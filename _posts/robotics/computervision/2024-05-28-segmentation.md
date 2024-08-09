@@ -1,5 +1,5 @@
 ---
-title: "[Computer Vision] Segmentation"
+title: "[CV] Segmentation"
 excerpt:
 categories:
   - computervision
