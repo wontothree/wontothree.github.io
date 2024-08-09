@@ -253,7 +253,7 @@ Anti-windup methods aim to prevent the instability that can occur in controllers
 - fig4, 5의 의미
 - Constraints on system inputs and states can be hard or soft. Constraints are hendled sub-optimally using de-tued optimal control or anti-windup strategies whereas MPC enables constraints to be handled optimally.
 
-## 세미나
+## Seminar
 
 linear MPC가 갖춰야 할 조건
 
