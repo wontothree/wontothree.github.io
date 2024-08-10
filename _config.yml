@@ -116,21 +116,6 @@ author:
     - label: 
       icon: 
       url: 
-    - label: 
-      icon: 
-      # url: "https://twitter.com/"
-    - label: "Facebook"
-      icon: "fab fa-fw fa-facebook-square"
-      # url: "https://facebook.com/"
-    - label: "LinkedIn"
-      icon: "fab fa-fw fa-linkinin"
-      url: "https://www.linkedin.com/in/sewon-kim-75698a242/"
-    - label: "GitHub"
-      icon: "fab fa-fw fa-github"
-      url: "https://github.com/wontothree"
-    - label: "Instagram"
-      icon: "fab fa-fw fa-instagram"
-      url: "https://www.instagram.com/won_to_three/"
 
 # Site Footer
 footer:
