@@ -5,6 +5,7 @@ categories:
 ---
 ## Project
 
+- Conpetition : UOS ECE IF (Innovation Fair)
 - Nmae : Inverted Pendulum Desgin and Control using MPC and RL
 - Team Member : Sewon Kim
 - Project Duration : July 25 - September 10
