@@ -67,3 +67,7 @@ $$
 ### 5.2 가치 반복법 구현
 
 ## 6. 정리
+
+## Reference
+
+Deep Learning from Scratch 4
