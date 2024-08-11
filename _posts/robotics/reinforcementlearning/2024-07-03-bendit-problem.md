@@ -113,7 +113,3 @@ categories:
 표본 평균 vs 지수 이동 평균(지수 가중 이동 평균)
 
 ## 6. 정리
-
-## Reference
-
-Deep Learning from Scratch 4

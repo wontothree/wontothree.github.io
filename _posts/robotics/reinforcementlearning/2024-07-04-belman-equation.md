@@ -372,7 +372,3 @@ $$
   &=  \underset{a}{\operatorname{argmax}} \; \sum_{s'} p(s' \vert s, a) \left[ r(s, a, s') + \gamma v_*(s') \right]
 \end{align*}
 $$
-
-## Reference
-
-Deep Learning from Scratch 4
