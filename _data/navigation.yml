@@ -20,24 +20,18 @@ sidebar-category:
     children:
       - title: "ROS2"
         url: /ros2
-      - title: "Cart Pole"
-        url: /cartpole
-      - title: "F1tenth"
-        url: /f1tenth
       - title: "Mobile Robotics"
         url: /slam
-      - title: "Digital Control"
-        url: /digitalcontrol
       - title: "Linear System"
         url: /linearsystem
       - title: "Nonlinear System"
         url: /nonlinearsystem
+      - title: "Digital Control"
+        url: /digitalcontrol
       - title: "Optimal Control"
         url: /optimalcontrol
       - title: "Reinforcement Learning"
-        url: /reinforcementlearning  
-      - title: "Computer Vision"
-        url: /computervision       
+        url: /reinforcementlearning      
   - title: "Computer Science"
     children:
       - title : "C++"
@@ -48,6 +42,8 @@ sidebar-category:
         url: /datastructure
       - title: "Machine Learning"
         url: /machinelearning
+      - title: "Computer Vision"
+        url: /computervision
   - title: "Electrical Engineering"
     children:
       - title: "Digital Logic"
@@ -86,3 +82,9 @@ sidebar-category:
         url: /marketing
       - title: "Etc"
         url: /etc
+  - title: "Project"
+    children:
+      - title: "Cart Pole"
+        url: /cartpole
+      - title: "F1tenth"
+        url: /f1tenth
