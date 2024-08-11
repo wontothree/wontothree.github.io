@@ -22,8 +22,8 @@ sidebar-category:
         url: /ros2
       - title: "Cart Pole"
         url: /cartpole
-      - title: "Path Planning"
-        url: /pathplanning
+      - title: "F1tenth"
+        url: /f1tenth
       - title: "Mobile Robotics"
         url: /slam
       - title: "Digital Control"
