@@ -347,7 +347,13 @@ auto func_calc_costs = [&](const PriorSamplesWithCosts& sampler) {
 };
 ```
 
-- Stein Variational Gradient Descent 반복 : SVGD를 통해 샘플들을 업데이트한다. SVGD는 샘플들이 posterior 분포를 따르도록 샘플을 이동시키는 방법
+- **Stein Variational Gradient Descent 반복** : SVGD를 통해 샘플들을 업데이트한다. SVGD는 샘플들이 posterior 분포를 따르도록 샘플을 이동시키는 방법
+  - `approx_grad_posterior_batch` 함수 : 주어진 샘플에 대해 log posterior의 기울기를 근사한다.
+    - `prior_samples_ptr_` : 샘플을 담고 있는 객체의 포인터이고, `func_calc_costs` 는 위에서 정의된 비용 계산을 위한 람다 함수이다.
+    - `grad_log_posterior` : log posterior의 기울기를 포함하는 `ControlSeqBatch` 객체이다. 이 기울기는 확률 및도 함수의 변화를 측정하는 데 사용된다.
+  - `phi_batch` 함수 : SVGD 알고리즘의 핵심 단계로, `grad_log_posterior` 를 사용하여 샘플을 이동시키기 위한 변환을 계산한다.
+    - `phis` : 각 샘플에 대해 계산된 이동 벡터를 담고 있는 `ControlSeqBatch`
+  - `#pragma omp parallel for num_threads(thread_num_)` : OpenMP를 사용하여 `for` 루프를 병렬화하여 각 샘플의 업데이트를 여러 스레드에서 동시에 수행할 수 있도록 한다.
 
 ```cpp
 for (int i = 0; i < num_svgd_iteration_; i++) {
