@@ -320,19 +320,19 @@ pub_ackermann_cmd_.publish(control_msg_);
 const double calculation_time = stop_watch_.lap();
 ```
 
-## Solver (mpc_solver_ptr_->solve(initial_state))
+## Solver
 
-'mpc_solver_ptr_->solve(initial_state)' 이 부분에서 어떤 일이 벌어질까?
+'mpc_solver_ptr_->solve(initial_state)'에서 어떤 일이 벌어질까?
 
 먼저 yaml 파일에 작성된 mpc_mode (forward_mppi, reverse_mppi, sv_mppi, svg_mppi) 변수에 따라 mpc_solver_ptr은 생성자 함수에서 해당하는 클래스 (ForwardMPPI, ReverseMPPI, SteinVariationalMPC, SVGuidedMPPI)의 참조 변수로 선언된다. 우리는 sv_mppi의 solver 함수를 살펴보자.
 
-이 함수는 Stein Variationa Gradient Descent 기법을 사용하여 제어 시퀀스 샘플을 업데이트하고 샘플의 가중치를 계산하여 최적의 제어 시퀀스를 찾는다. 충돌 비율을 계산하고, 가중치가 유효하지 않으면 재샘플링을 수행한다. 이 과정에서 SVGD를 통해 샘플을 이동시키고, 가중치를 통해 제어 시퀀스를 최적화하는 방법을 사용한다.
-
 [stein_variational_mpc.cpp](https://github.com/kohonda/proj-svg_mppi/blob/main/src/mppi_controller/src/stein_variational_mpc.cpp)
+
+이 함수는 Stein Variationa Gradient Descent 기법을 사용하여 제어 시퀀스 샘플을 업데이트하고 샘플의 가중치를 계산하여 최적의 제어 시퀀스를 찾는다. 충돌 비율을 계산하고, 가중치가 유효하지 않으면 재샘플링을 수행한다. 이 과정에서 SVGD를 통해 샘플을 이동시키고, 가중치를 통해 제어 시퀀스를 최적화하는 방법을 사용한다.
 
 ```cpp
 std::pair<ControlSeq, double> SteinVariationalMPC::solve(const State& initial_state) {
-    \\ ...
+    // ...
 }
 ```
 
@@ -430,4 +430,3 @@ if (is_valid) {
 ## Reference
 
 [proj-svg_mppi](https://github.com/wontothree/proj-svg_mppi)
-
