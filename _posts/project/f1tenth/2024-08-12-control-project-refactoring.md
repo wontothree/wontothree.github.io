@@ -48,13 +48,19 @@ categories:
 └── package.xml
 ```
 
-## Core Source Code
+## Core Function
 
 [proj-svg_mppi/src/mppi_controller/src/mppi_controller_ros.cpp](https://github.com/kohonda/proj-svg_mppi/blob/main/src/mppi_controller/src/mppi_controller_ros.cpp#L246)
 
 함수 MPPIControllerROS::timer_callback는 ROS 타이머 콜백 함수로 일정 주기로 호출된다. 이 함수는 MPPI 기반 차량 제어를 수행한다.
 
 이 함수는 로봇의 상태와 제어 명령을 주기적으로 업데이트하고, MPPI를 이용하여 제어 명령을 계산하며, 이를 기반으로 로봇의 조향 각도와 속도를 설정한다. 또한 다양한 상태를 시각화하고 디버깅 정보를 게시한다.
+
+```cpp
+void MPPIControllerROS::timer_callback([[maybe_unused]] const ros::TimerEvent& te) {
+  // ...
+}
+```
 
 - 상태 체크 : 로봇의 상태와 필요한 맵이 준비되었는지 확인한다.
 
@@ -226,7 +232,7 @@ mppi_metrics_msg.input_error = input_error;
 pub_mppi_metrics_.publish(mppi_metrics_msg);
 ```
 
-## Core Part
+## Core Logic
 
 MPPI 제어기를 사용하여 로봇의 제어 명령을 계산하고 게시하는 부분
 
