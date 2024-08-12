@@ -588,6 +588,11 @@ return phi_batch;
 
 [stein_variational_guided_mppi.cpp](https://github.com/kohonda/proj-svg_mppi/blob/main/src/mppi_controller/src/stein_variational_guided_mppi.cpp)
 
+- Input : 'const State& initial_state'
+- Output : 'std::make_pair(updated_control_seq, collision_rate)'
+
+시스템의 초기 상태를 입력받아 최적화된 제어 입력 시퀀스 - 시간에 따라 취해야 하는 일련의 행동이나 명령 - 과 충돌 비율을 출력한다.
+
 ```cpp
 std::pair<ControlSeq, double> SVGuidedMPPI::solve(const State& initial_state) {
   // ...
