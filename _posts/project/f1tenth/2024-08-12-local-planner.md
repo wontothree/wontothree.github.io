@@ -7,4 +7,4 @@ categories:
 
 Stein Variational Guided MPPI
 
-## ìƒí
+## Stat
