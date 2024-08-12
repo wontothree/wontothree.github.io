@@ -320,7 +320,7 @@ pub_ackermann_cmd_.publish(control_msg_);
 const double calculation_time = stop_watch_.lap();
 ```
 
-## Solver
+## Solver 'SV_MPC'
 
 'mpc_solver_ptr_->solve(initial_state)'에서 어떤 일이 벌어질까?
 
@@ -336,7 +336,7 @@ std::pair<ControlSeq, double> SteinVariationalMPC::solve(const State& initial_st
 }
 ```
 
-- 비용 함수 계산 준비 : 주어진 샘플에 대한 비용을 계산하는 람다 함수를 정의한다. 람다 함수는 MPC 문제를 해결하기 위해 사용될 샘플 비용을 계산하는 데 사용된다.
+- 비용함수 계산 람다 함수 : MPC 문제를 해결하기 위해 사용될 샘플 비용을 계산
 
 ```cpp
 // calculate gradient of log posterior (= approx grad log_likelihood estimated by monte carlo method + grad log prior)
@@ -546,15 +546,15 @@ ControlSeqBatch SteinVariationalMPC::phi_batch(const PriorSamplesWithCosts& samp
   - h가 너무 작아지지 않도록 최소값을 1e-5로 설정한다.
 
 ```cpp
-    // calculate median of samples
-    // This makes the sum of kernel values close to 1
-    std::vector<double> dists(samples.get_num_samples(), 0.0);
-    for (size_t i = 0; i < samples.get_num_samples(); i++) {
-        dists[i] = (samples.noised_control_seq_samples_[i]).squaredNorm();
-    }
-    std::sort(dists.begin(), dists.end());
-    double h = dists[static_cast<size_t>(samples.get_num_samples() / 2)] / std::log(static_cast<double>(samples.get_num_samples()));
-    h = std::max(h, 1e-5);
+// calculate median of samples
+// This makes the sum of kernel values close to 1
+std::vector<double> dists(samples.get_num_samples(), 0.0);
+for (size_t i = 0; i < samples.get_num_samples(); i++) {
+    dists[i] = (samples.noised_control_seq_samples_[i]).squaredNorm();
+}
+std::sort(dists.begin(), dists.end());
+double h = dists[static_cast<size_t>(samples.get_num_samples() / 2)] / std::log(static_cast<double>(samples.get_num_samples()));
+h = std::max(h, 1e-5);
 ```
 
 - phi 배치 계산
@@ -563,23 +563,166 @@ ControlSeqBatch SteinVariationalMPC::phi_batch(const PriorSamplesWithCosts& samp
   - 각 샘플 i에 대해 다른 모든 샘플 j에 대해 RBF 커널 값을 계산한다. phi_batch[i]에 커널 값과 사후 확률의 그래디언트를 곱한 값을 더하고, RBF 커널의 그래디언트도 추가한다. 모든 샘플의 개수로 phi_batch[i]를 나눔으로써 평균을 구한다.
 
 ```cpp
-    // calculate phi batch
-    ControlSeqBatch phi_batch = samples.get_zero_control_seq_batch();
+// calculate phi batch
+ControlSeqBatch phi_batch = samples.get_zero_control_seq_batch();
 #pragma omp parallel for num_threads(thread_num_)
-    for (size_t i = 0; i < samples.get_num_samples(); i++) {
-        for (size_t j = 0; j < samples.get_num_samples(); j++) {
-            const double kernel = RBF_kernel(samples.noised_control_seq_samples_[j], samples.noised_control_seq_samples_[i], h);
+for (size_t i = 0; i < samples.get_num_samples(); i++) {
+    for (size_t j = 0; j < samples.get_num_samples(); j++) {
+        const double kernel = RBF_kernel(samples.noised_control_seq_samples_[j], samples.noised_control_seq_samples_[i], h);
 
-            phi_batch[i] += kernel * grad_posterior_batch[j];
-            phi_batch[i] += grad_RBF_kernel(samples.noised_control_seq_samples_[j], samples.noised_control_seq_samples_[i], h);
-        }
-
-        phi_batch[i] /= static_cast<double>(samples.get_num_samples());
+        phi_batch[i] += kernel * grad_posterior_batch[j];
+        phi_batch[i] += grad_RBF_kernel(samples.noised_control_seq_samples_[j], samples.noised_control_seq_samples_[i], h);
     }
+
+    phi_batch[i] /= static_cast<double>(samples.get_num_samples());
+}
 ```
+
+- 각 제어 시퀀스 샘플에 대한 변환(phi)를 반환한다.
 
 ```cpp
 return phi_batch;
+```
+
+## Solver 'SVG_MPPI'
+
+[stein_variational_guided_mppi.cpp](https://github.com/kohonda/proj-svg_mppi/blob/main/src/mppi_controller/src/stein_variational_guided_mppi.cpp)
+
+```cpp
+std::pair<ControlSeq, double> SVGuidedMPPI::solve(const State& initial_state) {
+  // ...
+}
+```
+
+- 초기화 및 비용 계산 함수 정의
+  - 벡터 초기화
+    - costs_history : 각 반복에서 계산된 비용을 저장한다.
+    - control_seq_history : 각 반복에서의 제어 시퀀스를 저장한다.
+  - 비용 계산 함수 정의
+
+```cpp
+// Transport guide particles by SVGD
+std::vector<double> costs_history;
+std::vector<ControlSeq> control_seq_history;
+auto func_calc_costs = [&](const PriorSamplesWithCosts& sampler) { return mpc_base_ptr_->calc_sample_costs(sampler, initial_state).first; };
+```
+
+- SVGD를 이용한 가이드 샘플 이동
+  - num_svgd_iteration_ : 샘플 이동 반복 수
+  - approx_grad_posterior_batch 함수 : 각 샘플에 대한 로그 후방 확률의 그래디언트를 계산
+  - 각 샘플은 svgd_step_size_ 와 계산된 그래디언트를 이용하여 업데이트된다.
+  - 한편 각 반복에서 계산된 비용을 costs_history에 추가하고 현재의 제어 시퀀스를 control_seq_history에 추가한다.
+
+```cpp
+for (int i = 0; i < num_svgd_iteration_; i++) {
+    // Transport samples by stein variational gradient descent
+    const ControlSeqBatch grad_log_posterior = approx_grad_posterior_batch(*guide_samples_ptr_, func_calc_costs);
+#pragma omp parallel for num_threads(thread_num_)
+    for (size_t i = 0; i < guide_samples_ptr_->get_num_samples(); i++) {
+        guide_samples_ptr_->noised_control_seq_samples_[i] += svgd_step_size_ * grad_log_posterior[i];
+    }
+
+    // store costs and samples for adaptive covariance calculation
+    const std::vector<double> costs = mpc_base_ptr_->calc_sample_costs(*guide_samples_ptr_, initial_state).first;
+    // guide_samples_ptr_->costs_ = costs;
+    // const std::vector<double> cost_with_control_term = guide_samples_ptr_->get_costs_with_control_term(gaussian_fitting_lambda, 0,
+    // prior_samples_ptr_->get_zero_control_seq());
+    costs_history.insert(costs_history.end(), costs.begin(), costs.end());
+    control_seq_history.insert(control_seq_history.end(), guide_samples_ptr_->noised_control_seq_samples_.begin(),
+                                guide_samples_ptr_->noised_control_seq_samples_.end());
+}
+```
+
+- 최적의 파티클 선택 : 가이드 샘플들의 최종 비용을 계산하고, 가장 낮은 비용을 가진 제어 시퀀스를 선택하여 best_particle로 설정한다.
+
+```cpp
+const auto guide_costs = mpc_base_ptr_->calc_sample_costs(*guide_samples_ptr_, initial_state).first;
+const size_t min_idx = std::distance(guide_costs.begin(), std::min_element(guide_costs.begin(), guide_costs.end()));
+const ControlSeq best_particle = guide_samples_ptr_->noised_control_seq_samples_[min_idx];
+```
+
+- 적응형 공분산 행렬 계산
+  - 기본 공분산 행렬 설정 : steer_cov_을 기반으로 하는 고정 공분산 행렬을 초기화한다.
+  - 적응형 공분산 행렬 설정
+    - is_covariance_adaptation_가 true인 경우, costs_history를 사용하여 스프트맥스 비용을 계산한다.
+    - gaussian_fitting 함수를 통해 적응형 공분산 행렬을 업데이트하며, 이는 각 스텝의 제어 샘플을 기반으로 한다.
+
+```cpp
+// calculate adaptive covariance matrices for prior distribution
+// TODO: Support multiple control input dimensions
+ControlSeqCovMatrices covs = prior_samples_ptr_->get_constant_control_seq_cov_matrices({steer_cov_});
+if (is_covariance_adaptation_) {
+    // calculate softmax costs
+    const std::vector<double> softmax_costs = softmax(costs_history, gaussian_fitting_lambda_, thread_num_);
+
+    // calculate covariance using gaussian fitting
+    for (size_t i = 0; i < prediction_step_size_ - 1; i++) {
+        std::vector<double> steer_samples(control_seq_history.size());
+        std::vector<double> q_star(softmax_costs.size());
+        for (size_t j = 0; j < steer_samples.size(); j++) {
+            steer_samples[j] = control_seq_history[j](i, 0);
+            q_star[j] = softmax_costs[j];
+        }
+        const double sigma = gaussian_fitting(steer_samples, q_star).second;
+
+        const double sigma_clamped = std::clamp(sigma, min_steer_cov_, max_steer_cov_);
+
+        covs[i] = Eigen::MatrixXd::Identity(CONTROL_SPACE::dim, CONTROL_SPACE::dim) * sigma_clamped;
+    }
+}
+```
+
+- 무작위 샘플링 및 비용 계산
+  - 이전 제어 시퀀스와 계산된 공분산 행렬을 사용하여 새로운 샘플링을 수행한다.
+  - 새로운 샘플에 대한 비용과 충돌 비용을 계산하고, 비용을 prior_samples_ptr에 저장한다.
+
+```cpp
+// random sampling from prior distribution
+prior_samples_ptr_->random_sampling(prev_control_seq_, covs);
+
+// Rollout samples and calculate costs
+auto [_costs, collision_costs] = mpc_base_ptr_->calc_sample_costs(*prior_samples_ptr_, initial_state);
+prior_samples_ptr_->costs_ = std::forward<std::vector<double>>(_costs);
+```
+
+- 가중치 계산 및 제어 시퀀스 업데이트
+  - 가중치 계산
+    - nominal_control_seq_ : 가장 적합한 제어 시퀀스(best_particle)로 설정하거나 기본값으로 설정한다.
+    - calc_weights 함수를 통해 각 샘플의 가중치를 계산하고, 이 가중치를 weights_에 저장한다.
+  - 제어 시퀀스 업데이트
+    - 샘플의 가중 평균을 계산하여 최종 제어 시퀀스를 업데이트 한다.
+
+```cpp
+// calculate weights
+if (is_use_nominal_solution_) {
+    // with nominal sequence
+    nominal_control_seq_ = best_particle;
+} else {
+    // without nominal sequence
+    nominal_control_seq_ = prior_samples_ptr_->get_zero_control_seq();
+}
+const std::vector<double> weights = calc_weights(*prior_samples_ptr_, nominal_control_seq_);
+weights_ = weights;  // for visualization
+
+// Get control input sequence by weighted average of samples
+ControlSeq updated_control_seq = prior_samples_ptr_->get_zero_control_seq();
+for (size_t i = 0; i < prior_samples_ptr_->get_num_samples(); i++) {
+    updated_control_seq += weights[i] * prior_samples_ptr_->noised_control_seq_samples_.at(i);
+}
+```
+
+- 충돌 비율 계산 및 반환
+  - 충돌 비용을 기반으로 충돌 비율을 계산한다.
+  - 최적화된 제어 시퀀스와 충돌 비율을 반환한다.
+
+```cpp
+const int collision_num = std::count_if(collision_costs.begin(), collision_costs.end(), [](const double& cost) { return cost > 0.0; });
+const double collision_rate = static_cast<double>(collision_num) / static_cast<double>(prior_samples_ptr_->get_num_samples());
+
+// update previous control sequence for next time step
+prev_control_seq_ = updated_control_seq;
+
+return std::make_pair(updated_control_seq, collision_rate);
 ```
 
 ## Reference
