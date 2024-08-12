@@ -349,11 +349,12 @@ auto func_calc_costs = [&](const PriorSamplesWithCosts& sampler) {
 
 - **Stein Variational Gradient Descent 반복** : SVGD를 통해 샘플들을 업데이트한다. SVGD는 샘플들이 posterior 분포를 따르도록 샘플을 이동시키는 방법
   - `approx_grad_posterior_batch` 함수 : 주어진 샘플에 대해 log posterior의 기울기를 근사한다.
-    - `prior_samples_ptr_` : 샘플을 담고 있는 객체의 포인터이고, `func_calc_costs` 는 위에서 정의된 비용 계산을 위한 람다 함수이다.
+    - `prior_samples_ptr_` : 샘플을 담고 있는 객체의 포인터
+    - `func_calc_costs` 는 비용 계산을 위한 람다 함수
     - `grad_log_posterior` : log posterior의 기울기를 포함하는 `ControlSeqBatch` 객체이다. 이 기울기는 확률 및도 함수의 변화를 측정하는 데 사용된다.
   - `phi_batch` 함수 : SVGD 알고리즘의 핵심 단계로, `grad_log_posterior` 를 사용하여 샘플을 이동시키기 위한 변환을 계산한다.
     - `phis` : 각 샘플에 대해 계산된 이동 벡터를 담고 있는 `ControlSeqBatch`
-  - `#pragma omp parallel for num_threads(thread_num_)` : OpenMP를 사용하여 `for` 루프를 병렬화하여 각 샘플의 업데이트를 여러 스레드에서 동시에 수행할 수 있도록 한다.
+  - `#pragma omp parallel for num_threads(thread_num_)` : OpenMP를 사용하여 for 루프를 병렬화하여 각 샘플의 업데이트를 여러 스레드에서 동시에 수행할 수 있도록 한다.
 
 ```cpp
 for (int i = 0; i < num_svgd_iteration_; i++) {
@@ -431,6 +432,154 @@ if (is_valid) {
 
     return std::make_pair(prev_control_seq_, collision_rate);
 }
+```
+
+## Stein Variational Gradient Descent
+
+SVGD가 반복되는 동안 벌어지는 디테일한 과정에 대해 알아보자.
+
+```cpp
+for (int i = 0; i < num_svgd_iteration_; i++) {
+    const ControlSeqBatch grad_log_posterior = approx_grad_posterior_batch(*prior_samples_ptr_, func_calc_costs);
+
+    // Transport samples by stein variational gradient descent
+    const ControlSeqBatch phis = phi_batch(*prior_samples_ptr_, grad_log_posterior);
+#pragma omp parallel for num_threads(thread_num_)
+    for (size_t i = 0; i < prior_samples_ptr_->get_num_samples(); i++) {
+        prior_samples_ptr_->noised_control_seq_samples_[i] += svgd_step_size_ * phis[i];
+    }
+}
+```
+
+### Type 'ControlSeqBatch'
+
+```cpp
+namespace cpu {
+    // ...
+    using ControlSeqBatch = std::vector<Eigen::MatrixXd, Eigen::aligned_allocator<Eigen::MatrixXd>>;
+}
+```
+
+- std::vector<Eigen::MatrixXd>
+  - std::vector : C++ 표준 라이브러리에서 제공하는 동적 배열로, 크기를 동적으로 조절할 수 있는 연속적인 메모리 블럭
+  - Eigen::MatrixXd : Eigen 라이브러리에서 제공하는 동적 크기의 행렬 클래스. 이 클래스는 실수를 요소로 갖는 행렬을 표현한다.
+- Eigen::aligned_allocator<Eigen::Matrixd>
+  - aligned_allocator : 메모리 정렬을 보장하는 할당자를 제공
+  - Eigen 라이브러리는 고성능을 위해 메모리 정렬을 중요시한다. 특히 SIMD 명령어를 사용하는 경우 정렬된 메모리를 필요로 하므로 aligned_allocator를 사용하여 Eigen::MatrixXd 객체들이 올바르게 정렬되도록 보장한다.
+
+ControlSeqBatch : 여러 개의 Eigen::MatrixXd 행렬을 저장할 수 있는 동적 배열. Eigen 라이브러리의 성능 최적화를 위해 정렬된 메모리를 사용한다. 이 타입은 최적화된 행렬 연산을 수행하거나 다양한 제어 시퀀스를 효율적으로 관리하기 위해 사용된다. 이는 SteinVariationalMPC::solve 함수와 같이 복잡한 계산을 필요로 하는 상황에서 유용하게 사용된다.
+
+이 정의를 통해 ControlSeqBatch를 사용하는 코드에서 여러 행렬을 효율적으로 처리할 수 있다. MPC 알고리즘에서 굉장히 중요하다.
+
+### Function 'approx_grad_posterior_batch'
+
+SVGD 알고리즘의 핵심 부분 중 하나로, 제어 시퀀스에 대한 로그 사후 확률의 기울기를 근사한다. 이 함수는 샘플들의 로그 사후 확률의 기울기를 계산하여, 각 샘플에 대해 사전 정보와 관측 정보에 기반한 기울기를 조합한다.
+
+- 샘플링 기반 기법을 사용하여 최적의 제어 시퀀스를 찾기 위해 각 샘플에 대한 기울기를 계산한다.
+- 이를 통해 행동을 최적화하거나 제어하려는 모델의 적합성을 개선한다.
+- SVGD 알고리즘을 통해 제어 샘플들이 점점 더 우도 높은 상태로 수렴하도록 기울기 정보를 사용하여 샘플을 이동시킨다.
+- 이 함수는 SteinVariationalMPC의 전체 최적화 과정에서 매우 중요한 역할을 하며, 병렬 처리로 성능을 극대화하도록 설계되었다.
+
+```cpp
+ControlSeqBatch SteinVariationalMPC::approx_grad_posterior_batch(
+    const PriorSamplesWithCosts& samples,
+    const std::function<std::vector<double>(const PriorSamplesWithCosts&)>& calc_costs) const {
+    // ...
+}
+```
+
+- 초기화
+  - samples.get_zero_control_seq_batch() 는 제어 시퀀스의 모든 요소를 0으로 설정한 벡터이다.
+
+```cpp
+ControlSeqBatch grad_log_likelihoods = samples.get_zero_control_seq_batch();
+```
+
+- mean 계산 : 현재 샘플들의 평균 제어 시퀀스를 계산한다. 이는 나중에 기울기를 계산할 때 참조된다.
+
+```cpp
+const ControlSeq mean = samples.get_mean();
+```
+
+- 병렬 처리 : OpenMP 지시어 - #pragma omp parallel for - 는 for 루프를 병렬로 실행하여 성능을 향상시킨다.
+
+```cpp
+#pragma omp parallel for num_threads(thread_num_)
+```
+
+- 루프에서 샘플별 기울기 계산
+  - 루그 우도 기울기 계산 : approx_grad_log_likelihood 함수는 각 샘플에 대해 로그 우도의 기울기를 계산한다. 이 함수는 주어진 평균과 샘플, 그리고 역 공분산 행렬을 사용한다.
+  - 로그 사전 기울기 계산 : grad_log_nomal_dist 함수는 주어진 샘플이 가우시안 분포를 따를 때의 로그 사전 기울기를 계산한다. 샘플의 평균과 역 공분산 행렬이 필요하다.
+  - 로그 사후 기울기 계산 : grad_log_likelihood와 grad_log_prior의 합을 grad_log_likelihoods[i]에 저장한다.
+
+```cpp
+for (size_t i = 0; i < samples.get_num_samples(); i++) {
+    const ControlSeq grad_log_likelihood = approx_grad_log_likelihood(
+        mean, samples.noised_control_seq_samples_[i], samples.get_inv_cov_matrices(), calc_costs, grad_sampler_ptrs_.at(i).get());
+    const ControlSeq grad_log_prior =
+        grad_log_normal_dist(samples.noised_control_seq_samples_[i], samples.get_mean(), samples.get_inv_cov_matrices());
+    grad_log_likelihoods[i] = grad_log_likelihood + grad_log_prior;
+}
+```
+
+- 기울기 벡터 반환 : grad_log_likelihoods를 반환하여 SVGD에서 사용될 각 샘플의 로그 사후 기울기를 제공한다.
+
+```cpp
+return grad_log_likelihoods;
+```
+
+### Function 'phi_batch'
+
+SVGD 알고리즘을 사용하여 각 제어 시퀀스 샘플에 대한 변환(phi)을 계산하여 샘플을 업데이트하여 사후 확률을 최대화하는 방향으로 이동시키고, 이 과정에서 커널 함수를 사용하여 업데이트의 부드러움과 안정성을 보장한다.
+
+커널 함수를 사용하여 그래디언트를 스무딩하며, 샘플 간의 거리를 기반으로 한 스케일링을 통해 안정성을 제공한다. 이렇게 계산된 phi_batch는 이후 샘플 업데이트에 사용된다.
+
+```cpp
+ControlSeqBatch SteinVariationalMPC::phi_batch(const PriorSamplesWithCosts& samples, const ControlSeqBatch& grad_posterior_batch) const {
+  // ...
+}
+```
+
+- 커널 스케일링을 위한 중앙값 계산
+  - 각 샘플의 제어 시퀀스에 대한 제곱 노름을 계산하여 dists 벡터에 저장한다.
+  - dists 벡터를 정렬하고, 중앙값을 선택하여 h로 설정한다. 이 h는 커널 함수의 스케일링을 결정하는 데 사용된다.
+  - h가 너무 작아지지 않도록 최소값을 1e-5로 설정한다.
+
+```cpp
+    // calculate median of samples
+    // This makes the sum of kernel values close to 1
+    std::vector<double> dists(samples.get_num_samples(), 0.0);
+    for (size_t i = 0; i < samples.get_num_samples(); i++) {
+        dists[i] = (samples.noised_control_seq_samples_[i]).squaredNorm();
+    }
+    std::sort(dists.begin(), dists.end());
+    double h = dists[static_cast<size_t>(samples.get_num_samples() / 2)] / std::log(static_cast<double>(samples.get_num_samples()));
+    h = std::max(h, 1e-5);
+```
+
+- phi 배치 계산
+  - phi_batch : 초기화 시 모든 제어 시퀀스가 0인 상태로 설정된다.
+  - OpenMP를 사용하여 병렬로 샘플을 처리한다.
+  - 각 샘플 i에 대해 다른 모든 샘플 j에 대해 RBF 커널 값을 계산한다. phi_batch[i]에 커널 값과 사후 확률의 그래디언트를 곱한 값을 더하고, RBF 커널의 그래디언트도 추가한다. 모든 샘플의 개수로 phi_batch[i]를 나눔으로써 평균을 구한다.
+
+```cpp
+    // calculate phi batch
+    ControlSeqBatch phi_batch = samples.get_zero_control_seq_batch();
+#pragma omp parallel for num_threads(thread_num_)
+    for (size_t i = 0; i < samples.get_num_samples(); i++) {
+        for (size_t j = 0; j < samples.get_num_samples(); j++) {
+            const double kernel = RBF_kernel(samples.noised_control_seq_samples_[j], samples.noised_control_seq_samples_[i], h);
+
+            phi_batch[i] += kernel * grad_posterior_batch[j];
+            phi_batch[i] += grad_RBF_kernel(samples.noised_control_seq_samples_[j], samples.noised_control_seq_samples_[i], h);
+        }
+
+        phi_batch[i] /= static_cast<double>(samples.get_num_samples());
+    }
+```
+
+```cpp
+return phi_batch;
 ```
 
 ## Reference
