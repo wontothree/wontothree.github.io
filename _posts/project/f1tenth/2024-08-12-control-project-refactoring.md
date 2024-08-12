@@ -115,36 +115,66 @@ if (!is_localize_less_mode_) {
 }
 ```
 
-- 조향 관찰 및 MPC 해결 : 이 부분에서는 이전의 조향 명령을 사용해 로봇의 조향 상태를 업데이트합니다. 그 다음, 초기 상태를 설정하고 MPC를 해결하여 제어 시퀀스를 업데이트합니다.
+- 코어
 
 ```cpp
-const double prev_steer_cmd = control_msg_.drive.steering_angle;
-robot_state_.steer = robot_state_.steer + (prev_steer_cmd - robot_state_.steer) * (1 - exp(-control_sampling_time_ / steer_1st_delay_));
-```
+   mtx_.lock();
 
-- 제어 명령 발행 : MPC로부터 얻은 제어 시퀀스를 기반으로 조향 각도와 속도를 설정합니다. 참조 SDF 맵이 없거나 로봇이 맵 밖에 있을 경우, 속도는 일정 속도로 설정됩니다. 설정된 제어 명령을 발행합니다.
+    stop_watch_.lap();
 
-```cpp
-const double steering_angle = updated_control_seq(0, CONTROL_SPACE::steer);
-// const double accel = updated_control_seq(0, CONTROL_SPACE::accel);
-
-// const double speed = robot_state_.vel + accel * control_sampling_time_;
-// speed_cmd_ += accel * control_sampling_time_;
-control_msg_.header.stamp = ros::Time::now();
-control_msg_.drive.steering_angle = std::atan2(std::sin(steering_angle), std::cos(steering_angle));
-double speed_cmd = 0.0;
-if (constant_speed_mode_ || is_localize_less_mode_) {
-    speed_cmd = reference_speed_;
-} else {
-    if (reference_sdf_.isInside(grid_map::Position(robot_state_.x, robot_state_.y))) {
-        speed_cmd = reference_sdf_.atPosition(speed_field_layer_name_, grid_map::Position(robot_state_.x, robot_state_.y));
-    } else {
-        speed_cmd = reference_speed_;
-        ROS_WARN("[MPPIControllerROS] Robot is out of reference sdf map. Use constant speed mode.");
+    mpc_solver_ptr_->set_obstacle_map(obstacle_map_);
+    if (!is_localize_less_mode_) {
+        mpc_solver_ptr_->set_reference_map(reference_sdf_);
     }
-}
-control_msg_.drive.speed = speed_cmd;
-pub_ackermann_cmd_.publish(control_msg_);
+
+    // steer observer
+    const double prev_steer_cmd = control_msg_.drive.steering_angle;
+    robot_state_.steer = robot_state_.steer + (prev_steer_cmd - robot_state_.steer) * (1 - exp(-control_sampling_time_ / steer_1st_delay_));
+
+    // Solve MPC
+    mppi::cpu::State initial_state = mppi::cpu::State::Zero();
+    initial_state[STATE_SPACE::x] = robot_state_.x;
+    initial_state[STATE_SPACE::y] = robot_state_.y;
+    initial_state[STATE_SPACE::yaw] = robot_state_.yaw;
+    initial_state[STATE_SPACE::vel] = robot_state_.vel;
+    initial_state[STATE_SPACE::steer] = robot_state_.steer;
+    const auto [updated_control_seq, collision_rate] = mpc_solver_ptr_->solve(initial_state);
+
+    mtx_.unlock();
+
+    // predict state seq
+    const auto [best_state_seq, state_cost, collision_cost, input_error] = mpc_solver_ptr_->get_predictive_seq(initial_state, updated_control_seq);
+
+    // Publish control command
+    const double steering_angle = updated_control_seq(0, CONTROL_SPACE::steer);
+    // const double accel = updated_control_seq(0, CONTROL_SPACE::accel);
+
+    // const double speed = robot_state_.vel + accel * control_sampling_time_;
+    // speed_cmd_ += accel * control_sampling_time_;
+    control_msg_.header.stamp = ros::Time::now();
+    control_msg_.drive.steering_angle = std::atan2(std::sin(steering_angle), std::cos(steering_angle));
+    double speed_cmd = 0.0;
+    if (constant_speed_mode_ || is_localize_less_mode_) {
+        // Note: constant speed is used in localize_less_mode because reference sdf
+        // is not available
+        speed_cmd = reference_speed_;
+    } else {
+        if (reference_sdf_.isInside(grid_map::Position(robot_state_.x, robot_state_.y))) {
+            // speed_cmd = reference_sdf_.atPosition(speed_field_layer_name_,
+            // grid_map::Position(ahead_x, ahead_y));
+            speed_cmd = reference_sdf_.atPosition(speed_field_layer_name_, grid_map::Position(robot_state_.x, robot_state_.y));
+        } else {
+            speed_cmd = reference_speed_;
+            ROS_WARN(
+                "[MPPIControllerROS] Robot is out of reference sdf map. Use "
+                "constant speed mode.");
+        }
+    }
+    control_msg_.drive.speed = speed_cmd;
+
+    pub_ackermann_cmd_.publish(control_msg_);
+
+    const double calculation_time = stop_watch_.lap();
 ```
 
 - 디버깅 및 시각화 : 디버깅과 시각화를 위해, 다양한 데이터를 게시합니다. is_visualize_mppi_가 활성화된 경우, 예측된 상태, 제어 분산, 제안된 상태 분포, 최적 경로 및 노미널 경로 등을 게시합니다.
@@ -194,6 +224,105 @@ mppi_metrics_msg.state_cost = state_cost;
 mppi_metrics_msg.collision_cost = collision_cost;
 mppi_metrics_msg.input_error = input_error;
 pub_mppi_metrics_.publish(mppi_metrics_msg);
+```
+
+## Core Part
+
+MPPI 제어기를 사용하여 로봇의 제어 명령을 계산하고 게시하는 부분
+
+- 뮤텍스 잠금 및 스톱워치 시작
+  - 스레드 동기화를 위해 mtx_ 뮤텍스를 잠근다. 이는 멀티스레딩 환경에서 데이터 무결성을 보장하기 위한 것이다. 코드 블록 내에서 공유 데이터에 대한 접근이 보호되기 때문이다.
+  - 이 블록에서 계산 시간을 측정하기 시작한다.
+
+```cpp
+mtx_.lock();
+
+stop_watch_.lap();
+```
+
+- MPC 솔버에 데이터 설정
+  - 장애물 맵 설정
+  - 참조 맵 설정 (비모드) : is_localize_less_mode_가 활성화되어 있지 않은 경우, 참조 SDF(점 유사도 필드) 맵 (reference_sdf_)도 설정합니다. 이 맵은 로봇의 목표 위치 및 경로를 정의합니다.
+
+```cpp
+mpc_solver_ptr_->set_obstacle_map(obstacle_map_);
+if (!is_localize_less_mode_) {
+    mpc_solver_ptr_->set_reference_map(reference_sdf_);
+}
+```
+
+- 조향 관찰 및 업데이트 : 이전에 발행된 조향 명령(prev_steer_cmd)을 사용하여 현재 로봇의 조향 상태를 업데이트한다. exp(-control_sampling_time_ / steer_1st_delay_)는 조향 명령의 지연 효과를 고려하는 지수 함수이다.
+
+```cpp
+const double prev_steer_cmd = control_msg_.drive.steering_angle;
+robot_state_.steer = robot_state_.steer + (prev_steer_cmd - robot_state_.steer) * (1 - exp(-control_sampling_time_ / steer_1st_delay_));
+```
+
+- MPPI 문제 해결
+  - 초기 상태 설정 : 로봇의 현재 상태(x, y, yaw, vel, steer)를 MPC 솔버의 초기 상태로 설정한다.
+  - MPC 해결 : mpc_solver_ptr_->solve(initial_state)를 호출하여 MPC 문제를 해결합니다. 이 과정에서 업데이트된 제어 시퀀스 (updated_control_seq)와 충돌 비율 (collision_rate)을 반환받는다.
+
+```cpp
+mppi::cpu::State initial_state = mppi::cpu::State::Zero();
+initial_state[STATE_SPACE::x] = robot_state_.x;
+initial_state[STATE_SPACE::y] = robot_state_.y;
+initial_state[STATE_SPACE::yaw] = robot_state_.yaw;
+initial_state[STATE_SPACE::vel] = robot_state_.vel;
+initial_state[STATE_SPACE::steer] = robot_state_.steer;
+const auto [updated_control_seq, collision_rate] = mpc_solver_ptr_->solve(initial_state);
+```
+
+- 뮤텍스 해제 및 예측 상태 시퀀스 얻기
+  - 뮤텍스 해제 : mtx_.unlock()을 호출하여 뮤텍스를 해제한다. 이제 다른 스레드가 이 데이터에 접근할 수 있다.
+  - 예측 상태 시퀀스 얻기 : mpc_solver_ptr_->get_predictive_seq를 호출하여 최적 상태 시퀀스 (best_state_seq), 상태 비용 (state_cost), 충돌 비용 (collision_cost), 입력 오차 (input_error)를 가져옵니다.
+
+```cpp
+mtx_.unlock();
+
+// predict state seq
+const auto [best_state_seq, state_cost, collision_cost, input_error] = mpc_solver_ptr_->get_predictive_seq(initial_state, updated_control_seq);
+```
+
+- 제어 명령 게시
+  - 조향 각도 설정 : updated_control_seq에서 조향 각도를 추출하고 이를 atan2를 사용하여 정상화한다.
+  - 속도 설정 : 속도를 설정한다. constant_speed_mode_ 또는 is_localize_less_mode_가 활성화된 경우, 참조 속도 (reference_speed_)를 사용합니다. 그렇지 않으면 현재 위치가 참조 SDF 맵 안에 있는지 확인하고 적절한 속도를 설정합니다. 참조 SDF 맵 밖에 있는 경우, 참조 속도를 사용하고 경고 메시지를 출력합니다.
+  - 제어 명령 발행: 설정한 조향 각도와 속도를 포함한 제어 메시지를 pub_ackermann_cmd_를 통해 발행합니다.
+
+```cpp
+// Publish control command
+const double steering_angle = updated_control_seq(0, CONTROL_SPACE::steer);
+// const double accel = updated_control_seq(0, CONTROL_SPACE::accel);
+
+// const double speed = robot_state_.vel + accel * control_sampling_time_;
+// speed_cmd_ += accel * control_sampling_time_;
+control_msg_.header.stamp = ros::Time::now();
+control_msg_.drive.steering_angle = std::atan2(std::sin(steering_angle), std::cos(steering_angle));
+double speed_cmd = 0.0;
+if (constant_speed_mode_ || is_localize_less_mode_) {
+    // Note: constant speed is used in localize_less_mode because reference sdf
+    // is not available
+    speed_cmd = reference_speed_;
+} else {
+    if (reference_sdf_.isInside(grid_map::Position(robot_state_.x, robot_state_.y))) {
+        // speed_cmd = reference_sdf_.atPosition(speed_field_layer_name_,
+        // grid_map::Position(ahead_x, ahead_y));
+        speed_cmd = reference_sdf_.atPosition(speed_field_layer_name_, grid_map::Position(robot_state_.x, robot_state_.y));
+    } else {
+        speed_cmd = reference_speed_;
+        ROS_WARN(
+            "[MPPIControllerROS] Robot is out of reference sdf map. Use "
+            "constant speed mode.");
+    }
+}
+control_msg_.drive.speed = speed_cmd;
+
+pub_ackermann_cmd_.publish(control_msg_);
+```
+
+- 계산 시간 측정 : stop_watch_.lap()을 호출하여 이 블록의 계산 시간을 측정합니다. 이 측정된 시간은 성능 모니터링 및 디버깅에 사용될 수 있습니다.
+
+```cpp
+const double calculation_time = stop_watch_.lap();
 ```
 
 ## Reference
