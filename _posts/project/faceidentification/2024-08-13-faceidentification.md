@@ -8,13 +8,13 @@ categories:
 
 deepface 라이브러리를 이용해서 간단한 간단한 face verification 기능을 구현해보았다.
 
-![](./../../../img/inbodyscaleai/face-identification-1.png)
+![](./../../../img/inbodyscaleai/face-identification-1.png){: .align-center width="400" height="200"}
 
-![](./../../../img/inbodyscaleai/face-identification-2.png)
+![](./../../../img/inbodyscaleai/face-identification-2.png){: .align-center width="400" height="200"}
 
-![](./../../../img/inbodyscaleai/face-identification-3.png)
+![](./../../../img/inbodyscaleai/face-identification-3.png){: .align-center width="400" height="200"}
 
-![](./../../../img/inbodyscaleai/face-identification-5.png)
+![](./../../../img/inbodyscaleai/face-identification-5.png){: .align-center width="400" height="200"}
 
 ```py
 from deepface import DeepFace
