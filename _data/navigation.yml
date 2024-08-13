@@ -84,7 +84,10 @@ sidebar-category:
         url: /etc
   - title: "Project"
     children:
-      - title: "Cart Pole"
-        url: /cartpole
       - title: "F1tenth"
         url: /f1tenth
+      - title: "Cart Pole"
+        url: /cartpole
+      - title: "Face Identification"
+        url: /faceidentification
+
