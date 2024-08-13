@@ -45,3 +45,5 @@ print(result)
 # 3 - 4
 {'verified': True, 'distance': 0.5467762156052304, 'threshold': 0.68, 'model': 'VGG-Face', 'detector_backend': 'opencv', 'similarity_metric': 'cosine', 'facial_areas': {'img1': {'x': 336, 'y': 1756, 'w': 86, 'h': 86, 'left_eye': None, 'right_eye': None}, 'img2': {'x': 1180, 'y': 1797, 'w': 48, 'h': 48, 'left_eye': None, 'right_eye': None}}, 'time': 6.16}
 ```
+
+너무 오래 걸린다.
