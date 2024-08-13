@@ -120,4 +120,103 @@ Embedding refinement is another way to enhance FR results.
 3. models FR in a multi-task way
 4. age, pose prediction etc
 
-#### 4.2.1 Embedding refinement by face gen
+#### 4.2.1 Embedding refinement by face generator
+
+#### 4.2.2 Embedding refinement by extra representation
+
+#### 4.2.3 Multi-task modeling with FR
+
+### 4.3 FR with massive IDs
+
+### 4.4 Cross domain in FR
+
+### 4.5 FR pipeline acceleration
+
+### 4.6 Closed-set Training
+
+### 4.7 Mask face recognition
+
+### 4.8 Privacy-Preserving FR
+
+## 5. Backbone size and data distribution
+
+## 6. Datasets and Comparison Results
+
+Major training datasets list for FR with their details.
+
+![](./../../../img/paperreview/fr-1.png)
+
+![](./../../../img/paperreview/fr-2.png)
+
+Three metrics used by latest FR papers.
+
+1. verification accuracy from unrestricted with labeled outside data protoco
+2. testing benchmark of MegaFace dataset.
+3. IJB-A testing protocol.
+
+![](./../../../img/paperreview/fr-3.png)
+
+![](./../../../img/paperreview/fr-4.png)
+
+## 7. Applications
+
+- face clustering
+- attribute recognition
+- face generation
+
+## 8. Competitions and Open Source Programs
+
+Face Recognition Vendor Test (FRVT) : to evaluate FR algorithms of state- of-the-art.
+
+- can only use no more than 1 second of computational resources in a single CPU thread
+
+Four tracks
+
+1. FRVT 1:1 : FNMR(거짓 비매칭율)이 FMR(거짓 매칭율)일 때 알고리즘을 평가한다.
+2. **FRVT 1:N** : FR 알고리즘의 식별 성능과 조사 성능을 테스트
+3. FRVT MORPH : 얼굴 위조의 성능을 측정하며, 평가 메트릭은 0.1 및 0.01에서의 BPCER에 해당하는 APCER
+4. FRVT Quality : 얼굴 품질 평가 알고리즘(QAAs)을 평가
+
+FRVT 1:1
+
+- FMR : 해당 임계값 이상인 비적중 비교의 비율
+- FRVT 1:1 : 제약 환경과 비제약 환경이 있는 여러 데이터 세트(장면)에서 알고리즘을 테스트
+- 제약 환경에는 비자 사진, 머그샷 사진, 12년 이상 경과된 머그샷 사진, 비자국경 사진 및 국경 사진이 포함됩니다. 비제약 환경에는 어린이 사진과 어린이 실험 사진이 포함됩니다.
+
+**FRVT 1:N**
+
+- 평가 메트릭 : FPIR에서 FNIR과 매칭 정확도
+- FNIR은 임계값 이상으로 반환되지 않는 적중 검색의 비율
+- 매칭 정확도는 탐색 이미지가 랭크 1의 이미지와 임계값 0에서 일치하는지를 평가합니다.
+
+FRVT 1:N mainly tests the identification performance and investigation performance of FR algorithms. The evaluation metrics are FNIR at FPIR, and matching accuracy. FNIR is the proportion of mated searches failing to return the mate above threshold. FPIR is the proportion of non-mated searches producing one or more candidates above threshold. Matching accuracy evaluates whether the probe image matches rank1’s with a threshold of 0.
+
+FRVT MORPH : 얼굴 위조의 성능을 측정하며, 평가 메트릭은 0.1 및 0.01에서의 BPCER에 해당하는 APCER
+
+- APCER, 즉 변형 누락율은 본인으로 잘못 분류된 변형의 비율
+- BPCER, 즉 거짓 감지율은 본인이 잘못 변형으로 분류된 비율
+- FRVT MORPH는 저품질 변형, 자동 변형 및 고품질 변형의 세 가지 등급으로 나뉜다.
+
+FRVT Quality는 : 얼굴 품질 평가 알고리즘(QAAs)을 평가
+
+- 얼굴 식별에서는 갤러리에 있는 얼굴 이미지의 품질이 식별 성능에 중요합니다. 따라서 얼굴 식별의 측정은 FRVT 품질 메트릭으로 사용됩니다. 구체적으로, 고품질 및 저품질 얼굴 이미지가 포함된 갤러리 세트가 주어지면, 먼저 FR 시스템의 FNMR(FNMR-1)을 계산합니다. 그런 다음 갤러리에서 품질이 가장 낮은 얼굴 일부를 제외하고 FNMR을 다시 계산합니다(FNMR-2). FNMR-2가 작을수록 품질 모델의 성능이 더 좋음을 나타냅니다. 이론적으로, FNMR-1이 0.01일 때, 가장 낮은 품질의 1% 이미지를 버리면 FNMR-2는 0%가 됩니다. 갤러리에서 가장 낮은 품질의 이미지를 찾기 위해 이 트랙은 품질 스칼라와 품질 벡터라는 두 가지 메트릭을 포함합니다. 품질 스칼라는 입력 이미지의 품질을 스칼라 점수로 직접 평가합니다. 품질 벡터는 초점, 조명, 자세, 선명도 등과 같은 입력 얼굴 이미지의 여러 속성을 점수화합니다. 이 품질 벡터 결과는 이미지 품질에 영향을 미칠 수 있는 특정 속성에 대해 참가자에게 보다 정확한 피드백을 제공할 수 있습니다.
+
+MegaFace 챌린지
+
+MegaFace 경연대회는 두 가지 과제를 포함합니다.
+
+- 과제 1: 참가자들은 모델을 훈련하기 위해 임의의 얼굴 이미지를 사용할 수 있습니다. 평가 시, 최대 100만 개의 방해 요소가 있는 상태에서 얼굴 확인 및 인증 작업이 수행됩니다. 성능은 FaceScrub 및 FGNet의 프루브 및 갤러리 이미지를 사용하여 측정됩니다.
+- 과제 2: 참가자들은 672,000개의 정체성으로 구성된 제공된 세트에서 훈련한 후, 100만 개의 방해 요소가 있는 상태에서 인식 및 검증 성능을 테스트해야 합니다. 프루브 및 갤러리 이미지에는 FaceScrub 및 FGNet 데이터셋이 사용됩니다.
+- FaceScrub 데이터셋: 유명인 사진에 대한 얼굴 인식을 테스트하는 데 사용됩니다.
+- FGNet 데이터셋: 나이 불변성 얼굴 인식을 테스트하는 데 사용됩니다.
+
+MS-Celeb-1M 챌린지
+
+MS-Celeb-1M 챌린지는 2016년에 제안된 경연대회로, 실제 대규모 유명인 데이터셋과 공개 평가 시스템을 기반으로 합니다. 이 챌린지는 참가자들에게 얼굴 이미지를 통해 100만 명의 유명인을 인식하도록 훈련 데이터셋을 제공하였습니다. 이 100만 명의 유명인은 웹 상에서의 출현 빈도(인기)에 따라 Freebase에서 추출되었으며, 따라서 이 데이터셋에는 상당한 잡음이 포함되어 있어 데이터 정리가 필요합니다.
+
+- 평가: 측정 세트는 100만 명의 유명인 중 무작위로 추출된 1000명의 유명인으로 구성되어 있습니다(비공개). 각 유명인에 대해 최대 20개의 이미지가 수동으로 라벨링되어 평가에 사용됩니다.
+- 목표: 높은 인식 재현율 및 정밀도를 얻기 위해, 참가자들은 가능한 많은 유명인을 포함하는 인식기를 개발해야 합니다.
+
+## 9. Conclusion
+
+In this paper, we introduce about 100 algorithms in face recognition (FR), including every sides of FR, such as its history, pipeline, algorithms, training and evaluation datasets and related applications.
