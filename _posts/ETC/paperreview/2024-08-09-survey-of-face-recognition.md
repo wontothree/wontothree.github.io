@@ -142,7 +142,27 @@ Embedding refinement is another way to enhance FR results.
 
 ## 6. Datasets and Comparison Results
 
+Major training datasets list for FR with their details.
+
+![](./../../../img/paperreview/fr-1.png)
+
+![](./../../../img/paperreview/fr-2.png)
+
+Three metrics used by latest FR papers.
+
+1. verification accuracy from unrestricted with labeled outside data protoco
+2. testing benchmark of MegaFace dataset.
+3. IJB-A testing protocol.
+
+![](./../../../img/paperreview/fr-3.png)
+
+![](./../../../img/paperreview/fr-4.png)
+
 ## 7. Applications
+
+- face clustering
+- attribute recognition
+- face generation
 
 ## 8. Competitions and Open Source Programs
 
@@ -169,12 +189,16 @@ FRVT 1:1
 - FNIR은 임계값 이상으로 반환되지 않는 적중 검색의 비율
 - 매칭 정확도는 탐색 이미지가 랭크 1의 이미지와 임계값 0에서 일치하는지를 평가합니다.
 
-- FRVT MORPH : 얼굴 위조의 성능을 측정하며, 평가 메트릭은 0.1 및 0.01에서의 BPCER에 해당하는 APCER
+FRVT 1:N mainly tests the identification performance and investigation performance of FR algorithms. The evaluation metrics are FNIR at FPIR, and matching accuracy. FNIR is the proportion of mated searches failing to return the mate above threshold. FPIR is the proportion of non-mated searches producing one or more candidates above threshold. Matching accuracy evaluates whether the probe image matches rank1’s with a threshold of 0.
+
+FRVT MORPH : 얼굴 위조의 성능을 측정하며, 평가 메트릭은 0.1 및 0.01에서의 BPCER에 해당하는 APCER
+
 - APCER, 즉 변형 누락율은 본인으로 잘못 분류된 변형의 비율
 - BPCER, 즉 거짓 감지율은 본인이 잘못 변형으로 분류된 비율
 - FRVT MORPH는 저품질 변형, 자동 변형 및 고품질 변형의 세 가지 등급으로 나뉜다.
 
-- FRVT Quality는 : 얼굴 품질 평가 알고리즘(QAAs)을 평가
+FRVT Quality는 : 얼굴 품질 평가 알고리즘(QAAs)을 평가
+
 - 얼굴 식별에서는 갤러리에 있는 얼굴 이미지의 품질이 식별 성능에 중요합니다. 따라서 얼굴 식별의 측정은 FRVT 품질 메트릭으로 사용됩니다. 구체적으로, 고품질 및 저품질 얼굴 이미지가 포함된 갤러리 세트가 주어지면, 먼저 FR 시스템의 FNMR(FNMR-1)을 계산합니다. 그런 다음 갤러리에서 품질이 가장 낮은 얼굴 일부를 제외하고 FNMR을 다시 계산합니다(FNMR-2). FNMR-2가 작을수록 품질 모델의 성능이 더 좋음을 나타냅니다. 이론적으로, FNMR-1이 0.01일 때, 가장 낮은 품질의 1% 이미지를 버리면 FNMR-2는 0%가 됩니다. 갤러리에서 가장 낮은 품질의 이미지를 찾기 위해 이 트랙은 품질 스칼라와 품질 벡터라는 두 가지 메트릭을 포함합니다. 품질 스칼라는 입력 이미지의 품질을 스칼라 점수로 직접 평가합니다. 품질 벡터는 초점, 조명, 자세, 선명도 등과 같은 입력 얼굴 이미지의 여러 속성을 점수화합니다. 이 품질 벡터 결과는 이미지 품질에 영향을 미칠 수 있는 특정 속성에 대해 참가자에게 보다 정확한 피드백을 제공할 수 있습니다.
 
 MegaFace 챌린지
