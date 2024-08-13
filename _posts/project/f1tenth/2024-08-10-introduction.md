@@ -20,3 +20,26 @@ Refactoring
 프로젝트 안에서 가장 핵심적인 패키지, 패키지 안에서 가장 핵심적인 파일, 파일에서 가장 핵심적인 함수, 함수에서 가장 핵심적인 로직을 찾아야 한다.
 
 그리고 거기부터 세부적인 것들로 뻗어나가야 한다.
+
+## 프로젝트를 위해 필요한 역량
+
+- ROS2
+- Cpp : 이번 기회에 익혀두자.
+  - Eigen 라이브러리
+- Hybrid A*, RRT, MPC, MPPI 개념
+
+## Path Planning
+
+- Global Planner
+- Local Planner
+
+## SLAM
+
+## Project Architecture
+
+- MPC
+- Solver
+- 평가 시스템
+- 데이터 수집 파이프라인
+- global planner로부터 어떤 양식의 데이터를 받을지
+- 자료구조
