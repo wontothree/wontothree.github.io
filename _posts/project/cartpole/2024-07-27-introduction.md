@@ -6,9 +6,9 @@ categories:
 ## Project
 
 - Conpetition : UOS ECE IF (Innovation Fair)
-- Nmae : Inverted Pendulum Desgin and Control using MPC and RL
+- Nmae : Cart Pole Design and Control - Model Predictive Control vs Reinforcement Learning
 - Team Member : Sewon Kim
-- Project Duration : July 25 - September 10
+- Project Duration : July 25 - September 27
 
 ## Contents
 
@@ -34,8 +34,6 @@ categories:
 대회의 조건이 50만원 내에서 재료비를 사용하는 것이었는데, 부품 비용으로 37만원과 판금 비용으로 12만원이 지출되어 조금도 남지 않았다.
 
 전동 드릴 동작법부터 너트와 피스와 차이점도 몰랐다.
-
-## Feedback
 
 - 기구설계
   - 맨 왼쪽 나사 구멍 위치 고려
