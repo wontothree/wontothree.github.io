@@ -20,8 +20,8 @@ sidebar-category:
     children:
       - title: "ROS2"
         url: /ros2
-      - title: "Mobile Robotics"
-        url: /slam
+      - title: "Probabilistic Robotics"
+        url: /probablisticrobotics
       - title: "Linear System"
         url: /linearsystem
       - title: "Nonlinear System"

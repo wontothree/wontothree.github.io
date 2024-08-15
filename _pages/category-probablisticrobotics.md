@@ -1,10 +1,10 @@
 ---
-title: "Mobile Robotics"
+title: "Probablistic Robotics"
 layout: archive
-permalink: /mobilerobotics
+permalink: /probablisticrobotics
 sidebar:
     nav: "sidebar-category"
 ---
 
-{% assign posts = site.categories.mobilerobotics %}
+{% assign posts = site.categories.probablisticrobotics %}
 {% for post in posts %} {% include archive-single.html type=page.entries_layout %} {% endfor %}
