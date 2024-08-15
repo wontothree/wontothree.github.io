@@ -1,5 +1,5 @@
 ---
-title: "Cart Pole"
+title: "Cart Pole Desgin and Control - MPC vs RL"
 layout: archive
 permalink: /cartpole
 sidebar:
