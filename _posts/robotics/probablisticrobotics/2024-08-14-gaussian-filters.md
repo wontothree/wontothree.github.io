@@ -11,17 +11,18 @@ categories:
 
 # 2. The Kalman Filter
 
-## Linear Gaussian Systems
+## 2.1 Linear Gaussian Systems
 
-베이즈 필터를 구현하는 가장 잘 연구된 기술은 칼만 필터이다.
-
-칼만 필터는 모멘트 표현을 사용하여 신념을 표현한다.
-
-시간 t에서 신념은 평균 $\mu_t$과 공분산 $\sum_t$으로 표현한다.
+- 베이즈 필터를 구현하는 가장 잘 연구된 기술은 칼만 필터이다.
+- 칼만 필터는 모멘트 표현을 사용하여 신념을 표현한다.
+- 시간 t에서 신념은 평균 $\mu_t$과 공분산 $\sum_t$으로 표현한다.
+- 상태를 가우시안 분포로 가정하여 평균과 공분산 행렬로 상태를 표현한다.
+- Bayes filter with Gaussians
+- Developed in the lated 1950’s
 
 베이즈 필터의 마르코프 가정 외에 다음의 세 가지 조건이 충족된다면, 사후 확률은 가우시안 분포를 따른다.
 
-1. The next state probability $p(x_t \vert u_t, x_{t-1}$ must be a linear function in its arguments with added Gaussian noise.
+1. The next state probability $p(x_t \vert u_t, x_{t-1})$ must be a linear function in its arguments with added Gaussian noise.
 
 $$
 x_t = A_t x_{t-1} + B_t u_t + \epsilon_t
@@ -30,7 +31,7 @@ $$
 2. The measurement probability $p(z_t \vert x_t)$ must also be linear in it arguments, with added Gaussian noise:
 
 $$
-Z_t = C_t x_t + \delta_t
+z_t = C_t x_t + \delta_t
 $$
 
 3. The initial belief *bel($x_0$)* must be normal distributed 
@@ -41,17 +42,32 @@ $$
 
 ## 2.2 The Kalman Filter Algorithm
 
+![](../../../img/probablisticrobotics/kalmanfilter_algorithm.png)
+
 칼만 필터는 시간 $t$에서 신념 *bel($x_t$)*을 평균 $\mu_t$과 공분산 $\sum_t$으로 표현한다.
 
-$K_t$ : 칼만 이득
+- <span style="color: #2D3748; background-color:#fff5b1;">Input</span> : the belief at time $t-1$, represented by $\mu_{t-1}$ and $\Sigma_{t-1}$, the control $u_t$, and the measurement $z_t$
+- <span style="color: #2D3748; background-color:#fff5b1;">Output</span> : the belief at time $t$, represented by $\mu_t$ and $\Sigma_t$
 
-## 2.3 Illustration
+<span style="color: #2D3748; background-color:#fff5b1;">Prediction Step</span>
 
-## 2.4 Mathematical Derivation of the KF
+Predicted belief $\overline{\mu}$ and $\overline{\Sigma}$ representing the belief $\overline{bel}(x_t)$ one time step later is calculated.
 
-Part 1. Prediction
+The mean is updated using the deterministic version of the state transition function.
 
-Part 2. Measurement Update
+The update of the covariance considers the fact that states depend on previous states through the linear matrix $A_t$. This matrix is multiplied twice into the covariance, since the covariance is a quadratic matrix.
+
+<span style="color: #2D3748; background-color:#fff5b1;">Correction Step</span>
+
+The belief $\overline{bel}(x_t)$ is subsequently transformed into the desired belief $bel(x_t)$ in lines 4 through 6, be incorporating the measurement $z_t$.
+
+Kalman gain $K_t$ : specifies the degree to which the measurement is incorporated into the new state estimate
+
+Line 5 : manipulates the mean, by adjusting it in proportion to the Kalman gain K_t and the deviation of the actual measurement, $z_t$, and the measurement predicted according to the measurement probability.
+
+The key concept is the *innovation*, which is the difference between the actual measurement $z_t$ and the expected measurement $C_t, \overline{\mu_t}$
+
+Line 6 : new covariance of the posterior belief is calculated, adjusting for the information gain resulting from the measurement.
 
 # 3. The Extended Kalman Filter
 
@@ -79,14 +95,6 @@ EKFs utilize a method called Taylor expansion
 
 ## 3.3 The EKF Algorithm
 
-## 3.4 Mathematical Derivation of the EKF
+## 궁금한 점
 
-## 3.5 Practical Considerations
-
-# 4. The Unscented Kalman Filter
-
-# 5. The Information Filter
-
-## Question
-
-- 사후 확률이 뭘까?
+- KF에서 covariance를 업데이트하는 식은 어디서 파생된 걸까?
