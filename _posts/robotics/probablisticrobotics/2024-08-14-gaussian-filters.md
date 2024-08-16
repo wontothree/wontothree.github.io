@@ -95,6 +95,21 @@ EKFs utilize a method called Taylor expansion
 
 ## 3.3 The EKF Algorithm
 
+![](../../../img/probablisticrobotics/extendedkalmanfilter_algorithm.png)
+
+The linear predictions in Kalman filters are replaced by their nonlinear generalization in EKFs.
+
+||Kalman Filter|Extended Kalman Filter|
+|---|:---:|:---:|
+|State prediction (line 2)|$A_t \mu_{t-1} + B_t u_t$|$g(u_t, \mu_{t-1})$|
+|measurement prediction (line 5)|$C_t \mu_t$|$h(\mu_t)$|
+
+|KF|EKF|
+|:---:|:---:|
+|Matrices $A_t, B_t$|Jacobians $G_t, H_t$|
+|Matrix $C_t$|Jacobian $H_t$|
+
 ## 궁금한 점
 
 - KF에서 covariance를 업데이트하는 식은 어디서 파생된 걸까?
+- 사후 확률 분포가 뭘까?
