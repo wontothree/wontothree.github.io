@@ -4,6 +4,10 @@ excerpt:
 categories:
   - cartpole
 ---
+Cart Pole을 위해 구입한 전자 부품들의 용도와 사용법을 정리한다.
+
+## Electronic Material List
+
 |Electronics|Utility|Name|Specification|
 |---|---|---|---|
 |1|동력 원천|Unipolar Stepping Motor||
@@ -12,8 +16,26 @@ categories:
 |4|End stop|아두이노 포토 인터럽터 속도 센서 모듈||
 |5||Arduino UNO R4 WiFi||
 |6|전원 공급|Power Supply|12V, 5A|
+|7|연선||12AWG|
+|8|실리콘 전선||18AWG|
+|9|Breadboard|||
+|10|만능기판|||
+|11|스트리퍼|||
+|12|모터 드라이버 케이블|||
+|13|점프와이어 수수선|||
+|14|점프와이어 암수선|||
+|15|점프와이어 암암선|||
+|16|Molex|||
+|17|용클램프|||
+|18|6핀 케이블|||
 
-## Motor Driver Specification
+# Arduino UNO
+
+- 모터 제어
+- 엔코더 통신
+- 포토 센서 통신
+
+# Motor Driver Specification
 
 모터를 제어해주는 모듈이나 회로
 
@@ -29,7 +51,7 @@ categories:
 
 아두이노에 있는 디지털 핀이나 아날로그 핀에서 나오는 전류는 매우 작기 때문에 모터를 구동할 수 없다. 간혹 모터가 타는 경우도 발생한다.
 
-### Specification
+## Specification
 
 - 라인트레이서용 스테핑 모터 구동 보드
 - 스테핑 모터 2개 구동 각 3A
