@@ -1,15 +1,17 @@
----
+<!-- ---
 title: "[Cart Pole] Kinematics"
 excerpt:
 categories:
   - cartpole
 ---
-## Assumptions
+Cart Pole을 수학적으로 모델링하자.
+
+# Assumptions
 
 - 카트와 바닥 간의 마찰은 없다고 가정한다.
 - 카트와 막대는 모두 질량 분포가 일정하여 막대의 중력이 막대의 기하학적 중심에 작용한다고 가정한다.
 
-## Mathematical Modeling by Newton's Laws of Motion
+# Mathematical Modeling by Newton's Laws of Motion
 
 뉴턴 역학을 이용해서 inverted pendulum을 모델링할 수 있다.
 
@@ -53,7 +55,7 @@ categories:
   $$
 </div>
 
-5, 6번 식을 미분하여 다음의 식을 얻는다.
+5, 6번 식을 미분한다.
 
 <div class="latex-container">
   $$
@@ -66,6 +68,8 @@ categories:
   $$
 </div>
 
+이를 1, 2번 식에 대입한다.
+
 <div class="latex-container">
   $$
   \begin{align*}
@@ -75,7 +79,7 @@ categories:
   $$
 </div>
 
-연립하여 다음 식을 얻을 얻는다.
+이를 3, 4번 식에 대입한다.
 
 <div class="latex-container">
   $$
@@ -87,7 +91,7 @@ categories:
   $$
 </div>
 
-## Conclusion
+정리하여 다음 식을 얻는다.
 
 <div class="latex-container">
   $$
@@ -96,4 +100,74 @@ categories:
     & \ddot{x} = \dfrac{1}{(M+m) \left( I + m (L/2)^2 \right) - m^2 (L/2)^2 \cos^2\theta} \left[  m^2 \left(\dfrac{L}{2}\right)^2 \sin\theta \cos\theta g - m \left(I + m \left(\dfrac{L}{2}\right)^2 \right)\left(\dfrac{L}{2}\right) \sin\theta \dot{\theta}^2 + \left(I + m \left(\dfrac{L}{2}\right)^2 \right) F \right] \\
   \end{align*}
   $$
-</div>
+</div> -->
+
+## State Space Model
+
+상태 변수와 입력을 다음과 같이 정의한다.
+
+$$
+\mathbb{x}(t) =
+\begin{bmatrix*}
+  x_1(t) \\
+  x_2(t) \\
+  x_3(t) \\
+  x_4(t) \\
+\end{bmatrix*} =
+
+\begin{bmatrix*}
+  x(t) \\
+  \dot{x}(t) \\
+  \theta(t) \\
+  \dot{\theta}(t) \\
+\end{bmatrix*}, \;\;\;
+
+u(t) = F(t)
+$$
+
+그러면 정리한 식을 $\dot{x} = f(x, u)$ 꼴의 비선형 상태 공간 모델로 나타낼 수 있다.
+
+$$
+\begin{align*}
+  \dot{x_1} &= x_2 \\
+  \dot{x_2} &= \dfrac{1}{(M+m) \left( I + m (L/2)^2 \right) - m^2 (L/2)^2 \cos^2x_3} \left[  m^2 \left(\dfrac{L}{2}\right)^2 \sin x_3 \cos x_3 g - m \left(I + m \left(\dfrac{L}{2}\right)^2 \right)\left(\dfrac{L}{2}\right) \sin x_3 x_4^2 + \left(I + m \left(\dfrac{L}{2}\right)^2 \right) u \right] \\
+  \dot{x_3} &= x_4 \\
+  \dot{x_4} &= \dfrac{1}{(M+m) \left( I + m (L/2)^2 \right) - m^2 (L/2)^2 \cos^2 x_3}  \left[ -m^2 \left(\dfrac{L}{2}\right)^2 x_4^2 \sin\theta \cos x_3 + (M + m) mg \left(\dfrac{L}{2}\right) \sin x_3 + m \left(\dfrac{L}{2}\right) \cos x_3 u \right] \\
+\end{align*}
+$$
+
+이를 $\dot{x} = f(x) + g(x) u$ 꼴로 나타내자.
+
+$$
+\begin{bmatrix}
+  \dot{x_1} \\
+  \dot{x_2} \\
+  \dot{x_3} \\
+  \dot{x_4} \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+  x_2 \\
+  \dfrac{1}{(M+m) \left( I + m (L/2)^2 \right) - m^2 (L/2)^2 \cos^2x_3} \left[  m^2 \left(\dfrac{L}{2}\right)^2 \sin x_3 \cos x_3 g - m \left(I + m \left(\dfrac{L}{2}\right)^2 \right)\left(\dfrac{L}{2}\right) \sin x_3 x_4^2 \right] \\
+  x_4 \\
+  \dfrac{1}{(M+m) \left( I + m (L/2)^2 \right) - m^2 (L/2)^2 \cos^2 x_3}  \left[ -m^2 \left(\dfrac{L}{2}\right)^2 x_4^2 \sin\theta \cos x_3 + (M + m) mg \left(\dfrac{L}{2}\right) \sin x_3 \right] \\
+\end{bmatrix}
++
+\begin{bmatrix}
+  0 \\
+  I + m \left(\dfrac{L}{2}\right)^2 \\
+  0 \\
+  m \left(\dfrac{L}{2}\right) \cos x_3 \\
+\end{bmatrix}
+u
+$$
+
+# 해야 할 것
+
+- 에너지 기반으로부터 식 유도하기
+- 연속 상태 공간 모델로 바꾸기
+- 이산 상태 공간 모델로 바꾸기
+
+\left(I + m \left(\dfrac{L}{2}\right)^2 \right) u
+
+m \left(\dfrac{L}{2}\right) \cos x_3 u
