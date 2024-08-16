@@ -109,7 +109,7 @@ Cart Pole을 수학적으로 모델링하자.
 <div class="latex-container">
   $$
   \mathbb{x}(t) =
-  \begin{bmatrix*}
+  \begin{bmatrix}
     x_1(t) \\
     x_2(t) \\
     x_3(t) \\
@@ -121,7 +121,7 @@ Cart Pole을 수학적으로 모델링하자.
     \dot{x}(t) \\
     \theta(t) \\
     \dot{\theta}(t) \\
-  \end{bmatrix*}, \;\;\;
+  \end{bmatrix}, \;\;\;
 
   u(t) = F(t)
   $$
