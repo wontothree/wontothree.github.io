@@ -42,12 +42,19 @@ $$
 
 ## 2.2 The Kalman Filter Algorithm
 
-![](../../../img/probablisticrobotics/kalmanfilter_algorithm.png)
+![](../../../img/probablisticrobotics/kalmanfilter_algorithm.png){: .align-center}
 
 칼만 필터는 시간 $t$에서 신념 *bel($x_t$)*을 평균 $\mu_t$과 공분산 $\sum_t$으로 표현한다.
 
-- <span style="color: #2D3748; background-color:#fff5b1;">Input</span> : the belief at time $t-1$, represented by $\mu_{t-1}$ and $\Sigma_{t-1}$, the control $u_t$, and the measurement $z_t$
-- <span style="color: #2D3748; background-color:#fff5b1;">Output</span> : the belief at time $t$, represented by $\mu_t$ and $\Sigma_t$
+<span style="color: #2D3748; background-color:#fff5b1;">Input</span>
+
+- the belief at time $t-1$, represented by $\mu_{t-1}$ and $\Sigma_{t-1}$
+- the control $u_t$
+- the measurement $z_t$
+
+<span style="color: #2D3748; background-color:#fff5b1;">Output</span>
+
+- the belief at time $t$, represented by $\mu_t$ and $\Sigma_t$
 
 <span style="color: #2D3748; background-color:#fff5b1;">Prediction Step</span>
 
@@ -95,7 +102,7 @@ EKFs utilize a method called Taylor expansion
 
 ## 3.3 The EKF Algorithm
 
-![](../../../img/probablisticrobotics/extendedkalmanfilter_algorithm.png)
+![](../../../img/probablisticrobotics/extendedkalmanfilter_algorithm.png){: .align-center}
 
 The linear predictions in Kalman filters are replaced by their nonlinear generalization in EKFs.
 
