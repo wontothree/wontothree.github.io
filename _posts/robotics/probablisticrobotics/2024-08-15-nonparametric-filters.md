@@ -69,4 +69,44 @@ $M$ : the number of paribles in the partible set $\mathcal{X}_t$, e.g. $M = 1,00
 
 The intuition behind particle filters is to approximate the belief $bel(x_t)$ by the set of partiles $\mathcal{X}_t$.
 
-Ideally, the likelihood for a state hypothesis $x_t$ to be inclueded in the particle set $\mathcal{X}_t$ shall be proportional to its Bayes filter posterior $bel(x_t) : x_t^{[m]} \sim p(x_t \vert z_{1:t}, u_{1:t})$
+Ideally, the likelihood for a state hypothesis $x_t$ to be inclueded in the particle set $\mathcal{X}_t$ shall be proportional to its Bayes filter posterior
+
+$$bel(x_t) : x_t^{[m]} \sim p(x_t \vert z_{1:t}, u_{1:t})$$
+
+As a consequence, the denser a subregion of the state space is populated by samples, the more likely it is that the true state falls into this region.
+
+Just like all other Bayes filter algorithms, the particle filter algorithm constructs the belief $bel(x_t)$ recursively from the belief $bel(x_{t-1})$ one time step earlier.
+
+Since beliefs are represented by sets of particles, this means that particle filters construct the particles et $\mathcal{X}_t$ recursively from the set $\mathcal{X}_{t-1}$.
+
+<span style="color: #2D3748; background-color:#fff5b1;">Input</span>
+
+- particle set $\mathcal{X}_{t-1}$
+- the most recent control $u_t$
+- the most recent measurement $z_t$
+
+<span style="color: #2D3748; background-color:#fff5b1;">Output</span>
+
+- the set $\mathcal{X}_t$, which approximates the posterior distribution $bel(x_t)$
+
+<span style="color: #2D3748; background-color:#fff5b1;">Linea 4</span>
+
+generates a hypothetical state $x_t^{[m]}$ for time $t$ based on the particle $x_{t-1}^{[m]}$ and the control $u_t$.
+
+The resulting sample is indexed by $m$, indicating that it is generated from the $m$-th particle in $\mathcal{X}_{t-1}$.
+
+This step involves sampling from the state transition distribution $p(x_t \vert u_t, x_{t-1}$.
+
+The set of particles obtained after $M$ iterations is the filter's representation of $\overline{bel}(x_t)$.
+
+<span style="color: #2D3748; background-color:#fff5b1;">Linea 5</span>
+
+calculates for each particle $x_t^{[m]}$
+
+*importance factor* $w_t^{[m]}$ : incorporate the measurement $z_t$ into the partilce set
+
+If we interpret $w_t^{[m]}$ as the weight of a particle, the set of weighted partiles represents the Bayes filter posterior $bel(x_t)$.
+
+<span style="color: #2D3748; background-color:#fff5b1;">Linea 8 - 11</span>
+
+resampling (or *importance smapling*)
