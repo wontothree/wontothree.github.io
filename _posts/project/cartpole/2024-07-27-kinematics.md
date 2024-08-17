@@ -115,14 +115,12 @@ Cart Pole을 수학적으로 모델링하자.
     x_3(t) \\
     x_4(t) \\
   \end{bmatrix} =
-
-  \begin{bmatrix*}
+  \begin{bmatrix}
     x(t) \\
     \dot{x}(t) \\
     \theta(t) \\
     \dot{\theta}(t) \\
   \end{bmatrix}, \;\;\;
-
   u(t) = F(t)
   $$
 </div>
