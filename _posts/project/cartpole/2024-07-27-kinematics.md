@@ -114,7 +114,7 @@ Cart Pole을 수학적으로 모델링하자.
     x_2(t) \\
     x_3(t) \\
     x_4(t) \\
-  \end{bmatrix*} =
+  \end{bmatrix} =
 
   \begin{bmatrix*}
     x(t) \\
