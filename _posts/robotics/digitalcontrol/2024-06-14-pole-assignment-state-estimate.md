@@ -1,6 +1,5 @@
 ---
 title: "[Digital Control] Pole Assignment and State Estimate"
-excerpt: "Charles L. Philips - Digital Control System : Ch08"
 categories:
   - digitalcontrol
 ---
@@ -34,3 +33,7 @@ categories:
 >$x(k+1)=Ax(k)+Bu(k)$
 
 ## 7. 입력이 있는 시스템
+
+## Reference
+
+Charles L. Philips - Digital Control System

@@ -1,6 +1,5 @@
 ---
 title: "[Digital Control] Sampling and Reconstruction"
-excerpt: "Charles L. Philips - Digital Control System : Ch03"
 categories:
   - digitalcontrol
 ---
@@ -146,3 +145,7 @@ $$
 - A/D + Digital Computer + D/A를 하나의 시스템으로 볼 수 있을까? 신호 처리가 되는 과정은 무시하는 것인가? O
 - 왜 E starred transform은 실제로 나타나지 않을까?
 - 전달함수는 s-domain에서만 의미가 있는 것일까?
+
+## Reference
+
+Charles L. Philips - Digital Control System

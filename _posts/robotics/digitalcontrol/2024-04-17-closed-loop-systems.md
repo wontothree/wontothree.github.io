@@ -1,6 +1,5 @@
 ---
 title: "[Digital Control] Closed-Loop Systems"
-excerpt: "Charles L. Philips - Digital Control System : Ch05"
 categories:
   - digitalcontrol
 ---
@@ -20,3 +19,7 @@ C^*(s) = \dfrac{G^*(s)}{1+\bar{GH}^*(s)}R^*(s)
 $$
 
 ## 4 State-Varable Models
+
+## Reference
+
+Charles L. Philips - Digital Control System

@@ -1,6 +1,5 @@
 ---
 title: "[Digital Control] Stability Analysis Techniques"
-excerpt: "Charles L. Philips - Digital Control System : Ch07"
 categories:
   - digitalcontrol
 ---
@@ -83,3 +82,7 @@ Gain margin과 phase margin을 구할 때 필요하다.
 ## 9. Interpretation of the Frequency Response
 
 ## 10. Closed-Loop Frequency Response
+
+## Reference
+
+Charles L. Philips - Digital Control System

@@ -1,9 +1,8 @@
-<!-- ---
+---
 title: "[Digital Control] Open-loop Discrete-time Systems"
-excerpt: "Charles L. Philips - Digital Control System : Ch04"
 categories:
   - digitalcontrol
---- -->
+---
 ## 1 Introduction
 
 - 앞서 배운 이산 시간 시스템, z-transform, sampling, data reconstruction에 대한 내용들을 open-loop discrete-time system을 분석하는 데 활용할 것이다.
@@ -157,3 +156,7 @@ $$
 ## 궁금한 점
 
 - $E(z) = E^*(s) \vert _{\epsilon^{sT}=z}$ 왜 이런 식으로 표현할까?
+
+## Reference
+
+Charles L. Philips - Digital Control System

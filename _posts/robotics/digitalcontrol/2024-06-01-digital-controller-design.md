@@ -1,6 +1,5 @@
 ---
 title: "[Digital Control] Digital Controller Design"
-excerpt: "Charles L. Philips - Digital Control System : Ch08"
 categories:
   - digitalcontrol
 ---
@@ -123,3 +122,7 @@ PD 제어기 (phase lead compensator)
 ## 10. PID Controller Design
 
 ## 11. Design by Root Locus
+
+## Reference
+
+Charles L. Philips - Digital Control System

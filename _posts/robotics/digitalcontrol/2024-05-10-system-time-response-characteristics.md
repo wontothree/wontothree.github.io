@@ -1,6 +1,5 @@
 ---
 title: "[Digital Control] System Time Response Characteristics"
-excerpt: "Charles L. Philips - Digital Control System : Ch06"
 categories:
   - digitalcontrol
 ---
@@ -48,3 +47,7 @@ $$
 ## 5. 정상 상태 정확도
 
 ## 6. 모의 실험
+
+## Reference
+
+Charles L. Philips - Digital Control System
