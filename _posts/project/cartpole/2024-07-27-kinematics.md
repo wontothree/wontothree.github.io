@@ -106,25 +106,6 @@ Cart Pole을 수학적으로 모델링하자.
 
 상태 변수와 입력을 다음과 같이 정의한다.
 
-<div class="latex-container">
-  $$
-  \mathbb{x}(t) =
-  \begin{bmatrix}
-    x_1(t) \\
-    x_2(t) \\
-    x_3(t) \\
-    x_4(t) \\
-  \end{bmatrix} =
-  \begin{bmatrix}
-    x(t) \\
-    \dot{x}(t) \\
-    \theta(t) \\
-    \dot{\theta}(t) \\
-  \end{bmatrix}, \;\;\;
-  u(t) = F(t)
-  $$
-</div>
-
 그러면 정리한 식을 $\dot{x} = f(x, u)$ 꼴의 비선형 상태 공간 모델로 나타낼 수 있다.
 
 <div class="latex-container">
