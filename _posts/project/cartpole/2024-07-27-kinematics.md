@@ -102,7 +102,7 @@ Cart Pole을 수학적으로 모델링하자.
   $$
 </div>
 
-# State Space Model
+# Continuous State Space Model
 
 상태 변수와 입력을 다음과 같이 정의한다.
 
@@ -153,7 +153,7 @@ Cart Pole을 수학적으로 모델링하자.
     x_2 \\
     \dfrac{1}{(M+m) \left( I + m (L/2)^2 \right) - m^2 (L/2)^2 \cos^2x_3} \left[  m^2 \left(\dfrac{L}{2}\right)^2 \sin x_3 \cos x_3 g - m \left(I + m \left(\dfrac{L}{2}\right)^2 \right)\left(\dfrac{L}{2}\right) \sin x_3 x_4^2 \right] \\
     x_4 \\
-    \dfrac{1}{(M+m) \left( I + m (L/2)^2 \right) - m^2 (L/2)^2 \cos^2 x_3}  \left[ -m^2 \left(\dfrac{L}{2}\right)^2 x_4^2 \sin\theta \cos x_3 + (M + m) mg \left(\dfrac{L}{2}\right) \sin x_3 \right] \\
+    \dfrac{1}{(M+m) \left( I + m (L/2)^2 \right) - m^2 (L/2)^2 \cos^2 x_3}  \left[ -m^2 \left(\dfrac{L}{2}\right)^2 x_4^2 \sin x_3 \cos x_3 + (M + m) mg \left(\dfrac{L}{2}\right) \sin x_3 \right] \\
   \end{bmatrix}
   +
   \begin{bmatrix}
@@ -161,6 +161,53 @@ Cart Pole을 수학적으로 모델링하자.
     I + m \left(\dfrac{L}{2}\right)^2 \\
     0 \\
     m \left(\dfrac{L}{2}\right) \cos x_3 \\
+  \end{bmatrix}
+  u
+  $$
+</div>
+
+# Discrete State Space Model
+
+Forward Euler Method를 이용하면 다음과 같이 미분 방정식을 차분 방정식으로 바꿀 수 있다.
+
+샘플링 주기를 $T$라 하자.
+
+<div class="latex-container">
+  $$
+  \dot{x} = f(x, u), \;\;\; x_{k+1} = x_k + T \cdot f(x_k, u_k) \\
+  $$
+</div>
+
+<div class="latex-container">
+  $$
+  \begin{bmatrix}
+    \dot{x_1}^{k+1} \\
+    \dot{x_2}^{k+1} \\
+    \dot{x_3}^{k+1} \\
+    \dot{x_4}^{k+1} \\
+  \end{bmatrix}
+  =
+  \begin{bmatrix}
+    \dot{x_1}^{k} \\
+    \dot{x_2}^{k} \\
+    \dot{x_3}^{k} \\
+    \dot{x_4}^{k} \\
+  \end{bmatrix}
+  +
+  T
+  \begin{bmatrix}
+    x_2^k \\
+    \dfrac{1}{(M+m) \left( I + m (L/2)^2 \right) - m^2 (L/2)^2 \cos^2 x_3^k} \left[  m^2 \left(\dfrac{L}{2}\right)^2 \sin x_3^k \cos x_3^k g - m \left(I + m \left(\dfrac{L}{2}\right)^2 \right)\left(\dfrac{L}{2}\right) \sin x_3^k {x_4^k}^2 \right] \\
+    x_4^k \\
+    \dfrac{1}{(M+m) \left( I + m (L/2)^2 \right) - m^2 (L/2)^2 \cos^2 x_3^k}  \left[ -m^2 \left(\dfrac{L}{2}\right)^2 {x_4^k}^2 \sin x_3^k \cos x_3^k + (M + m) mg \left(\dfrac{L}{2}\right) \sin x_3^k \right] \\
+  \end{bmatrix}
+  +
+  T
+  \begin{bmatrix}
+    0 \\
+    I + m \left(\dfrac{L}{2}\right)^2 \\
+    0 \\
+    m \left(\dfrac{L}{2}\right) \cos x_3^k \\
   \end{bmatrix}
   u
   $$
