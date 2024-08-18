@@ -181,17 +181,17 @@ Forward Euler Method를 이용하면 다음과 같이 미분 방정식을 차분
 <div class="latex-container">
   $$
   \begin{bmatrix}
-    \dot{x_1}^{k+1} \\
-    \dot{x_2}^{k+1} \\
-    \dot{x_3}^{k+1} \\
-    \dot{x_4}^{k+1} \\
+    x_1^{k+1} \\
+    x_2^{k+1} \\
+    x_3^{k+1} \\
+    x_4^{k+1} \\
   \end{bmatrix}
   =
   \begin{bmatrix}
-    \dot{x_1}^{k} \\
-    \dot{x_2}^{k} \\
-    \dot{x_3}^{k} \\
-    \dot{x_4}^{k} \\
+    x_1^{k} \\
+    x_2^{k} \\
+    x_3^{k} \\
+    x_4^{k} \\
   \end{bmatrix}
   +
   T
