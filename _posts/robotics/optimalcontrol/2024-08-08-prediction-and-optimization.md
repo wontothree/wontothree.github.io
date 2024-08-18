@@ -11,7 +11,7 @@ This expression allows the general quadratic cost:
 
 <div class="latex-container">
 $$
-J(k) = \sum^{N-1}_{i=0} \left[ x^T(k + i \vert k) Q x(k + i \vert k) u^T(k + i \vert k) R u(k + i \vert k) \right] + x^T(k + N \vert k) \bar{Q} x(k + N \vert k)
+J(k) = \sum^{N-1}_{i=0} \left[ x^T(k + i \vert k) Q x(k + i \vert k) + u^T(k + i \vert k) R u(k + i \vert k) \right] + x^T(k + N \vert k) \bar{Q} x(k + N \vert k)
 $$
 </div>
 
@@ -116,9 +116,35 @@ Note that matrices $H, F$ and $G$ can be computed offline.
 
 ### 1.1 LTV prediction models
 
+The above formulation applies to systems with linear time-varying models
 
+$$
+x(k+1) = A(k) x(k) + B(k) u(k).
+$$
+
+In this case the state predictions can be written
+
+$$
+x(k + i \vert k) = \prod_{j=i-1}^0 A(k + j) x(k) + C_i (k) \mathbb{u}(k) \;\;\; i = 0, \dots, N
+$$
+
+where
+
+$$
+C_0(k) = 0 \\
+C_i(k) = 
+\begin{bmatrix} 
+  \prod_{j=i-1}^1 A(k + j)B(k) & \prod_{j=i-1}^2 A(k + j)B(k) & 0 & \dots & 0
+\end{bmatrix}
+$$
 
 ## 2. Unconstrainted optimization
+
+In the absense of constraints, the optimization $\mathbb{u}^*(k) = \underset{u}{\mathrm{argmin}} J(k)$ has a closed-form soluation which can be derived by considering the graident of $J$ with respect ot $\mathbb{u}$:
+
+$$
+\nabla_{\mathbb{u}} J = 2 H \mathbb{u} + 2 F x.
+$$
 
 ### 2.1 Horizon length and performance
 
