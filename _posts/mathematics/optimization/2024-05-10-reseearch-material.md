@@ -4,7 +4,7 @@ excerpt: "Conferences, papers, blogs, githubs, lectures, books"
 categories:
   - optimization
 ---
-## Conferences
+# Conferences
 
 - [ICLR](https://iclr.cc/)
 - [ICML](https://icml.cc/)
@@ -12,7 +12,7 @@ categories:
 - [Neurips](https://neurips.cc/)
 - [Optimization for ML](https://opt-ml.org/)
 
-## Papers
+# Papers
 
 - https://arxiv.org/pdf/2210.06705
 - https://arxiv.org/pdf/2402.17641
@@ -40,7 +40,7 @@ categories:
 - [NOISE IS NOT THE MAIN FACTOR BEHIND THE GAP BETWEEN SGD AND ADAM ON TRANSFORMERS, BUT SIGN DESCENT MIGHT BE](https://arxiv.org/pdf/2304.13960)
 - [Practical Sharpness-Aware Minimization Cannot Converge All the Way to Optima](https://papers.nips.cc/paper_files/paper/2023/hash/5305b7891e1098dd9773d35cd9333180-Abstract-Conference.html)
 
-## Blogs
+# Blogs
 
 - [MIT Dimitri P. Bertsekas : REINFORCEMENT LEARNING AND OPTIMAL CONTROL](https://web.mit.edu/dimitrib/www/RLbook.html)
 - Machine Learning Research Blog : https://francisbach.com/rethinking-sgd-noise/
@@ -53,15 +53,15 @@ categories:
 - https://www.cs.cornell.edu/courses/cs4787/2021sp/notebooks/Slides10.html
 - [Quick notes on the "Enhanced Cauchy Schwarz inequality and some of its statistical applications](https://kgourgou.me/blog/2024/Quick-notes-on-the-Enhanced-Cauchy-Schwarz-inequality-and-some-of-its-statistical-applications/)
 
-## Githubs
+# Githubs
 
 - [Schedule-free learning](https://github.com/facebookresearch/schedule_free)
 
-## Lectures
+# Lectures
 
 - [Topology & Geometry by Dr Tadashi Tokieda](https://www.youtube.com/playlist?list=PLTBqohhFNBE_09L0i-lf3fYXF5woAbrzJ)
 - https://www.youtube.com/watch?v=6htbyY3rH1w
 
-## Books
+# Books
 
 https://www.amazon.com/Statistical-Consequences-Fat-Tails-Preasymptotics/dp/1544508050

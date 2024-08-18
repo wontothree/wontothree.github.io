@@ -4,9 +4,7 @@ excerpt: "Stephen Boyd - Convex Optimization : Ch04"
 categories:
   - optimization
 ---
-## 1. Optimization problems
-
-### 1.1 Basic terminology
+# 1.1 Basic terminology
 
 $$
 minimize \quad f_0(x) \\
@@ -35,9 +33,9 @@ p* = inf \{f_o(x) | f_i(x) \leq 0, i = 1, ... , m, h_i(x) = 0, i = 1, ... , p\}
 $$
 
 - Optimal value := $p*$
-- The problem is unbounded below := if there are feasible points $x_k$ with $f_0(x_k) \rightarrow -\infin$, then $p* \rightarrow -\infin$
+- The problem is unbounded below := if there are feasible points $x_k$ with $f_0(x_k) \rightarrow -\infty$, then $p* \rightarrow -\infty$
 
-#### Optimal and locally optimal points
+## Optimal and locally optimal points
 
 - Optimal point := $x*$ if $x*$ is feasible and $f_0(x*) = p*$
 - Optimal set := the set of all optimal points $X_{opt}$
@@ -68,7 +66,7 @@ h_i(z) = 0, \;\; i = 1, ... ,p
 ||z - x|| \leq R
 $$
 
-#### Feasibility problems
+## Feasibility problems
 
 - Feasibility problem : a problem in which if the objective function is identically zero, the optimal value is either zero or inifinity
 
@@ -83,10 +81,10 @@ $$
 >Example 4.1 - We illustrate these definitions with a few simple unconstrained optimization problems with variable $x \in R$, and $\textbf{dom} f_0 = R++$
 
 - $f_0(x) = \dfrac{1}{x} : p* = 0$, but the optimal value is not achieved.
-- $f_0(x) = -\log x : p* = \infin$, so this problem is unbounded below.
+- $f_0(x) = -\log x : p* = \infty$, so this problem is unbounded below.
 - $f_0(x) = x \log x : p* = -1/e$, achieved at the unique optimal point $x* = 1/e$
 
-### 1.2 Expressing problems in standard form
+# 1.2 Expressing problems in standard form
 
 In the standard form problem we adopt the convention that the righthand sied of the inequlity and equlity constraints are zero.
 
@@ -115,7 +113,7 @@ $$
 f_i(x) = x_i - u_i \leq 0 \;\; i = n, ... , 2n,
 $$
 
-#### Maximization problems
+## Maximization problems
 
 We can solve the maximization problem by minizing the function $-f_0$ subject ot the constraints
 
@@ -135,15 +133,15 @@ $$
 p* = \sup\{f_0(x) | f_i(x) \leq 0, i = 1, ..., m, \;\; h_i(x) = 0, i = 1, ..., p\}
 $$
 
-### 1.3 Equivalent problems
+## 1.3 Equivalent problems
 
 Tow problems are equivalent : from a solution of one, a solution of the other is readily found, and vice versa
 
-### 1.4 Parameter and oracle problem descriptions
+## 1.4 Parameter and oracle problem descriptions
 
-## 2. Convex optimization
+# 2. Convex optimization
 
-### 2.1 Convex optimization problems in standard form
+## 2.1 Convex optimization problems in standard form
 
 $$
 minimize \quad f_0(x) \\
@@ -163,7 +161,7 @@ $$
 D = \cap_{i=0}^m \textbf{dom}f_i
 $$
 
-#### Concave maximization problems
+### Concave maximization problems
 
 $$
 \text{maximizate} \quad f_0(x) \\
@@ -173,7 +171,7 @@ $$
 
 This concave optimization problem is readily solved by minimizing the convex objective function $-f_0$
 
-#### Abstract form convex optimization problem
+### Abstract form convex optimization problem
 
 It is important to note a subtlety in our definition of convex optimization problem.
 
@@ -197,7 +195,7 @@ $$
 \qquad \qquad \quad \, h_1(x) = (x_1 + x_2) = 0
 $$
 
-### 2.2 Local and global optima
+## 2.2 Local and global optima
 
 A fundemental property of convex optimization problems is that any locally optimal point is also globally optimal
 
@@ -245,7 +243,7 @@ which contradicts.
 
 Hence there exists no feasible $y$ with $f_0(y) < f_0(x)$, $x$ is globally optimal.
 
-### 2.3 An optimality criterion for differentiable $f_0$
+## 2.3 An optimality criterion for differentiable $f_0$
 
 Suppose that the objective $f_0$ in a convex optimization problem is differentiable, so that for all $x, y \in \textbf{dom} f_0$
 
@@ -265,7 +263,7 @@ $$
 \nabla f_0(x)^T(y - x) \geq 0 \;\;\text{for all} \; y \in X
 $$
 
-#### Proof of optimal condition
+### Proof of optimal condition
 
 First suppose $x \in X$ and satisfies
 
@@ -297,7 +295,7 @@ Since $z(t)$ is on the line segment between $x$ and $y$, and the feasible set is
 
 For small positive $t, f_0(z(t)) \leq f_0(x)$, which will prove that $x$ is not optimal.
 
-#### Unconstrainted problems
+### Unconstrainted problems
 
 $$
 x \;\text{is optimal} \quad \Leftrightarrow \quad\nabla f_0(x) = 0
@@ -333,15 +331,15 @@ $$
 - If $P > 0$ (which is the condition for $f_0$ to be strictly convex), then there is a unique minimizer, $x* = - P^{-1}q$
 - If
 
-#### Problems with equality constraints only
+### Problems with equality constraints only
 
-#### Minimization over the nonnegative orthant
+### Minimization over the nonnegative orthant
 
-### 2.4 Equivalent convex problems
+## 2.4 Equivalent convex problems
 
-### 2.5 Quasiconex optimization
+## 2.5 Quasiconex optimization
 
-#### Locally optimal solutions and optimality conditions
+### Locally optimal solutions and optimality conditions
 
 Let X denote the feasible set for the quasiconvex optimization problem. x is optimal if
 
@@ -349,18 +347,6 @@ $$
 x \in X, \;\; \nabla f_0(x)^T(y - x) > 0 \;\text{for all} \; y \in X\{x\}
 $$
 
-#### Quasiconvex optimization via convex feasibility problems
-
-<!-- ## 3. Linear optimization problems
-
-## 4. Quadratic optimization problems
-
-## 5. Geometric programming
-
-## 6. Generalized inequality constraints
-
-## 7. Vector optimization -->
-
-## Reference
+# Reference
 
 Stephen Boyd - Convex Optimization

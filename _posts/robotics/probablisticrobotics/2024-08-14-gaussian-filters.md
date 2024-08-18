@@ -113,7 +113,7 @@ The linear predictions in Kalman filters are replaced by their nonlinear general
 
 |KF|EKF|
 |:---:|:---:|
-|Matrices $A_t, B_t$|Jacobians $G_t, H_t$|
+|Matrices $A_t, B_t$|Jacobians $G_t$|
 |Matrix $C_t$|Jacobian $H_t$|
 
 ## 궁금한 점

@@ -4,9 +4,9 @@ excerpt: "Stephen Boyd - Convex Optimization : Ch03"
 categories:
   - optimization
 ---
-## 3. The conjugate function
+# 3. The conjugate function
 
-### Definition and examples
+## Definition and examples
 
 Let $f : R^n \rightarrow R$. The conjugate of the function f, $f* : R^n \rightarrow R$,
 
@@ -16,6 +16,6 @@ $$
 
 $f*$ is a convex function whether or not $f$ is convex
 
-## Reference
+# Reference
 
 Stephen Boyd - Convex Optimization
