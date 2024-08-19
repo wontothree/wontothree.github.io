@@ -1,8 +1,24 @@
 ---
-title: "[F1tenth] Planner"
+title: "[F1tenth] LiDAR"
 categories: 
-  - f1tenth
+  - ros2
 ---
+LiDAR data를 어떻게 처리해야 할까?
+
+# Dependencies
+
+package.xml
+
+```cpp
+<depend>rclcpp</depend>
+<depend>sensor_msgs</depend>
+```
+
+- rclcpp : node를 생성하고 messgae를 subscribe 또는 publish할 때 필요하다.
+- sensor_msgs : Laser data를 처리할 때 주로 사용하는 메시지 타입인 sensor_msgs/LaserScan이 포함되어 있다. LaserScan, PointCloud, Image 등 다양한 센서 데이터 타입을 포함하는 패키지이다.
+
+---
+
 # 전체 코드
 
 ```cpp
@@ -289,7 +305,4 @@ void pid_control()
 ```cpp
     void scan_callback(const sensor_msgs::msg::LaserScan::ConstSharedPtr scan_msg) 
     {
-        get_error(scan_msg, 1); 
-        pid_control();
-    }
-```
+        get_error(s
