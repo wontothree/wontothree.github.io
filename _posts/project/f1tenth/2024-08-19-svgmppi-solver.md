@@ -45,6 +45,9 @@ std::pair<ControlSeq, double> SVGuidedMPPI::solve(const State& initial_state) {
 
 SVGD and 최적의 파티클 선택
 
+- 입력 : initial_state
+- 출력 : costs_history, control_seq_history
+
 ```cpp
         // Transport guide particles by SVGD
         std::vector<double> costs_history;
@@ -64,12 +67,21 @@ SVGD and 최적의 파티클 선택
             control_seq_history.insert(control_seq_history.end(), guide_samples_ptr_->noised_control_seq_samples_.begin(),
                                        guide_samples_ptr_->noised_control_seq_samples_.end());
         }
+```
+
+- 입력 : initial_state
+- 출력 : best_particle
+
+```cpp
         const auto guide_costs = mpc_base_ptr_->calc_sample_costs(*guide_samples_ptr_, initial_state).first;
         const size_t min_idx = std::distance(guide_costs.begin(), std::min_element(guide_costs.begin(), guide_costs.end()));
         const ControlSeq best_particle = guide_samples_ptr_->noised_control_seq_samples_[min_idx];
 ```
 
 Adaptive Covariance Matrix of Control Sequences : 상황에 맞게 제어 시스템을 더 정확하게 설정하는 데 기여한다.
+
+- 입력 : costs_history, control_seq_history
+- 출력 : covs
 
 ```cpp
         // calculate adaptive covariance matrices for prior distribution
@@ -98,12 +110,18 @@ Adaptive Covariance Matrix of Control Sequences : 상황에 맞게 제어 시스
 
 Prior Distribution에서의 샘플링
 
+- 입력 : prev_control_seq_, covs
+- 출력 : 없음 (prior_samples_ptr_ 가 내부적으로 갱신된다.)
+
 ```cpp
         // random sampling from prior distribution
         prior_samples_ptr_->random_sampling(prev_control_seq_, covs);
 ```
 
 가중 평균을 통한 제어 입력 시퀀스 생성
+
+- 입력 : best_particle
+- 출력 : updated_control_seq
 
 ```cpp
 
@@ -127,6 +145,9 @@ Prior Distribution에서의 샘플링
 
 충돌 비율 계산
 
+- 입력 : initial_state
+- 출력 : collision_rate
+
 ```cpp
         // Rollout samples and calculate costs
         auto [_costs, collision_costs] = mpc_base_ptr_->calc_sample_costs(*prior_samples_ptr_, initial_state);
@@ -142,7 +163,7 @@ Prior Distribution에서의 샘플링
 # 궁금한 점
 
 - 적응형 공분산 행렬이 무엇이고, 왜 계산할까?
-- cpp에서 포인터는 왜 사용할까?
+- 
 
 # Memo
 
