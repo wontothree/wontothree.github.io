@@ -3,7 +3,7 @@ title: "[C++] namespace, using, struct"
 categories:
   - cpp
 ---
-## namespace
+# namespace
 
 C++에서 namespace를 정의하여 관련된 상수들을 그룹화할 수 있다.
 
@@ -27,7 +27,7 @@ namespace STATE_SPACE {
 - x, y, yaw, vel, steer은 각각 인덱스 0, 1, 2, 3, 4에 해당한다.
 - dim : 상태 벡터의 차원 수를 나타낸다. 이 경우 상태 벡터는 5차원이다.
 
-## using
+# using
 
 C++에서 using 키워드는 타입에 별칭을 정의하는 데 사용된다. 코드의 가독성을 높이고 타입 정의를 더 명확하게 할 수 있다.
 
@@ -43,7 +43,7 @@ namespace cpu {
 }  // namespace cpu
 ```
 
-## struct
+# struct
 
 C++에서 구조체는 관련된 데이터를 그룹화하고 관리하기 위한 데이터 구조이다. 구조체는 변수(멤버 변수)와 함수(멤버 함수)를 그룹화하여 하나의 단위로 처리할 수 있도록 한다.
 
@@ -92,6 +92,6 @@ struct Params {
 }
 ```
 
-## Reference
+# Reference
 
 [mppi_controller/include/mppi_controller/common.hpp](https://github.com/kohonda/proj-svg_mppi/blob/main/src/mppi_controller/include/mppi_controller/common.hpp)
