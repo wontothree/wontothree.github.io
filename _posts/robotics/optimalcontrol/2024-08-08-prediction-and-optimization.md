@@ -133,29 +133,4 @@ where
 $$
 C_0(k) = 0 \\
 C_i(k) = 
-\begin{bmatrix} 
-  \prod_{j=i-1}^1 A(k + j)B(k) & \prod_{j=i-1}^2 A(k + j)B(k) & 0 & \dots & 0
-\end{bmatrix}
-$$
-
-## 2. Unconstrainted optimization
-
-In the absense of constraints, the optimization $\mathbb{u}^*(k) = \underset{u}{\mathrm{argmin}} J(k)$ has a closed-form soluation which can be derived by considering the graident of $J$ with respect ot $\mathbb{u}$:
-
-$$
-\nabla_{\mathbb{u}} J = 2 H \mathbb{u} + 2 F x.
-$$
-
-### 2.1 Horizon length and performance
-
-## 3. Infinite horizon cost
-
-### 3.1 The relationship between unconstrainted MPC and LQ optimal control
-
-## 4. Incorporating constraints
-
-## 5. Quadratic Programming
-
-### 5.1 Active set algorithms
-
-### 5.2 Interior point QP algorithms
+\begin{bm
