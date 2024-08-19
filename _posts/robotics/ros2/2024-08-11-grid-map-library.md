@@ -1,7 +1,7 @@
 ---
-title: "[F1tenth] Library Grid-Map"
+title: "[ROS2] Library Grid-Map"
 categories: 
-  - f1tenth
+  - ros2
 ---
 |[Grid Map](https://github.com/ANYbotics/grid_map/tree/ros2?tab=readme-ov-file) Packages|Description|
 |---|---|
