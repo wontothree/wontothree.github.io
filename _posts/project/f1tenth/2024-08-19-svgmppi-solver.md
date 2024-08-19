@@ -25,12 +25,21 @@ std::pair<ControlSeq, double> SVGuidedMPPI::solve(const State& initial_state) {
 |const size_t|min_idx|최종 guide_costs 벡터에서 가장 작은 비용을 가진 요소의 인덱스입니다.|
 |const ControlSeq|best_particle|가장 작은 비용을 가진 가이드 샘플입니다. 이 샘플이 최종 선택된 최적의 제어 시퀀스가 됩니다. **min_idx**는 비용이 가장 낮은 샘플을 찾기 위해 사용되며, **best_particle**은 이 샘플이 선택된 최적의 제어 시퀀스입니다.|
 ||||
-|ControlSeqCovMatrices|covs|제어 시퀀스의 공분산 행렬을 저장하는 데이터 타입. 이 행렬은 제어 입력의 불확실성을 나타내며, 각 시점에서 제어 입력이 얼마나 변동될 수 있는지를 나타낸다. 이 변수는 예측 단계에서 사용할 공분산 행렬을 담고 있으며, 초기에는 고정된 공분산 값으로 설정된다. 이후 코드에서 적응형 공분산 계산이 활성화되면, 이 값이 업데이트된다.|
-|const std::vector<double>|softmax_costs|소프트맥스 함수에 의해 계산된 비용의 가중치를 저장하는 벡터. 이전의 비용(costs_history)을 기반으로 각 샘플의 상태적인 중요도를 계산한 것이다.|
-|std::vector<double>|steer_samples(control_seq_history.size())|특정 시점에서 각 제어 샘플의 스티어링(조향) 값을 저장하는 벡터이다. 벡터의 크기는 control_seq_history.size()로 이는 저장된 제어 시퀀스의 수와 동일하다. 이 벡터는 각 샘플의 스티어링 입력 값을 모아서 공분산 계산의 입력으로 사용된다.|
-|std::vector<double>|q_star(softmax_costs.size())|소프트맥스 가중치 softmax_costs 를 저장하는 벡터. steer_samples와 동일한 크기를 갖는다. 이 벡터는 steer_samples와 함쎄 공분산 계산의 입력으로 사용된다.|
-|const double|sigma|가우시안 피팅을 통해 계산된 공분산 값이다. 이는 스티어링 샘플과 가중치를 기반으로 최적의 공분산을 찾는 과정에서 도출된 결과이다. 후속 계산에서 클램핑을 통해 적절한 범위 내로 제한된다.|
-|const double|sigma_clamped|sigma 값을 특정 범위 (min_steer_cov_, max_steer_cov_) 내에서 제한한 값. 이 값은 최종적으로 covs 행렬에 저장되넝 제어 시퀀스의 공분산 행렬로 사용된다. 이는 제어 입력의 불확실성을 나타내며, 지나치게 크거나 작은 값을 방지하기 위해 클램핑된 값이다.|
+|ControlSeqCovMatrices|covs|제어 시퀀스의 공분산 행렬을 저장하는 변수. 제어 시퀀스의 공분산 행렬을 저장하는 데이터 타입. 이 행렬은 제어 입력의 불확실성을 나타내며, 각 시점에서 제어 입력이 얼마나 변동될 수 있는지를 나타낸다. 이 변수는 예측 단계에서 사용할 공분산 행렬을 담고 있으며, 초기에는 고정된 공분산 값으로 설정된다. 이후 코드에서 적응형 공분산 계산이 활성화되면, 이 값이 업데이트된다.|
+|const std::vector<double>|softmax_costs|제어 샘플의 중요도를 나타내는 가중치를 저장하는 벡터. 소프트맥스 함수에 의해 계산된 비용의 가중치를 저장하는 벡터. 이전의 비용(costs_history)을 기반으로 각 샘플의 상태적인 중요도를 계산한 것이다.|
+|std::vector<double>|steer_samples(control_seq_history.size())|각 샘플의 스티어링 값을 저장하는 벡터. 특정 시점에서 각 제어 샘플의 스티어링(조향) 값을 저장하는 벡터이다. 벡터의 크기는 control_seq_history.size()로 이는 저장된 제어 시퀀스의 수와 동일하다. 이 벡터는 각 샘플의 스티어링 입력 값을 모아서 공분산 계산의 입력으로 사용된다.|
+|std::vector<double>|q_star(softmax_costs.size())|소프트맥스 가중치를 저장하는 벡터. 소프트맥스 가중치 softmax_costs 를 저장하는 벡터. steer_samples와 동일한 크기를 갖는다. 이 벡터는 steer_samples와 함쎄 공분산 계산의 입력으로 사용된다.|
+|const double|sigma|가우시안 피팅을 통해 계산된 공분산 값. 가우시안 피팅을 통해 계산된 공분산 값이다. 이는 스티어링 샘플과 가중치를 기반으로 최적의 공분산을 찾는 과정에서 도출된 결과이다. 후속 계산에서 클램핑을 통해 적절한 범위 내로 제한된다.|
+|const double|sigma_clamped|공분산 값을 제한 범위 내로 클램핑한 값. sigma 값을 특정 범위 (min_steer_cov_, max_steer_cov_) 내에서 제한한 값. 이 값은 최종적으로 covs 행렬에 저장되넝 제어 시퀀스의 공분산 행렬로 사용된다. 이는 제어 입력의 불확실성을 나타내며, 지나치게 크거나 작은 값을 방지하기 위해 클램핑된 값이다.|
+||||
+||_costs|샘플들의 비용을 나타내는 벡터. 각 샘플이 얼마나 좋은지 평가한다. 이후의 가중치 계산에서 중요한 역할을 한다.|
+||collision_costs|샘플들의 충돌 관련 비용을 나타내는 벡터. 각 샘플이 충돌과 관련된 비용을 얼마나 가지는지 평가한다. 충돌이 발생한 샘플들은 높은 비용을 가지며, 이는 제어 시퀀스의 안전성을 평가하는 데 사용된다.|
+||nominal_control_seq_|참조용 제어 시퀀스. 최적화 과정에서 참조 시퀀스로 사용된다. 가중치를 계산할 때 참조로 사용된다. is_use_nominal_solution_ 플래그에 따라 이전에 계산된 최적 제어 시퀀스 best_particl을 사용할지 아니면 제로 시퀀스를 사용할지 결정된다.|
+||weights|각 샘플에 대한 가중치를 나타내는 벡터. 비용과 참조 시퀀스를 기반으로 각 샘플의 중요도롤 결정한다. 이 가중치는 샘플들을 통합하여 최종 제어 시퀀스를 생성하는 데 사용된다.|
+||weights_|weights의 복사본으로 시각화 목적으로 사용된다.|
+||updated_control_seq|가중 평균을 통해 계산된 새로운 제어 시퀀스. 모든 샘플의 가중 평균을 계산하여 최종 제어 입력을 결정한다. 이 제어 시퀀스는 이후 단계에서 사용할 최적의 입력이 된다.|
+||collision_num|충돌이 발생한 샘플의 수. 제어 시퀀스의 안전성을 평가하기 위해 사용된다. 충돌이 많은 경우, 해당 제어 시퀀스는 안전하지 않은 것으로 간주된다.|
+||collision_rate|충돌이 발생한 샘플의 비율. 전체 샘플 중 충돌이 발생한 샘플의 비율을 계산하여 제어 시퀀스의 안전성을 정량적으로 평가한다.|
 
 # 기능별
 
@@ -60,7 +69,7 @@ SVGD and 최적의 파티클 선택
         const ControlSeq best_particle = guide_samples_ptr_->noised_control_seq_samples_[min_idx];
 ```
 
-Adaptive Covariance Matrix of Control Sequences
+Adaptive Covariance Matrix of Control Sequences : 상황에 맞게 제어 시스템을 더 정확하게 설정하는 데 기여한다.
 
 ```cpp
         // calculate adaptive covariance matrices for prior distribution
@@ -87,13 +96,16 @@ Adaptive Covariance Matrix of Control Sequences
         }
 ```
 
+Prior Distribution에서의 샘플링
+
 ```cpp
         // random sampling from prior distribution
         prior_samples_ptr_->random_sampling(prev_control_seq_, covs);
+```
 
-        // Rollout samples and calculate costs
-        auto [_costs, collision_costs] = mpc_base_ptr_->calc_sample_costs(*prior_samples_ptr_, initial_state);
-        prior_samples_ptr_->costs_ = std::forward<std::vector<double>>(_costs);
+가중 평균을 통한 제어 입력 시퀀스 생성
+
+```cpp
 
         // calculate weights
         if (is_use_nominal_solution_) {
@@ -111,6 +123,14 @@ Adaptive Covariance Matrix of Control Sequences
         for (size_t i = 0; i < prior_samples_ptr_->get_num_samples(); i++) {
             updated_control_seq += weights[i] * prior_samples_ptr_->noised_control_seq_samples_.at(i);
         }
+```
+
+충돌 비율 계산
+
+```cpp
+        // Rollout samples and calculate costs
+        auto [_costs, collision_costs] = mpc_base_ptr_->calc_sample_costs(*prior_samples_ptr_, initial_state);
+        prior_samples_ptr_->costs_ = std::forward<std::vector<double>>(_costs);
 
         const int collision_num = std::count_if(collision_costs.begin(), collision_costs.end(), [](const double& cost) { return cost > 0.0; });
         const double collision_rate = static_cast<double>(collision_num) / static_cast<double>(prior_samples_ptr_->get_num_samples());
