@@ -66,6 +66,14 @@ RX와 TX가 뭘까?
 |Holding Torque|   236mN $\cdot$ m   | 전류를 인가받고 있을 때, 정지 상태에서 제공할 수 있는 최대 토크. 이는 모터가 고정된 위치에서 얼마나 강하게 버틸 수 있는지를 나타내며, 위치 고정 어플리케이션에서 중요하다. |
 |Detent Torque|  14.7 mN $\cdot$ m  |
 
+![](../../../img/cartpole/motordriver-hw-components.png){: .align-center width="400" height="200"}
+
+![](../../../img/cartpole/motordriver-motor-connector.png){: .align-center width="400" height="200"}
+
+![](../../../img/cartpole/motordriver-port-connector.png){: .align-center width="400" height="200"}
+
+![](../../../img/cartpole/motordriver-sw-module.png){: .align-center width="400" height="200"}
+
 # Absolute Rotary Encoder - EN25-Absolute
 
 - 자기장을 이용한 비접촉식 마그네틱 엔코더
