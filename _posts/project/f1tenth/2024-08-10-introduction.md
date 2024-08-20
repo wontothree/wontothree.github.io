@@ -38,3 +38,4 @@ categories:
 - 데이터 수집 파이프라인
 - global planner로부터 어떤 양식의 데이터를 받을지
 - 자료구조
+  
