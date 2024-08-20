@@ -53,6 +53,14 @@ RX와 TX가 뭘까?
 - 가변저항을 이용하여 모터에 흐르는 전류량을 조절할 수 있다.
 - 외관 크기 : 63.3 x 50.6 mm
 
+![](../../../img/cartpole/motordriver-hw-components.png){: .align-center width="400" height="200"}
+
+![](../../../img/cartpole/motordriver-port-connector.png){: .align-center width="400" height="200"}
+
+![](../../../img/cartpole/motordriver-motor-connector.png){: .align-center width="400" height="200"}
+
+![](../../../img/cartpole/motordriver-sw-module.png){: .align-center width="400" height="200"}
+
 # Moter - KH42JM2-901
 
 ||    Specificatoin    | Description                                                                                         |
@@ -65,14 +73,6 @@ RX와 TX가 뭘까?
 |Curent|     1.2A/Phase      |
 |Holding Torque|   236mN $\cdot$ m   | 전류를 인가받고 있을 때, 정지 상태에서 제공할 수 있는 최대 토크. 이는 모터가 고정된 위치에서 얼마나 강하게 버틸 수 있는지를 나타내며, 위치 고정 어플리케이션에서 중요하다. |
 |Detent Torque|  14.7 mN $\cdot$ m  |
-
-![](../../../img/cartpole/motordriver-hw-components.png){: .align-center width="400" height="200"}
-
-![](../../../img/cartpole/motordriver-motor-connector.png){: .align-center width="400" height="200"}
-
-![](../../../img/cartpole/motordriver-port-connector.png){: .align-center width="400" height="200"}
-
-![](../../../img/cartpole/motordriver-sw-module.png){: .align-center width="400" height="200"}
 
 # Absolute Rotary Encoder - EN25-Absolute
 
