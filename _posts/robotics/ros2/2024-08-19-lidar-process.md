@@ -1,5 +1,5 @@
 ---
-title: "[F1tenth] LiDAR"
+title: "[ROS2] LiDAR"
 categories: 
   - ros2
 ---
@@ -305,4 +305,7 @@ void pid_control()
 ```cpp
     void scan_callback(const sensor_msgs::msg::LaserScan::ConstSharedPtr scan_msg) 
     {
-        get_error(s
+        get_error(scan_msg, 1); 
+        pid_control();
+    }
+```
