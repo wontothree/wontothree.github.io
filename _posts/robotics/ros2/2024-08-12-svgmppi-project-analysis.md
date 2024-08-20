@@ -1,7 +1,7 @@
 ---
-title: "[F1tenth] SVG-MPPI Project Analysis"
+title: "[ROS2] SVG-MPPI Project Analysis"
 categories: 
-  - f1tenth
+  - ros2
 ---
 # Packages
 
