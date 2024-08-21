@@ -46,6 +46,23 @@ Arduino UNO R4 WiFi
 
 RX와 TX가 뭘까?
 
+# Moter
+
+Stepping Motor : KH42JM2-901
+
+||    Specificatoin    | Description                                                                                         |
+|---|:-------------------:|-----------------------------------------------------------------------------------------------------|
+|Shaft|    Single Shaft     | 하나의 축만 외부에 노출되어 있다.                                                                                 |
+|Drive Method|      Uni-Polar      | 스테핑 모터의 권선 중앙에 중앙 탭이 있는 구조를 사용한다. 구동 시 권선의 중앙 탭을 기준으로 전류가 쿄차하여 흐름으로써 모터를 제어한다.                      |
+|Number of Phases|          2          | 2상 모터는 두 개의 전기적 위상으로 구성되어 있으며 이 위상들 간의 전류 교차에 의해 회전한다.                                              |
+|Step Angle|    1.8^{$\circ$}    | 모터가 한 스텝 움직일 때 회전하는 각도. 표준치. 한 바퀴 회전 시 200스텝을 필요로 한다.                                               |
+|Voltage|        3.42V        |
+|Curent|     1.2A/Phase      |
+|Holding Torque|   236mN $\cdot$ m   | 전류를 인가받고 있을 때, 정지 상태에서 제공할 수 있는 최대 토크. 이는 모터가 고정된 위치에서 얼마나 강하게 버틸 수 있는지를 나타내며, 위치 고정 어플리케이션에서 중요하다. |
+|Detent Torque|  14.7 mN $\cdot$ m  |
+
+![](../../../img/cartpole/motor-connection-diagram.png){: .align-center }
+
 # Motor Driver
 
 Motor Driver : AM-CS2P
@@ -70,23 +87,6 @@ Motor Driver : AM-CS2P
 Stepping motor 제어를 위해서는 arduino uno의 전압 5V보다 높은 전압이 필요한 경우가 대부분이므로 모터 드라이버 칩을 사용한 전용 제어 모듈을 사용하는 것이 일반적이다.
 
 모터 제어를 위해서는 A, /A, B, /B에 해당하는 4개의 제어선 연결을 필요로 한다.
-
-# Moter
-
-Stepping Motor : KH42JM2-901
-
-||    Specificatoin    | Description                                                                                         |
-|---|:-------------------:|-----------------------------------------------------------------------------------------------------|
-|Shaft|    Single Shaft     | 하나의 축만 외부에 노출되어 있다.                                                                                 |
-|Drive Method|      Uni-Polar      | 스테핑 모터의 권선 중앙에 중앙 탭이 있는 구조를 사용한다. 구동 시 권선의 중앙 탭을 기준으로 전류가 쿄차하여 흐름으로써 모터를 제어한다.                      |
-|Number of Phases|          2          | 2상 모터는 두 개의 전기적 위상으로 구성되어 있으며 이 위상들 간의 전류 교차에 의해 회전한다.                                              |
-|Step Angle|    1.8^{$\circ$}    | 모터가 한 스텝 움직일 때 회전하는 각도. 표준치. 한 바퀴 회전 시 200스텝을 필요로 한다.                                               |
-|Voltage|        3.42V        |
-|Curent|     1.2A/Phase      |
-|Holding Torque|   236mN $\cdot$ m   | 전류를 인가받고 있을 때, 정지 상태에서 제공할 수 있는 최대 토크. 이는 모터가 고정된 위치에서 얼마나 강하게 버틸 수 있는지를 나타내며, 위치 고정 어플리케이션에서 중요하다. |
-|Detent Torque|  14.7 mN $\cdot$ m  |
-
-![](../../../img/cartpole/motor-connection-diagram.png){: .align-center width="400" height="200"}
 
 # Encoder
 
