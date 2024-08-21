@@ -59,7 +59,13 @@ RX와 TX가 뭘까?
 
 ![](../../../img/cartpole/motordriver-motor-connector.png){: .align-center width="400" height="200"}
 
+![](../../../img/cartpole/motordriver-search-phase.png){: .align-center width="400" height="200"}
+
 ![](../../../img/cartpole/motordriver-sw-module.png){: .align-center width="400" height="200"}
+
+Stepping motor 제어를 위해서는 arduino uno의 전압 5V보다 높은 전압이 필요한 경우가 대부분이므로 모터 드라이버 칩을 사용한 전용 제어 모듈을 사용하는 것이 일반적이다.
+
+모터 제어를 위해서는 A, /A, B, /B에 해당하는 4개의 제어선 연결을 필요로 한다.
 
 # Stepping Moter : KH42JM2-901
 
@@ -73,6 +79,8 @@ RX와 TX가 뭘까?
 |Curent|     1.2A/Phase      |
 |Holding Torque|   236mN $\cdot$ m   | 전류를 인가받고 있을 때, 정지 상태에서 제공할 수 있는 최대 토크. 이는 모터가 고정된 위치에서 얼마나 강하게 버틸 수 있는지를 나타내며, 위치 고정 어플리케이션에서 중요하다. |
 |Detent Torque|  14.7 mN $\cdot$ m  |
+
+![](../../../img/cartpole/motor-connection-diagram.png){: .align-center width="400" height="200"}
 
 # Absolute Rotary Encoder : EN25-Absolute
 
