@@ -323,6 +323,112 @@ where $A_c, b_0, B_x$ are constant matrices that can be determined offline.
 
 ## 5. Quadratic Programming
 
+Combining the objective function and constraints dervied above, the optimization of the infinite horizon cost subject to constraints requites the solution of a QP problem:
+
+$$
+\underset{u}{\mathrm{minimize}} \;\;\; \mathbf{u}^T H \mathbf{u} + 2x^T(k) F^T \mathbf{u} \\
+\mathrm{subject \; to} \;\;\; A_c \mathbf{u} \leq b_0 + B_x x(k)
+$$
+
+Since $H$ is positive semi-definite and constraint are linear, this is a convex optimization problem which has a unique solution.
+
+Purpose of this section
+
+- outlines the 2 types of algorithm commonly used to solve QP problem : active set and interior point algorithms
+- general result of constrainted optimization theory
+
+Theorem 2.2 (Optimization with equality constraints)
+
+If $\mathbf{u}^*$ satisfies
+
+$$
+\mathbf{u}^* = \underset{u}{\mathrm{argmin}} f(\mathbf{u}) \\
+\mathrm{subject \; to} \;\;\; c_i(\mathbf{u}) = 0, \;\;\; i = 1, \dots, m \\
+$$
+
+where $f$ and $c_i$ are smooth functions, then scalar $\lambda_i^*, i = 1, \dots, m$ exist satisfying
+
+$$
+\nabla_{\mathbf{u}} f(\mathbf{u}^*) + \sum_{i=1}^m \lambda_i \nabla_{\mathbf{u}} c_i (\mathbf{u}^*) = 0 \\
+c_i (\mathbf{u}^*) = 0, \;\;\; i = 1, \dots, m
+$$
+
+- Condition 1 : extension of the gradient condition, $\nabla_{\mathbf{u}} f(\mathbf{u}^*)$, which must be satisfied at a minimum point of $f(u)$ if $\mathbf{u}$ is unconstrained. The addition of the second term simply ensures that $f(\mathbf{u})$ cannot be reduced by perturbing $\mathbf{u}^*$ by incremental distance in any direction for which the constraint $c_i(\mathbf{u}) = 0$ remains satisfied.
+
+Scalar $\lambda_i$ : Lagrange multipliers
+
+Note that
+
+1. Condition 1 applies to the case of inequality constraints $c_i (\mathbf{u}) \leq 0$.
+2. Problems with inequality constraints are generally harder to solve than similar equality constrainted problems since only a subset of the constraints may be active at the solution.
+
 ### 5.1 Active set algorithms
 
+$a_i^T$ : $i$th row of $A_c$
+
+$b_i$ : $i$th element of $b_0 + B_x x(k), \;\;\; i = 1, \dots, ,$
+
+individual constraint $a_i^T \mathbf{u} \leq b_i$ is active at the solution if $a_i^T \mathbf{u}^* = b_i$, and inactive if $a_i^T \mathbf{u}^* < b_i$.
+
+Clearly the inactive constraints can be removed from the problem without affecting the solution, and it follow that $\mathbf{u}^*$ is also the solution of the equality constrained problem:
+
+$$
+\underset{u}{\mathrm{minimize}} \;\;\; \mathbf{u}^T H \mathbf{u} + 2x^T(k) F^T \mathbf{u} \\
+\mathrm{subject \; to} \;\;\; a_i^T \mathbf{u} = b_i, \;\;\; i \in \mathcal{A}^*
+$$
+
+where
+
+$$
+\mathcal{A}^* = \left[ i : a_i^T \mathbf{u}^* = b_i \right] 
+$$
+
+is the set of active constraints at the solution.
+
+The solution of
+
+$$
+\underset{u}{\mathrm{minimize}} \;\;\; \mathbf{u}^T H \mathbf{u} + 2x^T(k) F^T \mathbf{u} \\
+\mathrm{subject \; to} \;\;\; A_c \mathbf{u} \leq b_0 + B_x x(k)
+$$
+
+can be found by iteratively
+
+1. selecting a possible combination of active constraints
+2. solving the corresponding equality constrainted problem (thm 2.2)
+3. testing the optimality of the solution ot the closest point to the solution at which all of the inequality constraint satisfied
+
+- The optimality of a trial solution can be determined from the associated Lagrange multifpliers
+- The successive active sets are chosed so as to make the objective function decrease at each iteratino
+- Wll-design active set solvers manage to avoid testing large numers of possible combinations of active constraints
+
 ### 5.2 Interior point QP algorithms
+
+This approach solves an unconstrainted problem:
+
+$$
+\underset{u}{\mathrm{minimize}} \;\;\; \mu \left[ \mathbf{u}^T H \mathbf{u} + 2 F^T \mathbf{u} \right] + \phi (\mathbf{u})
+$$
+
+at each iteration, where
+
+- $\mu$ is a scalar, and
+- $\phi (\mathbf{u})$ is a barrier function which is finite whenever $\mathbf{u}$ satisfies constraints but which tends to infinity as $\mathbf{u}$ approaches a constraint doundary
+
+For constraints $a_i^T \mathbf{u} \leq b_i$, the barrier function is typically defined as
+
+$$
+\phi (\mathbf{u}) = \sum_{i=1}^{m} - \log (b_i - a_i^T \mathbf{u})
+$$
+
+The solution of unconstrainted problem for any given $\mu$ satisfies constraints.
+
+It can be shown the solution of unconstrainted problem tends to $\mathbf{u}^*$ as $\mu \rightarrow \infty$.
+
+Interior point methods increase $\mu$ over successive iterations until constraint are met to within a given tolerance.
+
+The interior point approach has a lower computational load for large-scale problems involving hendreds of optimization vairblaes.
+
+Unlike active set solvers, it is not possible to initialize the iteration at an estimate close to the actual solution because the corresponding value of $\mu$ is unknown.
+
+This can be a big disadvantage in predictive control, where a good estimate of the current optimal control sequence can usually be determined from the solution of the opimization problem computed at the preivous sampling instant.
