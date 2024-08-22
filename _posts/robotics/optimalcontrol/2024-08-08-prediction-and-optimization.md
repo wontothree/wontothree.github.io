@@ -146,13 +146,180 @@ $$
 \nabla_{\mathbb{u}} J = 2 H \mathbb{u} + 2 F x.
 $$
 
+If
+
+- $H$ is positive definite (or positive semidefinite)
+- $H$ is nonsingular
+
+from $\nabla_{\mathbb{u}} \mathbf{J} = 0$
+
+$$
+\mathbb{u}^*(k) = - H^{-1} F x(k)
+$$
+
+If $H$ is singular, then optimal $\mathbf{u}^*$ is non-unique.
+
+...
+
 ### 2.1 Horizon length and performance
+
+The linear feedback form $\mathbb{u}^*(k) = - H^{-1} F x(k)$ is to be expected since $\mathbf{u}^*$ is the solution of a LQ-optimal control problem.
+
+- (Ideal) The Infinite horizon LQ-problem control problem : there is no difference between the optimal predicted input sequence and its receding horizon implementation in the absence disturbances and model error.
+- (Real) <span style="color: #2D3748; background-color:#fff5b1;">The horizon is reduced</span> : There can be significant fidvtrpsnvy between the prediction s of $\mathbb{u}^*(k) = - H^{-1} F x(k)$ and closed-loop responses with the receding horizon controller
 
 ## 3. Infinite horizon cost
 
+Because of the difference between predicted and closed-loop responsed, there is no guarantee that a receding horizon controller based on a finite-horizon cost will achieve the optimal predicted preformace in closed-loop operation.
+
+In fact the closed-loop system may even be unstable.
+
+However, this problem is avioded entirely if performance is evaluated over an infinite prediction horizon, i.e. if the cost is defined as
+
+$$
+J(k) = \sum_{i=0}^{\infty} \left[ x^T (k + i \vert k) Q x(k + i \vert k) + u^T(u + i \vert k R) u(k + i \vert k) \right]
+$$
+
+To make sure that the problem of minimizing ihis cost is tractable, it is then necessary to define the predicted input sequence over the infinite prediction horizon in such a way that the number of free vaiables in the MPC optimization remains finite.
+
+<span style="color: #2D3748; background-color:#fff5b1;">Dual model predictions</span>
+
+$$
+u(k + i \vert k) =
+\begin{cases}
+  \text{optimization vaiable} \;\;\; i = 0, 1, \dots, N-1 \;\;\; (\text{mode 1}) \\
+  K x(k + i \vert k) \;\;\; i = N, N + 1, \dots \;\;\; (\text{mode 2}) \\
+\end{cases}
+$$
+
+- mode 1 : initial horizon of $N$ samples over which the predicted inputs are variables in the MPC optimization
+- mode 2 : inputs are defined by a stabilizing feedback law over the remaining infinite horizon
+
+For the dual mode input predictions, an infinite horizon cost nedd only be evaluated explicitly over mode 1 since $J(k)$ can be re-written in the form of
+
+$$
+J(k) = \sum^{N-1}_{i=0} \left[ x^T(k + i \vert k) Q x(k + i \vert k) + u^T(k + i \vert k) R u(k + i \vert k) \right] + x^T(k + N \vert k) \bar{Q} x(k + N \vert k)
+$$
+
+This is done by choosing the terminal wighting matrix $\bar{Q}$ so that the term $x^T(k + N \vert k) \bar{Q} x(k + N \vert k)$ is equal to the cost over the mode 2 prediction horizon, which is achieved by specifying $\bar{Q}$ as the solution of the Lyapunov equation:
+
+$$
+\bar{Q} - (A + BK)^T \bar{Q}(A + BK) = Q + K^T R K
+$$
+
+Theorem 2.1 (Terminal weighting matrix).
+
+Along closed-loop trajectories of the model under the feedback law $u(k) = Kx(k)$, the infinite horizon quadratic cost is given by
+
+$$
+\sum_{i=0}^{\infty} \left[ x^T(i)Qx(i) + u^T R u(i) \right] = x^T \bar{Q} x(0)
+$$
+
+where $\bar{Q}$ satisfies $\bar{Q} - (A + BK)^T \bar{Q}(A + BK) = Q + K^T R K$
+
+증명 생략
+
+Note
+
+1. The Lyapunov equation $\bar{Q} - (A + BK)^T \bar{Q}(A + BK) = Q + K^T R K$ has a unique solution for $\bar{Q}$ if and only if the eigenvalues of $A + BK$ lie within the unit circle.
+2. It is easy to show that $\bar{Q}$ is positive definite if either $Q + K^T R K > 0$ or $Q = C^TC$ where (A + BK, C) is observable.
+3. From theorem 2.1, it is clear that the finite horizon cost fomulation is equal to the infinite horizon formulation.
+
+$$
+\sum^{N-1}_{i=0} \left[ x^T(k + i \vert k) Q x(k + i \vert k) + u^T(k + i \vert k) R u(k + i \vert k) \right] + x^T(k + N \vert k) \bar{Q} x(k + N \vert k)
+\\
+= \sum_{i=0}^{\infty} \left[ x^T (k + i \vert k) Q x(k + i \vert k) + u^T(u + i \vert k R) u(k + i \vert k) \right]
+$$
+
 ### 3.1 The relationship between unconstrainted MPC and LQ optimal control
 
+The obvious choice for the mode 2 feedback gain $K$ is the LQ-optimal gain for the cost.
+
+Due to the optimality of predictions over both modes 1 and 2, the optimal predicted trajectory $\mathbb{u}^*$ is then necessarily identical to the infinite horizon optimal input sequence
+
+$$
+\mathbb{u}^*(k)
+=
+\begin{bmatrix}
+  K \\
+  K ( A + BK) \\
+  \vdots \\
+  K ( A + B K)^{N-1} \\
+\end{bmatrix}
+x(k)
+$$
+
+implying the the receding horizon control law
+
+$$
+u(k) = u^*(k \vert k) = K_N x(k), \;\;\;, K_N = - \left[ I_{n_u} 0 \dots o \right] H^{-1}F
+$$
+
+is in fact equal to the LQ-optimal feedback law $u = Kx$.
+
+This result should bot be surprising since the model and cost are the same for MPC and LQ-optimal control, here MPC simply provides an alternative method determining the optimal control law
+
 ## 4. Incorporating constraints
+
+The real advantage of MPC lies in its ability ot determine nonlinear feedback laws which are optimal for constrained systems through numerical calculations that are performed online (i.e. in between samples)
+
+$$
+\underline{u} \leq u(k) \leq \overline{u} \\
+\underline{x} \leq x(k) \leq \overline{x} \\
+$$
+
+or
+
+The input constraint are equivalent
+
+$$
+u(k) \leq \overline{u}, \;\;\; -u(k) \leq - \underline{u}
+$$
+
+As applying mode 1 prediction $u(k + i \vert k), i = 0, \dots N-1$ can therefore be expressed in terms of $u(k)$ as
+
+$$
+\begin{bmatrix}
+  I \\
+  -I \\
+\end{bmatrix}
+u(k) \leq
+\begin{bmatrix}
+  \mathbf{1} \overline{u} \\
+  -\mathbf{1} \underline{u} \\
+\end{bmatrix}
+$$
+
+where $\mathbf{1}$ is a vector ones for the single input case.
+
+Similary
+
+$$
+\begin{bmatrix}
+  C_i \\
+  -C_i
+\end{bmatrix}
+u(k) \leq
+\begin{bmatrix}
+  \overline{x} \\
+  \underline{x} \\
+\end{bmatrix}
++ 
+\begin{bmatrix}
+  -A^i \\
+  A^i
+\end{bmatrix}
+x(k)
+\;\;\; i = 1, \dots, N
+$$
+
+Therefore
+
+$$
+A_c \mathbf{u}(k) \leq b_0 + B_x x(k)
+$$
+
+where $A_c, b_0, B_x$ are constant matrices that can be determined offline.
 
 ## 5. Quadratic Programming
 
