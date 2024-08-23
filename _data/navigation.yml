@@ -46,6 +46,8 @@ sidebar-category:
         url: /computervision
   - title: "Electrical Engineering"
     children:
+      - title: "Physics"
+        url: /physics
       - title: "Digital Logic"
         url: /logic
       - title: "Microprocessor"
