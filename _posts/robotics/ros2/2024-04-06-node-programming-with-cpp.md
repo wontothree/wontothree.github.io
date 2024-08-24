@@ -6,13 +6,14 @@ categories:
 ---
 4가지 예시를 실행해볼 것이다.
 
-## Node의 생성 후 Log를 출력하는 예제
+# [Example 1] Node의 생성 후 Log를 출력
 
 ```bash
 ros2 run cpp_first_pkg simple_node
 ```
 
 ```cpp
+// C++로 ROS2 프로그래밍을 하기 위해서 반드시 필요한 include (C++ API)
 #include "rclcpp/rclcpp.hpp"
 
 int main(int argc, char **argv) {
@@ -32,9 +33,24 @@ int main(int argc, char **argv) {
 }
 ```
 
-ROS1과 달리 ROS2는 포인터를 이용한다.
+ROS1과 달리 ROS2는 포인터를 이용하여 노드를 생성한다.
 
-## 주기적으로 node를 동작시키는 예제
+ROS1에서는 node handler가 subscriber와 publisher를 만들어주고 관리했다.
+
+ROS2에서는 거의 모든 것을 pointer로 다룬다. 생성된 노드, subscribe된 데이터도 포인터.
+
+rclcpp::Node::make_shared 포인터를 사용한다.
+
+ROS1
+
+```cpp
+int main(int argc, char** argv){
+
+    ros::init(argc, argv, "basic_node");
+    ros::NodeHandle nh;
+```
+
+# [Example 2]  주기적으로 node를 동작시키는 예제
 
 ```bash
 ros2 run cpp_first_pkg simple_loop_node
@@ -62,14 +78,17 @@ int main(int argc, char **argv) {
     // 호출한다. 주기만큼 반복한다.
     rate.sleep();
   }
-
+ 
   // 종료
   rclcpp::shutdown();
   return 0;
 }
 ```
 
-## 상속을 통한 Node 생성
+# [Example 3] 상속을 통한 Node 생성 - Node Composition
+
+public rclcpp::Node를 상속받아서 구현한다.
+
 
 ```bash
 ros2 run cpp_first_pkg simple_oop_node
@@ -83,7 +102,7 @@ ros2 run cpp_first_pkg simple_oop_node
 class Talker : public rclcpp::Node
 {
 private:
-	// Node를 주기적으로 실행시켜 줄 timer 입니다.
+  // Node를 주기적으로 실행시켜 줄 timer 입니다.
   rclcpp::TimerBase::SharedPtr m_timer;
 
   // Member 변수로 m_count를 넣는다.
@@ -94,16 +113,16 @@ private:
   {
     // 카운트를 올린다.
     m_count++;
-		// Log 출력한다.
+	// Log 출력한다.
     RCLCPP_INFO(this->get_logger(), "I am Simple OOP Example, count : %d", m_count);
   }
 
 public:
-	// 생성자 함수의 인자로 이름을 넣어주어 노드를 생성한다.
+  // 생성자 함수의 인자로 이름을 넣어주어 노드를 생성한다.
   Talker() : Node("simple_oop_node")
   {
-		// create_wall_timer 함수에 주기와 실행 대상을 인자로 넣는다. -> 주기적으로 실행한다.
-		// this->는 굳이 명시하지 않아도 됩니다.
+	// create_wall_timer 함수 (살행 주기, 실행 대상)
+	// this->는 굳이 명시하지 않아도 됩니다.
     m_timer = this->create_wall_timer(std::chrono::milliseconds(500), std::bind(&Talker::timer_callback, this));
   }
 };
@@ -112,14 +131,46 @@ int main(int argc, char **argv)
 {
   rclcpp::init(argc, argv);
 
-	// spin은 Node내부에 정해진 timer에 따라 Node를 주기적으로 동작, 갱신시킨다.
+  // rclcpp::spin은 내부에 있는 timer를 주기적으로 실행한다.
   rclcpp::spin(std::make_shared<Talker>());
   rclcpp::shutdown();
   return 0;
 }
 ```
 
-## Lifecycle
+## std::bind
+
+클래스 내의 함수를 마치 일반 함수처럼 사용할 수 있다.
+
+```cpp
+#include <algorithm>
+#include <functional>
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+class Object {
+public:
+  void greeting(const string &str) { cout << "Hello, " << str << endl; }
+};
+
+void good_bye(const string &str) { cout << str << endl; }
+
+int main() {
+  Object my_obj;
+
+  auto obj_greeting =
+      std::bind(&Object::greeting, &my_obj, std::placeholders::_1);
+
+  obj_greeting("Kim");
+
+  return 0;
+} 
+```
+
+# [Example 4] Lifecycle
 
 ```bash
 anthony@anthony-B760M-AORUS-ELITE:~/gcamp_ros2_ws$ ros2 run cpp_first_pkg lifecycle_node
@@ -204,6 +255,8 @@ int main(int argc, char **argv) {
 }
 ```
 
-## Reference
+# Reference
 
-김수영 대표 강의 - 10강
+[김수영 대표 강의 - 10강](https://www.youtube.com/watch?v=bj8AoKFmnWg&list=PLieE0qnqO2kTNCznjLX_AaXe2hNJ-IpVQ&index=10)
+
+[rclcpp: ROS Client Library for C++](https://docs.ros2.org/latest/api/rclcpp/index.html)

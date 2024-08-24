@@ -5,7 +5,7 @@ categories:
 ---
 LaserScan data를 local costmap으로 바꾸는 package이다.
 
-# Process
+Process
 
 1. LaserScan.msg를 subscribe한다.
 2. laser scan을 point cloud2로 변환한다.
