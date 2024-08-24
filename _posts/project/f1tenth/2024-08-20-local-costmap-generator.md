@@ -1,5 +1,5 @@
 ---
-title: "[F1tenth] Package - local_costmap-generator"
+title: "[F1tenth] Package - local_costmap_generator"
 categories: 
   - f1tenth
 ---
@@ -19,7 +19,7 @@ Process
 
 # 2. LaserScan to PointCloud2
 
-[message] [sensor_msgs/LaserScan](https://docs.ros.org/en/noetic/api/sensor_msgs/html/msg/LaserScan.html)
+[message] [sensor_msgs/LaserScan](https://github.com/ros-perception/laser_geometry/tree/foxy)
 
 ```cpp
 float32 angle_min
@@ -47,9 +47,7 @@ uint8[] data
 bool is_dense
 ```
 
-laser_geometry
-
-https://github.com/ros-perception/laser_geometry.git
+[laser_geometry](https://github.com/ros-perception/laser_geometry.git)
 
 # 3. PointCloud2 to PCL
 
