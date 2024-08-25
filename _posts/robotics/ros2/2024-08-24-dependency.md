@@ -31,5 +31,4 @@ ament_target_dependencies(local_costmap_generator_node
   sensor_msgs
   laser_geometry
 )
-
 ```
