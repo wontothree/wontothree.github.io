@@ -10,7 +10,7 @@ Process
 1. sensor_msgs::LaserScan을 sensor_msgs::PointCloud2로 변환한다. [laserscan_to_pointcloud2]
 2. sensor_msgs::PointCloud2를 pcl::PointCloud로 변환한다. [pointcloud2_to_pcl]
 3. pointcloud2를 전처리한다. [preprocess_pointcloud]
-4. 4센서 프레임 좌표계를 로봇 프레임 좌표계로 변환한다. [sensorcoordinate_to_robotcoordinate]
+4. 4센서 프레임 좌표계를 로봇 프레임 좌표계로 변환한다. [sensorFrame_to_robotFrame]
 5. 로봇 내부에 있는 pointcloud를 제거한다. [crop_points_within_robot]
 6. pointcloud를 costmap으로 변환한다. [pointcloud_to_costmap]
 7. 강체를 가진 costmap을 inflate한다. [inflate_rigidbody]
@@ -49,7 +49,15 @@ bool is_dense
 
 # 2. pointcloud2_to_pcl
 
-[perception_pcl](https://github.com/ros-perception/perception_pcl/tree/foxy-devel)
+ROS message 형태의 point cloude를 pcl에서 사용하는 message type으로 변환한다.
+
+pcl message type의 형태로 데이터를 가공한 후 ROS에서 publish하기 위해서는 다시 sensor_msgs::msg::PointCloud2로 바꿔야 한다.
+
+RVIZ를 이용해 전처리 결과를 시각적으로 확인하기 위해서는 sensor_msgs::msg::PointCloud2로 publish해야 한다.
+
+[perception_pcl](https://github.com/ros-perception/perception_pcl/tree/foxy-devel) : 포인트 클라우드 데이터를 처리하고 분석하는 라이브러리. 데이터 처리 도구.
+
+sensor_msgs::msg::PointCloud2 메시지를 pcl::PointCloud 객체로 변환하려면, pcl_conversions 패키지를 이용해야 한다.
 
 # 3. preprocess_pointcloud
 
@@ -58,9 +66,7 @@ bool is_dense
 - 다운샘플링
 - 통과 필터
 
-PCL : 포인트 클라우드 데이터를 처리하고 분석하는 라이브러리. 데이터 처리 도구.
-
-# 4. sensorcoordinate_to_robotcoordinate
+# 4. sensorFrame_to_robotFrame
 
 - 좌표 변환 조회 : 센서와 로봇 사이의 변환 정보를 조회
 - 변환 행렬 생성 : 조화된 변환 정보를 Eigen의 행렬로 변환한다.
@@ -89,6 +95,4 @@ PCL : 포인트 클라우드 데이터를 처리하고 분석하는 라이브러
 
 https://pointclouds.org/
 
-https://limhyungtae.github.io/2021-09-09-ROS-Point-Cloud-Library-(PCL)-0.-Tutorial-%EB%B0%8F-%EA%B8%B0%EB%B3%B8-%EC%82%AC%EC%9A%A9%EB%B2%95/
-
-https://velog.io/@happy5368/ROS-PCLPoint-Cloud-Library-%ED%98%95%EB%B3%80%ED%99%98
+https://limhyungtae.github.io/2021-09-09-ROS-Point-Cloud-Library-(PCL)-0.-Tutorial-%EB
