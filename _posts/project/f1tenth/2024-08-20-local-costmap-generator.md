@@ -15,18 +15,76 @@ Process
 6. pointcloud를 costmap으로 변환한다. [pointcloud_to_costmap]
 7. 강체를 가진 costmap을 inflate한다. [inflate_rigidbody]
 
-# 1. laserscan_to_pointcloud2
-
-sensor_msgs::LaserScan을 sensor_msgs::PointCloud2로 변환하는 함수
-
-Library [laser_geometry](https://github.com/ros-perception/laser_geometry.git)의 class LaserProjection를 사용한다. - laser_geometry::LaserProjection
+# LocalCostmapGenerator
 
 ```cpp
-void LocalCostmapGenerator::laserscan_to_pointcloud2(const sensor_msgs::msg::LaserScan::ConstSharedPtr laserscan_msg)
+LocalCostmapGenerator::LocalCostmapGenerator() : Node("loca_costmap_generator_node"), tf_buffer_(this->get_clock()), tf_listener_(tf_buffer_)
 {
-    laser_projection_->projectLaser(*laserscan_msg, *pointcloud2_);
+    laserscan_topic = "/scan";
+
+    sub_laserscan_ = this->create_subscription<sensor_msgs::msg::LaserScan>(
+        laserscan_topic,
+        10, 
+        std::bind(&LocalCostmapGenerator::scan_callback, this, std::placeholders::_1)
+    );
+
+    is_laserscan_received_ = false;
+
+    timer_ = this->create_wall_timer(std::chrono::milliseconds(10), std::bind(&LocalCostmapGenerator::timer_callback, this));
+
+    laser_projection_ = std::make_shared<laser_geometry::LaserProjection>();
+
+    pointcloud2_ = std::make_shared<sensor_msgs::msg::PointCloud2>();
+
+    pub_pointcloud2_ = this->create_publisher<sensor_msgs::msg::PointCloud2>("/pointcloud2", 10);
+
+    pcl_ = pcl::PointCloud<pcl::PointXYZ>::Ptr(new pcl::PointCloud<pcl::PointXYZ>());
+
+    robot_frame_id_ = "ego_racecar/base_link";
+    sensor_frame_id_ = "ego_racecar/laser";
+    pcl_robot_frame_ = pcl::PointCloud<pcl::PointXYZ>::Ptr(new pcl::PointCloud<pcl::PointXYZ>());
 }
 ```
+
+# scan_callback
+
+```cpp
+void LocalCostmapGenerator::scan_callback(const sensor_msgs::msg::LaserScan::ConstSharedPtr laserscan)
+{
+    laserscan_to_pointcloud2(laserscan, pointcloud2_);
+    pointcloud2_to_pcl(pointcloud2_, pcl_);
+
+    is_laserscan_received_ = true;
+}
+```
+
+# timer_callback
+
+```cpp
+void LocalCostmapGenerator::timer_callback()
+{
+    if (!is_laserscan_received_) {
+        RCLCPP_INFO(this->get_logger(), "Waiting for laser scan data...");
+        return;
+    }
+
+    preprocess_pcl(pcl_);
+
+    sensor_frame_to_robot_frame(sensor_frame_id_, robot_frame_id_, pcl_, pcl_robot_frame_);
+}
+```
+
+# 1. laserscan_to_pointcloud2
+
+```cpp
+void LocalCostmapGenerator::laserscan_to_pointcloud2(const sensor_msgs::msg::LaserScan::ConstSharedPtr laserscan, sensor_msgs::msg::PointCloud2::SharedPtr pointcloud2)
+{
+    laser_projection_->projectLaser(*laserscan, *pointcloud2);
+}
+```
+
+- sensor_msgs::LaserScan을 sensor_msgs::PointCloud2로 변환하는 함수
+- Library [laser_geometry](https://github.com/ros-perception/laser_geometry.git)의 laser_geometry::LaserProjection를 사용한다.
 
 [message] [sensor_msgs/LaserScan](https://github.com/ros-perception/laser_geometry/tree/foxy)
 
@@ -59,9 +117,9 @@ bool is_dense
 # 2. pointcloud2_to_pcl
 
 ```cpp
-void LocalCostmapGenerator::pointcloud2_to_pcl(const sensor_msgs::msg::PointCloud2::ConstSharedPtr pointcloud2)
+void LocalCostmapGenerator::pointcloud2_to_pcl(const sensor_msgs::msg::PointCloud2::ConstSharedPtr pointcloud2, pcl::PointCloud<pcl::PointXYZ>::Ptr pcl)
 {
-    pcl::fromROSMsg(*pointcloud2, *pcl_);
+    pcl::fromROSMsg(*pointcloud2, *pcl);
 }
 ```
 
@@ -78,9 +136,9 @@ sensor_msgs::msg::PointCloud2 메시지를 pcl::PointCloud 객체로 변환하�
 # 3. preprocess_pointcloud
 
 ```cpp
-void LocalCostmapGenerator::preprocess_pcl(const pcl::PointCloud<pcl::PointXYZ>::ConstPtr pcl, pcl::PointCloud<pcl::PointXYZ>::Ptr& pcl_preprocessed)
+void LocalCostmapGenerator::preprocess_pcl(pcl::PointCloud<pcl::PointXYZ>::Ptr pcl)
 {
-    *pcl_preprocessed = *pcl;
+    *pcl = *pcl;
 }
 ```
 
