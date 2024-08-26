@@ -9,7 +9,10 @@ categories:
 
 Package가 ros의 특정 버전을 지원하지 않을 수 있다.
 
+직접 구현해야지 어떡하겠는가.
+
 ```bash
 E: Unable to locate package ros-foxy-grid-map
 ```
 
+https://index.ros.org/r/grid_map/#humble

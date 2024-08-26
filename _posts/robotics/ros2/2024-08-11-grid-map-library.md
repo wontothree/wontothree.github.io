@@ -61,3 +61,4 @@ void MPCBase::set_reference_map(const grid_map::GridMap& reference_map) {
 ```
 
 grid_map::GridMap& reference_map 는 2D 격자 형태의 맵을 표현한다.
+
