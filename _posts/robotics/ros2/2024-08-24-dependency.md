@@ -41,4 +41,29 @@ include_directories(include)
 find_package(laser_geometry REQUIRED)
 
 add_executable(local_costmap_generator_node 
-   
+    src/local_costmap_generator.cpp 
+    src/local_costmap_generator_node.cpp
+)
+
+ament_target_dependencies(local_costmap_generator_node 
+  rclcpp
+  sensor_msgs
+  laser_geometry
+)
+```
+
+# 4. Header
+
+```cpp
+#include "laser_geometry/laser_geometry.hpp"
+```
+
+# PCL
+
+- [Point Cloud Library](https://pointclouds.org/)
+- [Tutorials for PCL](https://pcl.readthedocs.io/projects/tutorials/en/master/)
+- [PCL API](https://pointclouds.org/documentation/)
+
+https://docs.ros.org/en/diamondback/api/pcl/html/index.html
+
+https://github.com/PointCloudLibrary
