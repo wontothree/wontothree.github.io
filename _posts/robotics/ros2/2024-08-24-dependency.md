@@ -45,3 +45,13 @@ ament_target_dependencies(local_costmap_generator_node
 ```cpp
 #include "laser_geometry/laser_geometry.hpp"
 ```
+
+# PCL
+
+- [Point Cloud Library](https://pointclouds.org/)
+- [Tutorials for PCL](https://pcl.readthedocs.io/projects/tutorials/en/master/)
+- [PCL API](https://pointclouds.org/documentation/)
+
+https://docs.ros.org/en/diamondback/api/pcl/html/index.html
+
+https://github.com/PointCloudLibrary
