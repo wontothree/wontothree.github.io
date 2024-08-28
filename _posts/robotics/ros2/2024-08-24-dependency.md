@@ -3,6 +3,12 @@ title: "[ROS2] Dependency"
 categories: 
   - ros2
 ---
+
+의존성 패키지는 두 가지 종류로 나뉜다.
+
+1. workspace 내부에 소스 코드 형태로 존재해야 하는 dependency
+2. 외부 라이브러리 : rosdep 등을 통해 설치할 수 있다.
+
 ROS2에서 Library를 사용할 때 어떤 것들을 해야 할까?
 
 1. 설치한다.
