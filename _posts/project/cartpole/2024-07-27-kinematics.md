@@ -11,7 +11,7 @@ Cart Pole을 수학적으로 모델링하자.
 - 카트와 바닥 간의 마찰은 없다고 가정한다.
 - 카트와 막대는 모두 질량 분포가 일정하여 막대의 중력이 막대의 기하학적 중심에 작용한다고 가정한다.
 
-# Mathematical Modeling by Newton's Laws of Motion
+# Dynamic Model
 
 뉴턴 역학을 이용해서 inverted pendulum을 모델링할 수 있다.
 
