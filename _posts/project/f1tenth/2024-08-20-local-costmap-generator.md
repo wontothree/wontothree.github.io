@@ -1,5 +1,5 @@
 ---
-title: "[F1tenth] local_costmap_generator Package API"
+title: "[F1tenth] Package API - local_costmap_generator"
 categories: 
   - f1tenth
 ---
