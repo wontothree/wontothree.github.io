@@ -27,6 +27,8 @@ namespace STATE_SPACE {
 - x, y, yaw, vel, steer은 각각 인덱스 0, 1, 2, 3, 4에 해당한다.
 - dim : 상태 벡터의 차원 수를 나타낸다. 이 경우 상태 벡터는 5차원이다.
 
+STATE_SPACE::x 와 같은 방식으로 접근할 수 있다.
+
 # using
 
 C++에서 using 키워드는 타입에 별칭을 정의하는 데 사용된다. 코드의 가독성을 높이고 타입 정의를 더 명확하게 할 수 있다.
@@ -42,6 +44,8 @@ namespace cpu {
     using State = Eigen::Matrix<double, STATE_SPACE::dim, 1>;
 }  // namespace cpu
 ```
+
+STATE_SPACE는 가독성을 위해 State 벡터를 정의하고 그 요소들에 쉽게  접근하기 위해 도입된 것이다.
 
 # struct
 
