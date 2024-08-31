@@ -1,5 +1,5 @@
 ---
-title: "[Cart Pole] Kinematics"
+title: "[Cart Pole] Dynamic Model"
 excerpt:
 categories:
   - cartpole
