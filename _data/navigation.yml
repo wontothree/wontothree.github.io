@@ -64,6 +64,8 @@ sidebar-category:
         url: /electroniccircuit
       - title: "Laboratory"
         url: /laboratory
+      - title: "AI Semiconductor"
+        url: /aisemiconductor
   - title: "Mathematics"
     children:
       - title: "Linear Algebra"
