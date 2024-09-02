@@ -1,7 +1,7 @@
 ---
 title: "Stein Variational GD"
 layout: archive
-permalink: /aisemiconductor
+permalink: /steinvariationalgd
 sidebar:
     nav: "sidebar-category"
 ---
