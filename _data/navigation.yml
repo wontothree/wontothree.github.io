@@ -40,6 +40,8 @@ sidebar-category:
         url: /java
       - title: "Data Structure"
         url: /datastructure
+      - title: "Artificial Intelligence"
+        url: /artificialintelligence
       - title: "Machine Learning"
         url: /machinelearning
       - title: "Computer Vision"
