@@ -78,6 +78,8 @@ sidebar-category:
         url: /engineeringmathematics                 
       - title: "Optimization"
         url: /optimization
+      - title: "Differential Equation"
+        url: /differentialequation
   - title: "ETC"
     children:
       - title: "Paper Review"
