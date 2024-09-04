@@ -67,10 +67,6 @@ $dm = \lambda dx, \lambda = \dfrac{m}{L}$이므로
 
 $$
 \begin{align*}
-  I &= \int r^2 dm \\
-  &= \int_0^{L} x^2 \lambda dx \\
-  &= \left[ \dfrac{1}{3} x^3 \lambda \right]_0^L \\
-  &= \dfrac{1}{3}\lambda L^3 \\
-  &= \dfrac{1}{3} m L^2
+  I &= \int r^2 dm = \int_0^{L} x^2 (\lambda dx) = \left[ \dfrac{1}{3} x^3 \lambda \right]_0^L = \dfrac{1}{3}\lambda L^3 = \dfrac{1}{3} m L^2
 \end{align*}
 $$
