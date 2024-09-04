@@ -23,7 +23,7 @@ Cart Pole을 수학적으로 모델링하자.
 - $\theta$ : Tilt angle of rod [$rad$]
 - $M$ : Mass of Cart [$kg$]
 - $m$ : Mass of rod [$kg$]
-- $I$ : Inertia of Cart [kg $\cdot m^2$]
+- $I$ : Inertia of rod [kg $\cdot m^2$]
 - $L$ : Length of rod [$m$]
 - $F$ : Force applied at cart [$N$]
 

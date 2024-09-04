@@ -45,11 +45,10 @@ Motor Bracket
 
 Cart
 
-- Mass of cart ($M$) : 122.53g (= 0.123kg) (재측정해야 함)
-- Inertia of cart ($I$) :
+- Mass of cart ($M$) : 122.61g (= 0.123kg)
 
 Rod
 
 - Mass of rod ($m$) : 88.68g (= 0.089kg)
 - Length of rod ($L$) : 40cm (= 0.4m)
-
+- Inertia of rod ($I$) : 
