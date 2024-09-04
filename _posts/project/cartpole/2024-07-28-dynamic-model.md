@@ -168,6 +168,10 @@ Cart Pole을 수학적으로 모델링하자.
 
 # Discrete State Space Model
 
+The above model describes the dynamic behavior in continuous-time. However, the required format for the NMPC controller is a discrete-time model.
+
+To achieve the requiredment, we sample the continuous-time system using Euler's method: this is done at a much faster rate than the control interval to provide better accuracy.
+
 Forward Euler Method를 이용하면 다음과 같이 미분 방정식을 차분 방정식으로 바꿀 수 있다.
 
 샘플링 주기를 $T$라 하자.
@@ -199,16 +203,4 @@ Forward Euler Method를 이용하면 다음과 같이 미분 방정식을 차분
     x_2^k \\
     \dfrac{1}{(M+m) \left( I + m (L/2)^2 \right) - m^2 (L/2)^2 \cos^2 x_3^k} \left[  m^2 \left(\dfrac{L}{2}\right)^2 \sin x_3^k \cos x_3^k g - m \left(I + m \left(\dfrac{L}{2}\right)^2 \right)\left(\dfrac{L}{2}\right) \sin x_3^k {x_4^k}^2 \right] \\
     x_4^k \\
-    \dfrac{1}{(M+m) \left( I + m (L/2)^2 \right) - m^2 (L/2)^2 \cos^2 x_3^k}  \left[ -m^2 \left(\dfrac{L}{2}\right)^2 {x_4^k}^2 \sin x_3^k \cos x_3^k + (M + m) mg \left(\dfrac{L}{2}\right) \sin x_3^k \right] \\
-  \end{bmatrix}
-  +
-  T
-  \begin{bmatrix}
-    0 \\
-    I + m \left(\dfrac{L}{2}\right)^2 \\
-    0 \\
-    m \left(\dfrac{L}{2}\right) \cos x_3^k \\
-  \end{bmatrix}
-  u
-  $$
-</div>
+    \dfrac{1}{(M+m) \left( I + m (L/2)^2 \right) - m^2 (L/2)^2 \co
