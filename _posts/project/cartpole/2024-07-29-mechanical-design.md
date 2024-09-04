@@ -52,3 +52,21 @@ Rod
 - Mass of rod ($m$) : 88.68g (= 0.089kg)
 - Length of rod ($L$) : 40cm (= 0.4m)
 - Inertia of rod ($I$) : 0.004746 $kg \cdot m^2$
+
+# Inertia
+
+길이가 L이고 질량이 m인 막대기의 한 쪽 끝을 회전축으로 할 때 관성 모멘트를 구하자.
+
+![](../../../img/cartpole/inertia.png){: .align-center width="400" height="200"}
+
+미소 질량은 dm이고 그 요소의 길이는 dx이다.
+
+y축에 대한 막대의 관성 모멘트는 다음과 같이 구할 수 있다.
+
+$dm = \lambda dx, \lambda = \dfrac{m}{L}$이므로
+
+$$
+\begin{align*}
+  I &= \int r^2 dm = \int_0^{L} x^2 (\lambda dx) = \left[ \dfrac{1}{3} x^3 \lambda \right]_0^L = \dfrac{1}{3}\lambda L^3 = \dfrac{1}{3} m L^2
+\end{align*}
+$$

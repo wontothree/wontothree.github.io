@@ -203,4 +203,16 @@ Forward Euler Method를 이용하면 다음과 같이 미분 방정식을 차분
     x_2^k \\
     \dfrac{1}{(M+m) \left( I + m (L/2)^2 \right) - m^2 (L/2)^2 \cos^2 x_3^k} \left[  m^2 \left(\dfrac{L}{2}\right)^2 \sin x_3^k \cos x_3^k g - m \left(I + m \left(\dfrac{L}{2}\right)^2 \right)\left(\dfrac{L}{2}\right) \sin x_3^k {x_4^k}^2 \right] \\
     x_4^k \\
-    \dfrac{1}{(M+m) \left( I + m (L/2)^2 \right) - m^2 (L/2)^2 \co
+    \dfrac{1}{(M+m) \left( I + m (L/2)^2 \right) - m^2 (L/2)^2 \cos^2 x_3^k}  \left[ -m^2 \left(\dfrac{L}{2}\right)^2 {x_4^k}^2 \sin x_3^k \cos x_3^k + (M + m) mg \left(\dfrac{L}{2}\right) \sin x_3^k \right] \\
+  \end{bmatrix}
+  +
+  T
+  \begin{bmatrix}
+    0 \\
+    I + m \left(\dfrac{L}{2}\right)^2 \\
+    0 \\
+    m \left(\dfrac{L}{2}\right) \cos x_3^k \\
+  \end{bmatrix}
+  u
+  $$
+</div>

@@ -51,6 +51,4 @@ categories:
 - 포토 센서 테스트
 - 포토 센서 부착
 
-# Reference
-
-Nonlinear Model Predictive Control of an Inverted Pendulum
+# Re
