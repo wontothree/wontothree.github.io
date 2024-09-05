@@ -171,7 +171,7 @@ Cart 계에 대해 뉴턴 운동 법칙과 돌림힘 법칙을 적용하자.
 
 그러면 정리한 식을 $\dot{x} = f(x, u)$ 꼴의 비선형 상태 공간 모델로 나타낼 수 있다.
 
-<!-- <div class="latex-container"> -->
+<div class="latex-container">
   $$
   \begin{align*}
     \dot{x_1} &= x_2 \\
