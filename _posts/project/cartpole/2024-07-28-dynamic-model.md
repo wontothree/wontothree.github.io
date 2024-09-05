@@ -145,7 +145,14 @@ Cart 계에 대해 뉴턴 운동 법칙과 돌림힘 법칙을 적용하자.
     \dot{x}(t) \\
     \theta(t) \\
     \dot{\theta}(t) \\
-  \end{bmatrix}, \;\;\;
+  \end{bmatrix} =
+    \begin{bmatrix}
+    x(t) \\
+    v(t) \\
+    \theta(t) \\
+    w(t) \\
+  \end{bmatrix}
+  , \;\;\;
   u(t) = F(t)
   $$
 </div>
