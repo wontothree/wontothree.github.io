@@ -217,7 +217,7 @@ Forward Euler Method를 이용하면 다음과 같이 미분 방정식을 차분
   $$
 </div>
 
-<div class="latex-container">
+<!-- <div class="latex-container"> -->
   $$
   \begin{bmatrix}
     x_1^{k+1} \\
@@ -236,17 +236,17 @@ Forward Euler Method를 이용하면 다음과 같이 미분 방정식을 차분
   T
   \begin{bmatrix}
     x_2^k \\
-    \dfrac{1}{(M+m) \left( I + m (L/2)^2 \right) - m^2 (L/2)^2 \cos^2 x_3^k} \left[  m^2 \left(\dfrac{L}{2}\right)^2 \sin x_3^k \cos x_3^k g - m \left(I + m \left(\dfrac{L}{2}\right)^2 \right)\left(\dfrac{L}{2}\right) \sin x_3^k {x_4^k}^2 \right] \\
+    \dfrac{mg\sin x_3^k \cos x_3^k - \left( \dfrac{2}{L}I + m \dfrac{L}{2} \right) {x_4^k}^2 \sin x_3^k}{\dfrac{4}{mL^2}(M + m) I + \left[ M + m \sin^2x_3^k \right]} \\
     x_4^k \\
-    \dfrac{1}{(M+m) \left( I + m (L/2)^2 \right) - m^2 (L/2)^2 \cos^2 x_3^k}  \left[ -m^2 \left(\dfrac{L}{2}\right)^2 {x_4^k}^2 \sin x_3^k \cos x_3^k + (M + m) mg \left(\dfrac{L}{2}\right) \sin x_3^k \right] \\
+  \dfrac{-m \dfrac{L}{2} {x_4^k}^2 \sin x_3^k \cos x_3^k + (M + m)g \sin x_3^k}{\dfrac{2}{mL}(M + m) I + \dfrac{L}{2} \left[ M + m \sin^2 x_3^k \right]} \\
   \end{bmatrix}
   +
   T
   \begin{bmatrix}
     0 \\
-    I + m \left(\dfrac{L}{2}\right)^2 \\
+    \left( \dfrac{4}{mL^2} I + 1\right) \\
     0 \\
-    m \left(\dfrac{L}{2}\right) \cos x_3^k \\
+    \cos x_3^k \\
   \end{bmatrix}
   u
   $$
