@@ -217,7 +217,7 @@ Forward Euler Method를 이용하면 다음과 같이 미분 방정식을 차분
   $$
 </div>
 
-<!-- <div class="latex-container"> -->
+<div class="latex-container">
   $$
   \begin{bmatrix}
     x_1^{k+1} \\
