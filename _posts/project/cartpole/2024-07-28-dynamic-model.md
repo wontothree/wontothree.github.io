@@ -171,13 +171,13 @@ Cart 계에 대해 뉴턴 운동 법칙과 돌림힘 법칙을 적용하자.
 
 그러면 정리한 식을 $\dot{x} = f(x, u)$ 꼴의 비선형 상태 공간 모델로 나타낼 수 있다.
 
-<div class="latex-container">
+<!-- <div class="latex-container"> -->
   $$
   \begin{align*}
     \dot{x_1} &= x_2 \\
     \dot{x_2} &= \dfrac{mg\sin x_3 \cos x_3 - \left( \dfrac{2}{L}I + m \dfrac{L}{2} \right)x_4^2 \sin x_3 + \left( \dfrac{4}{mL^2} I + 1\right) u}{\dfrac{4}{mL^2}(M + m) I + \left[ M + m \sin^2x_3 \right]} \\
     \dot{x_3} &= x_4 \\
-    \dot{x_4} &= \dfrac{-m \dfrac{L}{2} x_4^2 \sin x_3 \cos x_3 + (M + m)g \sin x_3 + F\cos x_3}{\dfrac{2}{mL}(M + m) I + \dfrac{L}{2} \left[ M + m \sin^2 x_3 \right]} \\
+    \dot{x_4} &= \dfrac{-m \dfrac{L}{2} x_4^2 \sin x_3 \cos x_3 + (M + m)g \sin x_3 + u \cos x_3}{\dfrac{2}{mL}(M + m) I + \dfrac{L}{2} \left[ M + m \sin^2 x_3 \right]} \\
   \end{align*}
   $$
 </div>
