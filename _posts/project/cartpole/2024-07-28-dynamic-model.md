@@ -122,7 +122,7 @@ Cart 계에 대해 뉴턴 운동 법칙과 돌림힘 법칙을 적용하자.
   \begin{align*}
     \ddot{\theta}
     &= \dfrac{1}{(M+m) \left( I + m (L/2)^2 \right) - m^2 (L/2)^2 \cos^2\theta}  \left[ -m^2 \left(\dfrac{L}{2}\right)^2 \dot{\theta}^2 \sin\theta \cos\theta + (M + m) mg \dfrac{L}{2} \sin\theta + m \dfrac{L}{2} \cos\theta F \right] \\
-    &= \dfrac{m \dfrac{L}{2} \dot{\theta}^2 \sin\theta \cos\theta + (M + m)g \sin\theta + F\cos\theta}{\dfrac{2}{mL}(M + m) I + \dfrac{L}{2} \left[ M + m \sin^2\theta \right]} \\
+    &= \dfrac{-m \dfrac{L}{2} \dot{\theta}^2 \sin\theta \cos\theta + (M + m)g \sin\theta + F\cos\theta}{\dfrac{2}{mL}(M + m) I + \dfrac{L}{2} \left[ M + m \sin^2\theta \right]} \\
     \ddot{x}
     &= \dfrac{1}{(M+m) \left( I + m (L/2)^2 \right) - m^2 (L/2)^2 \cos^2\theta} \left[  m^2 \left(\dfrac{L}{2}\right)^2 g \sin\theta \cos\theta - m \left(I + m \left(\dfrac{L}{2}\right)^2 \right) \dfrac{L}{2} \dot{\theta}^2 \sin\theta + \left(I + m \left(\dfrac{L}{2}\right)^2 \right) F \right] \\
     &= \dfrac{mg\sin\theta \cos\theta - \left( \dfrac{2}{L}I + m \dfrac{L}{2} \right)\dot{\theta}^2 \sin\theta + \left( \dfrac{4}{mL^2} I + 1\right) F}{\dfrac{4}{mL^2}(M + m) I + \left[ M + m \sin^2\theta \right]}
@@ -166,9 +166,9 @@ Cart 계에 대해 뉴턴 운동 법칙과 돌림힘 법칙을 적용하자.
   $$
   \begin{align*}
     \dot{x_1} &= x_2 \\
-    \dot{x_2} &= \dfrac{1}{(M+m) \left( I + m (L/2)^2 \right) - m^2 (L/2)^2 \cos^2x_3} \left[  m^2 \left(\dfrac{L}{2}\right)^2 \sin x_3 \cos x_3 g - m \left(I + m \left(\dfrac{L}{2}\right)^2 \right)\left(\dfrac{L}{2}\right) \sin x_3 x_4^2 + \left(I + m \left(\dfrac{L}{2}\right)^2 \right) u \right] \\
+    \dot{x_2} &= \dfrac{mg\sin x_3 \cos x_3 - \left( \dfrac{2}{L}I + m \dfrac{L}{2} \right)x_4^2 \sin x_3 + \left( \dfrac{4}{mL^2} I + 1\right) u}{\dfrac{4}{mL^2}(M + m) I + \left[ M + m \sin^2x_3 \right]} \\
     \dot{x_3} &= x_4 \\
-    \dot{x_4} &= \dfrac{1}{(M+m) \left( I + m (L/2)^2 \right) - m^2 (L/2)^2 \cos^2 x_3}  \left[ -m^2 \left(\dfrac{L}{2}\right)^2 x_4^2 \sin\theta \cos x_3 + (M + m) mg \left(\dfrac{L}{2}\right) \sin x_3 + m \left(\dfrac{L}{2}\right) \cos x_3 u \right] \\
+    \dot{x_4} &= \dfrac{-m \dfrac{L}{2} x_4^2 \sin x_3 \cos x_3 + (M + m)g \sin x_3 + F\cos x_3}{\dfrac{2}{mL}(M + m) I + \dfrac{L}{2} \left[ M + m \sin^2 x_3 \right]} \\
   \end{align*}
   $$
 </div>
@@ -186,16 +186,16 @@ Cart 계에 대해 뉴턴 운동 법칙과 돌림힘 법칙을 적용하자.
   =
   \begin{bmatrix}
     x_2 \\
-    \dfrac{1}{(M+m) \left( I + m (L/2)^2 \right) - m^2 (L/2)^2 \cos^2x_3} \left[  m^2 \left(\dfrac{L}{2}\right)^2 \sin x_3 \cos x_3 g - m \left(I + m \left(\dfrac{L}{2}\right)^2 \right)\left(\dfrac{L}{2}\right) \sin x_3 x_4^2 \right] \\
+    \dfrac{mg\sin x_3 \cos x_3 - \left( \dfrac{2}{L}I + m \dfrac{L}{2} \right)x_4^2 \sin x_3}{\dfrac{4}{mL^2}(M + m) I + \left[ M + m \sin^2x_3 \right]} \\
     x_4 \\
-    \dfrac{1}{(M+m) \left( I + m (L/2)^2 \right) - m^2 (L/2)^2 \cos^2 x_3}  \left[ -m^2 \left(\dfrac{L}{2}\right)^2 x_4^2 \sin x_3 \cos x_3 + (M + m) mg \left(\dfrac{L}{2}\right) \sin x_3 \right] \\
+  \dfrac{-m \dfrac{L}{2} x_4^2 \sin x_3 \cos x_3 + (M + m)g \sin x_3}{\dfrac{2}{mL}(M + m) I + \dfrac{L}{2} \left[ M + m \sin^2 x_3 \right]} \\
   \end{bmatrix}
   +
   \begin{bmatrix}
     0 \\
-    I + m \left(\dfrac{L}{2}\right)^2 \\
+    \left( \dfrac{4}{mL^2} I + 1\right) \\
     0 \\
-    m \left(\dfrac{L}{2}\right) \cos x_3 \\
+    \cos x_3 \\
   \end{bmatrix}
   u
   $$
