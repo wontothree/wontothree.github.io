@@ -29,22 +29,43 @@ Cart Pole을 수학적으로 모델링하자.
 
 ![](../../../img/cartpole/free-body-diagram.png){: .align-center width="400" height="200"}
 
-카트와 막대 간의 반력을 $R$이라 정의하자.
+카트와 막대 간의 반력을 $R$라 정의하자.
 
-뉴턴 운동 법칙과 돌림힘 법칙을 적용하자.
+Cart와 pole을 하나의 계로 잡고 뉴턴 운동 법칙을 적용하자.
 
 <div class="latex-container">
   $$
   \begin{align}
-    & \sum F_x = R_x = m\ddot{x} \\
-    & \sum F_y = R_y - mg = m \ddot{y_m} \\
+    & F = R_x = (M + m) a \\
+  \end{align}
+  $$
+</div>
+
+Pole 계에 대해 뉴턴 운동 법칙을 적용하자.
+
+<div class="latex-container">
+  $$
+  \begin{align}
+    & \sum F'_x = R_x = m\ddot{x}_m \\
+    & \sum F'_y = R_y - mg = m \ddot{y_m} \\
+  \end{align}
+  $$
+</div>
+
+Cart 계에 대해 뉴턴 운동 법칙과 돌림힘 법칙을 적용하자.
+
+<div class="latex-container">
+  $$
+  \begin{align}
+    & \sum F_x = F - R_x = M\ddot{x} \\
     & R_x \dfrac{L}{2} \cos\theta + R_y \dfrac{L}{2}\sin\theta = I\ddot{\theta} \\
-    & \sum F_x = F - R_x = M\ddot{x}
   \end{align}
   $$
 </div>
 
 ![](../../../img/cartpole/distance-relation.png){: .align-center width="400" height="200"}
+
+위 그림에서 $x$와 $x_m$ 간의 관계를 얻을 수 있다.
 
 <div class="latex-container">
   $$
@@ -55,7 +76,7 @@ Cart Pole을 수학적으로 모델링하자.
   $$
 </div>
 
-5, 6번 식을 미분한다.
+6, 7번 식을 미분한다.
 
 <div class="latex-container">
   $$
@@ -68,25 +89,29 @@ Cart Pole을 수학적으로 모델링하자.
   $$
 </div>
 
-이를 1, 2번 식에 대입한다.
+이를 2, 3번 식에 대입한다.
 
 <div class="latex-container">
   $$
   \begin{align*}
-    & R_x = m  \left[ \ddot{x} + \dfrac{L}{2} \dot{\theta}^2 \sin\theta - \dfrac{L}{2} \ddot{\theta} \cos\theta \right] \\
-    & R_y = mg + m \left[ -\dfrac{L}{2} \dot{\theta}^2 \cos\theta - \dfrac{L}{2} \ddot{\theta} \sin\theta \right] \\
+    R_x
+    &= m  \left[ \ddot{x} + \dfrac{L}{2} \dot{\theta}^2 \sin\theta - \dfrac{L}{2} \ddot{\theta} \cos\theta \right] \\
+    &= m \ddot{x} + m \dfrac{L}{2} \dot{\theta}^2 \sin\theta - m \dfrac{L}{2} \ddot{\theta} \cos\theta \\
+    R_y
+    &= mg + m \left[ -\dfrac{L}{2} \dot{\theta}^2 \cos\theta - \dfrac{L}{2} \ddot{\theta} \sin\theta \right] \\
+    &= mg - m \dfrac{L}{2} \dot{\theta}^2 \cos\theta - m \dfrac{L}{2} \ddot{\theta} \sin\theta
   \end{align*}
   $$
 </div>
 
-이를 3, 4번 식에 대입한다.
+이를 4, 5번 식에 대입한다.
 
 <div class="latex-container">
   $$
   \begin{align*}
-    & I \ddot{\theta} = m \ddot{x} \dfrac{L}{2} \cos\theta - m \left( \dfrac{L}{2} \right)^2 \ddot{\theta} + mg \left( \dfrac{L}{2} \right) \sin\theta \\
+    & I \ddot{\theta} = mg\dfrac{L}{2} \sin\theta + m \dfrac{L}{2} \ddot{x} \cos\theta - m \left( \dfrac{L}{2} \right)^2 \ddot{\theta} \\
 
-    & (M + m) \ddot{x} + m \dfrac{L}{2} (\dot{\theta}^2 \sin\theta - \ddot{\theta} \cos\theta) = F
+    & (M + m ) a = (M + m) \ddot{x} + m \dfrac{L}{2} (\dot{\theta}^2 \sin\theta - \ddot{\theta} \cos\theta)
   \end{align*}
   $$
 </div>
@@ -96,8 +121,8 @@ Cart Pole을 수학적으로 모델링하자.
 <div class="latex-container">
   $$
   \begin{align*}
-    & \ddot{\theta} = \dfrac{1}{(M+m) \left( I + m (L/2)^2 \right) - m^2 (L/2)^2 \cos^2\theta}  \left[ -m^2 \left(\dfrac{L}{2}\right)^2 \dot{\theta}^2 \sin\theta \cos\theta + (M + m) mg \left(\dfrac{L}{2}\right) \sin\theta + m \left(\dfrac{L}{2}\right) \cos\theta F \right] \\
-    & \ddot{x} = \dfrac{1}{(M+m) \left( I + m (L/2)^2 \right) - m^2 (L/2)^2 \cos^2\theta} \left[  m^2 \left(\dfrac{L}{2}\right)^2 \sin\theta \cos\theta g - m \left(I + m \left(\dfrac{L}{2}\right)^2 \right)\left(\dfrac{L}{2}\right) \sin\theta \dot{\theta}^2 + \left(I + m \left(\dfrac{L}{2}\right)^2 \right) F \right] \\
+    & \ddot{\theta} = \dfrac{1}{(M+m) \left( I + m (L/2)^2 \right) - m^2 (L/2)^2 \cos^2\theta}  \left[ -m^2 \left(\dfrac{L}{2}\right)^2 \dot{\theta}^2 \sin\theta \cos\theta + (M + m) mg \dfrac{L}{2} \sin\theta + m \dfrac{L}{2} \cos\theta F \right] \\
+    & \ddot{x} = \dfrac{1}{(M+m) \left( I + m (L/2)^2 \right) - m^2 (L/2)^2 \cos^2\theta} \left[  m^2 \left(\dfrac{L}{2}\right)^2 \sin\theta \cos\theta g - m \left(I + m \left(\dfrac{L}{2}\right)^2 \right) \dfrac{L}{2} \sin\theta \dot{\theta}^2 + \left(I + m \left(\dfrac{L}{2}\right)^2 \right) F \right] \\
   \end{align*}
   $$
 </div>
