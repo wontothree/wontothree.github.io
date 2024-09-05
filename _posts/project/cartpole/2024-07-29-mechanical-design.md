@@ -43,15 +43,10 @@ Motor Bracket
 
 # Measurement
 
-Cart
-
-- Mass of cart ($M$) : 122.61g (= 0.123kg)
-
-Rod
-
-- Mass of rod ($m$) : 88.68g (= 0.089kg)
-- Length of rod ($L$) : 40cm (= 0.4m)
-- Inertia of rod ($I$) : 0.004746 $kg \cdot m^2$
+- Mass of cart ($M$) : 0.123kg (122.61g)
+- Mass of pole ($m$) : 0.089kg (88.68g)
+- Length of pole ($L$) : 0.4m (40cm)
+- Inertia of pole ($I$) : 0.004746 $kg \cdot m^2$
 
 # Inertia
 
