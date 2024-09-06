@@ -115,7 +115,7 @@ Cart 계에 대해 뉴턴 운동 법칙과 돌림힘 법칙을 적용하자.
   $$
 </div>
 
-정리하여 다음 식을 얻는다.
+연립 방정식을 풀자.
 
 <div class="latex-container">
   $$
@@ -128,13 +128,15 @@ Cart 계에 대해 뉴턴 운동 법칙과 돌림힘 법칙을 적용하자.
   $$
 </div>
 
-<div class="latex-container">
+정리하면 다음 식을 얻는다.
+
+<!-- <div class="latex-container"> -->
   $$
   \begin{align*}
     \ddot{\theta}
-    &= \dfrac{-m \dfrac{L}{2} \dot{\theta}^2 \sin\theta \cos\theta + (M + m)g \sin\theta + F\cos\theta}{\dfrac{2}{mL}(M + m) I + \dfrac{L}{2} \left[ M + m \sin^2\theta \right]} \\
+    &= \dfrac{-m \dfrac{L}{2} \dot{\theta}^2 \sin\theta \cos\theta + \left[ M + m \right] g \sin\theta + F\cos\theta}{\dfrac{2}{mL} \left[ M + m \right] I + \dfrac{L}{2} \left[ M + m \sin^2\theta \right]} \\
     \ddot{x}
-    &= \dfrac{mg\sin\theta \cos\theta - \left( \dfrac{2}{L}I + m \dfrac{L}{2} \right)\dot{\theta}^2 \sin\theta + \left( \dfrac{4}{mL^2} I + 1\right) F}{\dfrac{4}{mL^2}(M + m) I + \left[ M + m \sin^2\theta \right]}
+    &= \dfrac{mg\sin\theta \cos\theta - \left[ \dfrac{2}{L}I + m \dfrac{L}{2} \right]\dot{\theta}^2 \sin\theta + \left[] \dfrac{4}{mL^2} I + 1\right] F}{\dfrac{4}{mL^2}\left[ M + m \right] I + \left[ M + m \sin^2\theta \right]}
   \end{align*}
   $$
 </div>
