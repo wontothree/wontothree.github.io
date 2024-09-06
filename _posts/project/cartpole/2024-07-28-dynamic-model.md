@@ -130,13 +130,13 @@ Cart 계에 대해 뉴턴 운동 법칙과 돌림힘 법칙을 적용하자.
 
 정리하면 다음 식을 얻는다.
 
-<!-- <div class="latex-container"> -->
+<div class="latex-container">
   $$
   \begin{align*}
     \ddot{\theta}
     &= \dfrac{-m \dfrac{L}{2} \dot{\theta}^2 \sin\theta \cos\theta + \left[ M + m \right] g \sin\theta + F\cos\theta}{\dfrac{2}{mL} \left[ M + m \right] I + \dfrac{L}{2} \left[ M + m \sin^2\theta \right]} \\
     \ddot{x}
-    &= \dfrac{mg\sin\theta \cos\theta - \left[ \dfrac{2}{L}I + m \dfrac{L}{2} \right]\dot{\theta}^2 \sin\theta + \left[] \dfrac{4}{mL^2} I + 1\right] F}{\dfrac{4}{mL^2}\left[ M + m \right] I + \left[ M + m \sin^2\theta \right]}
+    &= \dfrac{mg\sin\theta \cos\theta - \left[ \dfrac{2}{L}I + m \dfrac{L}{2} \right]\dot{\theta}^2 \sin\theta + \left[ \dfrac{4}{mL^2} I + 1\right] F}{\dfrac{4}{mL^2}\left[ M + m \right] I + \left[ M + m \sin^2\theta \right]}
   \end{align*}
   $$
 </div>
@@ -177,9 +177,9 @@ Cart 계에 대해 뉴턴 운동 법칙과 돌림힘 법칙을 적용하자.
   $$
   \begin{align*}
     \dot{x_1} &= x_2 \\
-    \dot{x_2} &= \dfrac{mg\sin x_3 \cos x_3 - \left( \dfrac{2}{L}I + m \dfrac{L}{2} \right)x_4^2 \sin x_3 + \left( \dfrac{4}{mL^2} I + 1\right) u}{\dfrac{4}{mL^2}(M + m) I + \left[ M + m \sin^2x_3 \right]} \\
+    \dot{x_2} &= \dfrac{mg\sin x_3 \cos x_3 - \left[ \dfrac{2}{L}I + m \dfrac{L}{2} \right] x_4^2 \sin x_3 + \left[ \dfrac{4}{mL^2} I + 1\right] u}{\dfrac{4}{mL^2} \left[ M + m \right] I + \left[ M + m \sin^2x_3 \right]} \\
     \dot{x_3} &= x_4 \\
-    \dot{x_4} &= \dfrac{-m \dfrac{L}{2} x_4^2 \sin x_3 \cos x_3 + (M + m)g \sin x_3 + u \cos x_3}{\dfrac{2}{mL}(M + m) I + \dfrac{L}{2} \left[ M + m \sin^2 x_3 \right]} \\
+    \dot{x_4} &= \dfrac{-m \dfrac{L}{2} x_4^2 \sin x_3 \cos x_3 + \left[ M + m \right] g \sin x_3 + u \cos x_3}{\dfrac{2}{mL} \left[ M + m \right] I + \dfrac{L}{2} \left[ M + m \sin^2 x_3 \right]} \\
   \end{align*}
   $$
 </div>
@@ -197,16 +197,16 @@ Cart 계에 대해 뉴턴 운동 법칙과 돌림힘 법칙을 적용하자.
   =
   \begin{bmatrix}
     x_2 \\
-    \dfrac{mg\sin x_3 \cos x_3 - \left( \dfrac{2}{L}I + m \dfrac{L}{2} \right)x_4^2 \sin x_3}{\dfrac{4}{mL^2}(M + m) I + \left[ M + m \sin^2x_3 \right]} \\
+    \dfrac{mg\sin x_3 \cos x_3 - \left[ \dfrac{2}{L}I + m \dfrac{L}{2} \right] x_4^2 \sin x_3}{\dfrac{4}{mL^2} \left[M + m \right] I + \left[ M + m \sin^2x_3 \right]} \\
     x_4 \\
-    \dfrac{-m \dfrac{L}{2} x_4^2 \sin x_3 \cos x_3 + (M + m)g \sin x_3}{\dfrac{2}{mL}(M + m) I + \dfrac{L}{2} \left[ M + m \sin^2 x_3 \right]} \\
+    \dfrac{-m \dfrac{L}{2} x_4^2 \sin x_3 \cos x_3 + \left[ M + m \right] g \sin x_3}{\dfrac{2}{mL} \left[ M + m \right] I + \dfrac{L}{2} \left[ M + m \sin^2 x_3 \right]} \\
   \end{bmatrix}
   +
   \begin{bmatrix}
     0 \\
-    \dfrac{\dfrac{4}{mL^2} I + 1}{\dfrac{4}{mL^2}(M + m) I + \left[ M + m \sin^2x_3 \right]} \\
+    \dfrac{\dfrac{4}{mL^2} I + 1}{\dfrac{4}{mL^2} \left[M + m \right] I + \left[ M + m \sin^2x_3 \right]} \\
     0 \\
-    \dfrac{\cos x_3}{\dfrac{2}{mL}(M + m) I + \dfrac{L}{2} \left[ M + m \sin^2 x_3 \right]} \\
+    \dfrac{\cos x_3}{\dfrac{2}{mL} \left[ M + m \right] I + \dfrac{L}{2} \left[ M + m \sin^2 x_3 \right]} \\
   \end{bmatrix}
   u
   $$
@@ -228,7 +228,7 @@ Forward Euler Method를 이용하면 다음과 같이 미분 방정식을 차분
   $$
 </div>
 
-<div class="latex-container">
+<!-- <div class="latex-container"> -->
   $$
   \begin{bmatrix}
     x_1^{k+1} \\
@@ -247,17 +247,17 @@ Forward Euler Method를 이용하면 다음과 같이 미분 방정식을 차분
   T
   \begin{bmatrix}
     x_2^k \\
-    \dfrac{mg\sin x_3^k \cos x_3^k - \left( \dfrac{2}{L}I + m \dfrac{L}{2} \right) {x_4^k}^2 \sin x_3^k}{\dfrac{4}{mL^2}(M + m) I + \left[ M + m \sin^2x_3^k \right]} \\
+    \dfrac{mg\sin x_3^k \cos x_3^k - \left[ \dfrac{2}{L}I + m \dfrac{L}{2} \right] {x_4^k}^2 \sin x_3^k}{\dfrac{4}{mL^2} \left[M + m\right] I + \left[ M + m \sin^2x_3^k \right]} \\
     x_4^k \\
-  \dfrac{-m \dfrac{L}{2} {x_4^k}^2 \sin x_3^k \cos x_3^k + (M + m)g \sin x_3^k}{\dfrac{2}{mL}(M + m) I + \dfrac{L}{2} \left[ M + m \sin^2 x_3^k \right]} \\
+  \dfrac{-m \dfrac{L}{2} {x_4^k}^2 \sin x_3^k \cos x_3^k + \left[M + m \right]g \sin x_3^k}{\dfrac{2}{mL} \left[M + m \right] I + \dfrac{L}{2} \left[ M + m \sin^2 x_3^k \right]} \\
   \end{bmatrix}
   +
   T
   \begin{bmatrix}
     0 \\
-    \dfrac{\dfrac{4}{mL^2} I + 1}{\dfrac{4}{mL^2}(M + m) I + \left[ M + m \sin^2x_3^k \right]} \\
+    \dfrac{\dfrac{4}{mL^2} I + 1}{\dfrac{4}{mL^2} \left[M + m \right] I + \left[ M + m \sin^2x_3^k \right]} \\
     0 \\
-    \dfrac{\cos x_3^k}{\dfrac{2}{mL}(M + m) I + \dfrac{L}{2} \left[ M + m \sin^2 x_3^k \right]} \\
+    \dfrac{\cos x_3^k}{\dfrac{2}{mL} \left[M + m \right] I + \dfrac{L}{2} \left[ M + m \sin^2 x_3^k \right]} \\
   \end{bmatrix}
   u
   $$
