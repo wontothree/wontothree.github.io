@@ -5,20 +5,31 @@ categories:
 ---
 # Project
 
-- Conpetition : UOS ECE IF (Innovation Fair)
-- Nmae : Cart Pole Design and Control - Model Predictive Control vs Reinforcement Learning
+Nonlinear Model Predictive Control vs. Deep Reinforcement Learning: A Comprehensive Numerical Comparison of Model-Free and Model-Based Methodologies in Cart Pole
+
+- Conpetition : UOS ECE IF (Innovation Fair) Competition
 - Team Member : Sewon Kim
 - Project Duration : July 25 - September 27
 
 # Contents
 
-1. Linear Inverted Pendulum의 역학을 수학적으로 Modeling한다.
-2. AutoDesk를 이용하여 Inverted Pendulum을 기구 설계한다.
-3. Inverted Pendulum의 hardware를 제작한다.
-4. Simulation 환경을 구축한다.
-5. MPC controller와 end-to-end based controller를 설계하고 simulation 환경에서 테스트한다.
-6. 두 제어기를 Inverted Pendulum Hardware에서 동작시킨다.
-7. 두 제어기를 정량적으로 비교한다.
+1. [Dynamic model](https://wontothree.github.io/cartpole/dynamic-model/) of Linear Inverted Pendulum을 구한다.
+2. AutoDesk를 이용하여 Linear Inverted Pendulum을 [Mechanical Design](https://wontothree.github.io/cartpole/mechanical-design/) 한다.
+3. [Electronics](https://wontothree.github.io/cartpole/electronics/)를 구성하고 Inverted Pendulum의 hardware를 제작한다.
+4. [Motor Controller](https://wontothree.github.io/cartpole/motor-control/)를 만든다.
+5. Simulation 환경을 구축한다.
+6. [Nonlinear Model Predictive Controller](https://wontothree.github.io/cartpole/nmpc/)를 설계하고 simulation 환경에서 테스트한다.
+7. [Deep Reinforcement Learing Controller]()를 설계하고 simulation 환경에서 테스트한다.
+8. 두 제어기를 Inverted Pendulum Hardware에서 동작시키고 데이터를 수집한다.
+9. 다방면에서 두 제어기의 성능을 정량적으로 평가한다.
+
+# Competition
+
+- 참여 대상 : 전자전기컴퓨터공학부 재학생
+- 전공 수업 지식을 활용, 스스로 제안 및 개발한 프로젝트 결과물 전시
+- 교수님 및 대학원생 지도, 조언 불가 (지도 및 조언을 받을 시 자동 탈락)
+- 학부생들 본인의 지식과 노력으로 만든 작품만 출품 가능
+- 팀당 최대 50만원 재료비 지원 (개인 사비 지출 금지)
 
 # Individual Object
 
@@ -41,16 +52,7 @@ categories:
   - 폴리가 좀 더 크면 좋을 것 같다.
   - motor bracket : 하부 고정하는 부분을 길게 해도 좋았을 것 같다.
 
-# 해야 할 것
-
-- DDP 공부, 구현
-- MPC 공부
-- RL 공부
-- 모터 제어
-- 하드웨어 완성
-- 포토 센서 테스트
-- 포토 센서 부착
-
 # Reference
 
-Nonlinear Model Predictive Control of an Inverted Pendulum
+- Nonlinear Model Predictive Control of an Inverted Pendulum
+- Personalized Cancer Chemotherapy Schedule: a numerical comparison of performance and robustness in model-based and model-free scheduling methodologies
