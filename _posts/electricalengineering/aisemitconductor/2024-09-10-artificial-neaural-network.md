@@ -35,24 +35,24 @@ $$
 **Matrix-Vector Multiplication**을 이용하여 더 단순하게 나타낼 수 있다.
 
 $$
-\begin{bmatrix*}
+\begin{bmatrix}
   y_0 \\
   y_1 \\
   y_2 \\
   y_3 \\
-\end{bmatrix*}
+\end{bmatrix}
 = f \left(
-\begin{bmatrix*}
+\begin{bmatrix}
   w_{00} & w_{10} & w_{20} \\
   w_{01} & w_{11} & w_{21} \\
   w_{02} & w_{12} & w_{22} \\
   w_{03} & w_{13} & w_{23} \\
-\end{bmatrix*}
-\begin{bmatrix*}
+\end{bmatrix}
+\begin{bmatrix}
   x_{0} \\
   x_{1} \\
   x_{2} \\
-\end{bmatrix*}
+\end{bmatrix}
 +
 \begin{bmatrix*}
   b_{0} \\
