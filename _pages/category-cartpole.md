@@ -1,5 +1,5 @@
 ---
-title: "Nonlinear Model Predictive Control vs. Deep Reinforcement Learning: A Comprehensive Numerical Comparison of Model-Free and Model-Based Methodologies in Cart Pole"
+title: "Cart Pole"
 layout: archive
 permalink: /cartpole
 sidebar:
