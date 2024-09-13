@@ -9,6 +9,10 @@ categories:
 
 다음과 같은 개발 도구들이 있다.
 
+- IDE
+  - Vscode
+  - Pycharm
+  - CLion
 - GITHUB
 - Docker
 - Devcontainer

@@ -8,8 +8,6 @@ categories:
 
 # Motor Controller to High-Level Controller
 
-모터의 정보를 바탕으로 controller에게 position of cart와 velocity of cart를 줘야 한다.
-
 ## State Measurement and Estimation
 
 상위 제어기는 $k$ 시점에서 현재 상태에 대한 정보를 필요로 한다.
@@ -28,9 +26,7 @@ $$
 - $\theta$ : Angle of Pole
 - $w$ : Angular Velocity of Pole
 
-The state of angle $\theta (k)$ and angular velocity $\dot{\theta}(k)$ are measured directly by absolute rotary encoder sensor.
-
-We need to estimate the cart position $x(k)$ and cart velocity $\dot{x}(k)$.
+The state of angle $\theta (k)$ are measured directly by absolute rotary encoder sensor. We need to estimate the cart position $x(k)$, cart velocity $\dot{x}(k)$, and pole angular velocity $w(k)$.
 
 # High-Level Controller to Motor Controller
 
@@ -52,4 +48,4 @@ We need to estimate the cart position $x(k)$ and cart velocity $\dot{x}(k)$.
 - 1 clock period = 1/(16M/64) = 0.5us
 - M + m = 0.211 29 kg
 
-1 m/s = 100rad/s = 15.915 rotation/s = 6366 step/s = 1 step / 157us = 1step/(1 clock * 314)
+>1 m/s = 100rad/s = 15.915 rotation/s = 6366 step/s = 1 step / 157us = 1step/(1 clock * 314)

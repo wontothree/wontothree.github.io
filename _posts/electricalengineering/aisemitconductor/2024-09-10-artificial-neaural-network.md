@@ -54,17 +54,16 @@ $$
   x_{2} \\
 \end{bmatrix}
 +
-\begin{bmatrix*}
+\begin{bmatrix}
   b_{0} \\
   b_{1} \\
   b_{2} \\
   b_{3} \\
-\end{bmatrix*}
+\end{bmatrix}
 \right)
 $$
 
 # Artificial Neaural Netwrok
-
 
 Cost function : 모든 error의 sqaure
 
@@ -74,7 +73,7 @@ $$
 
 ## Output Layer Weight Update
 
-![image-center](./../../../img/aisemiconductor/weight-update.png){: width="300" height="150"}
+![image-center](./../../../img/aisemiconductor/weight-update.png){: .align-center width="300" height="150"}
 
 $$
 \begin{align*}
@@ -109,27 +108,27 @@ Notation에 주의하자.
 
 ## Hidden Layer Weight Update
 
-![image-center](./../../../img/aisemiconductor/weight-update-hidden-layer.png){: width="300" height="150"}
+![image-center](./../../../img/aisemiconductor/weight-update-hidden-layer.png){: .align-center width="300" height="150"}
 
 $$
 \begin{align*}
-  u_k^{(l)} &= \sum_{j=1}^J w_{kj}^{(l)} z_j^{(l-1)} \\
-  z_l^{(l)} &= f(u_k^{(l)})
+  u_k^{(l)} &= \sum_{i=1}^J w_{ji}^{(l)} z_i^{(l-1)} \\
+  z_j^{(l)} &= f(u_j^{(l)})
 \end{align*}
 $$
 
 Gradient Descent
 
 $$
-w_{kj}^{(l)} = w_{kj}^{(l)}  - \eta \cdot \dfrac{\partial E}{\partial w_{kj}^{(l)}}
+w_{ji}^{(l)} = w_{ji}^{(l)}  - \eta \cdot \dfrac{\partial E}{\partial w_{ji}^{(l)}}
 $$
 
 $$
 \begin{align*}
-  \dfrac{\partial E}{\partial w_{ji}^{(l)}} &= 
+  \dfrac{\partial E}{\partial w_{ji}^{(l)}} &=
   \dfrac{\partial E}{\partial z_k^{(l+1)}} \cdot \dfrac{\partial z_k^{(l+1)}}{\partial w_{ji}^{(l)}} \\
-  &= \dfrac{\partial E}{\partial z_k^{(l+1)}} \cdot \dfrac{\partial f(u_k^{(l+1)})}{\partial u_k^{(l+1)}} \cdot  \dfrac{\partial u_k^{(l+1)}}{\partial z_j^{(l)}} \cdot \dfrac{\partial z_j^{(l)}}{\partial w_{ji}^{(l + 1)}} \\
-  &= \dfrac{\partial E}{\partial z_k^{(l+1)}} \cdot \dfrac{\partial f(u_k^{(l+1)})}{\partial u_k^{(l+1)}} \cdot  \dfrac{\partial u_k^{(l+1)}}{\partial z_j^{(l)}} \cdot \dfrac{\partial f(u_j^{(l)})}{\partial w_{ji}^{(l + 1)}} \\
+  &= \dfrac{\partial E}{\partial z_k^{(l+1)}} \cdot \dfrac{\partial f(u_k^{(l+1)})}{\partial u_k^{(l+1)}} \cdot  \dfrac{\partial u_k^{(l+1)}}{\partial z_j^{(l)}} \cdot \dfrac{\partial z_j^{(l)}}{\partial w_{ji}^{(l)}} \\
+  &= \dfrac{\partial E}{\partial z_k^{(l+1)}} \cdot \dfrac{\partial f(u_k^{(l+1)})}{\partial u_k^{(l+1)}} \cdot  \dfrac{\partial u_k^{(l+1)}}{\partial z_j^{(l)}} \cdot \dfrac{\partial f(u_j^{(l)})}{\partial w_{ji}^{(l)}} \\
   &= (z_k^{(l+1)} - d_k) \cdot f'(u_k^{(l+1)}) \cdot w_{ji}^{(l)} \cdot \sum_{j=1}^I z_i^{(l-1)}\\
   &= \delta_k^{(l+1)} \cdot w_{ji}^{(l+1)}
 \end{align*}
