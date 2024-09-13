@@ -40,6 +40,8 @@ sidebar-category:
         url: /java
       - title: "Python"
         url: /python
+      - title: "Development Tools"
+        url: /developmenttools
       - title: "Data Structure"
         url: /datastructure
       - title: "Artificial Intelligence"
