@@ -262,4 +262,3 @@ Forward Euler Method를 이용하면 다음과 같이 미분 방정식을 차분
   u
   $$
 </div>
-
