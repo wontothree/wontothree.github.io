@@ -1,5 +1,5 @@
 ---
-title: "[Cart Pole] Interface of Motor Controller and High-Level Controller"
+title: "[Cart Pole] Interface"
 categories:
   - cartpole
 ---
