@@ -41,4 +41,22 @@ SVGD
 
 ## 3.5 Comparison with Langevin Dynamics
 
+The theoy of SVGD is parellal to that Langevin dynamics in many perspectives, with importance differnences.
+
+Langevin dynamcis
+
+$$
+x_{l+1} \leftarrow x_l + \epsilon \nabla \log p(x_l) + 2 \sqrt{\epsilon} \xi_l, \;\;\; \xi_l \sim \mathcal{N} (0, 1)
+$$
+
+where a single particle $x_l$ moves along the gradient direction.
+
+Standard results show that the density $q_t$ of random variable $x_t$ is governed by a linear Fokker-Planck equation, following which the KL divergence to p decreases with a rate that equals Fisher divergence:
+
+$$
+\dfrac{\partial q_t}{\partial t} = - \nabla \cdot (q_t \nabla \log p) + \Delta q_t, \;\;\; \dfrac{d}{dt} \text{KL} (q_t \vert \vert p) = -\mathbf{F}(q_t, p),
+$$
+
+where $\mathbf{F}(q, p) = \vert \vert \nabla \log (q / p) \vert \vert_{L_q^2}^2$
+
 # 4. Conclusion and Open Questions
