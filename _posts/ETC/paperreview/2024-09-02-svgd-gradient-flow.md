@@ -15,13 +15,30 @@ This paper
 
 - develops the first theoretical analysis on SVGD
 
-# Introduction
+# 1. Introduction
 
 SVGD
 
 - particle-based algorithm for approximating complex distribution.
 
-# Have-to-Know
+# 2. Stein Variational Gradient Descent
 
-- KL divergence
-- Monte Carlo Algorithm
+# 3. Density Evolution of SVGD Dynamics
+
+- Section 3.1 : the evolutionary process of the empriical measures of the SVGD particles and their large sample limit as $n \rightarrow \infty$
+- Section 3.2 : large time limit as $\mathcal{l} \rightarrow \infty$.
+- Section 3.3 : the large sample limit of the SVGD dynamics is characterized by a Vlasov process, which monotonically decreases the KL divergence to target distributions with a decreasing rate the equals the square of Stein discrepancy.
+- Section 3.4 : geometric intuition that interpret SVGD as a gradient flow of KL divergence under a new Riemannian metric structure induced by Stein operator.
+- Section 3.5 : brief discussion on the connection to Langevin dynamics
+
+## 3.1 Large Sample Asymptotic of SVGD
+
+## 3.2 Large Time Asymptotic of SVGD
+
+## 3.3 Continuous Time Limit and Viasov Process
+
+## 3.4 Gradient Flow, Optimal Transport, Geometry
+
+## 3.5 Comparison with Langevin Dynamics
+
+# 4. Conclusion and Open Questions
