@@ -13,33 +13,6 @@ categories:
 
 ![](../../../img/cartpole/cartpole-3d.png){: .align-center width="400" height="200"}
 
-# Materials
-
-# Sheet Metal
-
-Linear Guide Base
-
-![](../../../img/cartpole/linear_guide_base.png){: .align-center width="400" height="200"}
-
-Motor Bracket
-
-![](../../../img/cartpole/motor_bracket.png){: .align-center width="400" height="200"}
-
-제조 방식
-
-- 밀링 : 통 알류미늄을 파낸다. 비싸다.
-- 절곡 : 철을 접는다.
-- 용접 : 분리된 조각을 붙인다.
-
-종류
-
-- 쇠(철)
-  - 알류미늄보다 강도가 높다.
-  - 알류미늄보다 3배 무겁다.
-  - 녹이 슬어서 페인트 칠을 해야 하기 때문에 도장 값이 따로 붙는다.
-- 알류미늄
-  - 원자재 값이 쇠보다 비싸다. 하지만 소량으로 주문할 때는 쇠보다 저렴하다.
-
 # Measurement
 
 - Mass of cart ($M$) : 0.123kg (122.61g)
@@ -47,7 +20,7 @@ Motor Bracket
 - Length of pole ($L$) : 0.4m (40cm)
 - Inertia of pole ($I$) : 0.004746 $kg \cdot m^2$
 
-# Inertia
+**Inertia**
 
 길이가 L이고 질량이 m인 막대기의 한 쪽 끝을 회전축으로 할 때 관성 모멘트를 구하자.
 
@@ -64,24 +37,6 @@ $$
   I &= \int r^2 dm = \int_0^{L} x^2 (\lambda dx) = \left[ \dfrac{1}{3} x^3 \lambda \right]_0^L = \dfrac{1}{3}\lambda L^3 = \dfrac{1}{3} m L^2
 \end{align*}
 $$
-
-# Electronic Material List
-
-|Electronics|Utility|Name|Specification|
-|---|---|---|---|
-|1|동력 원천|Unipolar Stepping Motor||
-|2|Unipolar Stepping Motor Driver|Stepping모터구동모듈 3A(AM-CS2P)|3A|
-|3|Pole 회전 각도 측정 센서|Absolute Rotary Encoder EN25-Absolute||
-|4|End stop|아두이노 포토 인터럽터 속도 센서 모듈||
-|5||Arduino UNO R4 WiFi||
-
-# Arduino
-
-Arduino UNO R4 WiFi
-
-- 모터 제어
-- 엔코더 통신
-- 포토 센서 통신
 
 # Moter
 
@@ -173,67 +128,6 @@ Absolute Rotary Encoder : EN25-Absolute
 |중량|37g|
 
 ![](../../../img/cartpole/encoder-dimention.png){: .align-center width="400" height="200"}
-
-## Arduino로 PC에서 Encoder 값 출력하기
-
-Arduino UNO는 TTL 방식으로만 통신한다.
-
-Arduino UNO를 사용할 때는 보드와 포트를 정확하게 설정해야 코드를 올릴 수 있다.
-
-Arduino UNO R3와 달리 R4는 Serial1이라는 객체도 사용한다.
-
-```c
-// 주의사항
-// 전압이 부족하면 센서가 다운되기 때문에 아두이노 전원은 아답터로 연결해야 한다.
-// RX핀이 업로드를 방해할 수 있기 때문에 코드 업로드 시 아두이노 RX 핀을 연결하지 않고 업로드 완료 후 RX 핀을 연결해야 한다.
-
-float Degree = 0;
-float Rev = 0;
-float RPM = 0;
-
-void setup() {
-  Serial.begin(38400);   // USB 시리얼 통신 초기화
-  Serial1.begin(38400);  // Serial1 통신 초기화
-}
-
-void loop() {
-  static String inString = "";  // 전체 문자열을 저장할 변수
-
-  // Serial1에서 데이터가 들어오면
-  while (Serial1.available()) { 
-    char c = Serial1.read();  // 하나의 문자를 읽음
-    if (c == '\n') {  // 줄바꿈 문자로 데이터의 끝을 확인
-      // 문자열 파싱 및 데이터 출력
-      int index1 = inString.indexOf(',');
-      int index2 = inString.indexOf(',', index1 + 1);
-      int index3 = inString.indexOf(',', index2 + 1);
-      int index4 = inString.length();
-
-      // 데이터 파싱 (라벨 제거 후)
-      float Degree = inString.substring(index1 + 1, index2).toFloat();
-      float Rev = inString.substring(index2 + 1, index3).toFloat();
-      int RPM = inString.substring(index3 + 1, index4).toInt();
-
-      // USB 시리얼로 가독성 좋게 출력
-      Serial.print("Degree: ");
-      Serial.print(Degree, 1);  // 소수점 1자리까지
-      Serial.print(", Rev: ");
-      Serial.print(Rev, 3);  // 소수점 3자리까지
-      Serial.print(", RPM: ");
-      Serial.println(RPM);
-
-      // 문자열 초기화
-      inString = "";
-    } else {
-      inString += c;  // 읽어온 문자를 문자열에 추가
-    }
-  }
-}
-```
-
-결과
-
-![](../../../img/cartpole/encoder-test1.png){: .align-center width="400" height="200"}
 
 # Reference
 
