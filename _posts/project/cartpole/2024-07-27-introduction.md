@@ -44,4 +44,9 @@ Nonlinear Model Predictive Control vs. Deep Reinforcement Learning: A Comprehens
 1. [Money for Europe Trip] 2,000,000원이 있다면 조금 더 모아서 유럽 여행을 갈 수 있다. 만약 팀원을 구한다면 n빵을 해야 하기 때문에 여행 자금으로써는 부족하다. 따라서 혼자 진행하였다.
 2. [Hardware] 프로젝트를 진행하면 나는 항상 소프트웨어 파트를 맡았다. 프로젝트를 많이 할지라도 하드웨어에 대한 지식은 진전을 이루지 못했다. 이번 기회를 통해 하드웨어에 대한 두려움을 극복하고 전문성을 갖추고싶었다.
 3. [Myself from A to Z] 많은 프로젝트를 하더라도 분업을 하기 때문에 프로젝트의 큰 방향을 이해하며 세부적인 것까지 파악하기란 어려웠다. A부터 Z까지 내가 주도하는 프로젝트에 대한 갈증이 있었다.
-4. [Implementation] 이론으로만 알
+4. [Implementation] 이론으로만 알고 있던 MPC controller와 RL controller를 직접 구현하고 적용해보고 싶었다.
+
+# Reference
+
+- Nonlinear Model Predictive Control of an Inverted Pendulum
+- Personalized Cancer Chemotherapy Schedule: a numerical comparison of performance and robustness in model-based and model-free scheduling methodologies
