@@ -3,6 +3,8 @@ title: "[Cart Pole] Mechanical Design and Electronics"
 categories:
   - cartpole
 ---
+Cart Pole Hardware를 만드는 과정에 대한 이야기이다.
+
 # Object
 
 - 더 많은 비용을 지불하더라도 최대한 단순하게 만든다.
@@ -11,14 +13,17 @@ categories:
 
 # 3D Modeling
 
-![](../../../img/cartpole/cartpole-3d.png){: .align-center width="400" height="200"}
+![](../../../img/cartpole/cartpole-3d.png)
 
 # Measurement
 
-- Mass of cart ($M$) : 0.123kg (122.61g)
-- Mass of pole ($m$) : 0.089kg (88.68g)
-- Length of pole ($L$) : 0.4m (40cm)
-- Inertia of pole ($I$) : 0.004746 $kg \cdot m^2$
+- mass of cart ($M$) : 0.123 kg (122.61 g)
+- length of cart : 0.045 m (4.5 cm)
+- mass of pole ($m$) : 0.089 kg (88.68 g)
+- length of pole ($L$) : 0.4 m (40 cm)
+- inertia of pole ($I$) : 0.004 746 kg m^2
+- length of rail (linear guide) : 0.72 m (72 cm)
+- maximum magnitude of force : 1.2 N
 
 **Inertia**
 
