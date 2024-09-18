@@ -108,3 +108,11 @@ $$
 where $\mathbf{F}(q, p) = \vert \vert \nabla \log (q / p) \vert \vert_{L_q^2}^2$
 
 # 4. Conclusion and Open Questions
+
+We developed a theoretical framework for analyzing the asymptotic properties of Stein variational gradient descent.
+
+Open Problem
+
+1. to establish explicit convergence rate of SVGD, for which the existing theoretical literature on Langevin dynamics and interacting particles systems may provide insights. 
+2. to develop finite sample bounds for SVGD that can take the fact that it reduces to MAP optimization when n = 1 into account
+3. to understand the bias and variance of SVGD particles, or combine it with traditional Monte Carlo whose bias-variance analysis is clearer
