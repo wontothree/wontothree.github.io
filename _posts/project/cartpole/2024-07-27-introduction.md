@@ -3,13 +3,13 @@ title: "[Cart Pole] Introduction"
 categories:
   - cartpole
 ---
-# Abstract
-
-The pole is attached by an un-actuated joint to the cart. The cart is controlled by a linear actuator, that drives the cart left or right.
-
-The goal is to swing the pole up and balance it above the cart using motor control.
-
 # Introduction
+
+The Cart-Pole, a classical benchmark problem in control, consists of a cart, driven left or right by a linear actuator, and a pole attached to the cart via an un-actuated joint.  The goal is to swing the pole up and balance it above the cart using motor control.
+
+Model Predictive Control (MPC) is a most advanced and promising methods in the field of control, grounded on mathematical optimization. It uses dynamic models to forecast future events and determine the most appropriate current control actions. This is achieved by optimizing states and actions within a finite time horizon for each control objective at every step, while strictly considering constraints.
+
+This work covers the design and development of the Cart-Pole system and the NMPC controller. It presents a numerical analysis of NMPC applied to the Cart-Pole system through various experiments.
 
 # Project
 
@@ -45,20 +45,6 @@ Nonlinear Model Predictive Control vs. Deep Reinforcement Learning: A Comprehens
 2. [Hardware] 프로젝트를 진행하면 나는 항상 소프트웨어 파트를 맡았다. 프로젝트를 많이 할지라도 하드웨어에 대한 지식은 진전을 이루지 못했다. 이번 기회를 통해 하드웨어에 대한 두려움을 극복하고 전문성을 갖추고싶었다.
 3. [Myself from A to Z] 많은 프로젝트를 하더라도 분업을 하기 때문에 프로젝트의 큰 방향을 이해하며 세부적인 것까지 파악하기란 어려웠다. A부터 Z까지 내가 주도하는 프로젝트에 대한 갈증이 있었다.
 4. [Implementation] 이론으로만 알고 있던 MPC controller와 RL controller를 직접 구현하고 적용해보고 싶었다.
-
-# Retrospect
-
-- 재료비가 생각보다 많이 나왔다.
-
-대회의 조건이 50만원 내에서 재료비를 사용하는 것이었는데, 부품 비용으로 37만원과 판금 비용으로 12만원이 지출되어 조금도 남지 않았다.
-
-전동 드릴 동작법부터 너트와 피스와 차이점도 몰랐다.
-
-- 기구설계
-  - 맨 왼쪽 나사 구멍 위치 고려
-  - linear guide base : 맨 오른쪽 받침
-  - 폴리가 좀 더 크면 좋을 것 같다.
-  - motor bracket : 하부 고정하는 부분을 길게 해도 좋았을 것 같다.
 
 # Reference
 
