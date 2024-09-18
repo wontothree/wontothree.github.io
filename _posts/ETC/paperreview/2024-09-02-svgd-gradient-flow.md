@@ -81,6 +81,8 @@ We show that update $\mu_{l + 1}^\infty = \Phi_p (\mu_l^\infty), \;\;\; \forall 
 
 >Theorem 3.3.
 
+1. Assuming p is a density that satisfies Stein's identity for $\forall \phi \in \mathcal{H}$, then the measure $v_p$ of p is a fixed point of map $\Phi_p$
+
 ## 3.3 Continuous Time Limit and Viasov Process
 
 ## 3.4 Gradient Flow, Optimal Transport, Geometry
