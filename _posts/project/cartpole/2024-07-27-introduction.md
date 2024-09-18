@@ -3,6 +3,14 @@ title: "[Cart Pole] Introduction"
 categories:
   - cartpole
 ---
+# Abstract
+
+The pole is attached by an un-actuated joint to the cart. The cart is controlled by a linear actuator, that drives the cart left or right.
+
+The goal is to swing the pole up and balance it above the cart using motor control.
+
+# Introduction
+
 # Project
 
 Nonlinear Model Predictive Control vs. Deep Reinforcement Learning: A Comprehensive Numerical Comparison of Model-Free and Model-Based Methodologies in Cart Pole
