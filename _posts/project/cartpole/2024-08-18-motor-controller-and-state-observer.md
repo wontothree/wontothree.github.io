@@ -19,6 +19,10 @@ Processor
 
 # Stepper Motor Controller
 
+## High Level Motor Controller
+
+## Low Level Motor Controller
+
 - 섬세한 제어를 하기 위해 12상 여자 방식을 사용하여 제어한다. (1 rotation = 400 step)
 
 현재 시점을 k라고 하고, 제어주기를 T라고 하자.
