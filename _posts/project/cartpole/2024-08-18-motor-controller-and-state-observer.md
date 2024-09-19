@@ -39,44 +39,23 @@ $$
 \end{bmatrix} =
 \begin{bmatrix}
   x(k) \\
-  \dot{x}(k) \\
   \theta(k) \\
-  \dot{\theta}(k) \\
-\end{bmatrix} = 
-\begin{bmatrix}
-  x(k) \\
   v(k) \\
-  \theta(k) \\
   w(k) \\
 \end{bmatrix}
 $$
 
-In order to apply the NMPC strategy we must bave access to the state at time $k$.
+- $x$ : Position of Cart
+- $\theta$ : Angle of Pole
+- $v$ : Velocity of Cart
+- $w$ : Angular Velocity of Pole
 
-While the state of angle $\theta (k)$ and angular velocity $\dot{\theta}(k)$ are measured directly by encoder sensor, we need to estimate the cart position $x(k)$ and cart velocity $\dot{x}(k)$.
+In order to apply the NMPC strategy, we must bave access to the state at time $k$.
+
+While the state of cart position $x(k)$ and pole angle $\theta (k)$ are measured directly by stepper motor and encoder sensor respectly, we need to estimate the  cart velocity $v(k)$ and pole angular velocity $w(k)$.
 
 We simply approximate the time derivatie via a finite difference approximation.
 
 $$
-\dot{x}(k) = \dfrac{x(k) - x(k-1)}{T}
+v(k) = \dfrac{x(k) - x(k-1)}{T}, \;\;\; w(k) = \dfrac{\theta (k) - \theta (k-1)}{T}
 $$
-
-## State Measurement and Estimation
-
-상위 제어기는 $k$ 시점에서 현재 상태에 대한 정보를 필요로 한다.
-
-$$
-\begin{bmatrix}
-  x \\
-  v \\
-  \theta \\
-  w \\
-\end{bmatrix}
-$$
-
-- $x$ : Position of Cart
-- $v$ : Velocity of Cart
-- $\theta$ : Angle of Pole
-- $w$ : Angular Velocity of Pole
-
-The state of angle $\theta (k)$ are measured directly by absolute rotary encoder sensor. We need to estimate the cart position $x(k)$, cart velocity $\dot{x}(k)$, and pole angular velocity $w(k)$.
