@@ -14,36 +14,64 @@ Processor
 - Arduino UNO R3 : 16M Hz (62.5ns)
 - Arduino UNO R4 : 38M Hz
 
-- 프리 스케일러 (타이머의 클럭 신호를 얼마나 나누어 사용할지를 결정하는 값 : 타이머의 주기를 조정하여 타이머가 얼마나 자주 카운트업할지를 결정한다.) : 64
-- 1 clock period = 1/(16M/64) = 0.5us
-
 # Stepper Motor Controller
 
 ## High Level Motor Controller
 
-## Low Level Motor Controller
-
-- 섬세한 제어를 하기 위해 12상 여자 방식을 사용하여 제어한다. (1 rotation = 400 step)
+- 섬세한 제어를 하기 위해 12상 여자 방식을 사용하여 제어한다. : 1 rotation = 400 step
+- 64 분주 프리스케일러를 사용한다. : 1 clock period = 1/(16M/64) = 0.5us
 
 현재 시점을 k라고 하고, 제어주기를 T라고 하자.
 
 1. MPC Controller로부터 현재 시점 k에서 cart pole 계의 목표 합력 $u(k) = F(k) \; N$가 주어진다.
-2. 현재 시점 k에서 cart pole 계의 목표 선가속도 $a(k) = u(k) / (m + M) \;m/s^2$ 를 구한다.
-3. 현재 시점 k에서 목표 각가속도 $\alpha (k) = a(k) / (0.01) \; rad/s^2$를 구한다.
-4. 현재 시점 k에서 stepping motor의 목표 각속도 $\omega (k) = \omega (k-1) + T \alpha (k) \; rad/s$를 구한다.
-5. 현재 시점 k에서 stepping motor의 목표 각속도 $\omega (k) \; rad/s = 360 / 400 \; \omega (k) \; step/s$를 step/s 단위로 변환한다.
-6. 현재 시점 k에서 stepping motor가 1 step 움직이는 주기 $T = 1/\omega(k) \; s/step$를 구한다.
-7. 그 주기 T에 해당하는 clock count를 구한다.
+2. 현재 시점 k에서 cart pole 계의 목표 선가속도 $a(k) = u(k) / (M + m) \;m/s^2$ 를 구한다.
+3. 현재 시점 k에서 목표 각가속도 $\alpha (k) = a(k) / (0.01 m) \; rad/s^2$를 구한다.
+4. 현재 시점 k에서 stepping motor의 목표 각속도 $\omega (k) = \omega (k-1) + (\text{sampling control periode}) \; \alpha (k) \; rad/s$를 구한다.
+5. 현재 시점 k에서 stepping motor의 목표 각속도 $\omega (k) \; rad/s = 2\pi / 400 \; \omega (k) \; step/s$를 step/s 단위로 변환한다.
+6. 현재 시점 k에서 stepping motor가 1 step 움직이는 주기 $\text{(step interval period)} = 1/\omega(k) \; s/step$를 구한다.
+7. 그 주기 T에 해당하는 $(\text{step interval counts}) = (\text{step interval period}) / (\text{clock interval period})$를 구한다.
 
 1~3은 python에서 연산을 하고, 4~7은 arduino에서 연산을 한다.
 
-$$
-\alpha(k) = \dfrac{100}{M + m} \times u(k) =  \dfrac{100}{0.211 29} \times u(k) = 473.283 \; u(k) \;\;\; rad / s^2
-$$
+- Target linear acceleration
 
 $$
-T = 
+a(K) = \dfrac{u(K)}{M + m} = \dfrac{u(K)}{0.21129} \;\;\; m/s^2
 $$
+
+- Target angular acceleration
+
+$$
+\alpha(K) = \dfrac{a(K)}{0.01m} = 473.283 u(K) \;\;\; \text{rad}/s^2
+$$
+
+- Target angular velocity of rad/s
+
+$$
+\omega (k) = \omega (k-1) + \dfrac{T}{n} \alpha(K) \;\;\; \text{rad}/s
+$$
+
+Small k is different from large K
+
+- Target angular velocity of step/s
+
+$$
+\omega (k) = \dfrac{400}{2\pi} \left[ \omega (k-1) + \dfrac{T}{n} \alpha(K) \right] \;\;\; \text{step}/s
+$$
+
+- Target step interval period
+
+$$
+(\text{target step interval period}) = \dfrac{1}{\omega (k)} = \dfrac{1}{\dfrac{400}{2\pi} \left[ \omega (k-1) + \dfrac{T}{n} \alpha(K) \right]} \;\;\; s/\text{step}
+$$
+
+- Target step interval counts
+
+$$
+(\text{target step interval counts}) = \dfrac{16M/64}{\omega (k)} = \dfrac{16M/64}{\dfrac{400}{2\pi} \left[ \omega (k-1) + \dfrac{T}{n} \alpha(K) \right]} = \dfrac{3926.990 816}{\omega (k-1) + \dfrac{T}{n} \alpha(K)} \;\;\; \text{clock/step}
+$$
+
+## Low Level Motor Controller
 
 # State Observer
 
