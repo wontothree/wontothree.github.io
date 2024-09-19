@@ -21,20 +21,21 @@ Processor
 
 1~3은 python에서 연산을 하고, 4~7은 arduino에서 연산을 한다.
 
-- [1] Current optimal action $u(K) = F(K)$ from MPC controller
-- [2] Target linear acceleration of cart
+<span style="color: #2D3748; background-color:#fff5b1;">[1] Current optimal action $u(K) = F(K)$ from MPC controller</span>
+
+<span style="color: #2D3748; background-color:#fff5b1;">[2] Target linear acceleration of cart</span>
 
 $$
 a(K) = \dfrac{u(K)}{M + m} = \dfrac{u(K)}{0.21129} \;\;\; m/s^2
 $$
 
-- [3] Target angular acceleration of pole
+<span style="color: #2D3748; background-color:#fff5b1;">[3] Target angular acceleration of pole</span>
 
 $$
 \alpha(K) = \dfrac{a(K)}{0.01m} = 473.283 u(K) \;\;\; \text{rad}/s^2
 $$
 
-- [4] Target angular velocity of pole expressed as rad/s
+<span style="color: #2D3748; background-color:#fff5b1;">[4] Target angular velocity of pole expressed as rad/s</span>
 
 $$
 \omega (k) = \omega (k-1) + \dfrac{T}{n} \alpha(K) \;\;\; \text{rad}/s
@@ -42,19 +43,19 @@ $$
 
 Small k is different from large K
 
-- [5] Target angular velocity of pole expressed as step/s
+<span style="color: #2D3748; background-color:#fff5b1;">[5] Target angular velocity of pole expressed as step/s</span>
 
 $$
 \omega (k) = \dfrac{400}{2\pi} \left[ \omega (k-1) + \dfrac{T}{n} \alpha(K) \right] \;\;\; \text{step}/s
 $$
 
-- [6] Target step interval period
+<span style="color: #2D3748; background-color:#fff5b1;">[6] Target step interval period</span>
 
 $$
 (\text{target step interval period}) = \dfrac{1}{\omega (k)} = \dfrac{1}{\dfrac{400}{2\pi} \left[ \omega (k-1) + \dfrac{T}{n} \alpha(K) \right]} \;\;\; s/\text{step}
 $$
 
-- [7] Target step interval counts of clock
+<span style="color: #2D3748; background-color:#fff5b1;">[7] Target step interval counts of clock</span>
 
 $$
 (\text{target step interval counts}) = \dfrac{16M/64}{\omega (k)} = \dfrac{16M/64}{\dfrac{400}{2\pi} \left[ \omega (k-1) + \dfrac{T}{n} \alpha(K) \right]} = \dfrac{3926.990 816}{\omega (k-1) + \dfrac{T}{n} \alpha(K)} \;\;\; \text{clock/step}

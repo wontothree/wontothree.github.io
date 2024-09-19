@@ -19,18 +19,6 @@ Nonlinear Model Predictive Control vs. Deep Reinforcement Learning: A Comprehens
 - Team Member : Sewon Kim
 - Project Duration : July 25 - September 27
 
-# Contents
-
-1. [Dynamic model](https://wontothree.github.io/cartpole/dynamic-model/) of Linear Inverted Pendulum을 구한다.
-2. AutoDesk를 이용하여 Linear Inverted Pendulum을 [Mechanical Design](https://wontothree.github.io/cartpole/mechanical-design/) 한다.
-3. [Electronics](https://wontothree.github.io/cartpole/electronics/)를 구성하고 Inverted Pendulum의 hardware를 제작한다.
-4. [Motor Controller](https://wontothree.github.io/cartpole/motor-control/)를 만든다.
-5. Simulation 환경을 구축한다.
-6. [Nonlinear Model Predictive Controller](https://wontothree.github.io/cartpole/nmpc/)를 설계하고 simulation 환경에서 테스트한다.
-7. [Deep Reinforcement Learing Controller]()를 설계하고 simulation 환경에서 테스트한다.
-8. 두 제어기를 Inverted Pendulum Hardware에서 동작시키고 데이터를 수집한다.
-9. 다방면에서 두 제어기의 성능을 정량적으로 평가한다.
-
 # Competition
 
 - 참여 대상 : 전자전기컴퓨터공학부 재학생
