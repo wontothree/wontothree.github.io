@@ -16,36 +16,25 @@ Processor
 
 # Stepper Motor Controller
 
-## High Level Motor Controller
-
 - 섬세한 제어를 하기 위해 12상 여자 방식을 사용하여 제어한다. : 1 rotation = 400 step
 - 64 분주 프리스케일러를 사용한다. : 1 clock period = 1/(16M/64) = 0.5us
 
-현재 시점을 k라고 하고, 제어주기를 T라고 하자.
-
-1. MPC Controller로부터 현재 시점 k에서 cart pole 계의 목표 합력 $u(k) = F(k) \; N$가 주어진다.
-2. 현재 시점 k에서 cart pole 계의 목표 선가속도 $a(k) = u(k) / (M + m) \;m/s^2$ 를 구한다.
-3. 현재 시점 k에서 목표 각가속도 $\alpha (k) = a(k) / (0.01 m) \; rad/s^2$를 구한다.
-4. 현재 시점 k에서 stepping motor의 목표 각속도 $\omega (k) = \omega (k-1) + (\text{sampling control periode}) \; \alpha (k) \; rad/s$를 구한다.
-5. 현재 시점 k에서 stepping motor의 목표 각속도 $\omega (k) \; rad/s = 2\pi / 400 \; \omega (k) \; step/s$를 step/s 단위로 변환한다.
-6. 현재 시점 k에서 stepping motor가 1 step 움직이는 주기 $\text{(step interval period)} = 1/\omega(k) \; s/step$를 구한다.
-7. 그 주기 T에 해당하는 $(\text{step interval counts}) = (\text{step interval period}) / (\text{clock interval period})$를 구한다.
-
 1~3은 python에서 연산을 하고, 4~7은 arduino에서 연산을 한다.
 
-- Target linear acceleration
+- [1] Current optimal action $u(K) = F(K)$ from MPC controller
+- [2] Target linear acceleration of cart
 
 $$
 a(K) = \dfrac{u(K)}{M + m} = \dfrac{u(K)}{0.21129} \;\;\; m/s^2
 $$
 
-- Target angular acceleration
+- [3] Target angular acceleration of pole
 
 $$
 \alpha(K) = \dfrac{a(K)}{0.01m} = 473.283 u(K) \;\;\; \text{rad}/s^2
 $$
 
-- Target angular velocity of rad/s
+- [4] Target angular velocity of pole expressed as rad/s
 
 $$
 \omega (k) = \omega (k-1) + \dfrac{T}{n} \alpha(K) \;\;\; \text{rad}/s
@@ -53,25 +42,23 @@ $$
 
 Small k is different from large K
 
-- Target angular velocity of step/s
+- [5] Target angular velocity of pole expressed as step/s
 
 $$
 \omega (k) = \dfrac{400}{2\pi} \left[ \omega (k-1) + \dfrac{T}{n} \alpha(K) \right] \;\;\; \text{step}/s
 $$
 
-- Target step interval period
+- [6] Target step interval period
 
 $$
 (\text{target step interval period}) = \dfrac{1}{\omega (k)} = \dfrac{1}{\dfrac{400}{2\pi} \left[ \omega (k-1) + \dfrac{T}{n} \alpha(K) \right]} \;\;\; s/\text{step}
 $$
 
-- Target step interval counts
+- [7] Target step interval counts of clock
 
 $$
 (\text{target step interval counts}) = \dfrac{16M/64}{\omega (k)} = \dfrac{16M/64}{\dfrac{400}{2\pi} \left[ \omega (k-1) + \dfrac{T}{n} \alpha(K) \right]} = \dfrac{3926.990 816}{\omega (k-1) + \dfrac{T}{n} \alpha(K)} \;\;\; \text{clock/step}
 $$
-
-## Low Level Motor Controller
 
 # State Observer
 
@@ -108,9 +95,3 @@ We simply approximate the time derivatie via a finite difference approximation.
 $$
 v(k) = \dfrac{x(k) - x(k-1)}{T}, \;\;\; \omega(k) = \dfrac{\theta (k) - \theta (k-1)}{T}
 $$
-
-# 임시
-
-## Constant
-
->1 m/s = 100rad/s = 15.915 rotation/s = 6366 step/s = 1 step / 157us = 1step/(1 clock * 314)
