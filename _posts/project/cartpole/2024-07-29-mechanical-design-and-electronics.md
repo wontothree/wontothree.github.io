@@ -46,3 +46,7 @@ $$
 - Unipolar Stepper Motor Driver
 - Absolute Rotary Encoder
 - Photo Interrupt Sensor
+
+Absolute Rotary Encoder를 통해 angle of pole을 측정한다. 이때 Arduino UNO R3를 사용한다.
+
+Photo Interrupt Sensor와 Stepper Motor를 통해 position of cart를 구한다. 이때 Arduino UNO R4를 사용한다.

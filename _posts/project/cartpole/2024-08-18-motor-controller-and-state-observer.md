@@ -63,9 +63,6 @@ $$
 
 # State Observer
 
-- Absolute Rotary Encoder를 통해 angle of pole을 측정한다. 이때 Arduino UNO R3를 사용한다.
-- Photo Interrupt Sensor와 Stepper Motor를 통해 position of cart를 구한다. 이때 Arduino UNO R4를 사용한다.
-
 $$
 \mathbb{x}(k) =
 \begin{bmatrix}
@@ -87,11 +84,7 @@ $$
 - $v$ : Velocity of Cart
 - $\omega$ : Angular Velocity of Pole
 
-In order to apply the NMPC strategy, we must bave access to the state at time $k$.
-
-While the state of cart position $x(k)$ and pole angle $\theta (k)$ are measured directly by stepper motor and encoder sensor respectly, we need to estimate the  cart velocity $v(k)$ and pole angular velocity $w(k)$.
-
-We simply approximate the time derivatie via a finite difference approximation.
+In order to apply the NMPC strategy, we must bave access to the state at time $k$.While the state of cart position $x(k)$ and pole angle $\theta (k)$ are measured directly by stepper motor and encoder sensor respectly, we need to estimate the  cart velocity $v(k)$ and pole angular velocity $w(k)$. We simply approximate the time derivatie via a finite difference approximation.
 
 $$
 v(k) = \dfrac{x(k) - x(k-1)}{T}, \;\;\; \omega(k) = \dfrac{\theta (k) - \theta (k-1)}{T}
