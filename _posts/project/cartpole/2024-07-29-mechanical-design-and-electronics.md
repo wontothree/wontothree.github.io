@@ -19,14 +19,7 @@ Object
 
 ## Measurement
 
-- mass of cart ($M$) : 0.123 kg (122.61 g)
-- length of cart : 0.045 m (4.5 cm)
-- mass of pole ($m$) : 0.089 kg (88.68 g)
-- length of pole ($L$) : 0.4 m (40 cm)
-- inertia of pole ($I$) : 0.004 746 kg m^2
-- length of rail (linear guide) : 0.72 m (72 cm)
-- maximum magnitude of force : 1.2 N
-- radius of timing pully : 0.01 m (1cm)
+![](../../../img/cartpole/physical-property.png){: .align-center }
 
 **Inertia**
 
