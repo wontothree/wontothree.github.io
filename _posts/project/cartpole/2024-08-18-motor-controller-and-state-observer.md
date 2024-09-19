@@ -3,13 +3,26 @@ title: "[Cart Pole] Motor Controller and State Observer"
 categories:
   - cartpole
 ---
-Arduino UNO R3를 이용하여 motor controller와 state observer를 구현한다.
+Arduino UNO R3와 R4를 이용하여 motor controller와 state observer를 구현한다.
 
 # Stepper Motor Controller
 
 - 섬세한 제어를 하기 위해 12상 여자 방식을 사용하여 제어한다.
 
+현재 시점을 k라고 하고, 제어주기를 T라고 하자.
+
+1. MPC Controller로부터 현재 시점 k에서 cart pole 계의 목표 합력 $u(k) = F(k) \; N$가 주어진다.
+2. 현재 시점 k에서 cart pole 계의 목표 선가속도 $a(k) = F(k) / (m + M) \;m/s^2$ 를 구한다.
+3. 현재 시점 k에서 목표 각가속도 $\alpha (k) = a(k) / (0.01m) \; rad/s^2$를 구한다.
+4. 현재 시점 k에서 stepping motor의 목표 각속도 $\omega (k) = \omega (k-1) + T \alpha (k) \; rad/s$를 구한다.
+5. 현재 시점 k에서 stepping motor의 목표 각속도 $\omega (k) \; rad/s = 360 / 400 \; \omega (k) \; step/s$를 step/s 단위로 변환한다.
+6. 현재 시점 k에서 stepping motor가 1 step 움직이는 주기 $1/\omega(k) \; s/step$를 구한다.
+7. 그 주기 T로 stepping motor를 동작시킨다.
+
 # State Observer
+
+- Absolute Rotary Encoder를 통해 angle of pole을 측정한다. 이때 Arduino UNO R3를 사용한다.
+- Photo Interrupt Sensor와 Stepper Motor를 통해 position of cart를 구한다. 이때 Arduino UNO R4를 사용한다.
 
 $$
 \mathbb{x}(k) =
@@ -23,14 +36,14 @@ $$
   x(k) \\
   \theta(k) \\
   v(k) \\
-  w(k) \\
+  \omega(k) \\
 \end{bmatrix}
 $$
 
 - $x$ : Position of Cart
 - $\theta$ : Angle of Pole
 - $v$ : Velocity of Cart
-- $w$ : Angular Velocity of Pole
+- $\omega$ : Angular Velocity of Pole
 
 In order to apply the NMPC strategy, we must bave access to the state at time $k$.
 
@@ -39,19 +52,10 @@ While the state of cart position $x(k)$ and pole angle $\theta (k)$ are measured
 We simply approximate the time derivatie via a finite difference approximation.
 
 $$
-v(k) = \dfrac{x(k) - x(k-1)}{T}, \;\;\; w(k) = \dfrac{\theta (k) - \theta (k-1)}{T}
+v(k) = \dfrac{x(k) - x(k-1)}{T}, \;\;\; \omega(k) = \dfrac{\theta (k) - \theta (k-1)}{T}
 $$
 
 # 임시
-
-현재 시점을 k라고 하고, 제어주기를 T라고 하자.
-
-1. High-Level Controller로부터 현재 시점 k에서 cart pole 계의 목표 합력 $u(k) = F(k)$가 주어진다.
-2. 현재 시점 k에서 cart pole 계의 목표 가속도 $a(k) = F(k) / (m + M)$를 구한다.
-3. 현재 시점 k에서 cart pole 계의 목표 속도 $v(k) = v(k-1) + T a(k)$를 구한다.
-4. 현재 시점 k에서 stepping motor의 목표 각속도 step/s를 구한다.
-5. 현재 시점 k에서 stepping motor가 1 step 움직이는 주기를 결정한다.
-6. 그 주기로 stepping motor를 동작시킨다.
 
 ## Constant
 
