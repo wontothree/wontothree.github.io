@@ -26,6 +26,7 @@ Object
 - inertia of pole ($I$) : 0.004 746 kg m^2
 - length of rail (linear guide) : 0.72 m (72 cm)
 - maximum magnitude of force : 1.2 N
+- radius of timing pully : 0.01 m (1cm)
 
 **Inertia**
 
