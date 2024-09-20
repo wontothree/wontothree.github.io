@@ -75,12 +75,24 @@ $$
 ```cpp
 void update_motor_control()
 {
+  static uint16_t last_motor_control_count = 0;
+  static uint16_t last_step_count = 0;
+
   // update target next velocity
   target_next_linear_velocity = current_linear_velocity + MOTOR_COUNTROL_COUNTS * target_current_linear_velocity;
 
   // calculate target step interval counts
-  if (current_count - last_motor_control_count >= MOTOR_COUNTROL_COUNTS) {
-    
+  if ((current_count - last_motor_control_count) >= MOTOR_COUNTROL_COUNTS) {
+    target_step_interval_counts = 40 / target_next_linear_velocity;
+
+    last_motor_control_count = current_count;
+  }
+
+  // move one step
+  if ((currnet_count - last_step_count) >= target_step_interval_counts) {
+    moveOneStep();
+
+    last_step_count = current_count;
   }
 }
 ```
