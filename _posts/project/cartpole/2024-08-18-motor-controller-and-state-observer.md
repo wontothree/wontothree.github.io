@@ -51,30 +51,43 @@ $$
 <span style="color: #2D3748; background-color:#fff5b1;">[4] Target next angular velocity of pole (rad/s)</span>
 
 $$
-\omega (k + 1) = \dfrac{v(k + 1)}{\text{(radius)}} = \dfrac{v (k) + T a(k)}{0.01} = 100 \left[ v (k) + T a(K) \right] \;\;\; \text{rad/s}
+\omega (k + 1) = \dfrac{v(k + 1)}{\text{(radius)}} = \dfrac{v (k + 1)}{0.01} = 100 v(k + 1) \;\;\; \text{rad/s}
 $$
 
 <span style="color: #2D3748; background-color:#fff5b1;">[5] Target next angular velocity of pole (step/s)</span>
 
 $$
-\omega (k + 1) = \dfrac{400}{2\pi} \cdot 100 \left[ v (k) + T a(k) \right] =6366.198 \left[ v (k) + T a(k) \right] \;\;\; \text{step}/s
+\omega (k + 1) = \dfrac{400}{2\pi} \cdot 100 v (k + 1) =6366.198 v (k + 1) \;\;\; \text{step}/s
 $$
 
 <span style="color: #2D3748; background-color:#fff5b1;">[6] Target next step interval period (s/step)</span>
 
 $$
-(\text{target step interval period}) = \dfrac{1}{\omega (k + 1)} = \dfrac{0.000157}{v (k) + T a(k)} \;\;\; s/\text{step}
+(\text{target step interval period}) = \dfrac{1}{\omega (k + 1)} = \dfrac{0.000157}{v (k + 1)} \;\;\; s/\text{step}
 $$
 
 <span style="color: #2D3748; background-color:#fff5b1;">[7] Target next step interval counts of clock (clock/step)</span>
 
 $$
-(\text{target step interval counts}) = \dfrac{16M/64}{\omega (k + 1)} = \dfrac{39.27}{v (k) + T a(k)} \;\;\; \text{clock/step}
+(\text{target step interval counts}) = \dfrac{16M/64}{\omega (k + 1)} = \dfrac{39.27}{v (k + 1)} \;\;\; \text{clock/step}
 $$
+
+```cpp
+void update_motor_control()
+{
+  // update target next velocity
+  target_next_linear_velocity = current_linear_velocity + MOTOR_COUNTROL_COUNTS * target_current_linear_velocity;
+
+  // calculate target step interval counts
+  if (current_count - last_motor_control_count >= MOTOR_COUNTROL_COUNTS) {
+    
+  }
+}
+```
 
 - 섬세한 제어를 하기 위해 12상 여자 방식을 사용하여 제어한다. : 1 rotation = 400 step
 - 64 분주 프리스케일러를 사용한다. : 1 clock period = 1/(16M/64) = 0.5us
-- timing pulley radius = 0.01 m 
+- timing pulley radius = 0.01 m
 
 ## Motor Control Period
 
