@@ -33,13 +33,13 @@ python에서 2번의 결과를 arduino에 보내고, 3~7단계는 arduino에서 
 <span style="color: #2D3748; background-color:#fff5b1;">[2] Target linear acceleration of cart (m/s^2)</span>
 
 $$
-a(K) = \dfrac{u(K)}{M + m} = \dfrac{u(K)}{0.21129} \;\;\; m/s^2
+a(K) = \dfrac{u(K)}{M + m} = \dfrac{u(K)}{0.21129} = 4.733 u(K) \;\;\; m/s^2
 $$
 
 <span style="color: #2D3748; background-color:#fff5b1;">[3] Target linear velocity of pole (m/s)</span>
 
 $$
-v (k) = v (k-1) + T a(k) \;\;\; \text{m/s}
+v (k) = v (k-1) + T a(k) = v (k-1) + 4.733 T u(K) \;\;\; \text{m/s}
 $$
 
 - T : motor control period
@@ -47,25 +47,25 @@ $$
 <span style="color: #2D3748; background-color:#fff5b1;">[4] Target angular velocity of pole (rad/s)</span>
 
 $$
-\omega (k) = \dfrac{v(k)}{\text{(radius)}} = \dfrac{v (k-1) + T a(k)}{0.01} = 100 \left[ v (k-1) + T a(k) \right] \;\;\; \text{rad/s}
+\omega (k) = \dfrac{v(k)}{\text{(radius)}} = \dfrac{v (k-1) + T a(k)}{0.01} = 100 \left[ v (k-1) + 4.733 T u(K) \right] \;\;\; \text{rad/s}
 $$
 
 <span style="color: #2D3748; background-color:#fff5b1;">[5] Target angular velocity of pole (step/s)</span>
 
 $$
-\omega (k) = \dfrac{400}{2\pi} \cdot 100 \left[ v (k-1) + T a(k) \right] =6366.198 \left[ v (k-1) + T a(k) \right] \;\;\; \text{step}/s
+\omega (k) = \dfrac{400}{2\pi} \cdot 100 \left[ v (k-1) + T a(k) \right] =6366.198 \left[ v (k-1) + 4.733 T u(K) \right] \;\;\; \text{step}/s
 $$
 
 <span style="color: #2D3748; background-color:#fff5b1;">[6] Target step interval period (s/step)</span>
 
 $$
-(\text{target step interval period}) = \dfrac{1}{\omega (k)} = \dfrac{0.000157}{v (k-1) + T a(k)} \;\;\; s/\text{step}
+(\text{target step interval period}) = \dfrac{1}{\omega (k)} = \dfrac{0.000157}{v (k-1) + 4.733 T u(K)} \;\;\; s/\text{step}
 $$
 
 <span style="color: #2D3748; background-color:#fff5b1;">[7] Target step interval counts of clock (clock/step)</span>
 
 $$
-(\text{target step interval counts}) = \dfrac{16M/64}{\omega (k)} = \dfrac{39.27}{v (k-1) + T a(k)} \;\;\; \text{clock/step}
+(\text{target step interval counts}) = \dfrac{16M/64}{\omega (k)} = \dfrac{39.27}{v (k-1) + 4.733 T u(K)} \;\;\; \text{clock/step}
 $$
 
 - 섬세한 제어를 하기 위해 12상 여자 방식을 사용하여 제어한다. : 1 rotation = 400 step
