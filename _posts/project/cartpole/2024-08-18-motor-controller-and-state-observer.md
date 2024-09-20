@@ -32,7 +32,7 @@ $$
 <span style="color: #2D3748; background-color:#fff5b1;">[3] Target angular acceleration of pole</span>
 
 $$
-\alpha(K) = \dfrac{a(K)}{0.01m} = 473.283 u(K) \;\;\; \text{rad}/s^2
+\alpha(K) = \dfrac{a(K)}{\text{radius}} = \dfrac{a(K)}{0.01m} = 473.283 u(K) \;\;\; \text{rad}/s^2
 $$
 
 <span style="color: #2D3748; background-color:#fff5b1;">[4] Target angular velocity of pole expressed as rad/s</span>
@@ -42,6 +42,8 @@ $$
 $$
 
 Small k is different from large K
+
+T/n is motor control periode
 
 <span style="color: #2D3748; background-color:#fff5b1;">[5] Target angular velocity of pole expressed as step/s</span>
 
