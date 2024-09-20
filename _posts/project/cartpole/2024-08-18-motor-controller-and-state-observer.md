@@ -18,13 +18,15 @@ Processor
 
 MPC는 50ms마다 최적의 현재 선가속도를 제시한다. 이에 맞게 stepper motor의 상을 잡아줘야 한다.
 
+Stepper motor는 가속도를 이해하지 못하고 속도를 이해한다.
+
 지배적인 물리 법칙은 다음과 같다.
 
 $$
 v = r \omega, \;\;\; a = r \alpha
 $$
 
-주로 선속도의 언어를 사용하는 이유는 모터를 제어하는 arduino UNO R3에 pole의 각도 혹은 각속도에 대한 정보는 없고 cart의 위치와 속도에 대한 정보만 가지고 있기 때문이다.
+주로 선속도의 언어를 사용하는 이유는 모터를 제어하는 arduino UNO R3에 pole의 각도 혹은 각속도에 대한 정보는 없고, cart의 위치와 속도에 대한 정보만 가지고 있기 때문이다.
 
 python에서 2번의 결과를 arduino에 보내고, 3~7단계는 arduino에서 연산한다.
 
@@ -35,12 +37,13 @@ python에서 2번의 결과를 arduino에 보내고, 3~7단계는 arduino에서 
 $$
 a(K) = a(k) = \dfrac{u(K)}{M + m} = \dfrac{u(K)}{0.21129} = 4.733 u(K) \;\;\; m/s^2
 $$
+
 ---
 
 <span style="color: #2D3748; background-color:#fff5b1;">[3] Target linear velocity of pole (m/s)</span>
 
 $$
-v (k) = v (k-1) + T a(k) \;\;\; \text{m/s}
+v (k + 1) = v (k) + T a(k) \;\;\; \text{m/s}
 $$
 
 - T : motor control period
@@ -48,25 +51,25 @@ $$
 <span style="color: #2D3748; background-color:#fff5b1;">[4] Target angular velocity of pole (rad/s)</span>
 
 $$
-\omega (k) = \dfrac{v(k)}{\text{(radius)}} = \dfrac{v (k-1) + T a(k)}{0.01} = 100 \left[ v (k-1) + T a(k) \right] \;\;\; \text{rad/s}
+\omega (k + 1) = \dfrac{v(k + 1)}{\text{(radius)}} = \dfrac{v (k) + T a(k)}{0.01} = 100 \left[ v (k) + T a(K) \right] \;\;\; \text{rad/s}
 $$
 
 <span style="color: #2D3748; background-color:#fff5b1;">[5] Target angular velocity of pole (step/s)</span>
 
 $$
-\omega (k) = \dfrac{400}{2\pi} \cdot 100 \left[ v (k-1) + T a(k) \right] =6366.198 \left[ v (k-1) + T a(k) \right] \;\;\; \text{step}/s
+\omega (k + 1) = \dfrac{400}{2\pi} \cdot 100 \left[ v (k) + T a(k) \right] =6366.198 \left[ v (k) + T a(k) \right] \;\;\; \text{step}/s
 $$
 
 <span style="color: #2D3748; background-color:#fff5b1;">[6] Target step interval period (s/step)</span>
 
 $$
-(\text{target step interval period}) = \dfrac{1}{\omega (k)} = \dfrac{0.000157}{v (k-1) + T a(k)} \;\;\; s/\text{step}
+(\text{target step interval period}) = \dfrac{1}{\omega (k + 1)} = \dfrac{0.000157}{v (k) + T a(k)} \;\;\; s/\text{step}
 $$
 
 <span style="color: #2D3748; background-color:#fff5b1;">[7] Target step interval counts of clock (clock/step)</span>
 
 $$
-(\text{target step interval counts}) = \dfrac{16M/64}{\omega (k)} = \dfrac{39.27}{v (k-1) + T a(k)} \;\;\; \text{clock/step}
+(\text{target step interval counts}) = \dfrac{16M/64}{\omega (k + 1)} = \dfrac{39.27}{v (k) + T a(k)} \;\;\; \text{clock/step}
 $$
 
 - 섬세한 제어를 하기 위해 12상 여자 방식을 사용하여 제어한다. : 1 rotation = 400 step
