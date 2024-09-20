@@ -40,7 +40,7 @@ $$
 
 ---
 
-<span style="color: #2D3748; background-color:#fff5b1;">[3] Target linear velocity of pole (m/s)</span>
+<span style="color: #2D3748; background-color:#fff5b1;">[3] Target Naxt linear velocity of pole (m/s)</span>
 
 $$
 v (k + 1) = v (k) + T a(k) \;\;\; \text{m/s}
@@ -48,25 +48,25 @@ $$
 
 - T : motor control period
 
-<span style="color: #2D3748; background-color:#fff5b1;">[4] Target angular velocity of pole (rad/s)</span>
+<span style="color: #2D3748; background-color:#fff5b1;">[4] Target next angular velocity of pole (rad/s)</span>
 
 $$
 \omega (k + 1) = \dfrac{v(k + 1)}{\text{(radius)}} = \dfrac{v (k) + T a(k)}{0.01} = 100 \left[ v (k) + T a(K) \right] \;\;\; \text{rad/s}
 $$
 
-<span style="color: #2D3748; background-color:#fff5b1;">[5] Target angular velocity of pole (step/s)</span>
+<span style="color: #2D3748; background-color:#fff5b1;">[5] Target next angular velocity of pole (step/s)</span>
 
 $$
 \omega (k + 1) = \dfrac{400}{2\pi} \cdot 100 \left[ v (k) + T a(k) \right] =6366.198 \left[ v (k) + T a(k) \right] \;\;\; \text{step}/s
 $$
 
-<span style="color: #2D3748; background-color:#fff5b1;">[6] Target step interval period (s/step)</span>
+<span style="color: #2D3748; background-color:#fff5b1;">[6] Target next step interval period (s/step)</span>
 
 $$
 (\text{target step interval period}) = \dfrac{1}{\omega (k + 1)} = \dfrac{0.000157}{v (k) + T a(k)} \;\;\; s/\text{step}
 $$
 
-<span style="color: #2D3748; background-color:#fff5b1;">[7] Target step interval counts of clock (clock/step)</span>
+<span style="color: #2D3748; background-color:#fff5b1;">[7] Target next step interval counts of clock (clock/step)</span>
 
 $$
 (\text{target step interval counts}) = \dfrac{16M/64}{\omega (k + 1)} = \dfrac{39.27}{v (k) + T a(k)} \;\;\; \text{clock/step}
