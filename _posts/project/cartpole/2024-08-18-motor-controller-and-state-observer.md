@@ -19,49 +19,53 @@ Processor
 - 섬세한 제어를 하기 위해 12상 여자 방식을 사용하여 제어한다. : 1 rotation = 400 step
 - 64 분주 프리스케일러를 사용한다. : 1 clock period = 1/(16M/64) = 0.5us
 
-1~3은 python에서 연산을 하고, 4~7은 arduino에서 연산을 한다.
+1~4은 python에서 연산을 하고, 5~7은 arduino에서 연산을 한다.
 
-<span style="color: #2D3748; background-color:#fff5b1;">[1] Current optimal action $u(K) = F(K)$ from MPC controller</span>
+<span style="color: #2D3748; background-color:#fff5b1;">[1] Current optimal action $u(k) = F(k)$ from MPC controller</span>
 
 <span style="color: #2D3748; background-color:#fff5b1;">[2] Target linear acceleration of cart</span>
 
 $$
-a(K) = \dfrac{u(K)}{M + m} = \dfrac{u(K)}{0.21129} \;\;\; m/s^2
+a(K) = \dfrac{u(k)}{M + m} = \dfrac{u(k)}{0.21129} \;\;\; m/s^2
 $$
 
 <span style="color: #2D3748; background-color:#fff5b1;">[3] Target angular acceleration of pole</span>
 
 $$
-\alpha(K) = \dfrac{a(K)}{\text{radius}} = \dfrac{a(K)}{0.01m} = 473.283 u(K) \;\;\; \text{rad}/s^2
+\alpha(K) = \dfrac{a(k)}{\text{radius}} = \dfrac{a(k)}{0.01m} = 473.283 u(k) \;\;\; \text{rad}/s^2
 $$
 
 <span style="color: #2D3748; background-color:#fff5b1;">[4] Target angular velocity of pole expressed as rad/s</span>
 
 $$
-\omega (k) = \omega (k-1) + \dfrac{T}{n} \alpha(K) \;\;\; \text{rad}/s
+\omega (k) = \omega (k-1) + T \alpha(k) \;\;\; \text{rad}/s
 $$
 
-Small k is different from large K
-
-T/n is motor control periode
+- T : mpc control sampling period
 
 <span style="color: #2D3748; background-color:#fff5b1;">[5] Target angular velocity of pole expressed as step/s</span>
 
 $$
-\omega (k) = \dfrac{400}{2\pi} \left[ \omega (k-1) + \dfrac{T}{n} \alpha(K) \right] \;\;\; \text{step}/s
+\omega (k) = \dfrac{400}{2\pi} \left[ \omega (k-1) + T \alpha(K) \right] \;\;\; \text{step}/s
 $$
 
 <span style="color: #2D3748; background-color:#fff5b1;">[6] Target step interval period</span>
 
 $$
-(\text{target step interval period}) = \dfrac{1}{\omega (k)} = \dfrac{1}{\dfrac{400}{2\pi} \left[ \omega (k-1) + \dfrac{T}{n} \alpha(K) \right]} \;\;\; s/\text{step}
+(\text{target step interval period}) = \dfrac{1}{\omega (k)} = \dfrac{63.662}{\omega (k-1) + T \alpha(K)} \;\;\; s/\text{step}
 $$
 
 <span style="color: #2D3748; background-color:#fff5b1;">[7] Target step interval counts of clock</span>
 
 $$
-(\text{target step interval counts}) = \dfrac{16M/64}{\omega (k)} = \dfrac{16M/64}{\dfrac{400}{2\pi} \left[ \omega (k-1) + \dfrac{T}{n} \alpha(K) \right]} = \dfrac{3926.990 816}{\omega (k-1) + \dfrac{T}{n} \alpha(K)} \;\;\; \text{clock/step}
+(\text{target step interval counts}) = \dfrac{16M/64}{\omega (k)} = \dfrac{16M/64}{\dfrac{400}{2\pi} \left[ \omega (k-1) + T \alpha(K) \right]} = \dfrac{3926.990 816}{\omega (k-1) + T \alpha(K)} \;\;\; \text{clock/step}
 $$
+
+## Motor Control Period
+
+motor control period를 몇으로 설정하는 게 적절할까?
+
+MPC Controller의 control sampling period는 50ms (20Hz)이다. 50ms 안에 목표 선속도에 도달할 수 있어야 한다.
 
 # State Observer
 
