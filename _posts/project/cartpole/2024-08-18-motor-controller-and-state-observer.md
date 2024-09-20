@@ -24,6 +24,8 @@ $$
 v = r \omega, \;\;\; a = r \alpha
 $$
 
+주로 선속도의 언어를 사용하는 이유는 모터를 제어하는 arduino UNO R3에 pole의 각도 혹은 각속도에 대한 정보는 없고 cart의 위치와 속도에 대한 정보만 가지고 있기 때문이다.
+
 python에서 2번의 결과를 arduino에 보내고, 3~7단계는 arduino에서 연산한다.
 
 <span style="color: #2D3748; background-color:#fff5b1;">[1] Current optimal action from MPC controller (N)</span>
