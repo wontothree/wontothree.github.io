@@ -26,13 +26,13 @@ Processor
 <span style="color: #2D3748; background-color:#fff5b1;">[2] Target linear acceleration of cart</span>
 
 $$
-a(K) = \dfrac{u(k)}{M + m} = \dfrac{u(k)}{0.21129} \;\;\; m/s^2
+a(k) = \dfrac{u(k)}{M + m} = \dfrac{u(k)}{0.21129} \;\;\; m/s^2
 $$
 
 <span style="color: #2D3748; background-color:#fff5b1;">[3] Target angular acceleration of pole</span>
 
 $$
-\alpha(K) = \dfrac{a(k)}{\text{radius}} = \dfrac{a(k)}{0.01m} = 473.283 u(k) \;\;\; \text{rad}/s^2
+\alpha(k) = \dfrac{a(k)}{\text{radius}} = \dfrac{a(k)}{0.01m} = 473.283 u(k) \;\;\; \text{rad}/s^2
 $$
 
 <span style="color: #2D3748; background-color:#fff5b1;">[4] Target angular velocity of pole expressed as rad/s</span>
