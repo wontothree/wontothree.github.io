@@ -16,19 +16,21 @@ Processor
 
 # Stepper Motor Controller
 
+parameter를 다음과 같이 설정한다.
+
+- 섬세한 제어를 하기 위해 12상 여자 방식을 사용하여 제어한다. (1 rotation = 400 step)
+- 64 분주 프리스케일러를 사용한다. ( 1 clock period = 1/(16M/64) = 4 us)
+- timing pulley radius = 0.01 m
+
 MPC는 50ms마다 최적의 현재 선가속도를 제시한다. 이에 맞게 stepper motor의 상을 잡아줘야 한다.
 
 ![](../../../img/cartpole/motor-control.png){: .align-center width="400" height="200"}
 
-현재 시점은 k라 하고, 마지막으로 모터를 제어한 시점을 k-1, 다음으로 모터를 제어할 시점을 k+1이라고 하자.
+현재 시점은 k라 하고, 마지막으로 모터를 제어한 시점을 k-1, 다음으로 모터를 제어할 시점을 k+1이라고 하자. 그러면 k-1부터 k까지 이동한 거리와 k부터 k+1까지 이동한 거리는 $\Delta x = 0.000175 m$로 동일하다. $400 \Delta x = 2 \pi (0.01m)$로부터 구할 수 있다.
 
-그러면 k-1부터 k까지 이동한 거리와 k부터 k+1까지 이동한 거리는 $\Delta x = 0.000175 m$로 동일하다.
+k-1부터 k까지 걸린 시간(s)을 $I_k$, k부터 k+1까지 걸린 시간(s)을 $I_{k+1}$이라고 하고, 각각의 시간에 대응하는 clock의 개수(count)를 $I_k', I_{k+1}'$라고 하자. 또한 각각의 구간에서 속도(m/s)를 $v_k, v_{k+1}$라고 하자.
 
-k-1부터 k까지 걸린 시간(s)을 $I_k$, k부터 k+1까지 걸린 시간(s)을 $I_{k+1}$이라고 하고, 각각의 시간에 대응하는 clock의 개수(count)를 $I_k', I_{k+1}'$라고 하자. 또한 각각의 구간에서 속도를 $v_k, v_{k+1}$라고 하자.
-
-MPC controller로부터 현재 시점 $k$에서 최적의 가속도 $a_k$가 주어진다.
-
-우리의 목표는 MPC controller로부터 받은 가속도에 해당하는 현재 시점 k부터 다음 stepper motor를 제어하는 시점 k+1 사이의 clock의 개수(count) $I_{k+1}'$를 구하는 것이다.
+MPC controller로부터 현재 시점 $k$에서 최적의 가속도 $a_k$가 주어진다. 우리의 목표는 그 가속도에 해당하는 현재 시점 k부터 다음 시점 k+1 사이의 clock의 개수(count) $I_{k+1}'$를 구하는 것이다.
 
 $v_k$와 $I_{k+1}$의 관계를 다음과 같이 구할 수 있다.
 
@@ -42,48 +44,40 @@ $$
 v_{k+1} = v_k + a_k I_k
 $$
 
-$I_{k+1}$에 대해 정리하자.
+대입하자.
 
 $$
 \dfrac{\Delta x}{I_{k+1}} = \dfrac{\Delta x}{I_k} + a_k I_k
 $$
 
+$I_{k+1}$에 대해 정리하자.
+
 $$
 \begin{align*}
-  I_{k+1} = \dfrac{I_k}{1 + a_k I_k^2 / \Delta x}
+  I_{k+1}
+  &= \dfrac{\Delta x}{\dfrac{\Delta x}{I_k} + a_k I_k} \\
+  &= \dfrac{I_k}{1 + a_k I_k^2 / \Delta x} \\
 \end{align*}
 $$
 
-다음의 관계가 성립한다. $I_k$의 단위는 s이고, $I_k'$의 단위는 count이다.
+$1/(16M/64)$으로부터 다음의 관계가 성립한다. $I_k$의 단위는 s이고, $I_k'$의 단위는 count이다.
 
 $$
-I_k = 0.000005s \times I_k', \;\;\; I_{k+1} = 0.000005s \times I_{k+1}'
+I_k = 0.000004s \times I_k', \;\;\; I_{k+1} = 0.000004s \times I_{k+1}'
 $$
 
-다음 식에서 모든 단위는 SI 단위로 통일하자.
+다음 식에서 모든 단위는 SI 단위로 통일하면 update 식을 얻을 수 있다.
 
 $$
 \begin{align*}
   I_{k+1}' &= \dfrac{I_k'}{1 + a_k (5\mu s \cdot I_k')^2 / \Delta x} \\
-  &= \dfrac{I_k'}{1 + a_k ((0.000005s) \cdot I_k')^2 / (0.000175 m)} \\
-  &= \dfrac{I_k'}{1 + a_k ((0.000005s) \cdot I_k')^2 / (0.000175 m)} \\
-  &= \dfrac{I_k'}{1 + (a_k s^2/m) I_k'^2(0.000005^2 / 0.000175)} \\
-  &= \dfrac{I_k'}{1 + (1.428571e-7)(a_k s^2/m) I_k'^2} \\
-  &= \dfrac{7000002 I_k'}{7000002 + (a_k s^2/m) I_k'^2} \\
+  &= \dfrac{I_k'}{1 + a_k ((0.000004s) \cdot I_k')^2 / (0.000175 m)} \\
+  &= \dfrac{I_k'}{1 + a_k ((0.000004s) \cdot I_k')^2 / (0.000175 m)} \\
+  &= \dfrac{I_k'}{1 + (a_k s^2/m) I_k'^2(0.000004^2 / 0.000175)} \\
+  &= \dfrac{I_k'}{1 + (9.302326e-8)(a_k s^2/m) I_k'^2} \\
+  &= \dfrac{(10750000.6719) I_k'}{(10750000.6719) + (a_k s^2/m) I_k'^2} \\
 \end{align*}
 $$
-
-기타
-
-- 섬세한 제어를 하기 위해 12상 여자 방식을 사용하여 제어한다. : 1 rotation = 400 step
-- 64 분주 프리스케일러를 사용한다. : 1 clock period = 1/(16M/64) = 0.5us
-- timing pulley radius = 0.01 m
-
-## Motor Control Period
-
-motor control period를 몇으로 설정하는 게 적절할까?
-
-MPC Controller의 control sampling period는 50ms (20Hz)이다. 50ms 안에 목표 선속도에 도달할 수 있어야 한다.
 
 # State Observer
 
