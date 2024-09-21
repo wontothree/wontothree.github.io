@@ -18,17 +18,17 @@ Processor
 
 MPC는 50ms마다 최적의 현재 선가속도를 제시한다. 이에 맞게 stepper motor의 상을 잡아줘야 한다.
 
-지배적인 물리 법칙은 다음과 같다.
-
-$$
-v = r \omega, \;\;\; a = r \alpha
-$$
-
 ![](../../../img/cartpole/motor-control.png){: .align-center width="400" height="200"}
+
+현재 시점은 k라 하고, 마지막으로 모터를 제어한 시점을 k-1, 다음으로 모터를 제어할 시점을 k+1이라고 하자.
+
+그러면 k-1부터 k까지 이동한 거리와 k부터 k+1까지 이동한 거리는 $\Delta x = 0.000175 m$로 동일하다.
+
+k-1부터 k까지 걸린 시간(s)을 $I_k$, k부터 k+1까지 걸린 시간(s)을 $I_{k+1}$이라고 하고, 각각의 시간에 대응하는 clock의 개수(count)를 $I_k', I_{k+1}'$라고 하자. 또한 각각의 구간에서 속도를 $v_k, v_{k+1}$라고 하자.
 
 MPC controller로부터 현재 시점 $k$에서 최적의 가속도 $a_k$가 주어진다.
 
-스텝 모터의 특성상 매 틱에 이동하는 거리는 일정하다. Stepper motor control의 목적은 다음 틱을 제어하는 시간의 길이 $I_{k+1}$을 결정하는 것이다.
+우리의 목표는 MPC controller로부터 받은 가속도에 해당하는 현재 시점 k부터 다음 stepper motor를 제어하는 시점 k+1 사이의 clock의 개수(count) $I_{k+1}'$를 구하는 것이다.
 
 $v_k$와 $I_{k+1}$의 관계를 다음과 같이 구할 수 있다.
 
@@ -46,22 +46,32 @@ $I_{k+1}$에 대해 정리하자.
 
 $$
 \dfrac{\Delta x}{I_{k+1}} = \dfrac{\Delta x}{I_k} + a_k I_k
-\\
-I_{k+1} = \dfrac{I_k}{1 + a_k I_k^2 / \Delta x}
 $$
 
-이때 단위를 주의해야 한다. MPC controller에서 주어진 가속도는 $m/s^2$이다. 하지만 $I_k$와 $\Delta x$는 다른 단위를 사용하기 때문에 변환해야 한다.
+$$
+\begin{align*}
+  I_{k+1} = \dfrac{I_k}{1 + a_k I_k^2 / \Delta x}
+\end{align*}
+$$
 
-단위를 다음과 같이 정의하자.
+다음의 관계가 성립한다. $I_k$의 단위는 s이고, $I_k'$의 단위는 count이다.
 
-- step (거리 단위) : stepper motor가 한 step 움직인 거리이다. $\Delta x$의 단위이다.
-- clock (시간 단위) : 내부 timer가 한 clock을 하는 데 걸리는 시간이다. $I_k, I_{k+1}$의 단위이다.
+$$
+I_k = 0.000005s \times I_k', \;\;\; I_{k+1} = 0.000005s \times I_{k+1}'
+$$
 
-단위 변환 공식은 다음과 같다.
+다음 식에서 모든 단위는 SI 단위로 통일하자.
 
-- $m/step = 6,366.198$ from $400step = 2 \pi (0.01 m)$
-- $count /s = 250,000$ from (16M/64)
-- $m/s^2 = 3.978 873 75 e14 \; step/count^2$
+$$
+\begin{align*}
+  I_{k+1}' &= \dfrac{I_k'}{1 + a_k (5\mu s \cdot I_k')^2 / \Delta x} \\
+  &= \dfrac{I_k'}{1 + a_k ((0.000005s) \cdot I_k')^2 / (0.000175 m)} \\
+  &= \dfrac{I_k'}{1 + a_k ((0.000005s) \cdot I_k')^2 / (0.000175 m)} \\
+  &= \dfrac{I_k'}{1 + (a_k s^2/m) I_k'^2(0.000005^2 / 0.000175)} \\
+  &= \dfrac{I_k'}{1 + (1.428571e-7)(a_k s^2/m) I_k'^2} \\
+  &= \dfrac{7000002 I_k'}{7000002 + (a_k s^2/m) I_k'^2} \\
+\end{align*}
+$$
 
 기타
 
