@@ -1,6 +1,5 @@
 ---
 title: "[Optimal Control] Research Material"
-excerpt:
 categories:
   - optimalcontrol
 ---
