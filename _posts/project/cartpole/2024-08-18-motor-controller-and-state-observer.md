@@ -16,15 +16,16 @@ Processor
 
 # Stepper Motor Controller
 
-모터에 있어 기본 설정 값은 다음과 같다.
+모터 제어에 있어 기본 설정 값은 다음과 같다.
 
-섬세한 제어를 하기 위해 12상 여자 방식을 사용하여 제어한다. 12상 여자 방식은 모터가 한 바퀴 회전하는 데 400 step이 필료하다. 또한 반지름이 0.01m인 timing pulley를 사용한다. 따라서 모터가 한 step 이동할 때 움직인 거리는
+섬세한 제어를 하기 위해 12상 여자 방식을 사용하여 제어한다. 12상 여자 방식은 모터가 한 바퀴 회전하는 데 400 step이 필료하다. 또한 반지름이 0.01m인 timing pulley를 사용한다. 따라서 $400 \Delta x = 2 \pi (0.01m)$로부터 모터가 한 step 이동할 때 움직인 거리는
 
 $$
 \Delta x = 0.000175m
 $$
 
-64 분주의 타이머를 사용한다. Arduino UNO R3가 16M Hz의 clock spped를 제공하므로 64분주의 타이머를 사용할 때 1 clock period는
+Arduino에서 64 분주의 타이머를 사용한다. Arduino UNO R3가 16M Hz의 clock spped를 제공하므로 64분주의 타이머를 사용할 때 1 clock period는
+
 $$
 \Delta t = 1/(16M/64) = 4 us
 $$
