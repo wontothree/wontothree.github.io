@@ -84,8 +84,7 @@ $$
 
 $$
 \begin{align*}
-  I_{k+1}' &= \dfrac{I_k'}{1 + a_k (5\mu s \cdot I_k')^2 / \Delta x} \\
-  &= \dfrac{I_k'}{1 + a_k ((0.000004s) \cdot I_k')^2 / (0.000175 m)} \\
+  I_{k+1}' &= \dfrac{I_k'}{1 + a_k (4 \mu s \cdot I_k')^2 / \Delta x} \\
   &= \dfrac{I_k'}{1 + a_k ((0.000004s) \cdot I_k')^2 / (0.000175 m)} \\
   &= \dfrac{I_k'}{1 + (0.000004^2 / 0.000175)(a_k /(m/s^2)) I_k'^2} \\
   &= \dfrac{I_k'}{1 + (9.142857e-8)(a_k /(m/s^2)) I_k'^2} \\

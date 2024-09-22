@@ -9,7 +9,7 @@ SVGD
 
 - deterministic sampling algorithm
 - iteratively transport a set of particles to approximate given distributions
-- based on gradient-based update that guarantees to optimally decrease the KL divergence within a function space. 
+- based on gradient-based update that guarantees to optimally decrease the KL divergence within a function space.
 
 This paper
 
@@ -17,9 +17,7 @@ This paper
 
 # 1. Introduction
 
-SVGD
-
-- particle-based algorithm for approximating complex distribution.
+SVGD : particle-based algorithm for approximating complex distribution.
 
 # 2. Stein Variational Gradient Descent
 
