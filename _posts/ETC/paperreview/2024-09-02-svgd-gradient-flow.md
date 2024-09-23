@@ -15,7 +15,7 @@ This paper
 
 - develops the first theoretical analysis on SVGD
 
-# 3. Density Evolution of SVGD Dynamics
+# Density Evolution of SVGD Dynamics
 
 - Section 3.1 : the evolutionary process of the empriical measures of the SVGD particles and their large sample limit as $n \rightarrow \infty$
 - Section 3.2 : large time limit as $\mathcal{l} \rightarrow \infty$.
@@ -25,18 +25,34 @@ This paper
 
 ## 3.1 Large Sample Asymptotic of SVGD
 
+SVGD는 다음의 Optimal transform을 취급한다.
+
+$$
+\mathbf{T}_{\mu, p}(x) = x + \epsilon \phi_{\mu, p}^*(x)
+$$
+
+We define its related map
+
+$$
+\Phi_p : \mu \rightarrow \mathbf{T}_{\mu, p}\mu
+$$
+
+This map fully characterizes the SVGD dynamics in the sense that the empirical measure $\hat{h}_l^n$ can be obtained by recursively applying $\Phi_p$ starting from the initial meausre $\hat{\mu}_0^n$.  
+
 $$
 \mu_{l + 1}^\infty = \Phi_p (\mu_l^\infty), \;\;\; \forall l \in \mathbf{N}
 $$
 
-Assuming $\hat{\mu}_0^n \Rightarrow \hat{\mu}_0^\infty$ by initializzation, we may expect that $\hat{\mu}_l^n \Rightarrow \hat{\mu}_l^\infty$ for all the finite iterations $l$ if $\Phi_p$ satisfies certain Lipschitz condition.
+<span style="color: #2D3748; background-color:#fff5b1;">결론</span>
 
-**Bounded Lipschitz**
+Assuming $\hat{\mu}_0^n \Rightarrow \hat{\mu}_0^\infty$ by initialization, we may expect that $\hat{\mu}_l^n \Rightarrow \hat{\mu}_l^\infty$ for all the finite iterations $l$ if $\Phi_p$ satisfies certain Lipschitz condition.
+
+<span style="color: #2D3748; background-color:#fff5b1;">Bounded Lipschitz</span>
 
 For two measures $\mu$ and $v$, their bounded Lipschitz (BL) metric
 
 $$
-\text{BL} (\mu, v) := \sup \left[ \mathbf{E}_\mu f - \mathbf{E}_v f \;\;\; \text{s.t.} \;\;\; \vert \vert f \vert \vert_{\text{BL}} \leq 1 \right]
+\text{BL} (\mu, v) := \sup_f \left[ \mathbf{E}_\mu f - \mathbf{E}_v f \;\;\; \text{s.t.} \;\;\; \vert \vert f \vert \vert_{\text{BL}} \leq 1 \right]
 $$
 
 where
@@ -45,7 +61,7 @@ where
 - $\vert \vert f \vert \vert_\infty = \sup_x \vert f(x) \vert$
 - $\vert\vert f \vert\vert_{\text{Lip}} = \sup_{x \neq y} \dfrac{\vert f(x) - f(y) \vert}{\vert\vert x - y \vert\vert_2}$
 
-**definition**
+definition
 
 For a vector-valued bounded Lipschitz function $\mathbb{f} = \left[ f_1, f_2, \dots, f_d \right]^T$, we define its norm by 
 
@@ -55,7 +71,7 @@ $$
 
 It is known that the BL metric metricizes weak convergence, that is, $\text{BL} (\mu_n, v) \rightarrow 0$ if and only if $\mu_n \Rightarrow v$.
 
->Lemma 3.1.1
+<span style="color: #2D3748; background-color:#fff5b1;">Lemma 3.1.1</span>
 
 Assuming $\mathbb{g} (x, y) := \mathcal{S}_p^x \otimes k(x, y)$ is bounded Lipschitiz jointly on $(x, y)$ with norm $\vert\vert \mathbf{g} \vert\vert_\infty < \infty$, then for any two probability measures $\mu$ and $\mu '$, we have
 
@@ -63,21 +79,49 @@ $$
 \text{BL} (\Phi_p (\mu), \Phi_p (\mu')) \leq (1 + 2\epsilon \vert\vert \mathbf{g} \vert\vert_{\text{BL}}) \text{BL} (\mu, \mu')
 $$
 
->Theorem 3.2
+<span style="color: #2D3748; background-color:#fff5b1;">Theorem 3.2</span>
+
+Let $\hat{\mu}_l^n$ be the empirical measure of $[x_l^]$ be the empirical measure of $[x_l^i]_{i=1}^n$ at the $l$-th iteration of SVGD. Assuming
+
+$$
+\lim_{n \rightarrow \infty} \text{BL} (\hat{\mu}_0^n, \mu_0^\infty) \rightarrow 0,
+$$
+
+then for $\mu_l^\infty$ at any finite iteration $l$,
+
+$$
+\lim_{n \rightarrow \infty} \text{BL} (\hat{\mu}_l^n, \mu_l^\infty) \rightarrow 0,
+$$
 
 ## 3.2 Large Time Asymptotic of SVGD
 
 We show that update $\mu_{l + 1}^\infty = \Phi_p (\mu_l^\infty), \;\;\; \forall l \in \mathbf{N}$ monotonically decreases the KL divergence between $\mu_l^\infty$ and $v_p$ and allows us to establish the convergence $\mu_l^\infty \Rightarrow v_p$.
 
->Theorem 3.3.
+<span style="color: #2D3748; background-color:#fff5b1;">Theorem 3.3.</span>
 
-1. Assuming p is a density that satisfies Stein's identity for $\forall \phi \in \mathcal{H}$, then the measure $v_p$ of p is a fixed point of map $\Phi_p$
+Assuming p is a density that satisfies Stein's identity for $\forall \phi \in \mathcal{H}$, then the measure $v_p$ of p is a fixed point of map $\Phi_p$.
 
-## 3.3 Continuous Time Limit and Viasov Process
+Assuming $R = \sup_x [\dfrac{1}{2} \vert\vert \nabla \log p \vert\vert_{\text{Lip}} k(x, x) + 2 \nabla_{x x'} k(x, x)] < \infty$, where $\nabla_{x x'} k(x, x) = \sum_i \partial_{x_i} \partial_{x_i'} k(x, x') \vert_{x = x'}$, and the step size $\epsilon_l$ at the $l$-th iteration is no larger that $\epsilon_l^* := (2\sup_x \rho(\nabla \phi_{\mu_l, p}^* + \nabla {\phi_{\mu_l, p}^*}^T))^{-1}$, where $\rho (A)$ denotes the spectrum norm of a matrix $A$.
 
-## 3.4 Gradient Flow, Optimal Transport, Geometry
+If $\text{KL} (\mu_0^\infty) \vert\vert v_p < \infty$ by initialization, then
 
-## 3.5 Comparison with Langevin Dynamics
+$$
+\dfrac{1}{\epsilon_l} [ \text{KL} (\mu_{l+1}^\infty \vert\vert v_p) - \text{KL} (\mu_{l}^\infty \vert\vert v_p)] \leq - (1 - \epsilon_l R) \mathbb{D} (\mu_l^\infty \vert\vert v_p)^2 < 0
+$$
+
+the population SVGD dynamics always decrease the KL divergence when using sufficiently small step sizes, with a decreasing rate upper bounded by the squared Stein discrepancy.
+
+## 3. Continuous Time Limit and Viasov Process
+
+We can explain ... as deterministic PDE of Fokker-Planck equation that characterizes the movement of particles under deterministic forces, but it is nonlinear.
+
+$$
+\dfrac{\partial}{\partial t}q_t(x) = -\nabla \cdot (\phi_{q_t, p}^*(x) q_t(x)).
+$$
+
+## 4. Gradient Flow, Optimal Transport, Geometry
+
+## 5. Comparison with Langevin Dynamics
 
 The theoy of SVGD is parellal to that Langevin dynamics in many perspectives, with importance differnences.
 
@@ -97,7 +141,12 @@ $$
 
 where $\mathbf{F}(q, p) = \vert \vert \nabla \log (q / p) \vert \vert_{L_q^2}^2$
 
-# 4. Conclusion and Open Questions
+- deterministic vs. stochastic
+- Ito stochastic differential equation vs Fokker-Planck euqation
+- 2-Wasserstein에서 KL funcional gradient flow로 해석 가능
+- SVGD와 Langevin 동역학 간의 연결 고리는 두 방법을 통합하거나 그 장점을 결합하는 이론 및 알고리즘 개발로 이어질 수 있다.
+
+# Conclusion and Open Questions
 
 We developed a theoretical framework for analyzing the asymptotic properties of Stein variational gradient descent.
 
