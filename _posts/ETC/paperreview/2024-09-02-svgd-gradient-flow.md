@@ -15,14 +15,6 @@ This paper
 
 - develops the first theoretical analysis on SVGD
 
-# 1. Introduction
-
-SVGD : particle-based algorithm for approximating complex distribution.
-
-# 2. Stein Variational Gradient Descent
-
-We want to approximate $v_p$ with a set of aprticles $\left[ x_i \right]_{i=1}^n$ whose empirical measure
-
 # 3. Density Evolution of SVGD Dynamics
 
 - Section 3.1 : the evolutionary process of the empriical measures of the SVGD particles and their large sample limit as $n \rightarrow \infty$
