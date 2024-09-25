@@ -44,6 +44,8 @@ sidebar-category:
         url: /developmenttools
       - title: "Data Structure"
         url: /datastructure
+      - title: "Database"
+        url: /database
       - title: "Artificial Intelligence"
         url: /artificialintelligence
       - title: "Machine Learning"
