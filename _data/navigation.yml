@@ -104,4 +104,6 @@ sidebar-category:
         url: /cartpole
       - title: "InBody Scale AI"
         url: /inbodyscaleai
-      - title: "Stein V
+      - title: "Stein Variational GD"
+        url: /steinvariationalgd
+
