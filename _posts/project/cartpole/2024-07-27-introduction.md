@@ -59,4 +59,10 @@ The Cart-Pole, a classical benchmark problem in control, consists of a cart, dri
 
 사실 많은 부분이 돈을 들여 비싼 재료를 사는 것으로 해결할 수 있다. 그것은 진정한 의미의 공학이 아니다. 저렴한 재료를 이용하여 만드는 것이 진정한 공학이다. 고성능 장비에 대한 의존성 없는 개발을 하자.
 
-센서를 독립적으로 테스트 해볼 수 있어야 한다. 시스템이 커질수록 각 모듈을
+센서를 독립적으로 테스트 해볼 수 있어야 한다. 시스템이 커질수록 각 모듈을 독립적으로 테스트 가능한 단위로 만들어야 한다. 모듈의 분리 기준은 독립적으로 테스트할 필요가 있는 것이냐이다.
+
+PID를 넘어 Control 분야에서 할 수 있는 모든 것을 해보자. 장기 프로젝트로 가져가자.
+
+# Reference
+
+- Nonlinear Model Predictive Control of an Inverted Pendulum
