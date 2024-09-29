@@ -2,6 +2,7 @@
 title: "[Paper Review] SVGD as Gradient Flow"
 categories:
   - paperreview
+  - svgd
 ---
 # Abstract
 
