@@ -1,7 +1,7 @@
 ---
 title: "[Stein Variational GD] Introduction"
 categories:
-  - steinvariationalgd
+  - svgd
 ---
 # Project
 

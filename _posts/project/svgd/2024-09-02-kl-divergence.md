@@ -1,7 +1,7 @@
 ---
 title: "[Stein Variational GD] Entropy, Cross-Entropy, KL-Divergence"
 categories:
-  - steinvariationalgd
+  - svgd
 ---
 - Information Content : 단일 사건에 대한 정보량
 - Entropy : 확률분포의 정보량
