@@ -1,5 +1,5 @@
 ---
-title: "[Stein Variational GD] Entropy, Cross-Entropy, KL-Divergence"
+title: "[SVGD] Entropy, Cross-Entropy, KL-Divergence"
 categories:
   - svgd
 ---

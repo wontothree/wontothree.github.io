@@ -1,5 +1,5 @@
 ---
-title: "[Stein Variational GD] Introduction"
+title: "[SVGD] Introduction"
 categories:
   - svgd
 ---
