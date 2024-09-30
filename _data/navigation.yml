@@ -22,10 +22,6 @@ sidebar-category:
         url: /ros2
       - title: "Probabilistic Robotics"
         url: /probablisticrobotics
-      - title: "Linear System"
-        url: /linearsystem
-      - title: "Nonlinear System"
-        url: /nonlinearsystem
       - title: "Digital Control"
         url: /digitalcontrol
       - title: "Optimal Control"
@@ -54,14 +50,8 @@ sidebar-category:
         url: /computervision
   - title: "Electrical Engineering"
     children:
-      - title: "Physics"
-        url: /physics
-      - title: "Digital Logic"
-        url: /logic
       - title: "Microprocessor"
         url: /mp
-      - title: "Electromagnetism"
-        url: /emf
       - title: "Solid State Electronics"
         url: /electron
       - title: "Electric Circuit"
