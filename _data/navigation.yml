@@ -34,10 +34,6 @@ sidebar-category:
         url: /cpp
       - title: "Java"
         url: /java
-      - title: "Python"
-        url: /python
-      - title: "Development Tools"
-        url: /developmenttools
       - title: "Data Structure"
         url: /datastructure
       - title: "Database"
@@ -46,8 +42,6 @@ sidebar-category:
         url: /artificialintelligence
       - title: "Machine Learning"
         url: /machinelearning
-      - title: "Computer Vision"
-        url: /computervision
   - title: "Electrical Engineering"
     children:
       - title: "Microprocessor"
