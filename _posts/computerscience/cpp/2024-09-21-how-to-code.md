@@ -1,7 +1,7 @@
 ---
 title: "[Python] How to Code"
 categories:
-  - python
+  - cpp
 ---
 ## 일관성
 

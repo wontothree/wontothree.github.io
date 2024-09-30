@@ -1,6 +1,5 @@
 ---
 title: "[C++] 클래스의 완성"
-excerpt:
 categories:
   - cpp
 ---
