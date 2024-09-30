@@ -1,5 +1,5 @@
 ---
-title: "Stein Variational GD"
+title: "SVGD"
 layout: archive
 permalink: /svgd
 sidebar:
