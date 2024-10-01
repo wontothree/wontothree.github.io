@@ -26,8 +26,8 @@ A =
 , \;\;\;
 A =
 \begin{bmatrix}
-  -\dfrac{1}{2} & 1 \\
-  -1 & -\dfrac{1}{2} \\
+  -1/2 & 1 \\
+  -1 & -1/2 \\
 \end{bmatrix}
 , \;\;\;
 A =
@@ -68,7 +68,7 @@ $$
 
 Direction field
 
-![](./../../../img/differentialequation/phasePortrait-1.png){: .align-center width="300" height="300"}
+![](./../../../img/differentialequation/phasePortrait-1.png){: .align-center width="500" height="500"}
 
 ## 2
 
@@ -99,11 +99,11 @@ $$
 \end{align*}
 $$
 
-![](./../../../img/differentialequation/phasePortrait-2.png){: .align-center width="300" height="300"}
+![](./../../../img/differentialequation/phasePortrait-2.png){: .align-center width="500" height="500"}
 
 ## 3
 
-![](./../../../img/differentialequation/phasePortrait-3.png){: .align-center width="300" height="300"}
+![](./../../../img/differentialequation/phasePortrait-3.png){: .align-center width="500" height="500"}
 
 # High Dimentional Flows
 
@@ -149,3 +149,7 @@ Eigenvalue
 $$
 \lambda_1 = i, \;\;\; \lambda_2 = -i, \;\;\; \lambda_3 = 2i, \;\;\; \lambda_4 = -2i
 $$
+
+## Reference
+
+권도현 교수님's applied differential equation - week 4
