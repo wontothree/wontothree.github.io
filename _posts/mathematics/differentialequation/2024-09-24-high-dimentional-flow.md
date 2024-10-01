@@ -37,4 +37,72 @@ A =
 \end{bmatrix}
 $$
 
+## 1
+
+Eigenvalue $\lambda_1 = -1, \lambda_2 = 3$
+
+Eigenvector
+
+$$
+v_1 =
+\begin{bmatrix}
+  1 \\
+  -2 \\
+\end{bmatrix}, \;\;\;
+
+v_2 =
+\begin{bmatrix}
+  1 \\
+  2 \\
+\end{bmatrix}
+$$
+
+General Solution is
+
+$$
+\begin{align*}
+  \mathbf{x} &= C_1 e^{\lambda_1 t} v_1 + C_2 e^{\lambda_2 t} v_2 \\
+  &= C_1 e^{-t} \begin{bmatrix} 1\\ -2\\ \end{bmatrix} + C_2 e^{3t}  \begin{bmatrix} 1\\ 2\\ \end{bmatrix}
+\end{align*}
+$$
+
+Direction field
+
+![image-right](./../../../img/differentialequation/phasePortrait-1.png){: .align-center width="300" height="150"}
+
+## 2
+
+Eigenvalue $\lambda_1 = -\dfrac{1}{2} - i, \lambda_2 = -\dfrac{1}{2} + i$
+
+Eigenvector
+
+$$
+v_1 =
+\begin{bmatrix}
+  1 \\
+  -i \\
+\end{bmatrix}, \;\;\;
+
+v_2 =
+\begin{bmatrix}
+  1 \\
+  i \\
+\end{bmatrix}
+$$
+
+General Solution
+
+$$
+\begin{align*}
+  \mathbf{x}
+  &= C_1 e^{\left(-1/2 - i \right)t} \begin{bmatrix} 1\\ -i\\ \end{bmatrix} + C_2 e^{\left(-1/2 + i \right)t}  \begin{bmatrix} 1\\ i\\ \end{bmatrix}
+\end{align*}
+$$
+
+![](./../../../img/differentialequation/phasePortrait-2.png){: .align-center width="300" height="150"}
+
+## 3
+
+![image-right](./../../../img/differentialequation/phasePortrait-3.png){: .align-center width="300" height="150"}
+
 # High Dimentional Flows
