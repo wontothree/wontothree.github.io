@@ -1,5 +1,5 @@
 ---
-title: "[Differential Equation] High Dimentional Flows"
+title: "[Differential Equation] Dimentional Flows"
 categories:
   - differentialequation
 ---
@@ -68,7 +68,7 @@ $$
 
 Direction field
 
-![image-right](./../../../img/differentialequation/phasePortrait-1.png){: .align-center width="300" height="150"}
+![](./../../../img/differentialequation/phasePortrait-1.png){: .align-center width="300" height="300"}
 
 ## 2
 
@@ -99,10 +99,53 @@ $$
 \end{align*}
 $$
 
-![](./../../../img/differentialequation/phasePortrait-2.png){: .align-center width="300" height="150"}
+![](./../../../img/differentialequation/phasePortrait-2.png){: .align-center width="300" height="300"}
 
 ## 3
 
-![image-right](./../../../img/differentialequation/phasePortrait-3.png){: .align-center width="300" height="150"}
+![](./../../../img/differentialequation/phasePortrait-3.png){: .align-center width="300" height="300"}
 
 # High Dimentional Flows
+
+$$
+\dot{\mathbf{x}} = A \mathbf{x}
+$$
+
+$$
+A =
+\begin{bmatrix}
+  0 & 1 & 1 \\
+  1 & 0 & 1 \\
+  1 & 1 & 0 \\
+\end{bmatrix}
+, \;\;\;
+\begin{bmatrix}
+  0 & 0 & 1 & 0 \\
+  0 & 0 & 0 & 1 \\
+  -2 & 3/2 & 0 & 0 \\
+  4/3 & -3 & 0 & 0 \\
+\end{bmatrix}
+$$
+
+## 1
+
+Eigenvalue
+
+$$
+\lambda_1 = -1, \;\;\;
+\lambda_2 = 2
+$$
+
+Eigenvector
+
+$$
+v_1 = \begin{bmatrix} 1 \\ 1 \\ 1 \\ \end{bmatrix}, \;\;\; v_2 = \begin{bmatrix} -1 \\ -1 \\ 0 \\ \end{bmatrix}, \;\;\; v_3 = \begin{bmatrix} 1 \\ 0 \\ -1 \\ \end{bmatrix}
+$$
+
+## 2
+
+Eigenvalue
+
+$$
+\lambda_1 = i, \;\;\; \lambda_2 = -i, \;\;\; \lambda_3 = 2i, \;\;\; \lambda_4 = -2i
+$$
