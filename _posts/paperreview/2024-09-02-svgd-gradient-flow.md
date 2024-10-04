@@ -155,4 +155,4 @@ Open Problem
 
 1. to establish explicit convergence rate of SVGD, for which the existing theoretical literature on Langevin dynamics and interacting particles systems may provide insights. 
 2. to develop finite sample bounds for SVGD that can take the fact that it reduces to MAP optimization when n = 1 into account
-3. to understand the bias and variance of SVGD particles, or combine it with traditional Monte Carlo whose bias-variance analys
+3. to understand the bias and variance of SVGD particles, or combine it with traditional Monte Carlo whose bias-variance analysis is clearer
