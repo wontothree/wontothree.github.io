@@ -74,7 +74,7 @@ It is known that the BL metric metricizes weak convergence, that is, $\text{BL} 
 
 <span style="color: #2D3748; background-color:#fff5b1;">Lemma 3.1.1</span>
 
-Assuming $\mathbb{g} (x, y) := \mathcal{S}_p^x \otimes k(x, y)$ is bounded Lipschitiz jointly on $(x, y)$ with norm $\vert\vert \mathbf{g} \vert\vert_\infty < \infty$, then for any two probability measures $\mu$ and $\mu '$, we have
+Assuming $\mathbb{g} (x, y) := \mathcal{S}_p^x \otimes k(x, y)$ is bounded Lipschitiz jointly on $(x, y)$ with norm $\vert\vert \mathbf{g} \vert\vert_{\text{BL}} < \infty$, then for any two probability measures $\mu$ and $\mu '$, we have
 
 $$
 \text{BL} (\Phi_p (\mu), \Phi_p (\mu')) \leq (1 + 2\epsilon \vert\vert \mathbf{g} \vert\vert_{\text{BL}}) \text{BL} (\mu, \mu')
@@ -82,7 +82,7 @@ $$
 
 <span style="color: #2D3748; background-color:#fff5b1;">Theorem 3.2</span>
 
-Let $\hat{\mu}_l^n$ be the empirical measure of $[x_l^]$ be the empirical measure of $[x_l^i]_{i=1}^n$ at the $l$-th iteration of SVGD. Assuming
+Let $\hat{\mu}_l^n$ be the empirical measure of $[x_l^i]_{i=1}^n$ be the empirical measure of $[x_l^i]_{i=1}^n$ at the $l$-th iteration of SVGD. Assuming
 
 $$
 \lim_{n \rightarrow \infty} \text{BL} (\hat{\mu}_0^n, \mu_0^\infty) \rightarrow 0,
@@ -155,4 +155,4 @@ Open Problem
 
 1. to establish explicit convergence rate of SVGD, for which the existing theoretical literature on Langevin dynamics and interacting particles systems may provide insights. 
 2. to develop finite sample bounds for SVGD that can take the fact that it reduces to MAP optimization when n = 1 into account
-3. to understand the bias and variance of SVGD particles, or combine it with traditional Monte Carlo whose bias-variance analysis is clearer
+3. to understand the bias and variance of SVGD particles, or combine it with traditional Monte Carlo whose bias-variance analys

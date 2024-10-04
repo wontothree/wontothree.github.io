@@ -70,24 +70,8 @@ sidebar-category:
         url: /optimization
       - title: "Differential Equation"
         url: /differentialequation
-  - title: "ETC"
+  - title: "Paper Review"
     children:
       - title: "Paper Review"
         url: /paperreview
-      - title: "Civil Law"
-        url: /law
-      - title: "Marketing"
-        url: /marketing
-      - title: "Etc"
-        url: /etc
-  - title: "Project"
-    children:
-      - title: "F1tenth"
-        url: /f1tenth
-      - title: "Cart Pole"
-        url: /cartpole
-      - title: "InBody Scale AI"
-        url: /inbodyscaleai
-      - title: "SVGD"
-        url: /svgd
-
+        

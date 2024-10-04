@@ -3,6 +3,8 @@ title: "[Differential Equation] Systems of First Order Linear Equations"
 categories:
   - differentialequation
 ---
+이 장에서는 상수계수를 갖는 미분방정식을 주로 다룰 것이다.
+
 # 6. Complex Eigenvalue
 
 상수 계수를 갖는 n 개의 식으로 된 연립 제차 선형 미분 방정식
@@ -27,6 +29,15 @@ $$
 (\mathbf{A} - r \mathbf{I})\mathbf{\xi} = 0
 $$
 
+- 고윳값 $\lambda \pm i \mu$가 복소수이면 궤적은 나선 안쪽($\lambda < 0$)이거나, 나선 바깥쪽($\lambda > 0$), 또는 폐곡선을 따라 계속 돈다. ($\lambda = 0$)
+- 움직이는 방향이 시계 방향인지 또는 반시계방향인지 결정하려면, 편의상 한 점에서 움직이는 방향만 결정하면 된다.
+
+실수 계수를 갖는 2 x 2이면서 서로 부호가 다르다. x = 0는 안정점이다.
+
+1. 고윳값이 실수이면서 서로 부호가 다르다. x = 0는 안장점이다.
+2. 고윳값이 실수이고 부호가 같지만 서로 값이 같지 않다. x = 0은 node이다.
+3. 고윳값이 영이 아닌 실수부를 갖는 복소수이다. x = 0은 spiral point이다
+
 # 7. 기본행렬
 
 연립 선형 미분 방정식의 해의 구조는 기본행렬이라는 개념을 도입하면 더 잘 이해할 수 있다.
@@ -37,7 +48,7 @@ $$
 \mathbf{x}' = \mathbf{P}(t) \mathbf{x}
 $$
 
-그러면 행렬
+고윳값 $\lambda \pm i \mu$가 복소수
 
 $$
 \Psi = \left( \mathbf{x}^{(1)}(t) \vert \mathbf{x}^{(2)}(t) \vert \dots \vert \mathbf{x}^{(n)}(t) \right) =
