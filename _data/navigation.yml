@@ -1,7 +1,7 @@
 # main links
 main:
  - title: "About"
-   url: https://wontothree.github.io/etc/about/
+   url: https://wontothree.github.io/about/
 #  - title: "Quick-Start Guide"
 #    url: https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
 #  - title: "About"
@@ -74,4 +74,3 @@ sidebar-category:
     children:
       - title: "Paper Review"
         url: /paperreview
-        
