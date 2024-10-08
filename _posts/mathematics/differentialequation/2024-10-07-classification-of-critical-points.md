@@ -34,4 +34,4 @@ $$
 
 # Reference
 
-Prof. Dohyeon Kwon’s applied differential equation - week 6 lecture
+Prof. Dohyeon Kwon’s applied differential equation - week 6 l
