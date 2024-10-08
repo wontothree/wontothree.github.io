@@ -2,18 +2,6 @@
 main:
  - title: "About"
    url: https://wontothree.github.io/about/
-#  - title: "Quick-Start Guide"
-#    url: https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
-#  - title: "About"
-#    url: https://mmistakes.github.io/minimal-mistakes/about/
-#  - title: "Sample Posts"
-#    url: /year-archive/
-#  - title: "Sample Collections"
-#    url: /collection-archive/
-#  - title: "Sitemap"
-#    url: /sitemap/
-#  - title: "Blog"
-#    url: /blog/
 
 sidebar-category:
   - title: "Robotics"
