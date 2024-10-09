@@ -62,3 +62,5 @@ sidebar-category:
     children:
       - title: "Paper Review"
         url: /paperreview
+      - title: "Cart Pole"
+        url: /cartpole_

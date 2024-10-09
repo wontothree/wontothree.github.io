@@ -1,7 +1,7 @@
 ---
 title: "Cart Pole"
 layout: archive
-permalink: /cartpole
+permalink: /cartpole_
 sidebar:
     nav: "sidebar-category"
 ---
