@@ -1,7 +1,7 @@
 ---
 title: "[Cart Pole] Mechanical Design and Electronics"
 categories:
-  - cartpole
+  - cartpole_
 ---
 Cart Pole Hardware를 만드는 과정에 대한 이야기이다.
 

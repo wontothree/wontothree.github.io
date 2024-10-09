@@ -6,5 +6,5 @@ sidebar:
     nav: "sidebar-category"
 ---
 
-{% assign posts = site.categories.cartpole %}
+{% assign posts = site.categories.cartpole_ %}
 {% for post in posts %} {% include archive-single.html type=page.entries_layout %} {% endfor %}

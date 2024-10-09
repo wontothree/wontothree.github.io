@@ -1,7 +1,7 @@
 ---
 title: "[Cart Pole] Introduction"
 categories:
-  - cartpole
+  - cartpole_
 ---
 # Introduction
 
