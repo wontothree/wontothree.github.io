@@ -7,6 +7,9 @@ We will cover several shearch algorithms.
 
 We consider only the simplest environments: episodic, single agent, fully observaable, deterministic, static, discrete, and known.
 
+- Informed algorithms: the agent can estimate how far it is from the goal
+- Uninformed algorithm: no such estimate is available
+
 # 1. Problem-Solving Agents
 
 Search Problem Formulation
