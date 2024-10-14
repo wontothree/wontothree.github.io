@@ -141,7 +141,7 @@ with $g$ and $T > 0$ fixed.
 Then, there exists a constant $C$ depending only on $V$ and $K$ such that
 
 $$
-\mathcal{Q}(\rho (t, \cdot)) \leq C \int_t^T \vert\vert g(s, \cdot \vert\vert_{L^\infty(\mathbb{R}^d)} ds e^{C \int_t^T \vert\vert \mu_s \vert\vert_{\text{BL}_V^*}ds}) 
+\mathcal{Q}(\rho (t, \cdot)) \leq C \int_t^T \vert\vert g(s, \cdot \vert\vert_{L^\infty(\mathbb{R}^d)} ds e^{C \int_t^T \vert\vert \mu_s \vert\vert_{\text{BL}_V^*}ds})
 $$
 
 # 2. Measure Solutions and the Functional Analytic Setting
