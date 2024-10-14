@@ -5,92 +5,81 @@ categories:
 ---
 # Imtroduction
 
-The missionaries and cannibals problem is a well-known toy problem in arificial intelligence, classic river-crossing logic puzzle.
+The missionaries and cannibals problem is a well-known puzzle in artificial intelligence and a classic example of a river-crossing logic puzzle. The goal is to transport three missionaries and three cannibals across a river under specific constraints. This problem demonstrates the use of state space search in AI.
 
-# Rules
+# Problem Rules
 
-- Three missionaries and three cannibals must cross a river using a boat which can carry at most two peoples,
-- under the constraint that, for both banks, if there are missionaries present on the bank, they cannot be outnumbered by cannibals (if they were, the cannibals would eat the missionaries)
-- The boat cannot cross the river by itself with no people on board.
+1. Three missionaries and three cannibals must cross a river using a boat that can carry at most two people.
+2. On either side of the river, missionaries cannot be outnumbered by cannibals; otherwise, the cannibals will eat the missionaries.
+3. The boat cannot travel across the river without at least one person on board.
 
-# State
+# State Representation
 
-Size of state space: $_2H_3 \times _2H_3 \times 2 = 32$
+The state is represented as a triplet [M,C,B], where:
 
-상태는 세 가지로 분류할 수 있다.
+- M: number of missionaries on the left bank
+- C: number of cannibals on the left back
+- B: location of boat (1 if on the left bank, 0 if on the right bank)
+- Initial
 
-- 강의 왼쪽에 있는 선교사의 수 (M)
-- 강의 왼쪽에 있는 식인종의 수 (C)
-- 강의 오른쪽에 있는 배의 수 (B)
+그러면 초기 상태와 목표 상태는 다음과 같이 표현할 수 있다.
 
-각 상태를 [M, C, B]로 표현하자. 그러면 초기 상태와 목표 상태는 다음과 같이 표현할 수 있다.
+- initial state: [3, 3, 1] (All people and the boat are on the left bank)
+- goal state: [0, 0, 0] (Everyone has crossed to the right bank)
 
-- initial state: [3, 3, 1]
-- goal state: [0, 0, 0]
+## Possible States
 
-가능한 32가지의 모든 상태는 다음과 같다.
+[3, 3, 1], [2, 3, 1], [1, 3, 1], [0, 3, 1], \
+[3, 2, 1], [2, 2, 1], [1, 2, 1], [0, 2, 1], \
+[3, 1, 1], [2, 1, 1], [1, 1, 1], [0, 1, 1], \
+[3, 0, 1], [2, 0, 1], [1, 0, 1], [0, 0, 1], \
+[3, 3, 0], [2, 3, 0], [1, 3, 0], [0, 3, 0], \
+[3, 2, 0], [2, 2, 0], [1, 2, 0], [0, 2, 0], \
+[3, 1, 0], [2, 1, 0], [1, 1, 0], [0, 1, 0], \
+[3, 0, 0], [2, 0, 0], [1, 0, 0], [0, 0, 0]
 
-[3, 3, 1] \
-[2, 3, 1] \
-[1, 3, 1] \
-[0, 3, 1] \
-[3, 2, 1] \
-[2, 2, 1] \
-[1, 2, 1] \
-[0, 2, 1] \
-[3, 1, 1] \
-[2, 1, 1] \
-[1, 1, 1] \
-[0, 1, 1] \
-[3, 0, 1] \
-[2, 0, 1] \
-[1, 0, 1] \
-[0, 0, 1] \
-[3, 3, 0] \
-[2, 3, 0] \
-[1, 3, 0] \
-[0, 3, 0] \
-[3, 2, 0] \
-[2, 2, 0] \
-[1, 2, 0] \
-[0, 2, 0] \
-[3, 1, 0] \
-[2, 1, 0] \
-[1, 1, 0] \
-[0, 1, 0] \
-[3, 0, 0] \
-[2, 0, 0] \
-[1, 0, 0] \
-[0, 0, 0]
+# Action Representation
 
-# Action
+Action describe how missionaries and cannibals move across the river. Each action can be represented as a triplet [M', C', B'], where
 
-행동을 다음과 같이 나눌 수 있다.
+- M': number of missionaries on the boat
+- C': number of cannibals on the boat
+- B': direction of the boar (1 for left-to-right, 0 for right-to-left)
 
-- 배에 탑승한 선교사의 수 (M')
-- 배에 탑승한 식인종의 수 (C')
-- 오른쪽에서 출발한 배의 수 (B')
+## Possible Actions
 
-각 action을 <M', C', B'>와 같이 표현하자.
+|Missionaries on Boat (M')|Cannibals on Boat (C')|Boat Direction (B')|
+|:---:|:---:|:---:|
+|1|1|1|
+|1|0|1|
+|0|1|1|
+|1|1|0|
+|1|0|0|
+|0|1|0|
 
-그러면 constraint를 다음과 같이 표현할 수 있다.
+각 action에 대한 비용은 1로 동일하다.
+
+# Constraint
+
+$$
+M, C, B, M', C', B' \in \mathbb{N}
+$$
+
+## Constraint on Action
 
 $$
 0 < M' + C' \leq 2
 $$
 
-가능한 모든 action은 다음과 같다.
+## Constraint on State
 
-<1, 1, 1> \
-<1, 0, 1> \
-<0, 1, 1> \
-<1, 1, 0> \
-<1, 0, 0> \
-<0, 1, 0>
-
-# Constraint
-
->When the number of missionaries is smaller than that of the cannibals on a side, the missionaries will be eaten.
+$$
+M \leq C \;\;\;\text{if} \;\; M > 0 \\
+3 - M \leq 3 - C \;\;\; \text{if} \;\;\; 3 - M > 0 \\
+0 \leq M \leq 3 \\
+0 \leq C \leq 3 \\
+B = 0 \;\;\; \text{or} \;\;\; B = 1
+$$
 
 # Optimal State Trajectory and Optimal Action Trajectory
 
