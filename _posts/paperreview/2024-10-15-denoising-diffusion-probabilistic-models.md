@@ -12,9 +12,10 @@ Performance
 
 - On the unconditional CIFAR10 dataset, an Inception score of 9.46(state-of-the-art FID score of 3.17)
 - On 256x256 LSUN, sample quality similar to ProgressiveGAN
-- https://github.com/hojonathanho/diffusion.
 
-# Introduction
+https://github.com/hojonathanho/diffusion.
+
+# 1. Introduction
 
 This paper persent progress in diffusion probabilistic models - Deep Unsupervised Learning using Nonequilibrium Thermodynamics (ICML 2015)
 
@@ -24,4 +25,11 @@ Transitions of this chain are learned to reverse a diffusion process
 
 - Reverse diffusion process: Markov chain that gradually adds noise to the data in the opposite direction of sampling until signal is destroyed
 
-# Background
+Contribution
+
+- diffusion models actually are capable of generating high quality samples, sometimes better than the published results on other types of generative models (Section 4).
+- ertain parameterization of diffusion models reveals an equivalence with denoising score matching over multiple noise levels during training and with annealed Langevin dynamics during sampling (Section 3.2)
+- our best sample quality results using this parameterization (Section 4.2)
+
+# 2. Background
+

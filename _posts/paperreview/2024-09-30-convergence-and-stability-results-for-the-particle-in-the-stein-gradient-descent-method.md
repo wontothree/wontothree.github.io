@@ -16,6 +16,8 @@ Not satifisfied with this time scale, we explore what happens for larger times b
 
 # 1. Introduction
 
+## Original Paper
+
 - The Stein gradient descent method sample the probibilty distribution $\rho_{\infty} := e^{-V(x)/Z}$ when the normalization constant $Z = \int_{\mathbb{R}^d} e^{-V(x)} dx$ is unknown or difficult to compute.
 - A prominent example is the Bayesian inference used to fit parameters $\theta \in \Theta$ based on the data $D$ and a priori distribution of parameters $\pi (\theta)$: the a posteriori distribution is given by
 
@@ -75,7 +77,7 @@ $$
 
 This shows that the Stein gradient descent method is simple and attractive for practioners.
 
----
+## Follow-Up Paper
 
 [Point 1] Stein's method was connected to the ODE system (Q. 이게 왜 ODE?)
 
