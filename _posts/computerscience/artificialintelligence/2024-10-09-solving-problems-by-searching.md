@@ -38,6 +38,29 @@ The choice of a good abstraction thus involves removing as much detail as possib
 
 # 4. Uninformed Search Strategies
 
+Uninformed search algorithm: is given no clue about how close a state is to the goal
+
+## 4.1 Beadth-first search
+
+![](../../../img/ai/bfs.png){: .align-center width="400" height="200"}
+
+Breath-first search always finds a solution with a minimal number of actions, because when it is generating nodes at depth $d$, it has already generated all the nodes at depth $d - 1$
+
+- It is cost-optimal for problems where all actions have the same cost, but not for problems that don't have that property.
+- It is complete in either case.
+
+Suppose searching a uniform tree where every state has b successors. The root of the search tree generate b nodes, each of which generates b more nodes, for a totoal of $b^2$ at the secode level. Now suppose that the solution is at depth $d$.
+
+Then the total number of nodes generated is
+
+$$
+1 + b + b^2 + b^3 + \dots + b^d = \mathcal{O}(b^d)
+$$
+
+All the nodes remain in memory, so both time and space complexity are $\mathcal{O}(b^d)$. Exponential bounds like that are scary.
+
+In general, exponential-complexity search problems cannot be solved by uninformed search for any byt the smallest instances.
+
 # 5. Informed (Heuristic) Search Strategies
 
 # 6. Heuristic Functions
