@@ -42,7 +42,7 @@ Uninformed search algorithm: is given no clue about how close a state is to the 
 
 ## 4.1 Beadth-first search
 
-![](../../../img/ai/bfs.png){: .align-center width="400" height="200"}
+![](../../../img/ai/bfs.png)
 
 Breath-first search always finds a solution with a minimal number of actions, because when it is generating nodes at depth $d$, it has already generated all the nodes at depth $d - 1$
 

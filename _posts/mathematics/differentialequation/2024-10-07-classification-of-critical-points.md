@@ -7,7 +7,11 @@ categories:
 
 [Critical points] For a system $x' = f(x)$, the points whose $f(x) = 0$ are called critical points for the system.
 
-[Stable] A critical point $x_0$ of $x' = f(x)$ is said to be stable if for any $\epsilon$, there exists $\delta > 0$ such that $x_0 \in B_{\delta}(x^*) \rightarrow x(t) \in B_{\delta}(x^*)$.
+[Stable] A critical point $x_0$ of $x' = f(x)$ is said to be stable if for any $\epsilon$, there exists $\delta > 0$ such that
+
+$$
+x_0 \in B_{\delta}(x^*) \rightarrow x(t) \in B_{\delta}(x^*)
+$$
 
 [Unstable] If $x^*$ is NOT stable, then it is unstable.
 
