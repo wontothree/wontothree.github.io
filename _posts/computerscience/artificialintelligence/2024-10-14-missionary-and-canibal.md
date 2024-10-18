@@ -3,24 +3,23 @@ title: "[Artificial Intelligence] Missionary and Cannibal"
 categories:
   - artificialintelligence
 ---
-# Imtroduction
+# Introduction
 
 The missionaries and cannibals problem is a well-known puzzle in artificial intelligence and a classic example of a river-crossing logic puzzle. The goal is to transport three missionaries and three cannibals across a river under specific constraints. This problem demonstrates the use of state space search in AI.
 
-# Problem Rules
+# Rules
 
 1. Three missionaries and three cannibals must cross a river using a boat that can carry at most two people.
 2. On either side of the river, missionaries cannot be outnumbered by cannibals; otherwise, the cannibals will eat the missionaries.
 3. The boat cannot travel across the river without at least one person on board.
 
-# State Representation
+# State
 
 The state is represented as a triplet [M,C,B], where:
 
 - M: number of missionaries on the left bank
 - C: number of cannibals on the left back
 - B: location of boat (1 if on the left bank, 0 if on the right bank)
-- Initial
 
 그러면 초기 상태와 목표 상태는 다음과 같이 표현할 수 있다.
 
@@ -38,7 +37,7 @@ The state is represented as a triplet [M,C,B], where:
 [3, 1, 0], [2, 1, 0], [1, 1, 0], [0, 1, 0], \
 [3, 0, 0], [2, 0, 0], [1, 0, 0], [0, 0, 0]
 
-# Action Representation
+# Action
 
 Action describe how missionaries and cannibals move across the river. Each action can be represented as a triplet [M', C', B'], where
 
@@ -50,12 +49,16 @@ Action describe how missionaries and cannibals move across the river. Each actio
 
 |Missionaries on Boat (M')|Cannibals on Boat (C')|Boat Direction (B')|
 |:---:|:---:|:---:|
-|1|1|1|
 |1|0|1|
 |0|1|1|
-|1|1|0|
+|1|1|1|
+|2|0|1|
+|0|2|1|
 |1|0|0|
 |0|1|0|
+|1|1|0|
+|2|0|0|
+|0|2|0|
 
 각 action에 대한 비용은 1로 동일하다.
 
@@ -68,7 +71,7 @@ $$
 ## Constraint on Action
 
 $$
-0 < M' + C' \leq 2
+1 \leq M' + C' \leq 2
 $$
 
 ## Constraint on State
@@ -95,3 +98,7 @@ $$
 <0, 2, 1>, [0, 1, 0] \
 <0, 1, 0>, [0, 2, 0] \
 <0, 2, 1>, [0, 0, 0]
+
+# Cost
+
+모든 action에 동일한 cost 1을 부여한다.

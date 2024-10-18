@@ -36,6 +36,15 @@ The choice of a good abstraction thus involves removing as much detail as possib
 
 # 3. Search Algorithms
 
+## 3.4 Measuring problem solving performance
+
+We can evaluate an algorithm's performance in 4 ways:
+
+- <span style="color: #2D3748; background-color:#fff5b1;">**Completeness**</span>: Is the algorithm guaranteed to find a solution when there is one, and to correctly report failure when there is not?
+- <span style="color: #2D3748; background-color:#fff5b1;">**Cost Optimality**</span>: Does it find a solution with the lowest path cost of all solutions?
+- <span style="color: #2D3748; background-color:#fff5b1;">**Time complexity**</span>: How long does it take to find a solution? This can be measured in seconds, or more abstractly by the number of states and actions considered. / number of nodes expanded
+- <span style="color: #2D3748; background-color:#fff5b1;">**Space complexity**</span>: How much memory is needed to perform the search? / maximum number of nodes in memory
+
 # 4. Uninformed Search Strategies
 
 Uninformed search algorithm: is given no clue about how close a state is to the goal
@@ -57,9 +66,13 @@ $$
 1 + b + b^2 + b^3 + \dots + b^d = \mathcal{O}(b^d)
 $$
 
-All the nodes remain in memory, so both time and space complexity are $\mathcal{O}(b^d)$. Exponential bounds like that are scary.
+All the nodes remain in memory, so <span style="color: #2D3748; background-color:#fff5b1;">both time and space complexity are $\mathcal{O}(b^d)$</span>.
 
 In general, exponential-complexity search problems cannot be solved by uninformed search for any byt the smallest instances.
+
+## 4.3 Depth-first search and the problem of memory
+
+
 
 # 5. Informed (Heuristic) Search Strategies
 
