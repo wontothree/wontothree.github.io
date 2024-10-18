@@ -108,7 +108,7 @@ Notation에 주의하자.
 
 ## Hidden Layer Weight Update
 
-![image-center](./../../../img/aisemiconductor/weight-update-hidden-layer.png){: .align-center width="300" height="150"}
+![image-center](./../../../img/aisemiconductor/weight-update-hidden-layer.png){: .align-center width="500" height="300"}
 
 $$
 \begin{align*}
