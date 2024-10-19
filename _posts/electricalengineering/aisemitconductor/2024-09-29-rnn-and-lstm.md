@@ -30,9 +30,16 @@ work -> work + hidden state 1 -> hidden state 2
 
 LSTM is designed to catpure long term dependency and overcome the vanishing/exploding gradient problem in SimpleRNN.
 
-LSTM의 핵심은 cell state이다. LSTM은 gate라는 구조를 이용해서 cell state에서
+LSTM의 핵심은 cell state이다. LSTM은 gate라는 구조를 이용해서 현재 cell state에 이전 cell state과 새로운 입력에 대한 정보를 얼마나 반영할지 결정한다.
+
+- $x_t$: 새로운 입력
+- $h_{t-1}$: 이전 시간의 은닉 상태
 
 input gate, forget gate, output gate, RNN core
+
+- input gate: 새로운 정보를 반영할 정도를 결정한다.
+- forget gate: 이전 cell state을 잊어버릴 정도를 결정한다.
+- output gate: 현재 시간의 셀 상태에서 은닉 상태로 얼마나 정보를 출력할지 결정한다.
 
 $$
 \begin{align*}
@@ -43,13 +50,13 @@ $$
 \end{align*}
 $$
 
-Cell state
+Cell state: 이전 셀 상태에서 필요한 정보는 유지하고, 새로운 정보는 추가하는 방식으로 업데이트된다.
 
 $$
 c_t = f_t \odot c_{t-1} + i_t \odot g_t
 $$
 
-Hidden state
+Hidden state: LSTM의 최종 출력으로, 다음 시간 단계로 전달되고, 네트워크의 출력에도 영향을 미친다.
 
 $$
 h_t = o_t \odot \tanh (c_t)
