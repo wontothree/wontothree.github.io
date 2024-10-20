@@ -5,7 +5,9 @@ categories:
 ---
 # Introduction
 
-[Einstein Puzzle](https://www.brainzilla.com/logic/zebra/einsteins-riddle/)
+[Einstein Puzzle](https://www.brainzilla.com/logic/zebra/einsteins-riddle/) is a famous logic puzzle attributed to Albert Einstein. The puzzle provides a set of clues, and the goal is to deduce the characteristics of each house based on those clues.
+
+Here's the layout of the puzzle:
 
 ||House #1|House #2|House #3|House #4|House #5|
 |---|---|---|---|---|---|
@@ -35,6 +37,8 @@ categories:
 
 ## Variables
 
+We will define variables to represent the attributes of each house:
+
 Color_blue, Color_green, Color_red, Color_white, Color_yellow, \
 Nationality_Brit, Nationality_Dane, Nationality_German, Nationality_Norwegian, Nationality_Swede, \
 Drink_beer, Drink_coffee, Drink_milk, Drink_tea, Drink_water, \
@@ -43,9 +47,7 @@ Pet_birds, Pet_cats, Pet_dogs, Pet_horses, Pet_fishes
 
 ## Domains
 
-$$
-\{ 1, 2, 3, 4, 5 \}
-$$
+Each variable will have a domain of {1, 2, 3, 4, 5}, representing the house numbers.
 
 ## Constraints
 
