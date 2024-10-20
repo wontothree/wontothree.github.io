@@ -82,16 +82,16 @@ Alldiff(Pet_birds, Pet_cats, Pet_dogs, Pet_horses, Pet_fishes)
 
 >\|Nationality_Norwegian - Color_blue\| = 1
 
-3번째 집의 거주자가 우유를 먹기 때문에 다음 조건에 의해 4, 5번째 집의 색이 각각 초록색, 흰색이라는 것을 알 수 있다.
+milk가 3번째 집에 해당하기 때문에 다음 조건에 의해 4, 5번째 집의 색이 각각 green, white라는 것을 알 수 있다. 또한 coffee가 4번째 집에 해당한다는 사실도 알 수 있다.
 
 >Color_green = Color_white - 1 \
 >Color_green = Drink_coffee
 
-첫 번째 집의 거주자가 Norwegian이므로 3번째 집이 빨간색이고 거주자가 Brit이라는 것을 알 수 있다. 따라서 첫 번째 집의 색은 노란색이다.
+첫 번째 집의 거주자가 Norwegian이므로 3번째 집이 빨간색이고 거주자가 Brit이라는 것을 알 수 있다. 따라서 첫 번째 집은 노란색이다.
 
 >Nationality_Brit = Color_red
 
-첫 번째 집이 노란색이라는 것이 확정되었으니 다음 조건에 의해 첫 번째 집의 거주자가 dunhill을 한다는 것을 확인할 수 있다.
+첫 번째 집이 노란색이라는 것이 확정되었으니 다음 조건에 의해 dunhill이 첫 번째 집에 해당한다는 것을 확인할 수 있다.
 
 >Color_yellow = Cigarette_dunhill
 
@@ -116,14 +116,18 @@ tea의 위치가 결정되었으므로 다음 조건에 의해 Dane의 위치를
 
 >Nationality_Dane = Drink_tea
 
-다음 조건에 의해 prince와 German이 4번째 집에 해당한다는 것을 알 수 있다.
+다음 조건에 의해 prince와 German이 4번째 집에 해당한다는 것을 알 수 있다. 자동으로 Swede가 5번째 집에 해당하고 Pall Mall이 3번째에 해당한다는 것을 확인할 수 있다.
 
 >Nationality_German = Cigarette_prince
 
-다음 조건에 의해 Swede와 dog가 5번째 집에 해당한다는 것을 확인할 수 있다.
+결정된 Swede에 대한 다음 조건에 의해 dog가 5번째 집에 해당한다는 것을 확인할 수 있다.
 
 >Nationality_Swede = Pet_dogs
 
-다음 조건에 의해 pallmall와 birds가 세 번째 집에 해당한다는 것을 확인할 수 있다.
+결정된 pall mall에 대한 다음 조건에 의해 birds가 세 번째 집에 해당한다는 것을 확인할 수 있다.
 
 >Cigarette_pallmall = Pet_birds
+
+다음 조건에 의해 cat의 위치가 1번째 집에 해당한다는 것을 확인할 수 있다.
+
+>\|Cigarette_blends - Pet_cats\| = 1
