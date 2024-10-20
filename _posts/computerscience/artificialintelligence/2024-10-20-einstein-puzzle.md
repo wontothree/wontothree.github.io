@@ -133,3 +133,15 @@ tea의 위치가 결정되었으므로 다음 조건에 의해 Dane의 위치를
 다음 조건에 의해 cat의 위치가 1번째 집에 해당한다는 것을 확인할 수 있다.
 
 >\|Cigarette_blends - Pet_cats\| = 1
+
+# Conclusion
+
+The puzzle is solved with the following assignments:
+
+||House #1|House #2|House #3|House #4|House #5|
+|---|---|---|---|---|---|
+|Color|Yellow|Blue|Red|Green|White|
+|Nationality|Norwegian|Dane|Brit|German|Swede|
+|Drink|Water|Tea|Milk|Coffee|Beer|
+|Cigarette|Dunhill|Blends|Pall Mall|Prince|Blue Master|
+|Pet|Cats|Horses|Birds|Fishes|Dogs|
