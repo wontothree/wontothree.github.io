@@ -64,12 +64,66 @@ Alldiff(Pet_birds, Pet_cats, Pet_dogs, Pet_horses, Pet_fishes)
 7. Color_yellow = Cigarette_dunhill
 8. Drink_milk = 3
 9. Nationality_Norwegian = 1
-10. |Cigarette_blends - Pet_cats| = 1
-11. |Pet_horses - Cigarette_dunhill| = 1
+10. \|Cigarette_blends - Pet_cats\| = 1
+11. \|Pet_horses - Cigarette_dunhill\| = 1
 12. Cigarette_bluemaster = Drink_beer
 13. Nationality_German = Cigarette_prince
 14. \|Nationality_Norwegian - Color_blue\| = 1
-15. |Cigarette_blends - Drink_water| = 1
+15. \|Cigarette_blends - Drink_water\| = 1
 
 # Solve
 
+먼저 명시적으로 주어진 조건을 사용한다.
+
+>Drink_milk = 3 \
+>Nationality_Norwegian = 1
+
+확정된 Nationality_Norwegian와 관련된 조건을 사용하면, 2번째 집이 파란색이라는 것을 알 수 있다.
+
+>\|Nationality_Norwegian - Color_blue\| = 1
+
+3번째 집의 거주자가 우유를 먹기 때문에 다음 조건에 의해 4, 5번째 집의 색이 각각 초록색, 흰색이라는 것을 알 수 있다.
+
+>Color_green = Color_white - 1 \
+>Color_green = Drink_coffee
+
+첫 번째 집의 거주자가 Norwegian이므로 3번째 집이 빨간색이고 거주자가 Brit이라는 것을 알 수 있다. 따라서 첫 번째 집의 색은 노란색이다.
+
+>Nationality_Brit = Color_red
+
+첫 번째 집이 노란색이라는 것이 확정되었으니 다음 조건에 의해 첫 번째 집의 거주자가 dunhill을 한다는 것을 확인할 수 있다.
+
+>Color_yellow = Cigarette_dunhill
+
+거주자가 dunhill을 하는 집이 확정되었으므로 다음 조건에 의해 말을 키우는 집도 확정할 수 있다.
+
+>\|Pet_horses - Cigarette_dunhill\| = 1
+
+tea와 beer 모두 첫 번째 집에 놓일 수 없으므로 첫 번째 집의 거주자는 water를 마신다.
+
+>Nationality_Dane = Drink_tea \
+>Cigarette_bluemaster = Drink_beer
+
+water의 위치가 확정되었다니 다음 조건에 의해 blend의 위치를 2번째 집으로 확정할 수 있다.
+
+>\|Cigarette_blends - Drink_water\| = 1
+
+다음 조건에 의해 beer와 blue master가 5번째 집에 해당한다는 것을 확인할 수 있다. 자동으로 tea는 두 번째 집에 해당한다.
+
+>Cigarette_bluemaster = Drink_beer
+
+tea의 위치가 결정되었으므로 다음 조건에 의해 Dane의 위치를 결정할 수 있다.
+
+>Nationality_Dane = Drink_tea
+
+다음 조건에 의해 prince와 German이 4번째 집에 해당한다는 것을 알 수 있다.
+
+>Nationality_German = Cigarette_prince
+
+다음 조건에 의해 Swede와 dog가 5번째 집에 해당한다는 것을 확인할 수 있다.
+
+>Nationality_Swede = Pet_dogs
+
+다음 조건에 의해 pallmall와 birds가 세 번째 집에 해당한다는 것을 확인할 수 있다.
+
+>Cigarette_pallmall = Pet_birds
