@@ -35,10 +35,10 @@ categories:
 
 ## Variables
 
-Color_blue, Color_green, Color_red, Color_white, Color_yellow
-Nationality_Brit, Nationality_Dane, Nationality_German, Nationality_Norwegian, Nationality_Swede
-Drink_beer, Drink_coffee, Drink_milk, Drink_tea, Drink_water
-Cigarette_blends, Cigarette_bluemaster, Cigarette_dunhill, Cigarette_pallmall, Cigarette_prince
+Color_blue, Color_green, Color_red, Color_white, Color_yellow, \
+Nationality_Brit, Nationality_Dane, Nationality_German, Nationality_Norwegian, Nationality_Swede, \
+Drink_beer, Drink_coffee, Drink_milk, Drink_tea, Drink_water, \
+Cigarette_blends, Cigarette_bluemaster, Cigarette_dunhill, Cigarette_pallmall, Cigarette_prince, \
 Pet_birds, Pet_cats, Pet_dogs, Pet_horses, Pet_fishes
 
 ## Domains
@@ -68,7 +68,8 @@ Alldiff(Pet_birds, Pet_cats, Pet_dogs, Pet_horses, Pet_fishes)
 11. |Pet_horses - Cigarette_dunhill| = 1
 12. Cigarette_bluemaster = Drink_beer
 13. Nationality_German = Cigarette_prince
-14. |Nationality_Norwegian - Color_blue| = 1
+14. \|Nationality_Norwegian - Color_blue\| = 1
 15. |Cigarette_blends - Drink_water| = 1
 
 # Solve
+
