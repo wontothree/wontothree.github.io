@@ -264,9 +264,11 @@ where $\epsilon_j$ is a vector where each entry is a standard normal random vari
 Therefore
 
 $$
-\mathbf{u}_j^*
-= \dfrac{1}{\Delta t} \mathcal{H}^{-1} \mathcal{G} \;
-\mathbb{E}_{p} \left[ \dfrac{\exp (-\dfrac{1}{\lambda} \mathcal{S}(\tau)) \epsilon_j \sqrt{\Delta t}}{\mathbb{E}_{p}\left[ \exp(-\dfrac{1}{\lambda} \mathcal{S} (\tau)) \right]} \right]
+\begin{align}
+  \mathbf{u}_j^*
+  = \dfrac{1}{\Delta t} \mathcal{H}^{-1} \mathcal{G} \;
+  \mathbb{E}_{p} \left[ \dfrac{\exp (-\dfrac{1}{\lambda} \mathcal{S}(\tau)) \epsilon_j \sqrt{\Delta t}}{\mathbb{E}_{p}\left[ \exp(-\dfrac{1}{\lambda} \mathcal{S} (\tau)) \right]} \right]
+\end{align}
 $$
 
 where $p$ is the probability distribution corresponding to the discrete time uncontrolled dynamics.
@@ -293,6 +295,34 @@ When sampling from the distribution $q_{\mathbf{u}}^{\nu}$, the designer gets to
 
 1. The initial controls from which sampling is centered about
 2. The magnitude of the exploration variance defined by $\nu$.
+
+In order to sample from $q_{\mathbf{u}}^{\nu}$ instead of $p$ it is necessary to compute the likelibood ratio between the two distributions. Inserting the likelibood ratio corresponds to changing the running cost from $ (\mathbf{x}_t, t)$ to
+
+$$
+\tilde{q} (\mathbf{x}_t, \mathbf{u}_t, \epsilon_t, t) = q(\mathbf{x}_t, t) + \dfrac{1}{2} \mathbf{u}_t^T \mathbf{R} \mathbf{u}_t + \lambda \mathbf{u}^T \mathcal{G} \dfrac{\epsilon}{\sqrt{\Delta t}} + \dfrac{1}{2} \lambda (1 - \nu^{-1})\dfrac{\epsilon^T}{\sqrt{\Delta t}} \mathbf{B}_c^T (\mathbf{B_c}\mathbf{B}_c^T)^{-1} \mathbf{B}_c \dfrac{\epsilon}{\sqrt{\Delta t}}
+$$
+
+- first two additional terms: penalities for shifting the mean for the exploration away from zero
+- last term: penalty for sampling from an overaggressive variance
+- $\mathbf{B}_c \dfrac{\epsilon}{\sqrt{\Delta t}}$: the effective change in the control input due to noise
+
+Define
+
+$$
+\tilde{S}(\tau) = \phi (\mathbf{x}_T, T) + \sum_{j = 0}^N \tilde{q} (\mathbf{x}_T, \mathbf{u}_T, \epsilon_t, t) \Delta t
+$$
+
+Then (4) becomes the iterative update rules
+
+$$
+\begin{align*}
+  \mathbf{u}_j^*
+  &= u_j + \mathcal{H}^{-1} \mathcal{G} \;
+  \mathbb{E}_{q_{\mathbf{u}}^{\nu}} \left[ \dfrac{\exp (-\dfrac{1}{\lambda} \tilde{\mathcal{S}}(\tau)) \epsilon_j \sqrt{\Delta t}}{\mathbb{E}_{q_{\mathbf{u}}^{\nu}}\left[ \exp(-\dfrac{1}{\lambda} \tilde{\mathcal{S}} (\tau)) \right]} \right] \\
+  &= u_j + \mathcal{H}^{-1} \mathcal{G} \;
+  \sum_{k=1}^K \left[ \dfrac{\exp (-\dfrac{1}{\lambda} \tilde{\mathcal{S}}(\tau)) \epsilon_j \sqrt{\Delta t}}{\sum_{k=1}^K \exp(-\dfrac{1}{\lambda} \tilde{\mathcal{S}} (\tau))} \right] \\
+\end{align*}
+$$
 
 # 3. Model Predictive Control Algorithm
 
