@@ -339,22 +339,22 @@ N: Number of timesteps;
 \mathbf{u}_{init}: Value to initialize new controls to;
 
 while task not completed do
-  for k \rightarrow 0 to K - 1 do
+  for k \leftarrow 0 to K - 1 do
     \mathbf{x} = \mathbf{x}_{t_0};
     for i \leftarrow to N-1 do
       \mathbf{x}_{i+1} = \mathbf{x}_{i} + (\mathbf{f} + \mathbf{G} \mathbf{u}_i) \Delta t + \mathbf{B}_E \epsilon_{i, k} \sqrt{\Delta t};
       \tilde{S}(\tau_k) = \tilde{S}(\tau_k) + \tilde{q} (\mathbf{x}_i, \mathbf{u}_i, \epsilon_{i, k}, t_i);
     
-    for i \leftarrow 0 to N - 1 do
-    \mathbf{u}_i = \mathbf{u}_i + \mathcal{H}^{-1} \mathcal{G} \;
-    \sum_{k=1}^K \left[ \dfrac{\exp (-\dfrac{1}{\lambda} \tilde{\mathcal{S}}(\tau)) \epsilon_j \sqrt{\Delta t}}{\sum_{k=1}^K \exp(-\dfrac{1}{\lambda} \tilde{\mathcal{S}} (\tau))} \right];
+  for i \leftarrow 0 to N - 1 do
+  \mathbf{u}_i = \mathbf{u}_i + \mathcal{H}^{-1} \mathcal{G} \;
+  \sum_{k=1}^K \left[ \dfrac{\exp (-\dfrac{1}{\lambda} \tilde{\mathcal{S}}(\tau)) \epsilon_j \sqrt{\Delta t}}{\sum_{k=1}^K \exp(-\dfrac{1}{\lambda} \tilde{\mathcal{S}} (\tau))} \right];
 
-    send to actuators (\mathbf{u}_0)
+  send to actuators (\mathbf{u}_0)
 
-    for i \leftarrow 0 to N - 2 do
-      \mathbf{u}_i = \mathbf{u}_{i+1};
-    \mathbf{u}_{N-1} = \mathbf{u}_{init}
+  for i \leftarrow 0 to N - 2 do
+    \mathbf{u}_i = \mathbf{u}_{i+1};
+  \mathbf{u}_{N-1} = \mathbf{u}_{init}
 
-    Update the current state after receiving feedback;
-    check for task completion;
+  Update the current state after receiving feedback;
+  check for task completion;
 ```
