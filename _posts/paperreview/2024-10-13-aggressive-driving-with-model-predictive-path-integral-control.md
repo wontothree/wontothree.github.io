@@ -172,6 +172,15 @@ $$
 \end{align*}
 $$
 
+For small $\Delta t$ we can make the approximations that:
+
+$$
+\int_{t_j}^{t_{j+1}} \mathcal{H} (\mathbf{x}_t, t) dt \approx \mathcal{H} (\mathbf{x}_t, t) \Delta t, \;\;\;
+\int_{t_j}^{t_{j+1}} \mathcal{G} (\mathbf{x}_t, t) d\mathbf{w}^{(0)} \approx \mathcal{G} (\mathbf{x}_t, t) \int_{t_j}^{t_{j+1}} d\mathbf{w}^{(0)} \\
+$$
+
+Since we cannot sample from the $\mathbb{Q}^*$ distribution, we need to change the expectation to the an expectation with respect to the uncontrolled dynamics $\mathbb{P}$. We can then directly sample trajectories from $\mathcal{P}$ to approximate the controls. The change in expection is achieved by applying the Radon-Hikodym derivative
+
 From
 
 $$
@@ -184,8 +193,106 @@ $$
 ,
 
 $$
-\mathbf{u}_j^* = \mathbb{E}_{\mathbb{Q}^*} \left[ \int_{t_j}^{t_{j+1}} \mathcal{H} (\mathbf{x}_t, t) dt \right]^{-1} \mathbb{E}_{\mathbb{Q}^*} \left[ \int_{t_j}^{t_{j+1}} \mathcal{G} (\mathbf{x}_t, t) d\mathbf{w}^{(0)} \right]
+\begin{align*}
+  \mathbf{u}_j^* &= \mathbb{E}_{\mathbb{Q}^*} \left[ \int_{t_j}^{t_{j+1}} \mathcal{H} (\mathbf{x}_t, t) dt \right]^{-1} \mathbb{E}_{\mathbb{Q}^*} \left[ \int_{t_j}^{t_{j+1}} \mathcal{G} (\mathbf{x}_t, t) d\mathbf{w}^{(0)} \right] \\
+  &= \dfrac{1}{\Delta t} \mathbb{E}_{\mathbb{Q}^*} \left[ \mathcal{H} (\mathbf{x}_t, t_j)\right]^{-1} \mathbb{E}_{\mathbb{Q}^*} \left[ \mathcal{G} (\mathbb{x}_t, t_j) \int_{t_j}^{t_{j+1}} d\mathbf{w}^{(0)}\right] \\
+  &= \dfrac{1}{\Delta t} \mathbb{E}_{\mathbb{P}} \left[ \dfrac{\exp (-\dfrac{1}{\lambda} \mathcal{S}(\tau)) \mathcal{H} (\mathbf{x}_{t_j}, t_j)}{\mathbb{E}_{\mathbb{P}}\left[ \exp(-\dfrac{1}{\lambda} \mathcal{S} (\tau)) \right]} \right]^{-1}
+  \mathbb{E}_{\mathbb{P}} \left[ \dfrac{\exp (-\dfrac{1}{\lambda} \mathcal{S}(\tau)) \mathcal{G} (\mathbf{x}_{t_j}, t_j) \int_{t_j}^{t_{j+1}}d\mathbf{w}^{(0)}}{\mathbb{E}_{\mathbb{P}}\left[ \exp(-\dfrac{1}{\lambda} \mathcal{S} (\tau)) \right]} \right]
+\end{align*}
 $$
+
+## C. Special Case: State Independent Control Matrix
+
+We suppose that the control matrix and diffusion matrix have the form. In other word, there are no correlations between noise in the directly actuated and non-directly actuated states, and the diffusion for the directly actuated states is state-independent.
+
+$$
+\mathbf{G} =
+\begin{bmatrix}
+  0 \\
+  \mathbf{G}_c
+\end{bmatrix}, \;\;\;
+\mathbf{B}(\mathbf{x}_t) =
+\begin{bmatrix}
+  \mathbf{B}_a (\mathbf{x}_t) & 0 \\
+  0 & \mathbf{B}_c
+\end{bmatrix}
+$$
+
+In this case the covariance matrix
+
+$$
+\Sigma (\mathbf{x}) =
+\begin{bmatrix}
+  \mathbf{B}_a (\mathbf{x})\mathbf{B}_a (\mathbf{x})^T & 0 \\
+  9 & \mathbf{B}_c \mathbf{B}_c^T
+\end{bmatrix}
+$$
+
+Then the terms $\mathcal{H} (\mathbf{x}_t)$ and $\mathcal{G} (\mathbf{x}_t)$ are no longer state dependent and reduce to
+
+$$
+\mathcal{H} = \mathbf{G}_c^T (\mathbf{B}_c \mathbf{B}_c^T)^{-1} \mathbf{G}_c, \;\;\; \mathcal{G} = \mathbf{G}_c^T (\mathbf{B}_c \mathbf{B}_c^T)^{-1} \mathbf{B}_c
+$$
+
+Therefore
+
+$$
+\begin{align}
+  \mathbf{u}_j^*
+  = \dfrac{1}{\Delta t} \mathcal{H}^{-1} \mathcal{G} \;
+  \mathbb{E}_{\mathbb{P}} \left[ \int_{t_j}^{t_{j+1}} \dfrac{\exp (-\dfrac{1}{\lambda} \mathcal{S}(\tau))}{\mathbb{E}_{\mathbb{P}}\left[ \exp(-\dfrac{1}{\lambda} \mathcal{S} (\tau)) \right]} d\mathbf{w}^{(0)}\right]
+\end{align}
+$$
+
+## D. Numerical Approximation
+
+In order to numerically approximate (3), there are two problems  that need to be addressed.
+
+1. We need to rerite the equation for sampling in discreate time.
+2. The expectation is with respect ot hte uncontrolled dynamics which in many cases is a very inefiicient ditribution to sample
+
+So we need a way to perform importance sampling with (3).
+
+In discrete time the dynamics of the system
+
+$$
+d \mathbf{x}_t = (\mathbf{f} (\mathbf{x}_{t_j}t_j) + \mathbf{G} (\mathbf{x}_{t_j}, t_j) \mathbf{u}_j) \Delta t + \mathbf{B} (\mathbf{x}_{t_j}, t_j) \epsilon_j \sqrt{\Delta t}
+$$
+
+where $\epsilon_j$ is a vector where each entry is a standard normal random variable.
+
+Therefore
+
+$$
+\mathbf{u}_j^*
+= \dfrac{1}{\Delta t} \mathcal{H}^{-1} \mathcal{G} \;
+\mathbb{E}_{p} \left[ \dfrac{\exp (-\dfrac{1}{\lambda} \mathcal{S}(\tau)) \epsilon_j \sqrt{\Delta t}}{\mathbb{E}_{p}\left[ \exp(-\dfrac{1}{\lambda} \mathcal{S} (\tau)) \right]} \right]
+$$
+
+where $p$ is the probability distribution corresponding to the discrete time uncontrolled dynamics.
+
+Instead of sampling from $p$ we can choose to sample from a different probability distribution $q_{\mathbf{u}}^{\nu}$ which corresponds to sampling from the dynamics
+
+$$
+d \mathbf{x}_t = (\mathbf{f} (\mathbf{x}_{t_j}t_j) + \mathbf{G} (\mathbf{x}_{t_j}, t_j) \mathbf{u}_j) \Delta t + \mathbf{B}_E (\mathbf{x}_{t_j}, t_j) \epsilon_j \sqrt{\Delta t}
+$$
+
+where
+
+$$
+\mathbf{B}_E (\mathbf{x}_t) =
+\begin{bmatrix}
+  \mathbf{B}_a(\mathbf{x}_t) & 0 \\
+  0 & \nu \mathbf{B}_c
+\end{bmatrix}
+$$
+
+with $\nu \geq 1$.
+
+When sampling from the distribution $q_{\mathbf{u}}^{\nu}$, the designer gets to choose
+
+1. The initial controls from which sampling is centered about
+2. The magnitude of the exploration variance defined by $\nu$.
 
 # 3. Model Predictive Control Algorithm
 
