@@ -319,11 +319,13 @@ $$
   \mathbf{u}_j^*
   &= u_j + \mathcal{H}^{-1} \mathcal{G} \;
   \mathbb{E}_{q_{\mathbf{u}}^{\nu}} \left[ \dfrac{\exp (-\dfrac{1}{\lambda} \tilde{\mathcal{S}}(\tau)) \epsilon_j \sqrt{\Delta t}}{\mathbb{E}_{q_{\mathbf{u}}^{\nu}}\left[ \exp(-\dfrac{1}{\lambda} \tilde{\mathcal{S}} (\tau)) \right]} \right] \\
-  &= u_j + \mathcal{H}^{-1} \mathcal{G} \;
+  &\approx u_j + \mathcal{H}^{-1} \mathcal{G} \;
   \sum_{k=1}^K \left[ \dfrac{\exp (-\dfrac{1}{\lambda} \tilde{\mathcal{S}}(\tau)) \epsilon_j \sqrt{\Delta t}}{\sum_{k=1}^K \exp(-\dfrac{1}{\lambda} \tilde{\mathcal{S}} (\tau))} \right] \\
 \end{align*}
 $$
 
 # 3. Model Predictive Control Algorithm
+
+GPU를 사용한 병렬 궤적 샘플링은 매우 효율적인 작업으로 복잡한 비선형 동역학에서도 수천 개의 궤적을 샘플링할 때 우리의 구현에서는 15ms 이하의 시간이 소요된다. MPPI 알고리즘을 구현하는 가장 간단한 방법은 샘플당 하나의 스레드를 사용하여 샘플링 반복문을 병렬화하는 것이다.
 
 ![](./../../img/paperreview/mppi-sudocode.png){: .align-center}
