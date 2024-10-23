@@ -17,7 +17,7 @@ We do not split the problem into a planning and execution phase, which allows fo
 
 # 2. Stochastic Trajectory Optimization
 
-The key insight which allows for this is the use of a fundamental relationship between the information theoretic notions of free energy and relative entropyy (also know as KL-Divergence).
+The key insight which allows for this is the use of a fundamental relationship between the information theoretic notions of free energy and relative entropy (also know as KL-Divergence).
 
 ## A. Problem Formulation
 
@@ -50,7 +50,7 @@ $$
 \mathbf{F}(\mathbf{x}_t, \mathbf{u}_t, t) = \mathbf{f}(\mathbf{x}_t, t) + \mathbf{G}(\mathbf{x}_t, t) \mathbf{u}_t
 $$
 
-An interpretation of path integral control is given in terms of the information theoretic concepts of free energy and relative entropy. (Relative entropy and free energy dualities connections to path integral and kl control) The interpretation is based on the following equality:
+An interpretation of path integral control is given in terms of the information theoretic concepts of free energy and relative entropy. The interpretation is based on the following equality:
 
 $$
 \begin{align}
@@ -73,7 +73,7 @@ $$
 the free energy
 
 $$
-\log \left( \mathbb{E}_{\mathbb{P}} \left[ \exp \left(-\dfrac{1}{\lambda} \mathcal{S}(\tau) \right) \right] \right)
+\mathcal{F}(\mathcal{S}(\tau) = \log \left( \mathbb{E}_{\mathbb{P}} \left[ \exp \left(-\dfrac{1}{\lambda} \mathcal{S}(\tau) \right) \right] \right)
 $$
 
 $\mathbb{P}$ is the probability measure over the space of trajectories induced by the uncontraolled stochastic dynamics
@@ -118,9 +118,9 @@ $$
 \dfrac{d \mathbb{Q}^*}{d \mathbb{P}} = \dfrac{\exp \left( -\dfrac{1}{\lambda} \mathcal{S} (\tau) \right)}{\mathbb{E}_{\mathbb{P}} \left[ \exp \left( -\dfrac{1}{\lambda} \mathcal{S}(\tau) \right) \right]}
 $$
 
-Previous works (E. A. Theodorou and E. Todorov, “Relative entropy and free energy dualities: Connections to path integral and kl control,” in Decision and Control (CDC), 2012 IEEE 51st Annual Conference on. IEEE, 2012 / E. A. Theodorou, “Nonlinear stochastic control and information the- oretic dualities: Connections, interdependencies and thermodynamic interpretations,” Entropy, vol. 17, no. 5, p. 3352, 2015.) make these connections between the information theoretic notions of free energy, relative entropy, and classical optimal control theory. However, they do not provide a method for computing a control law independent of the HJB-equation, as we do here.
+Previous works make these connections between the information theoretic notions of free energy, relative entropy, and classical optimal control theory. However, they do not provide a method for computing a control law independent of the HJB-equation, as we do here.
 
-The main idea in our approach is that since we have the form of the optimal distribution, it is possible to pursue the following optimization scheme: instead of trying to directly solve the optimal control problem by computing the solution to the stochastic HJB equation, we can solve the mini- mization problem defined by (4) by moving the probability distribution induced by the controller, Q(u), as close as possible to the optimal probability measure, $\mathbb{Q}^*$, defined by the Radon-Nikodym derivative $\dfrac{d\mathbb{Q}^*}{d\mathbb{P}}$. We obtain the following optimization problem:
+The main idea in our approach is that since we have the form of the optimal distribution, it is possible to pursue the following optimization scheme: instead of trying to directly solve the optimal control problem by computing the solution to the stochastic HJB equation.
 
 $$
 \mathbf{u}^*(\cdot) = \underset{\mathbf{u}(\cdot)}{\operatorname{argmin}} \; \mathbb{D}_{\text{KL}} (\mathbb{Q}^* \vert\vert \mathbb{Q}(\mathbf{u}))
@@ -142,24 +142,10 @@ $$
 where
 
 $$
-\mathcal{D} (\tau, \mathbf{u}(\cdot)) = - \int_0^T \mathbf{u}_t^T \mathbf{G} (\mathbf{x}_t, t)^T \Sigma (\mathbf{x}_t, t)^{-1} \mathbf{G}(\mathbf{x}_t, t) d\mathbf{w}^{(0)} + \dfrac{1}{2} \int_0^T \mathbf{u}_t^T \mathbf{G}(\mathbf{x}_t, t)^T \Sigma (\mathbf{x}_t, t)^{-1} \mathbf{G}(\mathbf{x}_t, t) \mathbf{u}_t dt
-$$
-
-Since we inevitably apply the control in discrete time, it suffices to consider the class of step functions:
-
-$$
-\mathbf{u}_t = 
-\begin{cases} 
-  \vdots \\
-  \mathbf{u}_j \;\;\; \text{if} \; j \Delta t \leq t < (j + 1) \Delta t \\
-  \vdots \\
-\end{cases}
-$$
-
-with $j = \{0, 1, 2, \dots, N\}$. Applying this parameterization,
-
-$$
-\mathcal{D} (\tau, \mathbf{u}(\cdot)) = - \sum_{j = 0}^M \mathbf{u}_j^T \int_{t_j}^{t_{j+1}} \mathcal{G}(\mathbf{x}_t, t) d\mathbf{w}^{(0)} + \dfrac{1}{2} \mathbf{u}_j^T \int_{t_j}^{t_{j+1}} \mathcal{H} (\mathbf{x}_t, t) dt \; \mathbf{u}_j
+\begin{align*}
+  \mathcal{D} (\tau, \mathbf{u}(\cdot)) &= - \int_0^T \mathbf{u}_t^T \mathbf{G} (\mathbf{x}_t, t)^T \Sigma (\mathbf{x}_t, t)^{-1} \mathbf{G}(\mathbf{x}_t, t) d\mathbf{w}^{(0)} + \dfrac{1}{2} \int_0^T \mathbf{u}_t^T \mathbf{G}(\mathbf{x}_t, t)^T \Sigma (\mathbf{x}_t, t)^{-1} \mathbf{G}(\mathbf{x}_t, t) \mathbf{u}_t dt \\
+  &\approx - \sum_{j = 0}^M \mathbf{u}_j^T \int_{t_j}^{t_{j+1}} \mathcal{G}(\mathbf{x}_t, t) d\mathbf{w}^{(0)} + \dfrac{1}{2} \mathbf{u}_j^T \int_{t_j}^{t_{j+1}} \mathcal{H} (\mathbf{x}_t, t) dt \; \mathbf{u}_j \\
+\end{align*}
 $$
 
 where
@@ -179,18 +165,17 @@ $$
 \int_{t_j}^{t_{j+1}} \mathcal{G} (\mathbf{x}_t, t) d\mathbf{w}^{(0)} \approx \mathcal{G} (\mathbf{x}_t, t) \int_{t_j}^{t_{j+1}} d\mathbf{w}^{(0)} \\
 $$
 
-Since we cannot sample from the $\mathbb{Q}^*$ distribution, we need to change the expectation to the an expectation with respect to the uncontrolled dynamics $\mathbb{P}$. We can then directly sample trajectories from $\mathcal{P}$ to approximate the controls. The change in expection is achieved by applying the Radon-Hikodym derivative
-
-From
-
 $$
 \begin{align*}
-  0 &= \nabla_{u_j} \mathbb{E}_{\mathbb{Q}^*} \left[ \mathcal{D} (\tau, \mathbf{u}(\cdot)) \right] \\
-  &= \nabla_{u_j} \left[ \sum_{j=0}^N \mathbf{u}_j^T \mathbb{E}_{\mathbf{Q}^*} \left[ \int_{j_j}^{t_{j+1}} \mathcal{G} (\mathbf{x}_t, t) d\mathbf{w}^{(0)} \right] + \sum_{j=0}^N \dfrac{1}{2} \mathbf{u}_j^T \mathbb{E}_{\mathbb{Q}^*} \left[ \int_{j_j}^{{j+1}} \mathcal{H} (\mathbf{x}_t, t) dt \right] \mathbf{u}_j \right]
+  \mathbb{E}_{\mathbb{Q}^*} \left[ \mathcal{D} (\tau, \mathbf{u}(\cdot)) \right]
+  &\approx \sum_{j=0}^N \mathbf{u}_j^T \mathbb{E}_{\mathbf{Q}^*} \left[ \int_{j_j}^{t_{j+1}} \mathcal{G} (\mathbf{x}_t, t) d\mathbf{w}^{(0)} \right] + \sum_{j=0}^N \dfrac{1}{2} \mathbf{u}_j^T \mathbb{E}_{\mathbb{Q}^*} \left[ \int_{j_j}^{{j+1}} \mathcal{H} (\mathbf{x}_t, t) dt \right] \mathbf{u}_j
 \end{align*}
 $$
 
-,
+Since we cannot sample from the $\mathbb{Q}^*$ distribution, we need to change the expectation to the an expectation with respect to the uncontrolled dynamics $\mathbb{P}$. We can then directly sample trajectories from $\mathcal{P}$ to approximate the controls. The change in expection is achieved by applying the Radon-Hikodym derivative
+
+From $0 = \nabla_{u_j} \mathbb{E}_{\mathbb{Q}^*} \left[ \mathcal{D} (\tau, \mathbf{u}(\cdot)) \right]$
+
 
 $$
 \begin{align*}
@@ -248,8 +233,8 @@ $$
 
 In order to numerically approximate (3), there are two problems  that need to be addressed.
 
-1. We need to rerite the equation for sampling in discreate time.
-2. The expectation is with respect ot hte uncontrolled dynamics which in many cases is a very inefiicient ditribution to sample
+1. We need to rewrite the equation for sampling in discreate time.
+2. The expectation is with respect to the uncontrolled dynamics which in many cases is a very inefiicient ditribution to sample
 
 So we need a way to perform importance sampling with (3).
 
@@ -328,7 +313,7 @@ $$
 
 GPU를 사용한 병렬 궤적 샘플링은 매우 효율적인 작업으로 복잡한 비선형 동역학에서도 수천 개의 궤적을 샘플링할 때 우리의 구현에서는 15ms 이하의 시간이 소요된다. MPPI 알고리즘을 구현하는 가장 간단한 방법은 샘플당 하나의 스레드를 사용하여 샘플링 반복문을 병렬화하는 것이다.
 
-![](./../../img/paperreview/mppi-sudocode.png){: .align-center}
+![](./../../img/paperreview/mppi-sudocode.png){: .align-center width="500" height="300"}
 
 ```
 K: Number of samples;
@@ -358,3 +343,8 @@ while task not completed do
   Update the current state after receiving feedback;
   check for task completion;
 ```
+
+# Reference
+
+- E. A. Theodorou and E. Todorov, “Relative entropy and free energy dualities: Connections to path integral and kl control,” in Decision and Control (CDC), 2012 IEEE 51st Annual Conference on. IEEE, 2012
+- E. A. Theodorou, “Nonlinear stochastic control and information the- oretic dualities: Connections, interdependencies and thermodynamic interpretations,” Entropy, vol. 17, no. 5, p. 3352, 2015.
