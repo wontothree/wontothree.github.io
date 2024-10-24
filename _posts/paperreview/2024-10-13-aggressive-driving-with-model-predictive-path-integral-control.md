@@ -17,7 +17,7 @@ We do not split the problem into a planning and execution phase, which allows fo
 
 # 2. Stochastic Trajectory Optimization
 
-The key insight which allows for this is the use of a fundamental relationship between the information theoretic notions of free energy and relative entropy (also know as KL-Divergence).
+The key insight which allows for this is the use of a fundamental relationship between the information theoretic notions of free energy and relative entropy (KL-Divergence).
 
 ## A. Problem Formulation
 
