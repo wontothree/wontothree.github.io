@@ -120,6 +120,51 @@ $$
 
 을 고려하자. 이때 $\mathbf{P}$의 각 요소는 연속 실함수이다. 만약 $\mathbf{x} = \mathbf{u}(t) + i \mathbf{v}(t)$가 식 (11)의 복수함수 해라면, 이 해의 실수부 $\mathbf{u}(t)$와 허수부 $\mathbf{v}(t)$도 이 미분방정식의 해들이다.
 
+# 5. 상수계수인 제차 선형 연립방정식
+
+실수의 상수 계수를 갖는 연립 제차 선형 미분 방정식 - n x n 상수 행렬 $\mathbf{A}$에 대한
+
+$$
+\begin{align}
+  \mathbf{x}' = \mathbf{A}\mathbf{x}
+\end{align}
+$$
+
+형태의 연립방정식에 주목하자.
+
+$n = 1$이면 연립 방정식은 하나의 1계 미분방정식
+
+$$
+\dfrac{dx}{dt} = ax
+$$
+
+이 된다.
+
+- solution: $x(t) = c e^{at}$
+- critical point: $a \neq 0$이면 $x = 0$
+- 만약 $a < 0$이면 평형해가 아닌 해는 $r$가 증가함에 따라 $x(t) = 0$에 다가간다. (asymptotically stable)
+- 만약 $a > 0$이면 모든 해는 $r$가 증가할수록 평형해로부터 멀어진다. (unstable)
+
+n개의 식으로 된 연립방정식의 경우에 상황은 비슷하지만 훨씬 복잡하다. $\det A \neq 0$이라고 가정한다면 $\mathbf{x} = 0$이 유일한 평형해이다.
+
+$n = 2$인 경우는 특별히 중요하다. 위상평문 (phase plane)에서 그래프를 그릴 수 있다. 많은 점에서 $\mathbf{Ax}$를 계산하여 나온 벡터들을 그리면 연립 미분방정식의 해와 접하는 방향장을 얻는다. 방향장은 해의 성질을 정성적으로 이해시켜준다. 주어진 시스템의 대표적인 궤적을 보여주는 그래프를 위상 궤적이라고 부른다.
+
+연립 미분방정식 (2)의 일반해가 다음 형태를 갖는다고 가정하자.
+
+$$
+\mathbf{x} = \xi e^{rt}
+$$
+
+이를 (2)에 대입하여 정리하여 정리하자.
+
+$$
+r\xi e^{rt} = \mathbf{A}\xi e^{rt} \\
+\mathbf{A}\xi = r\xi \\
+(\mathbf{A} - r\mathbf{I}) \xi = 0 \\
+$$
+
+연립 미분방정식 (1)을 풀기 위해서는 위 문제를 풀어야 한다. 이는 행렬 $\mathbf{A}$의 고윳값과 고유벡터를 구하는 문제이다. $r$을 계수행렬 $\mathbf{A}$의 고윳값, $\xi$를 $\mathbf{A}$의 고유벡터로 두면 $\mathbf{x} = \xi e^{rt}$가 연립 미분방정식의 해이다.
+
 # 6. Complex Eigenvalue
 
 상수 계수를 갖는 n 개의 식으로 된 연립 제차 선형 미분 방정식
@@ -145,42 +190,4 @@ $$
 $$
 
 - 고윳값 $\lambda \pm i \mu$가 복소수이면 궤적은 나선 안쪽($\lambda < 0$)이거나, 나선 바깥쪽($\lambda > 0$), 또는 폐곡선을 따라 계속 돈다. ($\lambda = 0$)
-- 움직이는 방향이 시계 방향인지 또는 반시계방향인지 결정하려면, 편의상 한 점에서 움직이는 방향만 결정하면 된다.
-
-실수 계수를 갖는 2 x 2이면서 서로 부호가 다르다. x = 0는 안정점이다.
-
-1. 고윳값이 실수이면서 서로 부호가 다르다. x = 0는 안장점이다.
-2. 고윳값이 실수이고 부호가 같지만 서로 값이 같지 않다. x = 0은 node이다.
-3. 고윳값이 영이 아닌 실수부를 갖는 복소수이다. x = 0은 spiral point이다
-
-# 7. 기본행렬
-
-연립 선형 미분 방정식의 해의 구조는 기본행렬이라는 개념을 도입하면 더 잘 이해할 수 있다.
-
-$\mathbf{x}^{(1)}(t), \dots, \mathbf{x}^{(n)}(t)$가 어떤 구간 $\alpha < t < \beta$에서 다음 미분 방정식의 기본해 집합을 이룬다고 하자.
-
-$$
-\mathbf{x}' = \mathbf{P}(t) \mathbf{x}
-$$
-
-고윳값 $\lambda \pm i \mu$가 복소수
-
-$$
-\Psi = \left( \mathbf{x}^{(1)}(t) \vert \mathbf{x}^{(2)}(t) \vert \dots \vert \mathbf{x}^{(n)}(t) \right) =
-\begin{pmatrix}
-  \mathbf{x}^{(1)}_1(t) & \dots & \mathbf{x}^{(n)}_1(t) \\
-  \vdots & & \vdots \\
-  \mathbf{x}^{(1)}_n(t) & \dots & \mathbf{x}^{(n)}_n(t) \\
-\end{pmatrix}
-$$
-
-의 열들이 벡터 $\mathbf{x}^{(1)}(t), \dots, \mathbf{x}^{(n)}(t)$이고 이 행렬을 연립방정식 (1)의 기본 행렬이라고 부른다.
-
----
-
-$$
-\exp(\mathbf{A}t) = \mathbf{I} + \sum_{n=1}^\infty \dfrac{\mathbf{A}^n t^n}{n!}
-$$
-
-# 8. 중복 고윳값
-  
+- 
