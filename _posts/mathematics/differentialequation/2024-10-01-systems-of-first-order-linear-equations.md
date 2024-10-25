@@ -5,6 +5,121 @@ categories:
 ---
 이 장에서는 상수계수를 갖는 미분방정식을 주로 다룰 것이다.
 
+# 4. 연립 1계 선형 미분방정식의 기본 이론
+
+n 개의 식으로 된 연립 1계 선형 미분방정식의 연립방정식
+
+$$
+\begin{align*}
+  x_1' =& p_{11}(t)x_1 + \dots + p_{1n}(t) + g_1(t), \\
+  &\vdots \\
+  x_n' =& p_{n1}(t)x_1 + \dots + p_{nn}(t) + g_n(t), \\
+\end{align*}
+$$
+
+에 대한 일반론은 하나의 n계 선형 미분방정식의 일반론과 매우 유사하다. 다음과 같이 정의를 하면
+
+$$
+\mathbf{x} = \mathbf{x}(t) =
+\begin{bmatrix}
+  x_1(t) \\
+  \vdots \\
+  x_n(t) \\
+\end{bmatrix}, \;\;\;
+\mathbf{g}(t) =
+\begin{bmatrix}
+  g_1(t) \\
+  \vdots \\
+  g_n(t) \\
+\end{bmatrix}, \;\;\;
+\mathbf{P}(t) =
+\begin{bmatrix}
+  P_{11} & \dots & P_{1n} \\
+  \vdots & \ddots & \vdots \\
+  P_{n1} & \dots & P_{nn} \\
+\end{bmatrix}
+$$
+
+연립방정식을 다음과 같이 나타낼 수 있다.
+
+$$
+\mathbf{x}' = \mathbf{P}(t) \mathbf{x} + \mathbf{g}(t)
+$$
+
+$$
+\begin{align}
+  \mathbf{x}' = \mathbf{P}(t) \mathbf{x}
+\end{align}
+$$
+
+<span style="color: #2D3748; background-color:#fff5b1;">정리 1</span>
+
+벡터 함수 $\mathbf{x}^{(1)}$과 $\mathbf{x}^{(1)}$가 연립방정식의 해라면, 임의의 상수 $c_1, c_2$에 대한 일차결합
+
+$$
+c_1 \mathbf{x}^{(1)} + c_2 \mathbf{x}^{(1)}
+$$
+
+도 해이다.
+
+<span style="color: #2D3748; background-color:#fff5b1;">정리 2</span>
+
+구간 $\alpha < t < \beta$의 각 점에 대해 벡터 함수 $\mathbf{x}^{(1)}, \dots, \mathbf{x}^{(n)}$이 연립방정식의 일차독립인 해들이라면, 연립방정식의 각 해 $\mathbf{x} = \mathbf{x}(t)$는 $\mathbf{x}^{(1)}, \dots, \mathbf{x}^{(n)}$의 일차결합
+
+$$
+\mathbf{x}(t) = c_1 \mathbf{x}^{(1)} + \dots + c_n \mathbf{x}^{(n)}
+$$
+
+로 유일하게 나타낼 수 있다.
+
+<span style="color: #2D3748; background-color:#fff5b1;">정리 3 (아벨의 정리)</span>
+
+$\mathbf{x}^{(1)}, \dots, \mathbf{x}^{(n)}$이 구간 $\alpha < t < \beta$에서 $\mathbf{x}' = \mathbf{P} \mathbf{x}$의 해들이라면, 이 구간에서 $\mathbf{W}[\mathbf{x}^{(1)}, \dots, \mathbf{x}^{(n)}]$은 항상 영이거나 아니면 절대 영이 될 수 없다.
+
+<span style="color: #2D3748; background-color:#fff5b1;">정리 4</span>
+
+$$
+\mathbf{e}^{(1)} =
+\begin{bmatrix}
+  1 \\
+  0 \\
+  \vdots \\
+  0 \\
+\end{bmatrix}, \;\;\;
+\mathbf{e}^{(2)} =
+\begin{bmatrix}
+  0 \\
+  1 \\
+  \vdots \\
+  0 \\
+\end{bmatrix}, \;\;\;
+\mathbf{e}^{(n)} =
+\begin{bmatrix}
+  0 \\
+  0 \\
+  \vdots \\
+  1 \\
+\end{bmatrix}
+$$
+
+이라 하고, $\mathbf{x}^{(1)}, \dots, \mathbf{x}^{(n)}$을 $\alpha < t < \beta$ 안의 임의의 점 $t_0$에 대한 초기 조건
+
+$$
+\mathbf{x}^{(1)}(t_0) = \mathbf{e}^{(1)}, \;\;\; \dots, \;\;\;\mathbf{x}^{(n)}(t_0) = \mathbf{e}^{(n)}
+$$
+
+을 만족하는 연립방정식 (1)의 해를 두자. 그러면 $\mathbf{x}^{(1)}, \dots, \mathbf{x}^{(n)}$은 연립방정식 (1)의 기본 해 집합을 이룬다.
+
+<span style="color: #2D3748; background-color:#fff5b1;">정리 5</span>
+
+연립방정식 (1)
+
+$$
+\mathbf{x}' = \mathbf{P}(t) \mathbf{x}
+$$
+
+을 고려하자. 이때 $\mathbf{P}$의 각 요소는 연속 실함수이다. 만약 $\mathbf{x} = \mathbf{u}(t) + i \mathbf{v}(t)$가 식 (11)의 복수함수 해라면, 이 해의 실수부 $\mathbf{u}(t)$와 허수부 $\mathbf{v}(t)$도 이 미분방정식의 해들이다.
+
 # 6. Complex Eigenvalue
 
 상수 계수를 갖는 n 개의 식으로 된 연립 제차 선형 미분 방정식
