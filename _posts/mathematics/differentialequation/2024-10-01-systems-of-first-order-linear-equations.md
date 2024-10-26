@@ -305,7 +305,7 @@ $$
 $$
 \gamma \xi = \mathbf{A} \xi, \;\;\; \xi + \gamma \eta = \mathbf{A} \eta \;\;\; \\
 \text{or} \\
-(\mathbf{A} - \gamma \mathbf{I}) = 0, \;\;\; (\mathbf{A} - \gamma) \eta = \xi
+(\mathbf{A} - \gamma \mathbf{I}) = 0, \;\;\; (\mathbf{A} - \gamma \mathbf{I}) \eta = \xi
 $$
 
 벡터 $\eta$를 행렬 $\mathbf{A}$의 고윳값 $\rho$에 대응되는 일반화된 고유벡터라고 한다.
