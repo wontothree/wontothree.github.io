@@ -72,9 +72,15 @@ $$
 
 로 유일하게 나타낼 수 있다.
 
+[Remark] 이는 위 표현식이 주어진 미분방정식의 모든 해를 표현할 수 있음을 의미한다.
+
 <span style="color: #2D3748; background-color:#fff5b1;">정리 3 (아벨의 정리)</span>
 
-$\mathbf{x}^{(1)}, \dots, \mathbf{x}^{(n)}$이 구간 $\alpha < t < \beta$에서 $\mathbf{x}' = \mathbf{P} \mathbf{x}$의 해들이라면, 이 구간에서 $\mathbf{W}[\mathbf{x}^{(1)}, \dots, \mathbf{x}^{(n)}]$은 항상 영이거나 아니면 절대 영이 될 수 없다.
+$\mathbf{x}^{(1)}, \dots, \mathbf{x}^{(n)}$이 구간 $\alpha < t < \beta$에서 $\mathbf{x}' = \mathbf{P} \mathbf{x}$의 해들이라면, 이 구간에서 $\mathbf{W}[\mathbf{x}^{(1)}, \dots, \mathbf{x}^{(n)}]$은 항상 영이거나 아니면 절대 영이 아니다.
+
+[Remark] 론스키안이 항상 0이거나 0이 아니라는 것은 0이 아닌 하나의 점을 발견한다면 $\mathbf{W}[y_1, y_2] \neq 0$임을 의미한다.
+
+[Remark] 함수들의 집합의 선형독립/종속을 판별하는 일반적인 방법은 없지만, 함수들이 미분가능하다면 론스키안을 통해 선형독립성을 판별할 수 있다. $\mathbf{W} \neq 0$이면 각 벡터는 선형독립이다.
 
 <span style="color: #2D3748; background-color:#fff5b1;">정리 4</span>
 
@@ -112,13 +118,15 @@ $$
 
 <span style="color: #2D3748; background-color:#fff5b1;">정리 5</span>
 
-연립방정식 (1)
+연립방정식
 
 $$
 \mathbf{x}' = \mathbf{P}(t) \mathbf{x}
 $$
 
 을 고려하자. 이때 $\mathbf{P}$의 각 요소는 연속 실함수이다. 만약 $\mathbf{x} = \mathbf{u}(t) + i \mathbf{v}(t)$가 식 (11)의 복수함수 해라면, 이 해의 실수부 $\mathbf{u}(t)$와 허수부 $\mathbf{v}(t)$도 이 미분방정식의 해들이다.
+
+[Remark] 이 정리는 실수 계수 행렬의 미분방정식이 복소수 해를 갖을 때 미분방정식의 실수의 일반해를 구할 때 사용된다.
 
 # 5. 상수계수인 제차 선형 연립방정식
 
@@ -190,4 +198,69 @@ $$
 $$
 
 - 고윳값 $\lambda \pm i \mu$가 복소수이면 궤적은 나선 안쪽($\lambda < 0$)이거나, 나선 바깥쪽($\lambda > 0$), 또는 폐곡선을 따라 계속 돈다. ($\lambda = 0$)
-- 
+- 움직이는 방향이 시계 방향인지 또는 반시계방향인지 결정하려면, 편의상 한 점에서 움직이는 방향만 결정하면 된다.
+
+미분방정식
+
+$$
+\mathbf{x}' = \mathbf{A}\mathbf{x}
+$$
+
+이 켤레 복소수 고윳값 $r_1 = \lambda + i \mu, r_2 = \lambda - i \mu$를 갖는다고 가정하자. 그러면 이에 대응되는 고유벡터 $\xi_1, \xi_2$도 켤레 복소수이다. 미분방정식의 해는
+
+$$
+\mathbf{x}_1(t) = \xi_1 e^{r_1t}, \;\;\; \mathbf{x}_2(t) = \xi_2 e^{r_2 t}
+$$
+
+실수 벡터 $\mathbf{a}, \mathbf{b}$에 대해 $\xi_1 = \mathbf{a} + i \mathbf{b}$라고 하자. 그러면
+
+$$
+\begin{align*}
+  \mathbf{x}_1 &= \xi_1 e^{r_1t} \\
+  &= (\mathbf{a} + i \mathbf{b}) e^{\lambda + i \mu} \\
+  &= e^{\lambda}(\mathbf{a} + i \mathbf{b}) (\cos \mu t + i \sin \mu t) \\
+  &= e^{\lambda} (\mathbf{a} \cos \mu t - \mathbf{b} \sin \mu t) + ie^{\lambda} (\mathbf{a} \sin \mu t + \mathbf{b} \cos \mu t) \\
+  &= \mathbf{u}(t) + i \mathbf{v}(t)
+\end{align*}
+$$
+
+행렬 $\mathbf{A}$가 두 복소수 고윳값 $r_1 = \lambda + i\mu, r_2 = \lambda - i \mu$를 갖고, $r_3, \dots, r_n$은 서로 다른 실수라고 하자. 그리고 이에 대응되는 고유벡터를 $\mathbf{\xi_1} = \mathbf{a} + i \mathbf{b}, \mathbf{\xi_2} = \mathbf{a} - i\mathbf{b}, \mathbf{\xi_3}, \dots, \mathbf{\xi_n}$으로 두자. 그러면 일반해는
+
+$$
+\mathbf{x} = c_1\mathbf{u}(t) + c_2\mathbf{v}(t) + c_3 \mathbf{\xi_3}e^{r_3t} + \dots + c_n \mathbf{\xi_n}e^{r_nt}
+$$
+
+# 7. 기본행렬
+
+연립 선형 미분 방정식의 해의 구조는 기본행렬이라는 개념을 도입하면 더 잘 이해할 수 있다.
+
+$\mathbf{x}^{(1)}(t), \dots, \mathbf{x}^{(n)}(t)$가 어떤 구간 $\alpha < t < \beta$에서 다음 미분 방정식의 기본해 집합을 이룬다고 하자.
+
+$$
+\mathbf{x}' = \mathbf{P}(t) \mathbf{x}
+$$
+
+고윳값 $\lambda \pm i \mu$가 복소수
+
+$$
+\Psi = \left( \mathbf{x}^{(1)}(t) \vert \mathbf{x}^{(2)}(t) \vert \dots \vert \mathbf{x}^{(n)}(t) \right) =
+\begin{pmatrix}
+  \mathbf{x}^{(1)}_1(t) & \dots & \mathbf{x}^{(n)}_1(t) \\
+  \vdots & & \vdots \\
+  \mathbf{x}^{(1)}_n(t) & \dots & \mathbf{x}^{(n)}_n(t) \\
+\end{pmatrix}
+$$
+
+의 열들이 벡터 $\mathbf{x}^{(1)}(t), \dots, \mathbf{x}^{(n)}(t)$이고 이 행렬을 연립방정식 (1)의 기본 행렬이라고 부른다.
+
+---
+
+$$
+\exp(\mathbf{A}t) = \mathbf{I} + \sum_{n=1}^\infty \dfrac{\mathbf{A}^n t^n}{n!}
+$$
+
+# 8. 중복 고윳값
+
+# Reference
+
+William E. Boyce, Boyce’s Elementary Differential Equations and Boundary Value Problems
