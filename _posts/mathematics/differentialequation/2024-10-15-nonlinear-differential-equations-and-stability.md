@@ -3,6 +3,8 @@ title: "[Differential Equation] Nonlinear Differential Equations and Stability"
 categories:
   - differentialequation
 ---
+이 장에서는 해에 대해 구체적인 정량적 정보를 얻기보다 기하학적인 방법을 통해 해의 모양을 정성적으로 파악한다.
+
 # 1. Phase Plane: Linear System of Equations
 
 많은 미분방정식들이 해석학적인 방법으로는 쉽게 풀리지 않기 때문에 직접 식을 풀지 않고 정성적인 정보를 얻을 수 있는 방법에 대해 알아보자.
@@ -23,18 +25,7 @@ $$
 
 $\det \mathbf{A} \neq 0$인 2차원 연립방정식 $\mathbf{x}' = \mathbf{A}\mathbf{x}$에 대해서만 유효하다. 고차원 연립방정식에서 발생하는 상황들은 본질적으로 2차원 연립방정식에서 발생했던 상황들의 조합이다.
 
-|Eigenvalue|Type of Critical Point|Stability|
-|---|---|---|
-|$r_1 > r_2 > 0$|node|unstable|
-|$r_1 < r_2 < 0$|node|asymptotically stable|
-|$r_2 < 0 < r_1$|Saddle point|unstable|
-|$r_1 = r_2  > 0$|proper or improper node|unstable|
-|$r_1 = r_2 < 0$|proper or improper node|asymptotically stable|
-|$r_1, r_2 = \lambda \pm i\mu$|||
-|$\lambda > 0$|spiral point|unstable|
-|$\lambda < 0$|spiral point|asymptotically stable|
-|$\lambda = 0$|Center|stable|
-
+![](./../../../img/differentialequation/type-table.png){: .align-center}
 ## [Case 1] 같은 부호의 서로 다른 실수 고윳값
 
 고윳값이 $r_1, r_2$이고, 이에 대응되는 고유벡터가 $\xi_1, \xi_2$라고 하자.
@@ -63,7 +54,7 @@ $$
 
 이때의 원점을 node라고 한다.
 
-![](./../../../img/differentialequation/phase-portrait-case1.png){: .align-center width="800" height="800"}
+![](./../../../img/differentialequation/phase-portrait-case1.png){: .align-center}
 
 ## [Case 2] 다른 부호의 실수 고윳값
 
@@ -84,7 +75,7 @@ $$
 
 다음 그림은 고윳값들이 모두 실수이고 부호가 반대인 전형적인 경우이다. 이때의 원점을 saddle point라고 한다.
 
-![](./../../../img/differentialequation/phase-portrait-case2.png){: .align-center width="800" height="800"}
+![](./../../../img/differentialequation/phase-portrait-case2.png){: .align-center}
 
 ## [Case 3] 서로 같은 고윳값
 
@@ -92,7 +83,7 @@ $r_1 = r_2 = r < 0$ 인 경우만 살펴보자. 양수인 경우에는 궤적이
 
 중복되는 고윳값이 두 개의 독립적인 고유벡터를 갖는지, 하나의 고유벡터를 갖는지에 따라 두 가지 경우로 세분화된다.
 
-### 두 개의 독립 고유벡터
+**두 개의 독립 고유벡터**
 
 <span style="color: #2D3748; background-color:#fff5b1;">일반해</span>
 
@@ -102,7 +93,7 @@ $$
 
 Proper node (or start point)
 
-### 한 개의 독립 고유벡터
+**한 개의 독립 고유벡터**
 
 <span style="color: #2D3748; background-color:#fff5b1;">일반해</span>
 
@@ -110,15 +101,15 @@ $$
 \mathbf{x} = c_1 \xi e^{r t} + c_2 (\xi t e^{r t} + \eta e^{rt})
 $$
 
+Improper (degenerate node)
+
 ## [Case 4] 영이 아닌 실수부를 갖는 복소수 고윳값
 
-![](./../../../img/differentialequation/phase-portrait-case4.png){: .align-center width="800" height="800"}
+![](./../../../img/differentialequation/phase-portrait-case4.png){: .align-center}
 
 ## [Case 5] 순허수 고윳값들
 
 ## 한편
-
-한편
 
 $$
 A =
@@ -143,7 +134,7 @@ $$
 \end{align*}
 $$
 
-한편 선형 미분 방정식 계는 (0, 0)을 유일한 critical point로 갖는다.
+![](./../../../img/differentialequation/stability-and-classification.png){: .align-center}
 
 # 2.Autonomous Systems and Stability
 
