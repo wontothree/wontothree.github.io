@@ -261,6 +261,55 @@ $$
 
 # 8. 중복 고윳값
 
+연립방정식 $\mathbf{x}' = \mathbf{Ax}$에서 $r = \rho$가 고유방정식의 m 중근이라고 하자.
+
+$$
+\det ({\mathbf{A} - r \mathbf{I}}) = 0
+$$
+
+그러면 $\rho$는 $\mathbf{A}$의 대수적 다중도가 m인 고윳값이다. 이런 경우 두 가지 가능성이 있다.
+
+- 고윳값 $\rho$에 대응되는 m개의 일차독립인 고유벡터가 존재한다.
+- m보다 적은 수의 일차독립인 고유벡터가 있다.
+
+대수적 다중도가 m인 고윳값 $\rho$에 대응되는 m개의 일차독립인 고유벡터를 $\xi_1, \dots, \xi_n$라고 하면, m개의 일차독립인 해가 존재한다.
+
+$$
+\mathbf{x}_1 = \mathbf{\xi}_1e^{\rho t}, \dots, \mathbf{x}_n = \mathbf{\xi}_ne^{\rho t}
+$$
+
+이런 일은 계수행렬 $\mathbf{A}$가 (실수이고 대칭인) Hermitian이면 항상 발생한다.
+
+계수행렬이 Hermitian이 아니어서 대수적 다중도 2인 고윳값 $\rho$에 대응되는 일차독립인 고유벡터가 $\mathbf{\xi}_1$로 1개인 상황을 고려하자.
+
+한 해는 $(\mathbf{A} - \rho \mathbf{I}) \mathbf{\xi} = 0$를 만족하고, 다음과 같은 형태이다.
+
+$$
+\mathbf{x}_1 = \xi e^{\rho t}
+$$
+
+미분 연립방정식 $\mathbf{x}' = \mathbf{Ax} $의 두 번째 해를 다음의 형태로 가정하자.
+
+$$
+\mathbf{x} = \xi t e^{\gamma t} + \eta e^{\gamma t}
+$$
+
+이를 연립 미분방정식에 대입하자.
+
+$$
+\gamma \xi t e^{\gamma t} + (\xi + \gamma \eta) e^{\gamma t} = \mathbf{A} (\xi t e^{\gamma t} + \eta e^{\gamma t})
+$$
+
+계수 비교를 통해 다음 식을 얻을 수 있을 수 있다. 두 번째 해는 다음을 만족해야 한다.
+
+$$
+\gamma \xi = \mathbf{A} \xi, \;\;\; \xi + \gamma \eta = \mathbf{A} \eta \;\;\; \\
+\text{or} \\
+(\mathbf{A} - \gamma \mathbf{I}) = 0, \;\;\; (\mathbf{A} - \gamma) \eta = \xi
+$$
+
+벡터 $\eta$를 행렬 $\mathbf{A}$의 고윳값 $\rho$에 대응되는 일반화된 고유벡터라고 한다.
+
 # Reference
 
 William E. Boyce, Boyce’s Elementary Differential Equations and Boundary Value Problems
