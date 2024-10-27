@@ -5,6 +5,37 @@ categories:
 ---
 이 장에서는 상수계수를 갖는 미분방정식을 주로 다룰 것이다.
 
+# 1. Introduction
+
+<span style="color: #2D3748; background-color:#fff5b1;">정리 1</span>
+
+n개의 함수 $F_1, \dots, F_n$과 $n^2$개의 1계편도함수 $\dfrac{\partial F_1}{\partial x_1}, \dots, \dfrac{\partial F_1}{\partial x_n}, \dots, \dfrac{\partial F_n}{\partial x_1}, \dots, \dfrac{\partial F_n}{\partial x_n}$이 각각 $\alpha < t < \beta, \alpha_1 < x_1 < \beta_1, \dots, \alpha_n < x_1 < \beta_n$으로 정의된 $tx_1x_2\dotsx_n$ - 공간 상의 영역 $R$에서 연속이고, 점 ($t_0, x_1^0, x_2^0, \dots, x_n^0$)이 $R$ 안에 있다고 하자.
+
+그러면 초기조건
+
+$$
+x_1(t_0) = x_1^0, x_2(t_0) = x_2^0, \dots, x_n(t_0) = x_n^0
+$$
+
+을 만족하는 연립 미분방정식
+
+$$
+\begin{align*}
+  x_1' &= F_1 (t, x_1, x_2, \dots, x_n), \\
+  x_2' &= F_2 (t, x_1, x_2, \dots, x_n), \\
+  \vdots \\
+  x_n' &= F_n (t, x_1, x_2, \dots, x_n), \\
+\end{align*}
+$$
+
+의 유일한 해
+
+$$
+x_1 = \phi_1(t), \dots, x_n = \phi_n(t)
+$$
+
+가 존재하는 적당한 구간 $\vert t - t_0 \vert < h$이 있다.
+
 # 4. 연립 1계 선형 미분방정식의 기본 이론
 
 n 개의 식으로 된 연립 1계 선형 미분방정식의 연립방정식
