@@ -392,7 +392,7 @@ $$
 
 한 종(포식자)이 다른 종(먹이)을 잡아먹고 먹이는 다른 식량을 먹고 사는 상황을 다루자.
 
-시간 t에 대한 먹의 개체수와 포식자의 개체수를 각각 x와 y라 두자. 두 종간의 상호작용을 모델링하는 데 있어서 다음과 같은 가정을 세우자.
+시간 t에 대한 먹이의 개체수와 포식자의 개체수를 각각 x와 y라 두자. 두 종간의 상호작용을 모델링하는 데 있어서 다음과 같은 가정을 세우자.
 
 1. 포식자가 없으면 먹이는 현재의 개체수에 비례하여 증가한다. 즉 $y = 0$일 때 $dx/dt = ax (a > 0)$
 2. 먹이가 없으면 포식자는 멸종된다. 즉 $x = 0$일 때 $dy/dt = - cy (c > 0)$
@@ -401,11 +401,137 @@ $$
 이 가정들에 따라 다음과 같은 연립방정식이 유도된다. (Lotka-Volterra)
 
 $$
-\dfrac{dx}{dt} = ax - \alpha xy \\
-\dfrac{dy}{dt} = -cy + \gamma x y
+\begin{align*}
+  \dfrac{dx}{dt} &= ax - \alpha xy = x(a - \alpha y)\\
+  \dfrac{dy}{dt} &= -cy + \gamma x y = y (-c + \gamma x) \\
+\end{align*}
 $$
 
-여기서 상수 $a, c, \alpha, \gamma$는 모두 양수이다. $a, c$는 각각 먹이의 증가율과 포식자의 사망률이고 $\alpha, \gamma$는 두 종간의 상호작용의 영향을 측ㅈㅇ하는 값들이다.
+여기서 상수 $a, c, \alpha, \gamma$는 모두 양수이다. $a, c$는 각각 먹이의 증가율과 포식자의 사망률이고 $\alpha, \gamma$는 두 종간의 상호작용의 영향을 측정하는 값들이다.
+
+![](./../../../img/differentialequation/predator-prey.png){: .align-center width="800" height="800"}
+
+로트카-볼테라 방정식을 해석해보자.
+
+임계점들은
+
+$$
+x(a - \alpha y) = 0,\;\;\; y(-c + \gamma x) = 0
+$$
+
+의 해인 $(0, 0), (c/\gamma, a/\alpha)$이다.
+
+각 임계점 근처에서의 선형 연립방정식들의 해들을 조사하자.
+
+원점 근방에서 선형 연립방정식은
+
+$$
+\dfrac{d}{dt}
+\begin{bmatrix}
+  x \\
+  y \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+  a & 0 \\
+  0 & -c \\
+\end{bmatrix}
+\begin{bmatrix}
+  x \\
+  y
+\end{bmatrix}
+$$
+
+고윳값들과 고유벡터들은
+
+$$
+r_1 = a, \xi_1 =
+\begin{bmatrix}
+  1 \\
+  0
+\end{bmatrix}; \;\;\;
+r_2 = -c, \xi_2 =
+\begin{bmatrix}
+  0 \\
+  1
+\end{bmatrix}; \;\;\;
+$$
+
+이고, 일반해는
+
+$$
+\begin{bmatrix}
+  x \\
+  y \\
+\end{bmatrix}
+=
+c_1
+\begin{bmatrix}
+  1 \\
+  0 \\
+\end{bmatrix}
+e^{at}
++
+c_2
+\begin{bmatrix}
+  0 \\
+  1 \\
+\end{bmatrix}
+e^{-ct}
+$$
+
+따라서 원점은 불안정한 안장점이다. y 축 위에 있는 궤적들은 이 안장점을 향해 들어가고, x 축 위에 있는 궤적들은 이 안장점에서 멀어진다.
+
+$(c/\gamma, a/\alpha)$를 살펴보자.
+
+Jacobian 행렬은 다음과 같다.
+
+$$
+\mathbf{J} =
+\begin{bmatrix}
+  a - \alpha y & - \alpha x \\
+  \gamma y & - c + \gamma x
+\end{bmatrix}
+$$
+
+$(c/\gamma, a/\alpha)$에서 $\mathbf{J}$를 계산하면 근사 선형 연립방정식 $u = x - (c/\gamma), v = y - (a/\alpha)$에 대해 
+
+$$
+\dfrac{d}{dt}
+\begin{bmatrix}
+  u \\
+  v \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+  0 & -\alpha c / \gamma \\
+  \gamma a / \alpha & 0 \\
+\end{bmatrix}
+\begin{bmatrix}
+  u \\
+  v
+\end{bmatrix}
+$$
+
+가 된다. 위 연립방정식의 고윳값들은 $r = \pm i \sqrt{ac}$이므로 이 임계점은 선형 연립방정식의 안정적인 center이다.
+
+연립방정식의 궤적들을 구하기 위해서 이것의 두 번째 식을 첫 번째 식으로 나누면
+
+$$
+\dfrac{dv}{du} = \dfrac{dv/dt}{du/dt} = - \dfrac{(\gamma a / \alpha)u}{(\alpha c / \gamma)v}
+$$
+
+또는
+
+$$
+\gamma^2 a u du + \alpha^2 cv dv = 0
+$$
+
+음수가 아닌 적분상수 k에 대해
+
+$$
+\gamma^2 a u^2 + \alpha^2 c v^2 = k
+$$
 
 # Reference
 
