@@ -271,15 +271,17 @@ $$
 
 # 3. Locally Linear System
 
-<span style="color: #2D3748; background-color:#fff5b1;">정리</span>
+<span style="color: #2D3748; background-color:#fff5b1;">정리 1</span>
 
-선형 연립방정식 $\mathbf{x}' = \mathbf{A} \mathbf{x}$의 임계점 $\mathbf{x} = 0$은
+$\det A \neq 0$일 때 선형 연립방정식 $\mathbf{x}' = \mathbf{A} \mathbf{x}$의 유일한 임계점 $\mathbf{x} = 0$은
 
 1. 고윳값 $r_1, r_2$가 음의 실수이거나 음의 실수부를 갖는다면 점근 안정적이다.
 2. 고윳값 $r_1, r_2$가 순허수라면 안정적이지만 점근 안정적이지는 않다.
 3. 고윳값 $r_1, r_2$가 양의 실수이거나 양의 실수부를 갖는다면 불안정하다.
 
 ## 섭동 (Perturbation) 효과
+
+응용분야에서 연립방정식의 계수는 대체로 측정된 물리량에 의해서 결정된다. 이런 물리량의 측정값은 약간의 불확실성에도 변하기 쉽기 때문에 계수의 작은 변화(섭동)이 임계점의 안정성이나 불안정성, 궤적의 모양에 영향을 끼치는지 살펴볼 필요가 있다.
 
 몇몇 또는 모든 계수에 대한 작은 섭동은 고윳값에 작은 섭동을 일으킬 수 있다.
 
@@ -322,7 +324,7 @@ $$
 \mathbf{x} \rightarrow 0, \;\;\; \dfrac{\vert\vert \mathbf{g}(\mathbf{x}) \vert\vert}{\vert\vert \mathbf{x} \vert\vert} \rightarrow 0
 $$
 
-<span style="color: #2D3748; background-color:#fff5b1;">정리</span>
+<span style="color: #2D3748; background-color:#fff5b1;">정리 2</span>
 
 함수 $F$와 $G$가 2계까지 연속인 편도함수를 갖는다면 다음 연립방정식은 임계점 $(x_0, y_0)$ 근방에서 국소적으로 선형이다.
 
@@ -330,7 +332,7 @@ $$
 x' = F(x, y), \;\;\; y' = G(x, y)
 $$
 
-이 정리는 다음의 두 가지 의미가 있다.
+[Remark] 이 정리는 다음의 두 가지 의미가 있다.
 
 1. 함수 $F, G$가 두 번 미분 가능하다면 연립방정식은 국소적으로 선형이다.
 2. Jacobian matrix를 통해 임계점 근처에서 국소적으로 선형인 연립방정식에 대응되는 선형 연립방정식을 구할 수 있다.
@@ -347,20 +349,22 @@ $$
 
 이때 $\det (J)$ 가 $(x_0, y_0)$에서 영이 아니라고 가정해야 $(x_0, y_0)$가 선형 연립방정식의 고립된 임계점이 될 수 있다.
 
-<span style="color: #2D3748; background-color:#fff5b1;">정리</span>
+<span style="color: #2D3748; background-color:#fff5b1;">정리 3</span>
+
+$r_1, r_2$를 국소적으로 선형인 연립방정식 $\mathbf{x}' = \mathbf{Ax} + \mathbf{g}(\mathbf{x})$에 대응되는 선형 연립방정식 $\mathbf{x}' = \mathbf{Ax}의 고윳값들이라 하자. 그러면 선형 연립방정식과 국소적으로 선형인 연립방정식의 임계점 (0, 0)의 유형과 안정성이 다음 표와 같이 나타난다.
 
 ![](./../../../img/differentialequation/locally-linear-system-table.png){: .align-center width="800" height="800"}
 
 증명은 생략한다.
 
-위 정리는 $\mathbf{x}$가 작으면 비선형적인항들도 작아지고 따라서 선형인 항에 의해 결정된 임계점의 유형과 안정성에 영향을 끼치지 않음을 의미한다.
-
-두 가지 예외가 있다.
+위 정리는 $\mathbf{x}$가 작으면 비선형적인항들도 작아지고 따라서 선형인 항에 의해 결정된 임계점의 유형과 안정성에 영향을 끼치지 않음을 의미한다. 두 가지 예외가 있다.
 
 1. $r_1, r_2$가 순허수일 때, 작은 비선형 항이 안정적인 center를 점근 안정 또는 불안정 spiral point로 바꿀 수 있다.
 2. $r_1, r_2$가 동일한 실수일 때, 비선형 항이 node를 spiral point로 바꿀 수 있다.
 
 선형 연립방정식의 임계점과 같은 유형의 임계점을 갖더라도 국소적으로 선형인 연립방정식의 궤적들은 그 임계점 바로 근처를 제외하고는 이에 대응되는 성형 연립방정식의 궤적들과는 상당히 다를 수 있다. 그러나 그 임계점을 향해 들어가거나 빠져나오는 점에서 궤적들이 갖는 기울기는 선형 연립방정식으로부터 정확하게 구할 수 있다.
+
+## 감쇠하는 진자
 
 # 4. Competing Species
 
