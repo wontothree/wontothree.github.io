@@ -192,7 +192,7 @@ $\mathbf{f} = 0$인 점
 
 <span style="color: #2D3748; background-color:#fff5b1;">안정적</span>
 
-주어진 임의의 $\epsilon > 0$에 대해서 이것에 대응하는 적당한 $\delta > 0$가 존재하여 $t = 0$에서
+임의의 $\epsilon > 0$에 대해서 적당한 $\delta > 0$가 존재하여 $t = 0$에서
 
 $$
 \vert\vert \mathbf{x}(0) - \mathbf{x}^{(0)} \vert\vert < \delta
