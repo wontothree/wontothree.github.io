@@ -9,7 +9,7 @@ categories:
 
 <span style="color: #2D3748; background-color:#fff5b1;">정리 1</span>
 
-n개의 함수 $F_1, \dots, F_n$과 $n^2$개의 1계편도함수 $\dfrac{\partial F_1}{\partial x_1}, \dots, \dfrac{\partial F_1}{\partial x_n}, \dots, \dfrac{\partial F_n}{\partial x_1}, \dots, \dfrac{\partial F_n}{\partial x_n}$이 각각 $\alpha < t < \beta, \alpha_1 < x_1 < \beta_1, \dots, \alpha_n < x_1 < \beta_n$으로 정의된 $tx_1x_2\dotsx_n$ - 공간 상의 영역 $R$에서 연속이고, 점 ($t_0, x_1^0, x_2^0, \dots, x_n^0$)이 $R$ 안에 있다고 하자.
+n개의 함수 $F_1, \dots, F_n$과 $n^2$개의 1계편도함수 $\dfrac{\partial F_1}{\partial x_1}, \dots, \dfrac{\partial F_1}{\partial x_n}, \dots, \dfrac{\partial F_n}{\partial x_1}, \dots, \dfrac{\partial F_n}{\partial x_n}$이 각각 $\alpha < t < \beta, \alpha_1 < x_1 < \beta_1, \dots, \alpha_n < x_1 < \beta_n$으로 정의된 $tx_1x_2\dots x_n$ - 공간 상의 영역 $R$에서 연속이고, 점 ($t_0, x_1^0, x_2^0, \dots, x_n^0$)이 $R$ 안에 있다고 하자.
 
 그러면 초기조건
 
