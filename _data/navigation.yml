@@ -64,3 +64,5 @@ sidebar-category:
         url: /paperreview
       - title: "Cart Pole"
         url: /cartpole_
+      - title: "F1tenth"
+        url: /f1tenth_        
