@@ -65,4 +65,6 @@ sidebar-category:
       - title: "Cart Pole"
         url: /cartpole_
       - title: "F1tenth"
-        url: /f1tenth_        
+        url: /f1tenth_ 
+      - title: "Tmp"
+        url: /tmp        
