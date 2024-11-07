@@ -1,5 +1,5 @@
 ---
-title: "AI Semiconductor"
+title: "Tmp"
 layout: archive
 permalink: /tmp
 sidebar:

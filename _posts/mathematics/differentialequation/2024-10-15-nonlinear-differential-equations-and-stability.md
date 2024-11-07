@@ -533,6 +533,10 @@ $$
 \gamma^2 a u^2 + \alpha^2 c v^2 = k
 $$
 
+# 6. 두 번째 Lypunov 법
+
+# 7. 주기해와 극한 순환 궤적
+
 # Reference
 
 William E. Boyce, Boyce’s Elementary Differential Equations and Boundary Value Problems
