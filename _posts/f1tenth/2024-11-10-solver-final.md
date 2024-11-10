@@ -5,17 +5,11 @@ categories:
 ---
 # solve
 
-# calculate_sample_weights
-
-생성한 모든 state trajectory의 weight들을 구한다.
-
 최종적으로 구해야 할 식은 다음과 같다.
 
 $$
 \mathbf{U}_t^* = \sum_{k=0}^{K-1} w(\mathbf{V}_k) \mathbf{V}_k
 $$
-
-여기서 function calculate_state_trajectory_weights은 $w(\mathbf{V}_k)$를 계산한다.
 
 $$
 \begin{align*}
@@ -26,6 +20,69 @@ $$
 \end{align*}
 $$
 
+# calculate_state_cost_batch
+
+$[S(\mathbf{V}_1), S(\mathbf{V}_2), \dots, S(\mathbf{V}_{T-1})]$를 계산한다.
+
+```cpp
+
+std::pair<std::vector<double>, std::vector<double>> SVGMPPI::calculate_state_cost_batch(
+    const State& initial_state,
+    const grid_map::GridMap& local_cost_map,
+    StateSequenceBatch* state_sequence_batch,
+    ControlSequenceBatch& control_sequence_batch
+) const
+{
+    std::vector<double> total_cost_batch_(sample_number_);
+    std::vector<double> collision_cost_batch_(sample_number_);
+
+    #pragma omp parallel for num_threads(thread_number_)
+    for (size_t i = 0; i < sample_number_; i++) {
+        // predict state sequence
+        state_sequence_batch->at(i) = predict_state_sequence(
+            initial_state,
+            control_sequence_batch[i]
+        );
+
+        // calculate state sequence cost
+        const auto [total_cost_, collision_cost_] = calculate_state_sequence_cost(
+            state_sequence_batch->at(i),
+            local_cost_map
+        );
+        total_cost_batch_.at(i) = total_cost_;
+        collision_cost_batch_.at(i) = collision_cost_;
+    }
+
+    return std::make_pair(total_cost_batch_, collision_cost_batch_);
+}
+```
+
+## predict_state_sequence
+
+Sample의 $k$th state sequence를 생성한다.
+
+$$
+\mathbf{x}_0, \mathbf{x}_1, \dots, \mathbf{x}_{T - 1}
+$$
+
+### predict_constant_speed
+
+## calculate_state_sequence_cost
+
+$k$th state sequence cost $S(\mathbf{V}_k)$을 계산한다.
+
+$$
+S(\mathbf{V}_k) = \phi(\mathbf{x}_T) + \sum_{\tau = 0}^{T-1} c(\mathbf{x}_{\tau})
+$$
+
+# calculate_sample_cost_batch
+
+sample costs를 계산한다.
+
+$$
+S(\mathbf{V}_k) + \lambda \sum_{\tau = 0}^{T-1} (\hat{\mathbf{u}}_{\tau} - \tilde{\mathbf{u}}_{\tau})^{\top} \Sigma_{\tau}^{-1} \mathbf{v}_{\tau}
+$$
+
 ```cpp
 /**
 * @brief Calculate the softmax of the given costs.
@@ -34,7 +91,7 @@ $$
 * @param thread_number The number of threads to use for parallel computation.
 * @return A vector containing the softmax values of the input costs.
 */
-std::vector<double> SVGMPPI::calculate_sample_weights(
+std::vector<double> SVGMPPI::calculate_sample_costs(
     const double& lambda,
     const double& alpha,
     const std::vector<double> state_costs,
@@ -60,9 +117,35 @@ std::vector<double> SVGMPPI::calculate_sample_weights(
         }
     }
 
-    return softmax(sample_costs, lambda, thread_number_);
+    return sample_costs;
 }
 ```
+
+# approximate_gradient_log_posterior_batch
+
+```cpp
+ControlSequenceBatch SVGMPPI::approximate_gradient_log_posterior_batch(
+    const State& initial_state,
+    const ControlSequence control_sequence
+)
+{
+    ControlSequenceBatch gradient_log_posterior_batch_ = std::vector<Eigen::MatrixXd, Eigen::aligned_allocator<Eigen::MatrixXd>>(
+        sample_number_, Eigen::MatrixXd::Zero(prediction_step_size_, STATE_SPACE::dim)
+    );
+
+    for (size_t i = 0; i < sample_number_; i++) {
+        const ControlSequence gradient_log_likelihood_; // ...
+
+        gradient_log_posterior_batch_[i] = gradient_log_likelihood_;
+    }
+
+    return gradient_log_posterior_batch_;
+}
+```
+
+## approximate_gradient_log_likelihood
+
+# random_sampling
 
 # softmax
 
