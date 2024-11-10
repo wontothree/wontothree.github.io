@@ -176,7 +176,6 @@ Since we cannot sample from the $\mathbb{Q}^*$ distribution, we need to change t
 
 From $0 = \nabla_{u_j} \mathbb{E}_{\mathbb{Q}^*} \left[ \mathcal{D} (\tau, \mathbf{u}(\cdot)) \right]$
 
-
 $$
 \begin{align*}
   \mathbf{u}_j^* &= \mathbb{E}_{\mathbb{Q}^*} \left[ \int_{t_j}^{t_{j+1}} \mathcal{H} (\mathbf{x}_t, t) dt \right]^{-1} \mathbb{E}_{\mathbb{Q}^*} \left[ \int_{t_j}^{t_{j+1}} \mathcal{G} (\mathbf{x}_t, t) d\mathbf{w}^{(0)} \right] \\
@@ -209,7 +208,7 @@ $$
 \Sigma (\mathbf{x}) =
 \begin{bmatrix}
   \mathbf{B}_a (\mathbf{x})\mathbf{B}_a (\mathbf{x})^T & 0 \\
-  9 & \mathbf{B}_c \mathbf{B}_c^T
+  0 & \mathbf{B}_c \mathbf{B}_c^T
 \end{bmatrix}
 $$
 
@@ -314,35 +313,6 @@ $$
 GPU를 사용한 병렬 궤적 샘플링은 매우 효율적인 작업으로 복잡한 비선형 동역학에서도 수천 개의 궤적을 샘플링할 때 우리의 구현에서는 15ms 이하의 시간이 소요된다. MPPI 알고리즘을 구현하는 가장 간단한 방법은 샘플당 하나의 스레드를 사용하여 샘플링 반복문을 병렬화하는 것이다.
 
 ![](./../../img/paperreview/mppi-sudocode.png){: .align-center width="500" height="300"}
-
-```
-K: Number of samples;
-N: Number of timesteps;
-(u_0, u_1, ..., u_{N-1}): Initial control sequences;
-\Delta t, \mathbf{x}_{t_0}, \mathbf{f}, \mathbf{G}, \mathbf{B}, \mathbf{B}_E: System/sampling dynamics;
-\phi, q, \mathbf{R}, \lambda: Cost parameters;
-\mathbf{u}_{init}: Value to initialize new controls to;
-
-while task not completed do
-  for k \leftarrow 0 to K - 1 do
-    \mathbf{x} = \mathbf{x}_{t_0};
-    for i \leftarrow to N-1 do
-      \mathbf{x}_{i+1} = \mathbf{x}_{i} + (\mathbf{f} + \mathbf{G} \mathbf{u}_i) \Delta t + \mathbf{B}_E \epsilon_{i, k} \sqrt{\Delta t};
-      \tilde{S}(\tau_k) = \tilde{S}(\tau_k) + \tilde{q} (\mathbf{x}_i, \mathbf{u}_i, \epsilon_{i, k}, t_i);
-    
-  for i \leftarrow 0 to N - 1 do
-  \mathbf{u}_i = \mathbf{u}_i + \mathcal{H}^{-1} \mathcal{G} \;
-  \sum_{k=1}^K \left[ \dfrac{\exp (-\dfrac{1}{\lambda} \tilde{\mathcal{S}}(\tau)) \epsilon_j \sqrt{\Delta t}}{\sum_{k=1}^K \exp(-\dfrac{1}{\lambda} \tilde{\mathcal{S}} (\tau))} \right];
-
-  send to actuators (\mathbf{u}_0)
-
-  for i \leftarrow 0 to N - 2 do
-    \mathbf{u}_i = \mathbf{u}_{i+1};
-  \mathbf{u}_{N-1} = \mathbf{u}_{init}
-
-  Update the current state after receiving feedback;
-  check for task completion;
-```
 
 # Reference
 
