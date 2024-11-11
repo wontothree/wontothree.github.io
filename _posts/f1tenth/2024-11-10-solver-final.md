@@ -20,6 +20,73 @@ $$
 \end{align*}
 $$
 
+# random_sampling
+
+control sequence에 대한 샘플 noised_control_sequence_batch_ 를 생성한다.
+
+1. 평균이 0이고 표준편차가 control_covariance_sequence의 표준편차인 정규분포를 설정한다.
+2. 설정된 정규분포에서 샘플링을 하고, 이를 noise_sequence_batch에 저장한다.
+3. 일정 비율을 가지고 편향 샘플링과 비편향 샘플링을 하여 control sequence를 샘플링한다. 이를 noised_control_sequence_batch_에 저장한다.
+4. control input constraint를 고려하여 샘플링된 제어 신호를 clampling한다.
+
+```cpp
+void SVGMPPI::random_sampling(
+    const ControlSequence control_mean_sequence,
+    const ControlCovarianceSequence control_covariance_sequence
+)
+{
+    set_control_mean_sequence(control_mean_sequence);
+    set_control_covariance_sequence(control_covariance_sequence);
+
+    // Set normal distributions parameters
+    for (size_t i = 0; i < prediction_horizon_ - 1; i++) {
+        for (size_t j = 0; j < CONTROL_SPACE::dim; j++) {
+            // standard deviation of control covariance sequence
+            const double standard_deviation = std::sqrt(control_covariance_sequence_[i](j, j));
+
+            // normal distribution parameter in which expectation is 0 and standard deviation is from control covariance sequence
+            std::normal_distribution<>::param_type normal_distribution_parameter(0.0, standard_deviation);
+
+            // set noraml distribution pointer
+            (*normal_distribution_pointer_)[i][j].param(normal_distribution_parameter);
+        }
+    }
+
+    #pragma omp parallel for num_threads(thread_number_)
+    for (size_t i = 0; i < sample_number_; i++) {
+        // generate noise sequence using upper normal distribution
+        for (size_t j = 0; j < prediction_horizon_ - 1; j++) {
+            for (size_t k = 0; k < CONTROL_SPACE::dim; k++) {
+                noise_sequence_batch[i](j, k) = (*normal_distribution_pointer_)[j][k](random_number_generators_[omp_get_thread_num()]);
+            }
+        }
+
+        // sampling control trajectory with non-biased (around zero) sampling rate
+        if (i < static_cast<size_t>((1 - non_biased_sampling_rate_) * sample_number_)) {
+            // biased sampling
+            noised_control_sequence_batch_[i] = control_mean_sequence_ + noise_sequence_batch[i];
+        } else {
+            // non-biased sampling (around zero)
+            noised_control_sequence_batch_[i] = noise_sequence_batch[i];
+        }
+
+        // clip input with control input constraints
+        for (size_t j = 0; j < CONTROL_SPACE::dim; j++) {
+            for (size_t k = 0; k < prediction_horizon_ - 1; k++) {
+                noised_control_sequence_batch_[i](k, j) = std::clamp(
+                    noised_control_sequence_batch_[i](k, j),
+                    min_control_[j],
+                    max_control_[j]
+                );
+            }
+        }
+    }
+}
+```
+
+- biased sampling: noise를 입력으로 받은 평균에 더하여 샘플을 생성한다. 이미 알고 있는 정보에 기반하여 샘플링한다.
+- 순수한 noise만으로 샘플을 생성한다. 샘플들이 0을 중심으로 분포하게 만든다. 이 방식은 탐색에 유리하다.
+
 # calculate_state_cost_batch
 
 $[S(\mathbf{V}_1), S(\mathbf{V}_2), \dots, S(\mathbf{V}_{T-1})]$를 계산한다.
@@ -125,16 +192,19 @@ std::vector<double> SVGMPPI::calculate_sample_costs(
 
 ```cpp
 ControlSequenceBatch SVGMPPI::approximate_gradient_log_posterior_batch(
-    const State& initial_state,
-    const ControlSequence control_sequence
+    const State& initial_state
 )
 {
     ControlSequenceBatch gradient_log_posterior_batch_ = std::vector<Eigen::MatrixXd, Eigen::aligned_allocator<Eigen::MatrixXd>>(
         sample_number_, Eigen::MatrixXd::Zero(prediction_step_size_, STATE_SPACE::dim)
     );
-
     for (size_t i = 0; i < sample_number_; i++) {
-        const ControlSequence gradient_log_likelihood_; // ...
+        const ControlSequence gradient_log_likelihood_ = approximate_gradient_log_likelihood(
+            initial_state,
+            control_mean_sequence_,
+            noised_control_sequence_batch_[i],
+            control_inverse_covariance_sequence_
+        );
 
         gradient_log_posterior_batch_[i] = gradient_log_likelihood_;
     }
@@ -145,7 +215,66 @@ ControlSequenceBatch SVGMPPI::approximate_gradient_log_posterior_batch(
 
 ## approximate_gradient_log_likelihood
 
-# random_sampling
+```cpp
+ControlSequence SVGMPPI::approximate_gradient_log_likelihood(
+    const State& initial_state,
+    const ControlSequence& control_mean_sequence,
+    const ControlSequence& noised_control_mean_sequence,
+    const ControlCovarianceSequence& control_inverse_covariance_sequence
+)
+{
+    ControlCovarianceSequence gradient_covariance_sequence_ = std::vector<Eigen::MatrixXd, Eigen::aligned_allocator<Eigen::MatrixXd>>(
+        prediction_horizon_ - 1, Eigen::MatrixXd::Zero(CONTROL_SPACE::dim, CONTROL_SPACE::dim)
+    );
+    for (auto& gradient_covariance : gradient_covariance_sequence_) {
+        for (size_t i = 0; i < CONTROL_SPACE::dim; i++) {
+            gradient_covariance(i, i) = steering_control_covariance_for_gradient_estimation_[i];
+        }
+    }
+
+    // Generate gaussian random samples, center of which is input_seq
+    random_sampling(noised_control_mean_sequence, gradient_covariance_sequence_);
+
+    // calculate forward simulation and costs
+    auto cost_batch_ = calculate_state_cost_batch(
+        initial_state,
+        local_cost_map_,
+        &state_sequence_batch_,
+        noised_control_sequence_batch_
+    ).first;
+
+    //calculate cost with control term
+    std::vector<double> exponential_cost_batch_(sample_number_);
+    ControlSequence sum_of_grads = control_mean_sequence * 0.0;
+    const ControlCovarianceSequence sampler_inverse_covariance = control_inverse_covariance_sequence_;
+    #pragma omp parallel for num_threads(thread_number_)
+    for (size_t i = 0; i < sample_number_; i++) {
+        double cost_with_control_term = cost_batch_[i];
+        for (size_t j = 0; j < prediction_step_size_ - 1; j++) {
+            const double diff_control_term = grad_lambda_ \
+                * (previous_control_mean_sequence_.row(j) - noised_control_sequence_batch_[i].row(j)) \
+                * control_inverse_covariance_sequence[j] \
+                * (previous_control_mean_sequence_.row(j) - noised_control_sequence_batch_[i].row(j)).transpose();
+            cost_with_control_term += diff_control_term;
+        }
+        const double exponential_cost_ = std::exp(-cost_with_control_term / grad_lambda_);
+        exponential_cost_batch_[i] = exponential_cost_;
+        
+        ControlSequence gradient_log_gaussian_(control_mean_sequence.rows(), control_mean_sequence.cols());
+        gradient_log_gaussian_.setZero();
+        for (size_t j = 0; j < prediction_step_size_ - 1; j++) {
+            gradient_log_gaussian_.row(j) = exponential_cost_ \
+                * sampler_inverse_covariance[j] \
+                * (noised_control_sequence_batch_[i] - noised_control_mean_sequence).row(j).transpose();
+        }
+        sum_of_grads += gradient_log_gaussian_;
+    }
+
+    const double sum_of_costs = std::accumulate(exponential_cost_batch_.begin(), exponential_cost_batch_.end(), 0.0);
+
+    return sum_of_grads / (sum_of_costs + 1e-10);
+}
+```
 
 # softmax
 
