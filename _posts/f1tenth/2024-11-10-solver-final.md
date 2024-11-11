@@ -47,6 +47,10 @@ ControlSequenceBatch SVGMPPI::approximate_gradient_log_posterior_batch(
 
 ## approximate_gradient_log_likelihood
 
+$$
+\phi = \dfrac{\sum_{i=0}^{N-1} w(\mathbf{V}_k^g [i]) \Sigma_g^{-1} (\mathbf{V}_k^g[i] - \mathbf{V}_k^g)}{\sum_{i=0}^{N-1}w(\mathbf{V}_k^g [i])}
+$$
+
 ```cpp
 ControlSequence SVGMPPI::approximate_gradient_log_likelihood(
     const State& initial_state,
@@ -183,7 +187,7 @@ $\left[ S(\mathbf{V}_1), S(\mathbf{V}_2), \dots, S(\mathbf{V}_{T-1}) \right]$를
 
 - initial_state
 - local_cost_map
-- state_sequence_batch : 멤버 변수가 들어가며, 함수 내부에서 그 값이 변경된다.
+- state_sequence_batch : 멤버 변수가 들어가며, 함수 내부에서 그 값이 변경된다. 계산하는 과정에서 사용하는 것이 아닌 변경할 멤버변수가 들어간다.
 
 사용하는 멤버 변수 : noised_control_sequence_batch_
 
