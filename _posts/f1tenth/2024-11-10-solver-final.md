@@ -177,38 +177,44 @@ void SVGMPPI::random_sampling(
 
 # calculate_state_cost_batch
 
-$[S(\mathbf{V}_1), S(\mathbf{V}_2), \dots, S(\mathbf{V}_{T-1})]$를 계산한다.
+$\left[ S(\mathbf{V}_1), S(\mathbf{V}_2), \dots, S(\mathbf{V}_{T-1}) \right]$를 계산한다.
+
+입력
+
+- initial_state
+- local_cost_map
+- state_sequence_batch : 멤버 변수가 들어가며, 함수 내부에서 그 값이 변경된다.
+
+사용하는 멤버 변수 : noised_control_sequence_batch_
 
 ```cpp
-
 std::pair<std::vector<double>, std::vector<double>> SVGMPPI::calculate_state_cost_batch(
     const State& initial_state,
     const grid_map::GridMap& local_cost_map,
-    StateSequenceBatch* state_sequence_batch,
-    ControlSequenceBatch& control_sequence_batch
+    StateSequenceBatch* state_sequence_batch
 ) const
 {
-    std::vector<double> total_cost_batch_(sample_number_);
-    std::vector<double> collision_cost_batch_(sample_number_);
+    std::vector<double> total_cost_batch(sample_number_);
+    std::vector<double> collision_cost_batch(sample_number_);
 
     #pragma omp parallel for num_threads(thread_number_)
     for (size_t i = 0; i < sample_number_; i++) {
         // predict state sequence
         state_sequence_batch->at(i) = predict_state_sequence(
             initial_state,
-            control_sequence_batch[i]
+            noised_control_sequence_batch_[i]
         );
 
         // calculate state sequence cost
-        const auto [total_cost_, collision_cost_] = calculate_state_sequence_cost(
+        const auto [total_cost, collision_cost] = calculate_state_sequence_cost(
             state_sequence_batch->at(i),
             local_cost_map
         );
-        total_cost_batch_.at(i) = total_cost_;
-        collision_cost_batch_.at(i) = collision_cost_;
+        total_cost_batch.at(i) = total_cost;
+        collision_cost_batch.at(i) = collision_cost;
     }
 
-    return std::make_pair(total_cost_batch_, collision_cost_batch_);
+    return std::make_pair(total_cost_batch, collision_cost_batch);
 }
 ```
 
@@ -220,6 +226,51 @@ $$
 \mathbf{x}_0, \mathbf{x}_1, \dots, \mathbf{x}_{T - 1}
 $$
 
+```cpp
+StateSequence SVGMPPI::predict_state_sequence(
+    const State& initial_state,
+    const ControlSequence& control_sequence
+) const
+{
+    // initialize state trajectory
+    StateSequence predicted_state_sequence_ = Eigen::MatrixXd::Zero(prediction_step_size_, STATE_SPACE::dim);
+
+    // set current state to state trajectory as initial state
+    predicted_state_sequence_.row(0) = initial_state;
+
+    for (size_t i = 0; i < prediction_step_size_ - 1; i++) {
+        double steering_ = control_sequence(i, CONTROL_SPACE::steering);
+
+        const double predicted_x_ = predicted_state_sequence_(i, STATE_SPACE::x);
+        const double predicted_y_ = predicted_state_sequence_(i, STATE_SPACE::y);;
+        const double predicted_yaw_ = predicted_state_sequence_(i, STATE_SPACE::yaw);
+        const double predicted_velocity_ = predicted_state_sequence_(i, STATE_SPACE::velocity);
+        const double predicted_steering_ = predicted_state_sequence_(i, STATE_SPACE::steering);
+
+        // kinematic bicycle model
+        const double sideslip_ = atan(lf_ / (lf_ + lr_) * tan(steering_));
+        const double predicted_delta_x_ = predicted_velocity_ * cos(predicted_yaw_ + sideslip_) * prediction_interval_;
+        const double predicted_delta_y_ = predicted_velocity_ * sin(predicted_yaw_ + sideslip_) * prediction_interval_;
+        const double predicted_delta_yaw_ = predicted_velocity_ * sin(sideslip_) / lr_ * prediction_interval_;
+        const double predicted_delta_steering_ = predicted_steering_;
+
+        double next_velocity_ = 0.0;
+        if (1) {
+            next_velocity_ = predict_constant_speed(predicted_velocity_);
+        }
+
+        // next state
+        predicted_state_sequence_(i + 1, STATE_SPACE::x) = predicted_x_ + predicted_delta_x_;
+        predicted_state_sequence_(i + 1, STATE_SPACE::y) = predicted_y_ + predicted_delta_y_;
+        predicted_state_sequence_(i + 1, STATE_SPACE::yaw) = std::atan2(sin(predicted_yaw_ + predicted_delta_yaw_), cos(predicted_yaw_ + predicted_delta_yaw_));
+        predicted_state_sequence_(i + 1, STATE_SPACE::velocity) = next_velocity_;
+        predicted_state_sequence_(i + 1, STATE_SPACE::steering) = predicted_steering_ + predicted_delta_steering_;
+    }
+
+    return predicted_state_sequence_;
+}
+```
+
 ### predict_constant_speed
 
 ## calculate_state_sequence_cost
@@ -229,6 +280,44 @@ $k$th state sequence cost $S(\mathbf{V}_k)$을 계산한다.
 $$
 S(\mathbf{V}_k) = \phi(\mathbf{x}_T) + \sum_{\tau = 0}^{T-1} c(\mathbf{x}_{\tau})
 $$
+
+```cpp
+std::pair<double, double> SVGMPPI::calculate_state_sequence_cost(
+    const StateSequence state_sequence,
+    const grid_map::GridMap& local_cost_map
+) const
+{
+    // total cost of summing stage cost and terminal cost
+    double state_squence_cost_sum_ = 0.0;
+
+    // stage cost
+    for (size_t i = 0; i < prediction_step_size_; i++) {
+        double state_squence_stage_cost_sum_ = 10.0;
+
+        State stage_state_ = state_sequence.row(i);
+        if (local_cost_map.isInside(grid_map::Position(stage_state_(STATE_SPACE::x), stage_state_(STATE_SPACE::y)))) {
+            state_squence_stage_cost_sum_ = local_cost_map.atPosition(
+                "collision", grid_map::Position(stage_state_(STATE_SPACE::x), stage_state_(STATE_SPACE::y))
+            );
+        }
+
+        state_squence_cost_sum_ += collision_weight_ * state_squence_stage_cost_sum_;
+    }
+
+    // terminal cost
+    const State terminal_state_ = state_sequence.row(prediction_step_size_ - 1);
+    double state_sequence_terminal_cost_sum_ = 10.0;
+    if (local_cost_map.isInside(grid_map::Position(terminal_state_(STATE_SPACE::x), terminal_state_(STATE_SPACE::y)))) {
+        state_sequence_terminal_cost_sum_ = local_cost_map.atPosition(
+            "collision", grid_map::Position(terminal_state_(STATE_SPACE::x), terminal_state_(STATE_SPACE::y))
+        );
+    }
+
+    state_squence_cost_sum_ += collision_weight_ * state_sequence_terminal_cost_sum_;
+
+    return std::make_pair(state_squence_cost_sum_, state_squence_cost_sum_);
+}
+```
 
 # calculate_sample_cost_batch
 
