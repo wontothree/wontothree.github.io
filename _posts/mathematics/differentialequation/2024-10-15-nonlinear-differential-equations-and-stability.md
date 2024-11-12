@@ -535,6 +535,32 @@ $$
 
 # 6. 두 번째 Lypunov 법
 
+미분방정식들로 이루어진 연립방정식의 해에 대한 정보가 필요 없다. 적당한 보조 함수를 찾아서 임계점의 안정성이나 불안정성을 판별한다.
+
+$V$를 원점을 포함하는 어떤 영역 $D$에서 정의하자. 이때 $V(0, 0) = 0$이고 $D$ 안의 원점이 아닌 모든 점에 대해 $V(x, y) > 0$이라면 $V$는 $D$에서 positive definite이라고 한다.
+
+<span style="color: #2D3748; background-color:#fff5b1;">Lyapunov 안정성 정리</span>
+
+자율 연립방정식
+
+$$
+\dfrac{dx}{dt} = F(x, y), \;\;\; \dfrac{dy}{dt} = G(x, y)
+$$
+
+에 대한 원점에서 고립된 임계점이 존재한다고 가정하자. 연속인 1계 편도함수를 갖는 연속이고 positive definite인 함수 $V$가 존재하고,
+
+$$
+\dot{V}(x, y) = V_x(x, y)F(x, y) + V_y(x, y)G(x, y)
+$$
+
+에 의해 주어진 함수 $\dot{V}$가 (0, 0)을 포함하는 xy 평면상의 영역 $D$에서 negative definite이라면, 원점은 점근 안정 임계점이다. 만약 $\dot{V}$가 negative semidefinite이면 원점은 안정 임계점이다.
+
+<span style="color: #2D3748; background-color:#fff5b1;">Lyapunov 불안정성 정리</span>
+
+원점을 자율 연립방정식의 고립된 임계점이라 두자. $V$를 연속인 1계 편도함수를 갖는 연속함수로 두자. 또한 $V(0, 0) = 0$이고 원점의 모든 근방에서 $V$가 양수(음수)인 점이 적어도 하나 있다고 가정하자. 만약 원점을 포함하는 영역 $D$가 존재하여 함수 $\dot{V}$이 이 영역에서 positive definite (negative definite)이면 원점은 불안정 임계점이다.
+
+이 함수를 Lypunov 함수리고 부른다.
+
 # 7. 주기해와 극한 순환 궤적
 
 # Reference
