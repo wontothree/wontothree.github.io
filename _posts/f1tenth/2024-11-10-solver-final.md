@@ -27,21 +27,22 @@ ControlSequenceBatch SVGMPPI::approximate_gradient_log_posterior_batch(
     const State& initial_state
 )
 {
-    ControlSequenceBatch gradient_log_posterior_batch_ = std::vector<Eigen::MatrixXd, Eigen::aligned_allocator<Eigen::MatrixXd>>(
+    // declare and initialize gradient_log_posterior_batch
+    ControlSequenceBatch gradient_log_posterior_batch = std::vector<Eigen::MatrixXd, Eigen::aligned_allocator<Eigen::MatrixXd>>(
         sample_number_, Eigen::MatrixXd::Zero(prediction_step_size_, STATE_SPACE::dim)
     );
     for (size_t i = 0; i < sample_number_; i++) {
-        const ControlSequence gradient_log_likelihood_ = approximate_gradient_log_likelihood(
+        const ControlSequence gradient_log_likelihood = approximate_gradient_log_likelihood(
             initial_state,
             control_mean_sequence_,
             noised_control_sequence_batch_[i],
             control_inverse_covariance_sequence_
         );
 
-        gradient_log_posterior_batch_[i] = gradient_log_likelihood_;
+        gradient_log_posterior_batch[i] = gradient_log_likelihood;
     }
 
-    return gradient_log_posterior_batch_;
+    return gradient_log_posterior_batch;
 }
 ```
 
@@ -59,56 +60,58 @@ ControlSequence SVGMPPI::approximate_gradient_log_likelihood(
     const ControlCovarianceSequence& control_inverse_covariance_sequence
 )
 {
-    ControlCovarianceSequence gradient_covariance_sequence_ = std::vector<Eigen::MatrixXd, Eigen::aligned_allocator<Eigen::MatrixXd>>(
+    // declate and initialize control_covariance_sequence
+    ControlCovarianceSequence control_covariance_sequence = std::vector<Eigen::MatrixXd, Eigen::aligned_allocator<Eigen::MatrixXd>>(
         prediction_horizon_ - 1, Eigen::MatrixXd::Zero(CONTROL_SPACE::dim, CONTROL_SPACE::dim)
     );
-    for (auto& gradient_covariance : gradient_covariance_sequence_) {
+    for (auto& control_covariance : control_covariance_sequence) {
         for (size_t i = 0; i < CONTROL_SPACE::dim; i++) {
-            gradient_covariance(i, i) = steering_control_covariance_for_gradient_estimation_[i];
+            control_covariance(i, i) = steering_control_covariance_for_gradient_estimation_[i];
         }
     }
 
-    // Generate gaussian random samples, center of which is input_seq
-    random_sampling(noised_control_mean_sequence, gradient_covariance_sequence_);
+    // Generate control sequence samples - noised_control_sequence_batch_
+    random_sampling(noised_control_mean_sequence, control_covariance_sequence);
 
-    // calculate forward simulation and costs
-    auto cost_batch_ = calculate_state_cost_batch(
+    // calculate state cost for each state sequence
+    auto state_cost_batch = calculate_state_cost_batch(
         initial_state,
         local_cost_map_,
-        &state_sequence_batch_,
-        noised_control_sequence_batch_
+        &state_sequence_batch_
     ).first;
 
-    //calculate cost with control term
-    std::vector<double> exponential_cost_batch_(sample_number_);
-    ControlSequence sum_of_grads = control_mean_sequence * 0.0;
+    // calculate cost with control term
+    std::vector<double> sample_weight_batch(sample_number_);
+    ControlSequence grad_sum = control_mean_sequence * 0.0;
     const ControlCovarianceSequence sampler_inverse_covariance = control_inverse_covariance_sequence_;
     #pragma omp parallel for num_threads(thread_number_)
     for (size_t i = 0; i < sample_number_; i++) {
-        double cost_with_control_term = cost_batch_[i];
+        // calculate sample cost
+        double sample_cost = state_cost_batch[i];
         for (size_t j = 0; j < prediction_step_size_ - 1; j++) {
             const double diff_control_term = grad_lambda_ \
                 * (previous_control_mean_sequence_.row(j) - noised_control_sequence_batch_[i].row(j)) \
                 * control_inverse_covariance_sequence[j] \
                 * (previous_control_mean_sequence_.row(j) - noised_control_sequence_batch_[i].row(j)).transpose();
-            cost_with_control_term += diff_control_term;
+            sample_cost += diff_control_term;
         }
-        const double exponential_cost_ = std::exp(-cost_with_control_term / grad_lambda_);
-        exponential_cost_batch_[i] = exponential_cost_;
+
+        const double sample_weight = std::exp(-sample_cost / grad_lambda_);
+        sample_weight_batch[i] = sample_weight;
         
-        ControlSequence gradient_log_gaussian_(control_mean_sequence.rows(), control_mean_sequence.cols());
-        gradient_log_gaussian_.setZero();
+        ControlSequence gradient_log_gaussian(control_mean_sequence.rows(), control_mean_sequence.cols());
+        gradient_log_gaussian.setZero();
         for (size_t j = 0; j < prediction_step_size_ - 1; j++) {
-            gradient_log_gaussian_.row(j) = exponential_cost_ \
+            gradient_log_gaussian.row(j) = sample_weight \
                 * sampler_inverse_covariance[j] \
                 * (noised_control_sequence_batch_[i] - noised_control_mean_sequence).row(j).transpose();
         }
-        sum_of_grads += gradient_log_gaussian_;
+        grad_sum += gradient_log_gaussian;
     }
 
-    const double sum_of_costs = std::accumulate(exponential_cost_batch_.begin(), exponential_cost_batch_.end(), 0.0);
+    const double weight_sum = std::accumulate(sample_weight_batch.begin(), sample_weight_batch.end(), 0.0);
 
-    return sum_of_grads / (sum_of_costs + 1e-10);
+    return grad_sum / (weight_sum + 1e-10);
 }
 ```
 
