@@ -63,25 +63,194 @@ $$
 
 $$
 \begin{bmatrix}
-  T_1 \\
-  T_2 \\
+  T_1' \\
+  T_2' \\
   \vdots \\
-  T_n
+  T_n'
 \end{bmatrix}
 =
 \begin{bmatrix}
   -k_1 & k_1 & 0 & \dots & 0 \\
   k_1 & -k_1-k_2 & k_2 & \dots & 0 \\
   0 & k_2 & -k_2-k_3 & \dots & 0 \\
-  \vdots & \ddots \\
+  \vdots &0 & \ddots & 0  &\vdots \\
   0 & \dots & 0 & k_{n-2}-k_{n-1} & k_1 \\
   0 & \dots & 0 & k_1 & -k_n - 1 \\
 \end{bmatrix}
-
 \begin{bmatrix}
-  T_1' \\
-  T_2' \\
+  T_1 \\
+  T_2 \\
   \vdots \\
-  T_n'
+  T_n
 \end{bmatrix}
+$$
+
+다음과 같이 정의한다면
+
+$$
+X =
+\begin{bmatrix}
+  T_1 \\
+  T_2 \\
+  \vdots \\
+  T_n
+\end{bmatrix}
+, \;\;\;
+A =
+\begin{bmatrix}
+  -k_1 & k_1 & 0 & \dots & 0 \\
+  k_1 & -k_1-k_2 & k_2 & \dots & 0 \\
+  0 & k_2 & -k_2-k_3 & \dots & 0 \\
+  \vdots &0 & \ddots & 0  &\vdots \\
+  0 & \dots & 0 & k_{n-2}-k_{n-1} & k_1 \\
+  0 & \dots & 0 & k_1 & -k_n - 1 \\
+\end{bmatrix}
+$$
+
+다음과 같이 나타낼 수 있다.
+
+$$
+X'
+=
+A
+X
+$$
+
+# General Solution of Heat Conduction Equation
+
+$n = 2$ 일 때
+
+$$
+A =
+\begin{bmatrix}
+  -1 & 1 \\
+  1 & -1 \\
+\end{bmatrix}
+$$
+
+이므로 일반해는
+
+$$
+x(t) =
+C_1
+\begin{bmatrix}
+  1 \\
+  1 \\
+\end{bmatrix}
++
+C_2
+e^{-2t}
+\begin{bmatrix}
+  1 \\
+  -1 \\
+\end{bmatrix}
+$$
+
+$n = 3$ 일 때
+
+$$
+A =
+\begin{bmatrix}
+  -1 & 1 & 0 \\
+  1 & -2 & 1 \\
+  0 & 1 & -1 \\
+\end{bmatrix}
+$$
+
+이므로 일반해는
+
+$$
+x(t) =
+C_1
+\begin{bmatrix}
+  1 \\
+  1 \\
+  1 \\
+\end{bmatrix}
++
+C_2
+e^{-t}
+\begin{bmatrix}
+  1 \\
+  0 \\
+  -1 \\
+\end{bmatrix}
++
+C_3
+e^{-3t}
+\begin{bmatrix}
+  1 \\
+  -2 \\
+  1 \\
+\end{bmatrix}
+$$
+
+$n = 4$ 일 때
+
+$$
+A =
+\begin{bmatrix}
+  -1 & 1 & 0 & 0 \\
+  1 & -2 & 1 & 0 \\
+  0 & 1 & -2 & 1 \\
+  0 & 0 & 1 & -1 \\
+\end{bmatrix}
+$$
+
+이므로 일반해는
+
+$$
+x(t) =
+C_1
+\begin{bmatrix}
+  1 \\
+  1 \\
+  1 \\
+  1 \\
+\end{bmatrix}
++
+C_2
+e^{-2t}
+\begin{bmatrix}
+  1 \\
+  -1 \\
+  -1 \\
+  1 \\
+\end{bmatrix}
++
+C_3
+e^{(-\sqrt{2} -2)t}
+\begin{bmatrix}
+  -1 \\
+  \sqrt{2} + 1 \\
+  -\sqrt{2} - 1 \\
+  1 \\
+\end{bmatrix}
++
+C_4
+e^{(\sqrt{2} -2)t}
+\begin{bmatrix}
+  -1 \\
+  -\sqrt{2} + 1 \\
+  \sqrt{2} - 1 \\
+  1 \\
+\end{bmatrix}
+$$
+
+$n = n$ 일 때
+
+...
+
+# Derivation of Heat Equation
+
+u에 대한 방정식을 찾아보자.
+
+n개의 방으로 나뉜 위 아래가 단열된 막대기를 다시 살펴보자.
+
+가장 왼쪽 지점을 $x = 0$ 으로 정의하고 가장 오른쪽 지점을 $x = L$ 로 정의하자.
+
+그러면 $x$의 정의역을 다음과 같이 표현할 수 있다.
+
+$$
+\Omega = [x : 0 \leq x \leq L] = [0, L]
 $$
