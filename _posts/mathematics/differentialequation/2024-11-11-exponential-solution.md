@@ -141,7 +141,9 @@ $$
 
 Lemma) Suppose $AB = BA$, Then $e^{A + B} = e^A e^B$
 
-For
+Find $e^A$
+
+## Ex 1
 
 $$
 A
@@ -151,8 +153,6 @@ A
   0 & 1 \\
 \end{bmatrix}
 $$
-
-Find $e^A$
 
 Sol)
 
@@ -189,4 +189,100 @@ N
   0 & 1 \\
   0 & 0 \\
 \end{bmatrix} \\
+$$
+
+$$
+N^2
+=
+\begin{bmatrix}
+  0 & 1 \\
+  0 & 0 \\
+\end{bmatrix}
+\begin{bmatrix}
+  0 & 1 \\
+  0 & 0 \\
+\end{bmatrix}
+=
+0
+$$
+
+이므로 $k \geq 0$ 일 때
+
+$$
+N^k = 0
+$$
+
+이다. 따라서
+
+$$
+e^N = I + N
+=
+\begin{bmatrix}
+  1 & 1 \\
+  0 & 1 \\
+\end{bmatrix}
+$$
+
+따라서
+
+$$
+e^A = e^I e^N =
+\begin{bmatrix}
+  e & 0 \\
+  0 & e \\
+\end{bmatrix}
+\begin{bmatrix}
+  1 & 1 \\
+  0 & 1 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+  e & e \\
+  0 & e \\
+\end{bmatrix}
+$$
+
+## Ex 2
+
+$$
+A
+=
+\begin{bmatrix}
+  a & b \\
+  0 & c \\
+\end{bmatrix}
+$$
+
+## Ex 3
+
+$$
+A
+=
+\begin{bmatrix}
+  0 & -1 \\
+  1 & 0 \\
+\end{bmatrix}
+$$
+
+## Ex 4
+
+$$
+A
+=
+\begin{bmatrix}
+  2 & 6 \\
+  6 & 7 \\
+\end{bmatrix}
+$$
+
+## Ex 5
+
+$$
+A
+=
+\begin{bmatrix}
+  2 & 2 & -1 \\
+  0 & 2 & 1 \\
+  0 & 0 & 2 \\
+\end{bmatrix}
 $$
