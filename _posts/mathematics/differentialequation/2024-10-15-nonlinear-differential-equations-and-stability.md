@@ -563,6 +563,49 @@ $$
 
 # 7. 주기해와 극한 순환 궤적
 
+2차원 자율 연립방정식
+
+$$
+\mathbf{x}' = \mathbf{f}(\mathbf{x})
+$$
+
+에 대한 주기해가 존재하는지 살펴보자.
+
+주기해를 갖는다는 것은 모든 t와 주기 T (T > 0)에 대하여
+
+$$
+\mathbf{x}(t + T) = \mathbf{x}(t)
+$$
+
+를 만족한다는 것을 의미한다. 이에 대응하는 궤적들은 위상 평면상에서 폐곡선이다.
+
+선형 자율 연립방정식
+
+$$
+\mathbf{x}' = \mathbf{A}\mathbf{x}
+$$
+
+의 해가 주기적인 것은 $\mathbf{A}$ 의 고윳값이 순허수인 것과 필요충분조건이다. 이 경우에 원점에서의 임계점이 center이다.
+
+- 극한 순환 궤적 (limit cycle): $t \rightarrow \infty$ 일 때 다른 닫혀있지 않은 궤적들이 나선형을 그리며 다가가거나 멀어지는 위상 평면상의 닫힌 궤적
+- 궤도 안정성 (orbital stability): $t \rightarrow \infty$ 일 때 닫힌 궤적을 향해 나선형을 그리며 다가가는 유형
+- 준안정적 (semistable): $t \rightarrow \infty$ 일 때 궤적들이 한쪽 방향에서는 나선형을 그리며 이 닫힌 궤적을 향해 들어가고 다른 쪽 방향에서는 빠져나간다는 유형
+- 불안정적:  $t \rightarrow \infty$ 일 때 나선형을 그리며 양쪽 방향으로 닫힌 궤적을 빠져나가는 유형
+- 안정적: 다른 궤적들이 다가가지도 않고 멀어지지도 않는 닫힌 궤적이 존재하는 유형
+
+$$
+\dfrac{dx}{dt} = F(x, y) \\
+\dfrac{dy}{dt} = G(x, y) \\
+$$
+
+<span style="color: #2D3748; background-color:#fff5b1;">정리 9.7.1</span>
+
+함수 F와 G가 xy 평면상의 영역 D에서 연속이 1계 편도함수를 갖는다고 하자. 연립방정식에 대한 닫힌 궤적은 적어도 하나의 임계점(평형상태의 점)을 둘러싸고 있어야 한다. 만약 이 궤적이 단 한 개의 임계점만을 둘러싸고 있다면 이 임계점은 안장점일 수 없다.
+
+<span style="color: #2D3748; background-color:#fff5b1;">정리 9.7.2</span>
+
+함수 F와 G가 xy 평면 상에서 단순연결된 (simply connected) 영역 D에서 연속인 1계 편도함수를 갖는다고 하자. 만약 D의 전 구간에서 $F_x + G_y$의 부호가 모두 같다면 D 안에 완전히 속해있는 연립방정식의 닫힌 궤적은 존재하지 않는다.
+
 # Reference
 
 William E. Boyce, Boyce’s Elementary Differential Equations and Boundary Value Problems
