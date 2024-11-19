@@ -264,6 +264,86 @@ A
 \end{bmatrix}
 $$
 
+Eigenvalue and eignevector
+
+$$
+\lambda_1 = -i, \;\;\; \lambda_2 = i, \;\;\; v_1 =
+\begin{bmatrix}
+  1 \\
+  i \\
+\end{bmatrix}, \;\;\;
+
+v_2 =
+\begin{bmatrix}
+  1 \\
+  -i \\
+\end{bmatrix}
+$$
+
+이므로
+
+$$
+D =
+\begin{bmatrix}
+  -i & 0 \\
+  0 & i \\
+\end{bmatrix}
+, \;\;\;
+V =
+\begin{bmatrix}
+  1 & 1 \\
+  i & -i \\
+\end{bmatrix}
+$$
+
+이고
+
+$$
+A = VDV^{-1}
+$$
+
+따라서
+
+$$
+\begin{align*}
+  e^{tA} &= e^{tVDV^{-1}} \\
+  &= V e^{tD} V^{-1} \\
+  &=
+  \begin{bmatrix}
+    1 & 1 \\
+    i & -i \\
+  \end{bmatrix}
+  \begin{bmatrix}
+    e^{-it} & 0 \\
+    0 & e^{it} \\
+  \end{bmatrix}
+  \dfrac{1}{2i}
+  \begin{bmatrix}
+    i & 1 \\
+    i & -1 \\
+  \end{bmatrix} \\
+  &=
+  \dfrac{1}{2i}
+  \begin{bmatrix}
+    1 & 1 \\
+    i & -i \\
+  \end{bmatrix}
+  \begin{bmatrix}
+    \cos t - i \sin t & 0 \\
+    0 & \cos t + i \sin t \\
+  \end{bmatrix}
+  \begin{bmatrix}
+    i & 1 \\
+    i & -1 \\
+  \end{bmatrix} \\
+  &=
+  \begin{bmatrix}
+    \cos t & -\sin t \\
+    \sin t & \cos t \\
+  \end{bmatrix} \\
+\end{align*}
+$$
+
 ## Ex 4
 
 $$
