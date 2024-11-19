@@ -247,10 +247,87 @@ u에 대한 방정식을 찾아보자.
 
 n개의 방으로 나뉜 위 아래가 단열된 막대기를 다시 살펴보자.
 
-가장 왼쪽 지점을 $x = 0$ 으로 정의하고 가장 오른쪽 지점을 $x = L$ 로 정의하자.
+가장 왼쪽 지점을 $x = 0$ 으로 정의하고 가장 오른쪽 지점을 $x = L$ 로 정의하자. 임의의 $x$ 는 가장 왼쪽 지점 $x = 0$ 으로부터 떨어진 거리이다.
 
 그러면 $x$의 정의역을 다음과 같이 표현할 수 있다.
 
 $$
 \Omega = [x : 0 \leq x \leq L] = [0, L]
 $$
+
+위에서보다 열을 더 정밀하게 정의하자.
+
+$$
+
+$$
+
+j번째 방에서 j+1 번째 방으로 이동하는 열의 흐름 $Q_j$ 을 더 정밀하게 정의하자.
+
+$$
+Q_j(t) = \dfrac{k_j}{L/n} (T_j(t) - T_{j+1}(t))
+$$
+
+$u(x, t)$가 $k$th room에서 constant라고 가정하자. 즉,
+
+$$
+u(x, t) = T_i \;\;\; \text{for all } \;\;\; x \in \left[ \dfrac{L}{n} (i-1), \dfrac{L}{n}i\right)
+$$
+
+$k_j = 1$ 을 가정하면 온도 변화량을 다음과 같이 표현할 수 있다.
+
+$$
+\begin{align*}
+  \dfrac{dT_2}{dt} &= \dfrac{T_2 - T_1}{L/n} - \dfrac{T_3 - T_2}{L/n} \\
+  \dfrac{dT_j}{dt} &= \dfrac{T_j - T_{j-1}}{L/n} - \dfrac{T_{j+1} - T_j}{L/n} \\
+\end{align*}
+$$
+
+따라서
+
+$$
+\begin{align*}
+  T_1(t) &= u(0, t) \\
+  T_2(t) &= u(L/n, t) \\
+  T_3(t) &= u(2L/n, t) \\
+\end{align*}
+$$
+
+한편 이를 이용하면
+
+$$
+\dfrac{dT_2}{dt} = \dfrac{T_2 - T_1}{L/n} - \dfrac{T_3 - T_2}{L/n}
+$$
+
+를 다음과 같이 표현할 수 있다.
+
+$$
+\dfrac{\partial u (L/n, t)}{\partial t} = \dfrac{u(L/n, t) - u(0, t)}{L/n} - \dfrac{u(2L/n, t) - u(L/n, t)}{L/n}
+$$
+
+$n \rightarrow 0$ 일 때
+
+$$
+\dfrac{\partial u (0, t)}{\partial t} = 0
+$$
+
+라는 결론을 얻게 된다. 유사한 방식으로 임의의 지점에 대한 u의 t에 대한 미분계수를 구하자.
+
+편의를 위해 길이 L을 2n으로 나눈 상황을 생각하자.
+
+$$
+T_n(t) = u(L/2, t)
+$$
+
+이므로
+
+$$
+\dfrac{dT_{n}}{dt} = \dfrac{T_{n}(t) - T_{n-1}(t)}{L/2n} - \dfrac{T_{n+1}(t) - T_{n}(t)}{L/2n}
+$$
+
+u를 이용하여 나타내자.
+
+$$
+\dfrac{\partial u(L/2, t)}{\partial t} = \dfrac{u(L/2, t) - u(L/2 - L/2n, t)}{L/2n} - \dfrac{u(L/2 + L/2n, t) - u(L/2, t)}{L/2n}
+$$
+
+....?
