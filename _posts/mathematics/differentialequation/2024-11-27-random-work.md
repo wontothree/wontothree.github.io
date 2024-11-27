@@ -1,5 +1,5 @@
 ---
-title: "[Differential Equation] Random Work"
+title: "[Differential Equation] Random Walk"
 categories:
   - differentialequation
 ---
@@ -63,3 +63,25 @@ $$
 dx_t = -x_t dt + \sqrt{2}dw_t
 $$
 
+두 항으로 나뉜다.
+
+첫 번째 term은 ordinary differential equation과 관련된 term이다.
+
+$$
+dx_t = -x_t dt
+$$
+
+이 미분방정식은 0으로 수렴한다.
+
+다음은 brownian motion과 관련된 term이다. diffusion model에서는 diffusion term이라고도 불린다.
+
+$$
+\sqrt{2}dw_t
+$$
+
+SDE를 PDE로 환원시켜서 풀면 gaussian 형태의 해가 나온다.
+
+$$
+x_t \sim u(x, t) \\
+X \sim N(0, 1) \\
+$$
