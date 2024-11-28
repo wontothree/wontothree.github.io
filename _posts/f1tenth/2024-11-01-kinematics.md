@@ -17,7 +17,15 @@ Notation
 State and action
 
 $$
-x =
+\mathbf{x} =
+\begin{bmatrix}
+  x_1 \\
+  x_2 \\
+  x_3 \\
+  x_4 \\
+  x_5 \\
+\end{bmatrix}
+=
 \begin{bmatrix}
   x \\
   y \\
@@ -46,13 +54,78 @@ $$
 \beta = \arctan{\left(\dfrac{l_r}{l_r +l_f} \tan\delta\right)}
 $$
 
+Therefore
+
+$$
+\begin{bmatrix}
+  \dot{x}_1 \\
+  \dot{x}_2 \\
+  \dot{x}_3 \\
+  \dot{x}_4 \\
+  \dot{x}_5 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+  x_4 \cos{\left(x_3 + \arctan{\left(\dfrac{l_r}{l_r +l_f} \tan\delta\right)} \right)} \\
+  x_4 \sin{\left(x_3 + \arctan{\left(\dfrac{l_r}{l_r +l_f} \tan\delta\right)} \right)}  \\
+  \dfrac{x_4}{l_r + l_f} \cos\left( \arctan{\left(\dfrac{l_r}{l_r +l_f} \tan\delta\right)} \right) \tan\delta \\
+  \dot{x}_4 \\
+  \dot{x}_5 \\
+\end{bmatrix}
+$$
+
+Implementation
+
+$$
+\beta = \arctan{\left(\dfrac{l_r}{l_r +l_f} \tan\delta\right)} \\
+$$
+
+$$
+\begin{bmatrix}
+  \Delta{x_1} \\
+  \Delta{x_2} \\
+  \Delta{\psi} \\
+  \Delta \delta \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+  v \cos(\psi + \beta) \Delta t\\
+  v \sin(\psi + \beta) \Delta t \\
+  \dfrac{v}{l_r + l_f} \cos\beta \tan\delta \Delta t \\
+  \dfrac{\delta - \delta}{\tau}\Delta t \\
+\end{bmatrix}
+$$
+
+$$
+\begin{bmatrix}
+  x_1(k+1) \\
+  x_2(k+1) \\
+  x_3(k+1) \\
+  x_4(k+1) \\
+  x_5(k+1) \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+  x_1(k) + \Delta x_1(k) \\
+  x_2(k) + \Delta x_2(k) \\
+  \arctan \left( \dfrac{\sin{(x_3(k) + \Delta x_3(k))}}{\cos{(x_3(k) + \Delta x_3(k))}} \right) \\
+  x_4(k+1) \\
+  x_5(k) + \Delta x_5(k) \\
+\end{bmatrix}
+$$
+
+- $x_4(k+1) = v(k+1)$ 는 global planner로부터 받은 reference speed를 이용한다. (look-up table)
+- $\Delta \delta$ 는 1차 지연을 이용한다.
+
 # 2. Dynamic Bicycle Model
 
 Notation for state and action
 
 $$
-x =
+\mathbf{x} =
 \begin{bmatrix}
+  x \\
+  y \\
   v_x \\
   v_y \\
   \psi \\
@@ -65,8 +138,8 @@ based on the 3 Degrees of Freedom dynamics bicycle model of the vechicle combine
 
 $$
 \begin{align*}
-  m(\dot{v}_x) - \dot{\psi}v_y &= F_{xf} + F_{xr} \\
-  m(\dot{v}_y) + \dot{\psi}v_x &= F_{yf} + F_{yr} \\
+  m(\dot{v}_x - \dot{\psi}v_y) &= F_{xf} + F_{xr} \\
+  m(\dot{v}_y + \dot{\psi}v_x) &= F_{yf} + F_{yr} \\
   I_z \ddot{\psi} &= I_f F_{yf} - I_r F_{yr}
 \end{align*}
 $$
@@ -82,9 +155,31 @@ $$
 \end{align*}
 $$
 
+...
+
+$$
+\begin{bmatrix}
+  \dot{x} \\
+  \dot{y} \\
+  \dot{v_x} \\
+  \dot{v_y} \\
+  \dot{\psi} \\
+  \ddot{\psi} \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+  v_x \cos{\psi} - v_y \sin{\psi} \\
+  v_x \sin{\psi} + v_y \cos{\psi} \\
+  \dfrac{F_{xf} + F_{xr}}{m} + \dot{\psi}v_y \\
+  \dfrac{F_{yf} + F_{yr}}{m} - \dot{\psi}v_x \\
+  \dot{\psi} \\
+  \dfrac{I_f F_{yf} - I_r F_{yr}}{I_z} \\
+\end{bmatrix}
+$$
+
 # 3. Pacejka Magic Tire Formula
 
-1. Lookahead point와 현재 위치의 벡터 계산
+- Lookahead point와 현재 위치의 벡터 계산
 
 $$
 \vec{p}
@@ -95,7 +190,7 @@ $$
 \end{bmatrix}
 $$
 
-2. 차량의 좌측 방향 벡터
+- 차량의 좌측 방향 벡터
 
 차량의 전방 방향 벡터는 다음과 같다.
 
@@ -129,7 +224,7 @@ $$
 \end{bmatrix}
 $$
 
-3. 차량의 측면 각도
+- 차량의 측면 각도
 
 lookahead vector를 기준으로 얼마나 벗어났는지를 나타내는 측면 각도를 $\eta$라고 하자.
 
@@ -137,7 +232,7 @@ $$
 \sin{\eta} = \dfrac{\vec{p} \cdot \vec{d}_{\bot}}{\vert\vert \vec{p} \vert\vert \cdot \vert\vert \vec{d}_{\bot} \vert\vert}
 $$
 
-4. 차량의 횡가속도
+- 차량의 횡가속도
 
 lateral acceleration
 
@@ -145,7 +240,7 @@ $$
 a_{\text{lateral}} = 2 \dfrac{v_{\text{target}}^2}{L_1} \sin{\eta}
 $$
 
-5. steering angle
+- steering angle
 
 $$
 \delta = f(a_{\text{lateral}}, v_{\text{target}})
@@ -153,7 +248,7 @@ $$
 
 where $f$ is a look-up table function. Look-up table function $f$는 pacejka의 magic tire model에서 횡가속도와 조향각 간의 관계를 반영하여 생성되었다.
 
-6. command
+- command
 
 $$
 \begin{align*}
