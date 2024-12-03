@@ -537,7 +537,17 @@ $$
 
 미분방정식들로 이루어진 연립방정식의 해에 대한 정보가 필요 없다. 적당한 보조 함수를 찾아서 임계점의 안정성이나 불안정성을 판별한다.
 
+<span style="color: #2D3748; background-color:#fff5b1;">함수의 positive definite</span>
+
 $V$를 원점을 포함하는 어떤 영역 $D$에서 정의하자. 이때 $V(0, 0) = 0$이고 $D$ 안의 원점이 아닌 모든 점에 대해 $V(x, y) > 0$이라면 $V$는 $D$에서 positive definite이라고 한다.
+
+<span style="color: #2D3748; background-color:#fff5b1;">[참고] 행렬의 positive definite</span>
+
+영벡터가 아닌 임의의 열벡터 $x$와 대칭 행렬 $A$애 대해 다음이 성립한다면 $A$는 양의 정부호 행렬이다.
+
+$$
+x^\top A x > 0
+$$
 
 <span style="color: #2D3748; background-color:#fff5b1;">Lyapunov 안정성 정리</span>
 

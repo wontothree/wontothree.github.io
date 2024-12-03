@@ -74,8 +74,8 @@ $$
   k_1 & -k_1-k_2 & k_2 & \dots & 0 \\
   0 & k_2 & -k_2-k_3 & \dots & 0 \\
   \vdots &0 & \ddots & 0  &\vdots \\
-  0 & \dots & 0 & k_{n-2}-k_{n-1} & k_1 \\
-  0 & \dots & 0 & k_1 & -k_n - 1 \\
+  0 & \dots & k_{n-2} & k_{n-2}-k_{n-1} & k_{n-1} \\
+  0 & \dots & 0 & k_{n-1} & -k_{n-1} \\
 \end{bmatrix}
 \begin{bmatrix}
   T_1 \\
@@ -102,8 +102,8 @@ A =
   k_1 & -k_1-k_2 & k_2 & \dots & 0 \\
   0 & k_2 & -k_2-k_3 & \dots & 0 \\
   \vdots &0 & \ddots & 0  &\vdots \\
-  0 & \dots & 0 & k_{n-2}-k_{n-1} & k_1 \\
-  0 & \dots & 0 & k_1 & -k_n - 1 \\
+  0 & \dots & k_{n-2} & k_{n-2}-k_{n-1} & k_{n-1} \\
+  0 & \dots & 0 & k_{n-1} & -k_{n-1} \\
 \end{bmatrix}
 $$
 

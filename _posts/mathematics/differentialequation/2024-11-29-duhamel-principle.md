@@ -1,9 +1,9 @@
 ---
-title: "[Differential Equation] Dunamel's Principle"
+title: "[Differential Equation] Duhamel's Principle"
 categories:
   - differentialequation
 ---
-# Dunamel's Principle
+# Duhamel's Principle
 
 $$
 \dot{x}(t) = Ax(t) + f(t)
@@ -59,7 +59,7 @@ $$
 일반해는 다음과 같다.
 
 $$
-x(t) = x(0) \exp{At} + \int_0^s \exp{ \left(A(t - s) \right)} f(s) ds
+\mathbf{x}(t) = \mathbf{x}(0) \exp{At} + \int_0^s \exp{ \left(A(t - s) \right)} f(s) ds
 $$
 
 # Ex 2
