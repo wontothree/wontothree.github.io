@@ -332,6 +332,26 @@ $$
 
 ....?
 
+# Solution
+
+변수분리법을 만족하는 해만 고려할 것이다.
+
+$$
+\begin{align*}
+  u_n(x, t) &= X_n(x)T_n(t)
+  &= \exp{\left(-\dfrac{n^2\pi^2 t}{L} \right)} \sin{\left(\dfrac{n\pi x}{L}\right)}
+\end{align*}
+$$
+
+$$
+\begin{align*}
+  u_t = u_{xx}, \;\;\; x \in (0, L), t > 0 \\
+  f(x) := u(x, 0) \\
+  u(0, t) = u(L, t) = 0
+  u(x, t) = \sum_{n=1}^{\infty}c_n u_n(x, t)
+\end{align*}
+$$
+
 # Reference
 
-- 권도현 교수님 week 11-2, 12-1, 12-2
+- 권도현 교수님 week 11-2, 12-1, 12-2, 14-1
