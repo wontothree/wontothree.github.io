@@ -106,4 +106,3 @@ $$
   &= L \int_0^t \vert\vert x_{i-1}(s) - x_{i-2}(s) \vert\vert ds
 \end{align*}
 $$
-
