@@ -24,7 +24,7 @@ We begin our study of metric spaces with a review of distance between points in 
 
 <span style="color: #2D3748; background-color:#fff5b1;">**[DEFINITION 2.1.1]**</span>
 
-For a real number $x$ the absolute value of $x$, denoted $|x|$, is deinfed by $|x|$ ...
+For a real number $x$ the absolute value of $x$, denoted $|x|$, is deinfed ...
 
 From the definition,
 
@@ -46,15 +46,29 @@ $$x = 0$$
 
 <span style="color: #2D3748; background-color:#fff5b1;">**[THEOREM 2.1.2]**</span>
 
-(a) $|-x| = |x|$ for all $x \in \mathbb{R}$
+(a)
 
-(b) $|xy| = |x| |y|$ for all $x, y \in \mathbb{R}$
+$$|-x| = |x|$$
 
-(c) $|x| = \sqrt{x^2}$ for all $x \in \mathbb{R}$
+for all $x \in \mathbb{R}$
 
-(d) If $r$ > 0, then $|x| < r$ if and only if $-r < x < r$
+(b)
 
-(e) $-|x| \leq x \leq |x|$ for all $x \in \mathbb{R}$
+$|xy| = |x| |y|$ for all $x, y \in \mathbb{R}$
+
+$$
+|x| = \sqrt{x^2}
+$$
+
+for all $x \in \mathbb{R}$
+
+If $r$ > 0, then
+
+$|x| < r$ if and only if $-r < x < r$
+
+(e)
+
+$-|x| \leq x \leq |x|$ for all $x \in \mathbb{R}$
 
 <span style="color: #2D3748; background-color:#fff5b1;">**[THEOREM 2.1.3]** (Triangle Inequality)</span>
 
@@ -66,9 +80,15 @@ $$|x + y| \leq |x| + |y|$$
 
 For all $x, y, z \in \mathbb{R}$, we have
 
-(a) $|x - y| \leq |x - z| + |z - y|$
+(a)
 
-(b) $||x| - |y|| \leq |x - y|$
+$$
+|x - y| \leq |x - z| + |z - y|
+$$
+
+$$
+||x| - |y|| \leq |x - y|
+$$
 
 Geometrically, $\vert x \vert$ represents the distance from $x$ to the origin 0.
 
@@ -135,8 +155,13 @@ Let $(X, d)$ be a metric space. Then
 
 Let (X, d) be a metric space. Then
 
-(a) for any collection $(F_\alpha)_{\alpha \in A}$ of closed subsets of $X$, $\cap_{\alpha \in A}$ is closed, and \
-(b) for any finite collection $(F_1, \dots, F_n)$ of closed subsets of $X$, $\cup_{j=1}^n F_j$ is closed.
+(a)
+
+for any collection $(F_\alpha)_{\alpha \in A}$ of closed subsets of $X$, $\cap_{\alpha \in A}$ is closed, and
+
+(b)
+
+for any finite collection $(F_1, \dots, F_n)$ of closed subsets of $X$, $\cup_{j=1}^n F_j$ is closed.
 
 ### Limit Points
 
@@ -157,15 +182,15 @@ A finite set has no limit points.
 
 ### Closure of a Set
 
-<span style="color: #2D3748; background-color:#fff5b1;">**[Definition 2.2.17]**</span
->
+<span style="color: #2D3748; background-color:#fff5b1;">**[Definition 2.2.17]**</span>
+
 If E is a seubset of ametric space $X$, let $E'$ denote the set of limit points of $E$. The closure of $E$, denoted $\bar{E}$ is defined as $\bar{E}= E \cup E'$.
 
 <span style="color: #2D3748; background-color:#fff5b1;">**[Theorem 2.2.18]**</span>
 
 (a) $\bar{E}$ is closed \
 (b) $E = \bar{E}$ if and only if $E$ is closed \
-(c) $\bar{E} \subset F$ for every closed set $F \subset X$ such that $E \sub F$
+(c) $\bar{E} \subset F$ for every closed set $F \subset X$ such that $E \subset F$
 
 <span style="color: #2D3748; background-color:#fff5b1;">**[Definition 2.2.19]**</span>
 
