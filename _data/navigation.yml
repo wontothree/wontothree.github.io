@@ -62,8 +62,6 @@ sidebar-category:
     children:
       - title: "Paper Review"
         url: /paperreview
-      - title: "Cart Pole"
-        url: /cartpole_
       - title: "F1tenth"
         url: /f1tenth_ 
       - title: "Tmp"
