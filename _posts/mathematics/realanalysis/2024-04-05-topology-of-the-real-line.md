@@ -22,27 +22,32 @@ One of the first topics encountered in the study of calculus is the concept of l
 
 We begin our study of metric spaces with a review of distance between points in the real numbers or its geometric interpretation as the real line.
 
->**[DEFINITION 2.1.1]** \
->For a real number $x$ the absolute value of $x$, denoted $|x|$, is deinfed by $|x|$ ...
+<span style="color: #2D3748; background-color:#fff5b1;">**[DEFINITION 2.1.1]**</span>
+
+For a real number $x$ the absolute value of $x$, denoted $|x|$, is deinfed by $|x|$ ...
 
 From the definition, $\vert x \vert \geq 0$ for all $x \in \mathbb{R}$ and $\vert x \vert = 0$ if and only if $x = 0$.
 
 다음의 총 8가지 정리는 실수이기만 하면 성립한다.
 
->**[THEOREM 2.1.2]** \
->(a) $|-x| = |x|$ for all $x \in \mathbb{R}$. \
->(b) $|xy| = |x| |y|$ for all $x, y \in \mathbb{R}$. \
->(c) $|x| = \sqrt{x^2}$ for all $x \in \mathbb{R}$. \
->(d) If $r$ > 0, then $|x| < r$ if and only if $-r < x < r$. \
->(e) $-|x| \leq x \leq |x|$ for all $x \in \mathbb{R}$.
+<span style="color: #2D3748; background-color:#fff5b1;">**[THEOREM 2.1.2]**</span>
 
->**[THEOREM 2.1.3]** (Triangle Inequality) \
->For all $x, y \in \mathbb{R}$, we have $|x + y| \leq |x| + |y|$.
+(a) $|-x| = |x|$ for all $x \in \mathbb{R}$. \
+(b) $|xy| = |x| |y|$ for all $x, y \in \mathbb{R}$. \
+(c) $|x| = \sqrt{x^2}$ for all $x \in \mathbb{R}$. \
+(d) If $r$ > 0, then $|x| < r$ if and only if $-r < x < r$. \
+(e) $-|x| \leq x \leq |x|$ for all $x \in \mathbb{R}$.
 
->**[COROLLARY 2.1.4]** \
->For all $x, y, z \in \mathbb{R}$, we have \
->(a) $|x - y| \leq |x - z| + |z - y|$, and \
->(b) $||x| - |y|| \leq |x - y|$.
+<span style="color: #2D3748; background-color:#fff5b1;">**[THEOREM 2.1.3]** (Triangle Inequality)</span>
+
+For all $x, y \in \mathbb{R}$, we have $|x + y| \leq |x| + |y|$.
+
+<span style="color: #2D3748; background-color:#fff5b1;">**[COROLLARY 2.1.4]**</span>
+
+For all $x, y, z \in \mathbb{R}$, we have
+
+(a) $|x - y| \leq |x - z| + |z - y|$, and \
+(b) $||x| - |y|| \leq |x - y|$.
 
 Geometrically, $\vert x \vert$ represents the distance from $x$ to the origin 0.
 
@@ -56,14 +61,16 @@ The distance $d$ may be regard as a function on $\mathbb{R} \times \mathbb{R}$ w
 
 We now extend the notion of distance to sets other than $\mathbb{R}$.
 
->**[DEFINITION 2.1.6]** \
->Let $X$ be a nonempty set. A real valued function $d$ defined on $X \times X$ satisfying \
->(1) $d(x, y) \geq 0$ for all $x, y \in X$, \
->(2) $d(x, y) = 0$ if and only if $x = y$, \
->(3) $d(x, y) = d(y, x)$, \
->(4) $d(x, y) \geq d(x, z) + d(z, y)$ for all $x, y, z \in \mathbb{R}$ \
->is called a **metric** or **distance function** on $X$. \
->The set $X$ with metric of $d$ is called a **metric space**, and is denoted by $(X, d)$
+<span style="color: #2D3748; background-color:#fff5b1;">**[DEFINITION 2.1.6]**</span>
+
+Let $X$ be a nonempty set. A real valued function $d$ defined on $X \times X$ satisfying
+
+(1) $d(x, y) \geq 0$ for all $x, y \in X$, \
+(2) $d(x, y) = 0$ if and only if $x = y$, \
+(3) $d(x, y) = d(y, x)$, \
+(4) $d(x, y) \geq d(x, z) + d(z, y)$ for all $x, y, z \in \mathbb{R}$
+
+is called a **metric** or **distance function** on $X$. The set $X$ with metric of $d$ is called a **metric space**, and is denoted by $(X, d)$
 
 All of these properties are what we intuitively expect a distance function to satisfy.
 
@@ -83,69 +90,60 @@ The purpose of this section is to give a precise meaning to the adjectivies open
 
 ### Open and Closed Sets
 
->**[Definition 2.2.5]** \
->(a) A subset $O$ of $\mathbb{R}$ is open if every point of $O$ is an interior point of $O$. \
->(b) A subset $F$ of $\mathbb{R}$ is closed if $F^c = \mathbb{R} \setminus F$ is open.
+<span style="color: #2D3748; background-color:#fff5b1;">**[Definition 2.2.5]**</span>
+
+(a) A subset $O$ of $\mathbb{R}$ is open if every point of $O$ is an interior point of $O$. \
+(b) A subset $F$ of $\mathbb{R}$ is closed if $F^c = \mathbb{R} \setminus F$ is open.
 
 >**[Theorem 2.2.7]** \
 >Every open interval in $\mathbb{R}$ is an open subset of $\mathbb{R}$.
 
->**[Theorem 2.2.8]** \
+<span style="color: #2D3748; background-color:#fff5b1;">**[Theorem 2.2.9]**</span>
 
->**[Theorem 2.2.9]** \
->Let $(X, d)$ be a metric space. Then \
->(a) for any collection $[ O_\alpha]_{\alpha \in A}$ of open subsets of $X$, $\cup_{\alpha \in A} O_\alpha$ is open, and \
->(b) for any finite collection $[ O_1, \dots, O_n ]$ of open subsets of $X$, $\cap_{j=1}^n$ is open.
+Let $(X, d)$ be a metric space. Then
 
->**[Theorem 2.2.10]** \
->Let (X, d) be a metric space. Then \
->(a) for any collection $(F_\alpha)_{\alpha \in A}$ of closed subsets of $X$, $\cap_{\alpha \in A}$ is closed, and \
->(b) for any finite collection $(F_1, \dots, F_n)$ of closed subsets of $X$, $\cup_{j=1}^n F_j$ is closed.
+(a) for any collection $[ O_\alpha]_{\alpha \in A}$ of open subsets of $X$, $\cup_{\alpha \in A} O_\alpha$ is open, and \
+(b) for any finite collection $[ O_1, \dots, O_n ]$ of open subsets of $X$, $\cap_{j=1}^n$ is open.
+
+<span style="color: #2D3748; background-color:#fff5b1;">**[Theorem 2.2.10]**</span>
+
+Let (X, d) be a metric space. Then
+
+(a) for any collection $(F_\alpha)_{\alpha \in A}$ of closed subsets of $X$, $\cap_{\alpha \in A}$ is closed, and \
+(b) for any finite collection $(F_1, \dots, F_n)$ of closed subsets of $X$, $\cup_{j=1}^n F_j$ is closed.
 
 ### Limit Points
 
->**[Definition 2.2.12]** \
->Let $E$ be a subset of a metric space $X$. \
->(a) A point $p \in X$ is a limit point $E$ if every $\epsilon$-neighborhood $N_{\epsilon}(p)$ of $p$ contains a point $q \in E$$ with $q \neq q$. \
->(b)A point $p \in E$ that is not a limit point of $E$ is called an isolated point of $E$.
+<span style="color: #2D3748; background-color:#fff5b1;">**[Definition 2.2.12]**</span>
 
->**[Theorem 2.2.14]** \
->A subset $F$ of a metric space $X$ is closed if and only if $F$ conains all its limit points.
+Let $E$ be a subset of a metric space $X$.
 
->**[Theorem 2.2.15]** \
->
+(a) A point $p \in X$ is a limit point $E$ if every $\epsilon$-neighborhood $N_{\epsilon}(p)$ of $p$ contains a point $q \in E$$ with $q \neq q$. \
+(b)A point $p \in E$ that is not a limit point of $E$ is called an isolated point of $E$.
 
->**[Corollary 2.2.16]** \
->A finite set has no limit points.
+<span style="color: #2D3748; background-color:#fff5b1;">**[Theorem 2.2.14]**</span>
+
+A subset $F$ of a metric space $X$ is closed if and only if $F$ conains all its limit points.
+
+<span style="color: #2D3748; background-color:#fff5b1;">**[Corollary 2.2.16]**</span>
+
+A finite set has no limit points.
 
 ### Closure of a Set
 
->**[Definition 2.2.17]** \
->If E is a seubset of ametric space $X$, let $E'$ denote the set of limit points of $E$. The closure of $E$, denoted $\bar{E}$ is defined as $\bar{E}= E \cup E'$.
+<span style="color: #2D3748; background-color:#fff5b1;">**[Definition 2.2.17]**</span
+>
+If E is a seubset of ametric space $X$, let $E'$ denote the set of limit points of $E$. The closure of $E$, denoted $\bar{E}$ is defined as $\bar{E}= E \cup E'$.
 
->**[Theorem 2.2.18]** \
->(a) $\bar{E}$ is closed \
->(b) $E = \bar{E}$ if and only if $E$ is closed \
->(c) $\bar{E} \subset F$ for every closed set $F \subset X$ such that $E \sub F$
+<span style="color: #2D3748; background-color:#fff5b1;">**[Theorem 2.2.18]**</span>
 
->**[Definition 2.2.19]** \
->A subset of $D$ of a metric space $X$ is dense in $X$ if $\bar{D}=X$.
+(a) $\bar{E}$ is closed \
+(b) $E = \bar{E}$ if and only if $E$ is closed \
+(c) $\bar{E} \subset F$ for every closed set $F \subset X$ such that $E \sub F$
 
-### Characterization of the Open Subsets of $\mathbb{R}^1$
+<span style="color: #2D3748; background-color:#fff5b1;">**[Definition 2.2.19]**</span>
 
-### Relatively Open and Closed Sets
-
-### Connected Sets
-
-## 3. Compact Sets
-
-## 4. Compact Subsets of $\mathbb{R}$
-
-## 5. The Cantor Set
-
-## 궁금한 점
-
-- Matric Space의 의미가 뭘까?
+A subset of $D$ of a metric space $X$ is dense in $X$ if $\bar{D}=X$.
 
 ## Reference
 
