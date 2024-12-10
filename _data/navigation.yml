@@ -46,18 +46,16 @@ sidebar-category:
         url: /aisemiconductor
   - title: "Mathematics"
     children:
-      - title: "Linear Algebra"
-        url: /linearalgebra
       - title: "Real Analysis"
         url: /realanalysis
       - title: "Discrete Mathematics"
-        url: /discretemathematics
-      - title: "Engineering Mathematics"
-        url: /engineeringmathematics                 
-      - title: "Optimization"
-        url: /optimization
+        url: /discretemathematics               
       - title: "Differential Equation"
         url: /differentialequation
+      - title: "Optimization"
+        url: /optimization
+      - title: "Engineering Mathematics"
+        url: /engineeringmathematics  
   - title: "Paper Review"
     children:
       - title: "Paper Review"
