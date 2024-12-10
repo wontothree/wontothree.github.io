@@ -38,4 +38,6 @@ $$
 
 for $x, y \in \mathbb{R}$.
 
-However, $g(x) = x^2$ is Lipschiz continuous on $[0, 1]$
+However, $g(x) = x^2$ is Lipschiz continuous on $[0, 1]$.
+
+<span style="color: #2D3748; background-color:#fff5b1;">Differentiable and Lipschiz Coninuous</span>
