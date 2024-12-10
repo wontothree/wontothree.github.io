@@ -1,5 +1,6 @@
 ---
-title: "[Differential Equation] Existence and Uniqueness of Partial Differential Equation
+title: "[Differential Equation] xistence and Uniqueness of Partial Differential Equation"
+categories:
   - differentialequation
 ---
 # Lipschiz Continuity
