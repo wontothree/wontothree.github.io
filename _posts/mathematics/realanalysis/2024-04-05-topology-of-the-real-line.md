@@ -198,8 +198,11 @@ Let $E$ be a subset of a metric space $X$.
 
 (a)
 
-A point $p \in X$ is a limit point $E$ if every $\epsilon$-neighborhood $N_{\epsilon}(p)$ of $p$ contains a point $q \in E$$ with $q \neq q$. \
-(b)A point $p \in E$ that is not a limit point of $E$ is called an isolated point of $E$.
+A point $p \in X$ is a limit point $E$ if every $\epsilon$-neighborhood $N_{\epsilon}(p)$ of $p$ contains a point $q \in E$$ with $q \neq q$
+
+(b)
+
+A point $p \in E$ that is not a limit point of $E$ is called an isolated point of $E$.
 
 <span style="color: #2D3748; background-color:#fff5b1;">**[Theorem 2.2.14]**</span>
 
