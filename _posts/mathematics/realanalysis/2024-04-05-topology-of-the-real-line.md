@@ -18,13 +18,11 @@ One of the first topics encountered in the study of calculus is the concept of l
 - However, in may instances our points are functions defined on some set.
 - For this reason, we introduce the concept of distance on an arbitrary set and study metric spaces in general
 
-## 1. Metric Spaces
+# 1. Metric Spaces
 
 We begin our study of metric spaces with a review of distance between points in the real numbers or its geometric interpretation as the real line.
 
 <span style="color: #2D3748; background-color:#fff5b1;">**[DEFINITION 2.1.1]**</span>
-
-For a real number $x$ the absolute value of $x$, denoted $|x|$, is deinfed ...
 
 From the definition,
 
@@ -46,15 +44,17 @@ $$x = 0$$
 
 <span style="color: #2D3748; background-color:#fff5b1;">**[THEOREM 2.1.2]**</span>
 
-(a)
+a
 
 $$|-x| = |x|$$
 
 for all $x \in \mathbb{R}$
 
-(b)
+b
 
 $|xy| = |x| |y|$ for all $x, y \in \mathbb{R}$
+
+c
 
 $$
 |x| = \sqrt{x^2}
@@ -62,19 +62,35 @@ $$
 
 for all $x \in \mathbb{R}$
 
+d
+
 If $r$ > 0, then
 
-$|x| < r$ if and only if $-r < x < r$
+$$
+|x| < r
+$$
 
-(e)
+if and only if
 
-$-|x| \leq x \leq |x|$ for all $x \in \mathbb{R}$
+$$
+-r < x < r
+$$
+
+e
+
+$$
+-|x| \leq x \leq |x|
+$$
+
+for all $x \in \mathbb{R}$
 
 <span style="color: #2D3748; background-color:#fff5b1;">**[THEOREM 2.1.3]** (Triangle Inequality)</span>
 
 For all $x, y \in \mathbb{R}$, we have
 
-$$|x + y| \leq |x| + |y|$$
+$$
+|x + y| \leq |x| + |y|
+$$
 
 <span style="color: #2D3748; background-color:#fff5b1;">**[COROLLARY 2.1.4]**</span>
 
@@ -120,7 +136,7 @@ All of these properties are what we intuitively expect a distance function to sa
 
 수열의 극한의 정의에서 거리 함수가 사용된다.
 
-## 2. Open and Closed Sets
+# 2. Open and Closed Sets
 
 The purpose of this section is to give a precise meaning to the adjectivies open and closed for arbitrary subsets of $\mathbb{R}$ or a metric space $(X, d)$.
 
@@ -133,7 +149,7 @@ Let (X, d) be a metric space and let $p \in \mathbb{X}$. For $\epsilon >0$, the 
 Let $E$ be a subset of $X$. A point $p \in E$ is called an interior point of $E$ if there exists an $\epsilon > 0$ such that $N_\epsilon(p) \subset E$. \
 The set of interior points of $E$ is denoted by Int(E), and is called the in terior of $E$.
 
-### Open and Closed Sets
+## Open and Closed Sets
 
 <span style="color: #2D3748; background-color:#fff5b1;">**[Definition 2.2.5]**</span>
 
@@ -148,8 +164,13 @@ Every open interval in $\mathbb{R}$ is an open subset of $\mathbb{R}$.
 
 Let $(X, d)$ be a metric space. Then
 
-(a) for any collection $[ O_\alpha]_{\alpha \in A}$ of open subsets of $X$, $\cup_{\alpha \in A} O_\alpha$ is open, and \
-(b) for any finite collection $[ O_1, \dots, O_n ]$ of open subsets of $X$, $\cap_{j=1}^n$ is open.
+a
+
+for any collection $[ O_\alpha]_{\alpha \in A}$ of open subsets of $X$, $\cup_{\alpha \in A} O_\alpha$ is open, and \
+
+b
+
+for any finite collection $[ O_1, \dots, O_n ]$ of open subsets of $X$, $\cap_{j=1}^n$ is open.
 
 <span style="color: #2D3748; background-color:#fff5b1;">**[Theorem 2.2.10]**</span>
 
@@ -157,7 +178,13 @@ Let (X, d) be a metric space. Then
 
 (a)
 
-for any collection $(F_\alpha)_{\alpha \in A}$ of closed subsets of $X$, $\cap_{\alpha \in A}$ is closed, and
+for any collection
+
+$$(F_\alpha)_{\alpha \in A}$$
+
+of closed subsets of $X$,
+
+$\cap_{\alpha \in A}$ is closed, and
 
 (b)
 
@@ -169,7 +196,9 @@ for any finite collection $(F_1, \dots, F_n)$ of closed subsets of $X$, $\cup_{j
 
 Let $E$ be a subset of a metric space $X$.
 
-(a) A point $p \in X$ is a limit point $E$ if every $\epsilon$-neighborhood $N_{\epsilon}(p)$ of $p$ contains a point $q \in E$$ with $q \neq q$. \
+(a)
+
+A point $p \in X$ is a limit point $E$ if every $\epsilon$-neighborhood $N_{\epsilon}(p)$ of $p$ contains a point $q \in E$$ with $q \neq q$. \
 (b)A point $p \in E$ that is not a limit point of $E$ is called an isolated point of $E$.
 
 <span style="color: #2D3748; background-color:#fff5b1;">**[Theorem 2.2.14]**</span>
@@ -196,6 +225,6 @@ If E is a seubset of ametric space $X$, let $E'$ denote the set of limit points 
 
 A subset of $D$ of a metric space $X$ is dense in $X$ if $\bar{D}=X$.
 
-## Reference
+# Reference
 
 Manfred - Introduction to Real Analysis : Ch02
