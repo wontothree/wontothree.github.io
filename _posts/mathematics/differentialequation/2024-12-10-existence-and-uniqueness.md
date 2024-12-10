@@ -1,5 +1,5 @@
 ---
-title: "[Differential Equation] xistence and Uniqueness of Partial Differential Equation"
+title: "[Differential Equation] Existence and Uniqueness of Partial Differential Equation"
 categories:
   - differentialequation
 ---
@@ -56,7 +56,7 @@ $$
 \end{align*}
 $$
 
-# Uniquenss
+# Uniqueness
 
 If $\vert f(x, t) \vert < M$ and $\vert f(x, t) - f(y, t) < L \vert\vert x - y \vert\vert$ for all $x, y, t$, then
 

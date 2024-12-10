@@ -26,35 +26,56 @@ We begin our study of metric spaces with a review of distance between points in 
 
 For a real number $x$ the absolute value of $x$, denoted $|x|$, is deinfed by $|x|$ ...
 
-From the definition, $\vert x \vert \geq 0$ for all $x \in \mathbb{R}$ and $\vert x \vert = 0$ if and only if $x = 0$.
+From the definition,
+
+$$
+\vert x \vert \geq 0
+$$
+
+for all $x \in \mathbb{R}$
+
+and
+
+$$\vert x \vert = 0$$
+
+if and only if
+
+$$x = 0$$
 
 다음의 총 8가지 정리는 실수이기만 하면 성립한다.
 
 <span style="color: #2D3748; background-color:#fff5b1;">**[THEOREM 2.1.2]**</span>
 
-(a) $|-x| = |x|$ for all $x \in \mathbb{R}$. \
-(b) $|xy| = |x| |y|$ for all $x, y \in \mathbb{R}$. \
-(c) $|x| = \sqrt{x^2}$ for all $x \in \mathbb{R}$. \
-(d) If $r$ > 0, then $|x| < r$ if and only if $-r < x < r$. \
-(e) $-|x| \leq x \leq |x|$ for all $x \in \mathbb{R}$.
+(a) $|-x| = |x|$ for all $x \in \mathbb{R}$
+
+(b) $|xy| = |x| |y|$ for all $x, y \in \mathbb{R}$
+
+(c) $|x| = \sqrt{x^2}$ for all $x \in \mathbb{R}$
+
+(d) If $r$ > 0, then $|x| < r$ if and only if $-r < x < r$
+
+(e) $-|x| \leq x \leq |x|$ for all $x \in \mathbb{R}$
 
 <span style="color: #2D3748; background-color:#fff5b1;">**[THEOREM 2.1.3]** (Triangle Inequality)</span>
 
-For all $x, y \in \mathbb{R}$, we have $|x + y| \leq |x| + |y|$.
+For all $x, y \in \mathbb{R}$, we have
+
+$$|x + y| \leq |x| + |y|$$
 
 <span style="color: #2D3748; background-color:#fff5b1;">**[COROLLARY 2.1.4]**</span>
 
 For all $x, y, z \in \mathbb{R}$, we have
 
-(a) $|x - y| \leq |x - z| + |z - y|$, and \
-(b) $||x| - |y|| \leq |x - y|$.
+(a) $|x - y| \leq |x - z| + |z - y|$
+
+(b) $||x| - |y|| \leq |x - y|$
 
 Geometrically, $\vert x \vert$ represents the distance from $x$ to the origin 0.
 
 More generally for $x, y \in \mathbb{R}$, the **euclidean distance** $d(x, y)$ is defined by
 
 $$
-d(x, y) = |x - y|.
+d(x, y) = |x - y|
 $$
 
 The distance $d$ may be regard as a function on $\mathbb{R} \times \mathbb{R}$ wich satisfy the following properties : $d(x, y) \geq 0$, $d(x, y) = 0$ if and only if $x = y$, $d(x, y) = d(y, x)$, and $d(x, y) \leq d(x, z) + d(z, y)$ for all $x, y, z \in \mathbb{R}$.
@@ -65,9 +86,12 @@ We now extend the notion of distance to sets other than $\mathbb{R}$.
 
 Let $X$ be a nonempty set. A real valued function $d$ defined on $X \times X$ satisfying
 
-(1) $d(x, y) \geq 0$ for all $x, y \in X$, \
-(2) $d(x, y) = 0$ if and only if $x = y$, \
-(3) $d(x, y) = d(y, x)$, \
+(1) $d(x, y) \geq 0$ for all $x, y \in X$
+
+(2) $d(x, y) = 0$ if and only if $x = y$
+
+(3) $d(x, y) = d(y, x)$
+
 (4) $d(x, y) \geq d(x, z) + d(z, y)$ for all $x, y, z \in \mathbb{R}$
 
 is called a **metric** or **distance function** on $X$. The set $X$ with metric of $d$ is called a **metric space**, and is denoted by $(X, d)$
