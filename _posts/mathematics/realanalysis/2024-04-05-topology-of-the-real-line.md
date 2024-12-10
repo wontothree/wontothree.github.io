@@ -80,13 +80,14 @@ All of these properties are what we intuitively expect a distance function to sa
 
 The purpose of this section is to give a precise meaning to the adjectivies open and closed for arbitrary subsets of $\mathbb{R}$ or a metric space $(X, d)$.
 
->**[Definition 2.2.1]** \
->Let (X, d) be a metric space and let $p \in \mathbb{X}$. \
->For $\epsilon >0$, the set $N_\epsilon(p) = [ x \in \mathbb{X} : d(p, x) < \epsilon ]$ is called an $\epsilon$-neighborhood of the point $p$.
+<span style="color: #2D3748; background-color:#fff5b1;">**[Definition 2.2.1]**</span>
 
->**[Definition 2.2.3]** \
->Let $E$ be a subset of $X$. A point $p \in E$ is called an interior point of $E$ if there exists an $\epsilon > 0$ such that $N_\epsilon(p) \subset E$. \
->The set of interior points of $E$ is denoted by Int(E), and is called the in terior of $E$.
+Let (X, d) be a metric space and let $p \in \mathbb{X}$. For $\epsilon >0$, the set $N_\epsilon(p) = [ x \in \mathbb{X} : d(p, x) < \epsilon ]$ is called an $\epsilon$-neighborhood of the point $p$.
+
+<span style="color: #2D3748; background-color:#fff5b1;">**[Definition 2.2.3]**</span>
+
+Let $E$ be a subset of $X$. A point $p \in E$ is called an interior point of $E$ if there exists an $\epsilon > 0$ such that $N_\epsilon(p) \subset E$. \
+The set of interior points of $E$ is denoted by Int(E), and is called the in terior of $E$.
 
 ### Open and Closed Sets
 
@@ -95,8 +96,9 @@ The purpose of this section is to give a precise meaning to the adjectivies open
 (a) A subset $O$ of $\mathbb{R}$ is open if every point of $O$ is an interior point of $O$. \
 (b) A subset $F$ of $\mathbb{R}$ is closed if $F^c = \mathbb{R} \setminus F$ is open.
 
->**[Theorem 2.2.7]** \
->Every open interval in $\mathbb{R}$ is an open subset of $\mathbb{R}$.
+<span style="color: #2D3748; background-color:#fff5b1;">**[Theorem 2.2.7]**</span>
+
+Every open interval in $\mathbb{R}$ is an open subset of $\mathbb{R}$.
 
 <span style="color: #2D3748; background-color:#fff5b1;">**[Theorem 2.2.9]**</span>
 
