@@ -3,7 +3,7 @@ title: "[F1tenth] Introduction"
 categories:
   - f1tenth_
 ---
-Research on autonomous vehicle has mainly focused on 3 main layers: perception, planning, and control. Each one of these layers presents very different specificities, and are often addressed separately, with in general strong assumptions on the behavior of the other components of the vehicle. 
+Research on autonomous vehicle has mainly focused on 3 main layers: perception, planning, and control. Each one of these layers presents very different specificities, and are often addressed separately, with in general strong assumptions on the behavior of the other components of the vehicle.
 
 # 1. Simultaneous Localization and Mapping
 
