@@ -1,9 +1,9 @@
 ---
-title: "[Differential Equation] Heat Conduction Equation"
+title: "[Differential Equation] One-Dimentional Heat Conduction Problem"
 categories:
   - differentialequation
 ---
-Heat Conduction Equation Problem을 단순화하여 살펴보자.
+Heat Conduction Problem을 단순화하여 살펴보자.
 
 n개의 방이 있다고 가정한다. 각 방의 온도를 다음과 같이 정의한다.
 
@@ -334,22 +334,35 @@ $$
 
 # Solution
 
+One-dimentional heat conduction problem formulation
+
+For $x \in (0, L), t > 0$,
+
+$$
+\begin{align*}
+  u_t &= u_{xx}  \\
+  f(x) &= u(x, 0) \\
+  u(0, t) &= u(L, t) = 0 \\
+\end{align*}
+$$
+
+해의 형태를 다음과 같이 가정하자.
+
+$$
+u(x, t) = \sum_{n=1}^{\infty}c_n u_n(x, t)
+$$
+
 변수분리법을 만족하는 해만 고려할 것이다.
 
 $$
 \begin{align*}
-  u_n(x, t) &= X_n(x)T_n(t)
+  u_n(x, t) &= X_n(x)T_n(t) \\
   &= \exp{\left(-\dfrac{n^2\pi^2 t}{L} \right)} \sin{\left(\dfrac{n\pi x}{L}\right)}
 \end{align*}
 $$
 
 $$
-\begin{align*}
-  u_t = u_{xx}, \;\;\; x \in (0, L), t > 0 \\
-  f(x) := u(x, 0) \\
-  u(0, t) = u(L, t) = 0
-  u(x, t) = \sum_{n=1}^{\infty}c_n u_n(x, t)
-\end{align*}
+c_n = \dfrac{2}{L} = \int_0^L f(x) \sin \left( \dfrac{n\pi x}{L} \right) dx
 $$
 
 # Reference
