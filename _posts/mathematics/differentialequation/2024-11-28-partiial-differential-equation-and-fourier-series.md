@@ -22,7 +22,24 @@ $$
 - homogeneous: g의 값이 모든 x에 대해 영이고 경곗값 $y_0, y_1$도 영이면
 - inhomogeneous: homogeneous가 아니면
 
+계수들에 대한 조건이 약해도 초깃값 문제는 확실히 유일한 해를 갖는다. 그러나 이와 비슷한 조건에서 경곗값 문제는 유일한 해를 가질 수도 있지만 해가 없는 경우도 있고 무수히 많은 해를 갖는 경우도 있다.
+
 ## Eigenvalue Problem
+
+Non-trivial solution
+
+$$
+y'' + \lambda y = 0
+$$
+
+$$
+y(0) = 0, \;\;\; y(L) = 0 \\
+$$
+
+- Eigenvalue: 위 경곗값 문제에서 자명하지 않은 해를 갖지 않는 $\lambda$ 값
+- Eigenfunction: 이때의 자명하지 않은 해
+
+위 경곗값 문제의 또 다른 고윳값과 고유함수를 찾아보자. 각각의 경우에 대해 해의 모양이 달라지기 때문에 $\lambda > 0, \lambda = 0, \lambda < 0$의 경우들로 나눠서 생각하자.
 
 # 2.Fourier Series
 
@@ -74,48 +91,4 @@ $$
 
 # 기타
 
-다음의 미분방정식을 고려하자.
-
-$$
-y'' + y = 0
-$$
-
-# Ex 1
-
-$$
-y(0) = 1, \;\;\; y(\pi) = 0
-$$
-
-# Ex 2
-
-$$
-y(0) = y(\pi) = 0
-$$
-
-# Ex 3
-
-$$
-y(0) = 1, \;\;\; y(\pi) = a
-$$
-
 # Eigenvalue Problem
-
-Non-trivial solution
-
-$$
-y'' + \lambda y = 0
-$$
-
-$$
-y(0) = 0, \;\;\; y(L) = 0 \\
-$$
-
-# Ex 4
-
-$$
-y'' + \mu^2 y = 0
-$$
-
-$$
-y(0) = y(\pi) = 0
-$$
