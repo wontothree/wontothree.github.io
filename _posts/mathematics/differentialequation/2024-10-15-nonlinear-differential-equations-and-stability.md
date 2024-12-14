@@ -539,7 +539,39 @@ $$
 
 <span style="color: #2D3748; background-color:#fff5b1;">함수의 positive definite</span>
 
-$V$를 원점을 포함하는 어떤 영역 $D$에서 정의하자. 이때 $V(0, 0) = 0$이고 $D$ 안의 원점이 아닌 모든 점에 대해 $V(x, y) > 0$이라면 $V$는 $D$에서 positive definite이라고 한다.
+$V$를 원점을 포함하는 어떤 영역 $D$에서 정의하자. 이때
+
+1. $V(0, 0) = 0$이고
+2. $D$ 안의 원점이 아닌 모든 점에 대해 $V(x, y) > 0$이라면
+
+$V$는 $D$에서 positive definite이라고 한다.
+
+<span style="color: #2D3748; background-color:#fff5b1;">negative definite</span>
+
+$V$를 원점을 포함하는 어떤 영역 $D$에서 정의하자. 이때
+
+1. $V(0, 0) = 0$이고
+2. $D$ 안의 원점이 아닌 모든 점에 대해 $V(x, y) < 0$이라면
+
+$V$는 $D$에서 negative definite이라고 한다.
+
+<span style="color: #2D3748; background-color:#fff5b1;">positive semidefinite</span>
+
+$V$를 원점을 포함하는 어떤 영역 $D$에서 정의하자. 이때
+
+1. $V(0, 0) = 0$이고
+2. $D$ 안의 원점이 아닌 모든 점에 대해 $V(x, y) \geq 0$이라면
+
+$V$는 $D$에서 positive semidefinite이라고 한다.
+
+<span style="color: #2D3748; background-color:#fff5b1;">negative semidefinite</span>
+
+$V$를 원점을 포함하는 어떤 영역 $D$에서 정의하자. 이때
+
+1. $V(0, 0) = 0$이고
+2. $D$ 안의 원점이 아닌 모든 점에 대해 $V(x, y) \leq 0$이라면
+
+$V$는 $D$에서 negative semidefinite이라고 한다.
 
 <span style="color: #2D3748; background-color:#fff5b1;">[참고] 행렬의 positive definite</span>
 
@@ -615,6 +647,10 @@ $$
 <span style="color: #2D3748; background-color:#fff5b1;">정리 9.7.2</span>
 
 함수 F와 G가 xy 평면 상에서 단순연결된 (simply connected) 영역 D에서 연속인 1계 편도함수를 갖는다고 하자. 만약 D의 전 구간에서 $F_x + G_y$의 부호가 모두 같다면 D 안에 완전히 속해있는 연립방정식의 닫힌 궤적은 존재하지 않는다.
+
+<span style="color: #2D3748; background-color:#fff5b1;">정리 9.7.3 (Pointcare-Bendixson 정리)</span>
+
+함수 $F$와 $G$가 xy-평면상의 영역 $D$에서 연속인 1계 편도함수를 갖는다고 하고 $D_1$을 $D$에 속하는 유한한 영역, $R$을 $D_1$과 $D_1$의 경계를 합친 영역이라 두자. ($R$의 점들은 모두 $D$ 안에 속한다.) 이때 $R$이 연립방정식의 임계점을 포함하지 않는다고 가정하자. 만약 어떤 상수 $t_0$에 대해 모든 $t \geq t_0$에 대해 $R$ 안에 존재하고 계속 그 안에 머물러 있는 연립방정식의 해가 존재한다면, 그 해는 둘 다 주기해(닫힌 궤적)이거나 또는 $t \rightarrow \infty$일 때 나선형을 그리며 어떤 닫힌 궤적을 향해가는 해이다. 어떤 경우든 연립방정식은 $R$ 안에서 주기해를 갖는다.
 
 # Reference
 

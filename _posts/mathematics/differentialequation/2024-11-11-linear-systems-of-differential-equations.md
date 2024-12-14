@@ -89,7 +89,7 @@ $$
 에서
 
 $$
-AV = VD \;\;\; \Leftrightarrow \;\;\; V^{-1}AV = D
+AV = VD \;\;\; \Leftrightarrow \;\;\; A = VDV^{-1}
 $$
 
 where
