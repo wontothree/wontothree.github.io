@@ -537,6 +537,8 @@ $$
 
 미분방정식들로 이루어진 연립방정식의 해에 대한 정보가 필요 없다. 적당한 보조 함수를 찾아서 임계점의 안정성이나 불안정성을 판별한다.
 
+## Positive Definite
+
 <span style="color: #2D3748; background-color:#fff5b1;">함수의 positive definite</span>
 
 $V$를 원점을 포함하는 어떤 영역 $D$에서 정의하자. 이때
@@ -581,7 +583,9 @@ $$
 x^\top A x > 0
 $$
 
-<span style="color: #2D3748; background-color:#fff5b1;">Lyapunov 안정성 정리</span>
+## Lyapunov and Stability
+
+<span style="color: #2D3748; background-color:#fff5b1;">정리 9.6.1 (Lyapunov 안정성 정리)</span>
 
 자율 연립방정식
 
@@ -597,11 +601,70 @@ $$
 
 에 의해 주어진 함수 $\dot{V}$가 (0, 0)을 포함하는 xy 평면상의 영역 $D$에서 negative definite이라면, 원점은 점근 안정 임계점이다. 만약 $\dot{V}$가 negative semidefinite이면 원점은 안정 임계점이다.
 
-<span style="color: #2D3748; background-color:#fff5b1;">Lyapunov 불안정성 정리</span>
+<span style="color: #2D3748; background-color:#fff5b1;">정리 9.6.2 (Lyapunov 불안정성 정리)</span>
 
 원점을 자율 연립방정식의 고립된 임계점이라 두자. $V$를 연속인 1계 편도함수를 갖는 연속함수로 두자. 또한 $V(0, 0) = 0$이고 원점의 모든 근방에서 $V$가 양수(음수)인 점이 적어도 하나 있다고 가정하자. 만약 원점을 포함하는 영역 $D$가 존재하여 함수 $\dot{V}$이 이 영역에서 positive definite (negative definite)이면 원점은 불안정 임계점이다.
 
 이 함수를 Lypunov 함수리고 부른다.
+
+<span style="color: #2D3748; background-color:#fff5b1;">정리 9.6.3</span>
+
+원점을 자율 연립방정식의 고립된 임계점이라 두고 함수 V를 연속인 1계 편도함수를 갖는 연속함수라고 가정하자. 적당한 양수 $K$dp eogo $V(x, y) < K$이고 V는 positive definite, $\dot{V}$는 negative definite인 원점을 포함하는 유한한 영역 $D_k$가 존재하면 $D_k$의 함 점에서 시작하는 식의 해는 모두 t가 무한대로 감에 따라 원점으로 다가간다.
+
+<span style="color: #2D3748; background-color:#fff5b1;">정리 9.6.4</span>
+
+함수
+
+$$
+V(x, y) = ax^2 + bxy + cy^2
+$$
+
+이 positive definite일 필요충분조건은
+
+$$
+a > 0, \;\;\; 4ac - b^2 > 0
+$$
+
+이고 negative definite일 필요충분조건은
+
+$$
+a < 0, \;\; 4ac - b^2 > 0
+$$
+
+이다.
+
+## Lyapunov Functions
+
+한 가지 유의해야 할 사실은 Lyapunov function을 찾는 방법이 언급되어 있지 않아 이 정리들을 사용하기 어렵다는 것이다. 자율 연립방정식이 물리적인 문제를 나타내는 경우에는 자연스럽게 이 연립방정식의 실제 총 에너지 함수를 Lyapunov function으로 생각할 수 있지만 위 두 정리는 물리적인 에너지의 개념이 유효하지 않은 경우에도 적용 가능하다. 이 경우에는 시행착오를 거치는 과정이 필요하다. 따라서 여기서는 다양한 사례를 보이도록 하겠다.
+
+### Ex 1. 감쇠하지 않는 진자의 운동방정식에서 원점
+
+$$
+\begin{align*}
+  \dfrac{dx}{dt} &= y \\
+  \dfrac{dy}{dt} &= -\dfrac{g}{L}\sin x
+\end{align*}
+$$
+
+Lyapunov function을 다음과 같이 설정하면 원점은 안정 임계점이라는 사실을 알 수 있다.
+
+$$
+V(x, y) = mgL(1 - \cos x) + \dfrac{1}{2}mL^2y^2
+$$
+
+### Ex 2. 감쇠하지 않는 진자의 운동방정식에서 $(0, \pi)$
+
+다음과 같이 치환하여 원점에 대한 stability를 평가하자.
+
+$$
+x = \pi + u, \;\;\; y = v
+$$
+
+Lyapunov function을 다음과 같이 설정하면 $(0, \pi)$가 unstable하다는 것을 증명할 수 있다.
+
+$$
+V(u, v) = v \sin u
+$$
 
 # 7. 주기해와 극한 순환 궤적
 
