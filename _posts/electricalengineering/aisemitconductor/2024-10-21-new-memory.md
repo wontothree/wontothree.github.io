@@ -96,3 +96,16 @@ STT-MRAM
 # 4. PRAM
 
 # 5. FRAM
+
+## 1T-1C FRAM
+
+## 1T FRAM (FE-FET)
+
+장점
+
+- nondestructive readout
+- low voltage
+
+단점
+
+- poor retention
