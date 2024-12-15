@@ -51,3 +51,48 @@ Reset process: reset 과정에서는 산소 이온이 벌크로 다시 이동하
 
 ## CBRAM
 
+# 3. Magnetoresistive Random-Access Memory (MRAM)
+
+## Introduction to MRAM
+
+- MRAM: 자기적 성질을 이요하여 정보를 저장하는 비휘발성 메모리
+- Magnetic Tunnel Juction (MTJ): 2개의 ferromagentic film과 그 사이 얇은 tunnel barrier (1nm)로 구성된다. 두 ferromagentic film의 자기 편극 방향에 따라서 저항이 바뀐다. 이때 tunnel barrier는 절연체이다.
+- Ferromagnetism (강자성): 자성체 내의 스핀간의 상호작용에 의해 스스로 특정 방향으로 모든 스핀이 정렬하는 현상
+
+Reference layer vs. free layer
+
+- Reference layer: fixed, huge energy barrier
+- Free layer: vaiable, low energy barrier
+
+## Alignment and Resister
+
+- paralell between reference layer and free layer -> less scattering -> low resister (LRS)
+- anti-paralell between reference layer and free layer -> scattering -> high resister (HRS)
+
+Why?
+
+- Magnetoresistance effect (MR): 자기장의 방향에 따라 저항이 달라지는 현상 (W. Thomson, 1856)
+- Giant magnetoresistance (GMR): 일반적인 MR effect는 약 2%이지만, ferromagnetic layer와 얇은 non-magnetic film의 샌드위치 구조에서 큰 MR effect가 발생한다. (albert Fert and Peter Grunberg, novel prize)
+- Spin dependent scattering: 전자의 spin 방향이 자기편극 방향과 같을 때는 scattering이 잘 안 일어나지만, 다를 때는 scattering이 잘 일어난다.
+
+## MRAM Device
+
+MRAM technology는 write mechanism에 따라 분류된다.
+
+1. [1세대] conventional field-written MRAM: 자기장을 이용하여 free layer의 magnetic polarization의 방향을 바꾼다.
+2. [2세대] STT-MRAM: Spin-Transfer Torque (STT)을 이용하여 free layer의 magnetic polarization을 바꾼다. (in-plane, perpendicular-to-the-plane)
+
+conventional field-written MRAM
+
+단점
+
+1. large power consumption
+2. magentic field interference between the neighboring cells
+
+STT-MRAM
+
+- <span style="color: #2D3748; background-color:#fff5b1;">Spin-Transfer Torque</span>: 전자가 첫 번째 ferromagnetic layer (polarizer, reference layer, or pinnned layer)를 지나면 spin polarization이 되어 polarizer의 스핀 방향과 평행하게 된다. 이후 free layer를 지나면서 전자의 스핀은 다시 FL의 스핀 방향으로 재편극된다. 하지만 이때 작용반작용 법칙에 의해 free layer 전자들도 반대 방향으로 토크를 받는다.
+
+# 4. PRAM
+
+# 5. FRAM
