@@ -666,11 +666,32 @@ $$
 V(u, v) = v \sin u
 $$
 
-### Ex 3.
+Lyapunov function
 
 $$
-\dfrac{dx}{d\theta} = x(1 - x - y) \\
-\dfrac{dy}{d}
+V(x, y) = x^2 + y^2
+$$
+
+### Ex 3. 원점에서 점근적으로 안정적
+
+$$
+\dfrac{dx}{dt} = -x -xy^2 \\
+\dfrac{dy}{dt} = -y - x^2y \\
+$$
+
+### Ex 4. 감쇠하는 진자
+
+$$
+\begin{align*}
+  \dfrac{dx}{dt} &= y \\
+\dfrac{dy}{dt} &= -y - \sin x \\
+\end{align*}
+$$
+
+만약 Lyapunov function을 다음과 같이 설정한다면 원점이 안정 임계점임을 보일 수 있고,
+
+$$
+V(x, y) = \dfrac{1}{2}y^2 + (1 - \cos x)
 $$
 
 # 7. 주기해와 극한 순환 궤적
