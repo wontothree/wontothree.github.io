@@ -95,11 +95,43 @@ STT-MRAM
 
 # 4. PRAM
 
+- Phase Charge Memory(PCM, PRAM, or PCRAM): 특정 물질이 crystalline state과 amorphous state룰 갖는 것을 활용한 비휘발성 메모리
+  - crystalline state: 낮은 저항 (set state)
+  - amorphous state (reset state)
+
+## Device Operation
+
+다른 것들은 변하지 않은 채 phase change material (상변화 물질)만 crystalline state과 amorphous state 중 하나로 변한다. Phase change materials have a large electrical contrast.
+
+- 제작 직후: phase change material은 crystalline state
+- amorphous state: 순간적으로 큰 전류 펄스를 인가하여 높은 온도를 가하고 이어서 빠르게 냉각시킨다. -> amorphous phase
+- crystalline state: 중간 정도의 전류 펄스를 비교적 오랜 시간 동안 가한다. (crystallization temperature와 melting temperature 사이의 온도에서 머물도록 한다.)
+
+## 한계
+
+1. Endureance: 비정질 상에서의 전기 전도는 열에 의해 활성화된 호핑(hopping) 수송으로 설명할 수 있습니다. 트랩을 통한 캐리어의 푸울-프렌켈(Poole–Frenkel) 수송은 매우 작은 전압에서는 전압에 비례하는 전류를, 높은 전압에서는 지수적으로 증가하는 전류를 발생시킵니다.
+2. Thermal Disturbance: 결정질 상에서의 전기 전도는 도핑된 반도체의 드리프트-확산(drift-diffusion) 거동으로 간단히 설명할 수 있으며, 낮은 전압에서는 오옴(Ohmic) 거동을 보입니다. 높은 전압에서 PCM 셀이 비오옴(Non-Ohmic) 거동을 보이는 것은 전류에 의한 줄(Joule) 가열로 설명할 수 있습니다.
+
 # 5. FRAM
 
-## 1T-1C FRAM
+DRAM과 비슷한 구조이나 강유전체를 사용하여 비휘발성 메모리로 동작한다.
 
-## 1T FRAM (FE-FET)
+장점
+
+1. lower power usage
+2. faster write performance
+3. much greater maximum read/write endurance
+
+단점
+
+1. much lower storage densities
+2. storage capacity limitations
+3. higher cost
+4. destructive read process
+5. additional write-after-read architecture
+
+- Ferroelectrice material(강유전체): 쿼리온도 이하에서 외부 전기장이 없이도 내부의 전기상극자모멘트가 정렬하여 자발적인 분극을 갖는 유전체
+- 이진 "0"과 "1"은 각 데이터 저장 셀에서 두 가지 가능한 전기적 극성 중 하나로 저장됩니다. 예를 들어, "1"은 음의 잔여 분극 "-Pr"을 사용하여 인코딩되고, "0"은 양의 잔여 분극 "+Pr"을 사용하여 인코딩됩니다.
 
 장점
 
@@ -109,3 +141,18 @@ STT-MRAM
 단점
 
 - poor retention
+
+## 1T-1C FRAM
+
+FRAM 메모리의 읽기 작업은 여러 단계를 필요로 합니다. 이는 동적 RAM, DRAM에서 사용되는 방식과 매우 유사합니다. 비트라인 전압은 단순히 기준값과 비교됩니다. 이 기준값은 스위치되지 않은 전압과 스위치 전압 사이에 설정됩니다. 그 후, 감쇠 증폭기는 비교기로 작용하여 차이를 증폭시켜 논리 1 또는 논리 0을 출력하게 됩니다.
+
+## 1T FRAM (FE-FET)
+
+장점
+
+1. FE-FETs는 강유전체 난폭 접근 메모리 애플리케이션보다 비파괴적 읽기 기능의 장점을 가지고 있습니다.
+2. 낮은 항복 전기장 (Ec)을 보여줌으로써 합리적인 메모리 창에서도 저전압 작동이 가능합니다.
+
+단점
+
+1. 낮은 저장 특성 (강유전체-절연체 계면에서의 보상 전하 터널링, 유지 기간 동안 강유전체 필름에서 발생하는 탈분극 전기장의 설정)
