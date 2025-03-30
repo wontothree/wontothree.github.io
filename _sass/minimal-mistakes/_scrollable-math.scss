@@ -1,0 +1,14 @@
+// 집적 추가
+
+/* ==========================================================================
+   LaTeX Scrollable Area
+   ========================================================================== */
+
+.scrollable-math {
+    overflow-x: auto;  /* Enable horizontal scrolling */
+    white-space: nowrap;  /* Prevent line breaks and ensure horizontal scrolling */
+    border: 1px solid #fff;  /* Optional: Add a border for visual effect */
+    padding: 10px;  /* Optional: Add padding for better appearance */
+    background-color: #fff;  /* Optional: Add a background color */
+  }
+  

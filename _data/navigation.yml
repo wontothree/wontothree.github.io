@@ -1,0 +1,66 @@
+# main links
+main:
+ - title: "About"
+   url: https://wontothree.github.io/about/
+
+sidebar-category:
+  - title: "Robotics"
+    children:
+      - title: "ROS2"
+        url: /ros2
+      - title: "Probabilistic Robotics"
+        url: /probablisticrobotics
+      - title: "Digital Control"
+        url: /digitalcontrol
+      - title: "Optimal Control"
+        url: /optimalcontrol
+      - title: "Reinforcement Learning"
+        url: /reinforcementlearning      
+  - title: "Computer Science"
+    children:
+      - title : "C++"
+        url: /cpp
+      - title: "Java"
+        url: /java
+      - title: "Data Structure"
+        url: /datastructure
+      - title: "Database"
+        url: /database
+      - title: "Artificial Intelligence"
+        url: /artificialintelligence
+      - title: "Machine Learning"
+        url: /machinelearning
+  - title: "Electrical Engineering"
+    children:
+      - title: "Microprocessor"
+        url: /mp
+      - title: "Solid State Electronics"
+        url: /electron
+      - title: "Electric Circuit"
+        url: /electriccircuit
+      - title: "Electronic Circuit"
+        url: /electroniccircuit
+      - title: "Laboratory"
+        url: /laboratory
+      - title: "AI Semiconductor"
+        url: /aisemiconductor
+  - title: "Mathematics"
+    children:
+      - title: "Real Analysis"
+        url: /realanalysis
+      - title: "Discrete Mathematics"
+        url: /discretemathematics               
+      - title: "Differential Equation"
+        url: /differentialequation
+      - title: "Optimization"
+        url: /optimization
+      - title: "Engineering Mathematics"
+        url: /engineeringmathematics  
+  - title: "Paper Review"
+    children:
+      - title: "Paper Review"
+        url: /paperreview
+      - title: "F1tenth"
+        url: /f1tenth_ 
+      - title: "Tmp"
+        url: /tmp        
