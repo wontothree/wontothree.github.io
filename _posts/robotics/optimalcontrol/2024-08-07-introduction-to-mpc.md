@@ -3,31 +3,15 @@ title: "[MPC] Introduction to MPC"
 categories:
   - optimalcontrol
 ---
-Model Predictive Control is an optimal control strategy based on numerical optimiation.
+- Model Predictive Control is an optimal control strategy based on numerical optimiation.
+- Future control inputs and future plant responses are predicted using a system model and optimized at regular intervals with respect to a performance index.
+- MPC provides a systematic method of dealing with constraints on inputs and states. The constraints represent limitations on actuators and plant states arising from physical, economic, or safety constraints.
 
-Future control inputs and future plant responses are predicted using a system model and optimized a t regular intervals with respect to a performance index.
-
-MPC provides a systematic method of dealing with constraints on inputs and states. The constraints represent limitations on actuators and plant states arising from physical, economic, or safety constraints.
-
-Objectives
-
-- Understand the advantages of receding horizon control, its limitations and areas of application.
-- Know how to formulate receding horizon control as
-  - a. quadratic program for unconstrained linear systems
-  - b. a quadratic program for linearly constrained linear systems
-  - c. a nonlinear program
-- Understand and know how to determine the stability properties of a predictive controller in terms of
-  - a. recursive feasibility guarantees
-  - b. monotonic cost decrease through optimization
-- Know how to design terminal constraints through a constraint checking horizon
-- Know how to incorporate integral action
-- Know how to ensure robustness to bounded disturbances
-
-## Predictive Control Strategy
+# Predictive Control Strategy
 
 A model predictive control law contains the basic components of prediction, optimization and receding horizon implementation.
 
-### Prediction
+## Prediction
 
 The future response of the controlled plant is predicted using a dynamic model.
 
@@ -69,11 +53,11 @@ $$
 
 with initial condition $x(k \vert k) = x(k)$
 
-### Optimization
+## Optimization
 
 The predictive control feedback law is computed by minimizing a predicted performance cost, which is defined in terms of the predicted sequences $\mathbf{u}, \mathbf{x}$.
 
-This course is mainly concerned with the case of quadratic cost, for which the predicted cost has the deneral form:
+This course is mainly concerned with the case of quadratic cost, for which the predicted cost has the general form:
 
 $$
 J(k) = \sum^N_{i = 0} \left[ x^T(k + i \vert k)Qx(k + i \vert k) + u^T(k + i \vert k)R u(k + i \vert k) \right]
@@ -89,7 +73,7 @@ $$
 
 If the plant is subject to input and state constraints, then these could be included in the optimization as equivalent constraints on $\mathbf{u}(k).$
 
-### Receding horion implementation
+## Receding horion implementation
 
 Only the first element of the optimal predicted inpute sequence $\mathbf{u}^*$ is input to the plant
 
@@ -107,38 +91,30 @@ For this reason the optimization defining $\mathbf{u}^*$ is known as an online o
 
 The prediction horizon remains the same length despite the repetition of the optimization at future time instants. (receding horizon strategy)
 
-**First feature of receding horizon strategy** Since the state predictions $\mathbf{x}$ and hence the optimal input sequence $\mathbf{u}^*$ depend on the current state measurement $x(k)$, this procedure introduces feedback in the MPC law, thus providing a degree of robustness to modeling errors and uncertainty.
+**Features of receding horizon strategy**
 
-**A second feature of receding horizon strategy** By continually shifting the horizon over which future inputs are optimized, it attempts to compensate for the fact that this horizon is finite.
+1. Since the state predictions $\mathbf{x}$ and hence the optimal input sequence $\mathbf{u}^*$ depend on the current state measurement $x(k)$, this procedure introduces feedback in the MPC law, thus providing a degree of robustness to modeling errors and uncertainty.
+2. By continually shifting the horizon over which future inputs are optimized, it attempts to compensate for the fact that this horizon is finite.
 
-### Historical development
+## Historical development
 
 - 1960-70 : Receding horizon approaches were used to define computational methods for optimal control problems that have no closed-form solution.
 - 1980 : a means exploiting continual improvements in computational resources to improve performance
 - Recent : a eneral technique for deriving stabilizing controllers for constrained systems. And the availability of faster computers and improvements in computational efficiency of predictive controllers have extended its range of applications to include fast sampling systems.
 
-## Prediction Model
+# Prediction Model
 
 A very wide class of plant model can be incorporated in a predictive control strategy.
 
-Plant models
+Plant models: linear, nonlinear, discrete, or continuous-time
 
-- linear
-- nonlinear
-- discrete
-- continuous-time
+Prediction models: deterministic, stochastic, or fuzzy
 
-Prediction models
-
-- deterministic
-- stochastic
-- fuzzy
-
-### Linear plant model
+## Linear plant model
 
 For linear systems, the dependence of predictions $\mathbf{x}(k)$ on $\mathbf{u}(k)$ is linear.
 
-A quadratic predicted cost is thereforece a quadratic function of the input sequence $\mathbf{u}(k)$.
+A quadratic predicted cost is therefore a quadratic function of the input sequence $\mathbf{u}(k)$.
 
 Thus $J(k)$ can be expressed as a function of $\mathbf{u}$ in the form
 
@@ -167,7 +143,7 @@ Given that $H$ is a positive definite matrix and the constraints are linear, it 
 
 Matlab's QP solver : 2GHZ PC - 10ms - 10 variables and 100 constrains
 
-### Nonlinear plant model
+## Nonlinear plant model
 
 If a nonlinear prediction model is employed, then due to the nonlinear dependence of the state predictions $\mathbf{x}(k)$ on $\mathbf{u}(k)$, the MPC optimization problem is significantly harder that for the linear model case.
 
@@ -186,11 +162,7 @@ To solve the MPC optimization derived from an inverted pendulum control with 10 
 
 Unlike QP solvers, the computational loads of solvers for nonlinear programming problems are strongly problem-dependent.
 
-### Discrete and continuous-time prediction models
-
-control periode < sampling periode
-
-## Constraint Handling
+# Constraint Handling
 
 While the equality constraints are usually handled implicitly (i.e the plant model is used to write predicted state trajectories as functions of initial conditions and input trajectories), the inequality constraints are imposed as explicit constraints within the online optimization problem.
 
@@ -222,17 +194,7 @@ $$
 
 where $G_c$ is a constant matrix and $\overline{g_c}, \underline{g_c}$ are constant vectors.
 
-### De-tuned optimal control
-
-It may be possible to acount for input constraints by increasing the input weighting $R$ in the LQ performance cost untile the associated optimal feedback law satisfies constraints in the desired operating region.
-
-### Anti-windup strategies
-
-Anti-windup methods aim to prevent the instability that can occur in controllers which incorporate integral action when input constraints are active.
-
-### Model predictive control
-
-## Summary
+# Summary
 
 - MPC is a feedback law based on prediction, optimization, and receding horizon implementation. The optimization is performed over open-loop predictions, which are based on a plant model.
 - Constraints on system inputs and states can be hard or soft. Constraints are hendled sub-optimally using de-tued optimal control or anti-windup strategies whereas MPC enables constraints to be handled optimally.
