@@ -106,9 +106,8 @@ The prediction horizon remains the same length despite the repetition of the opt
 
 A very wide class of plant model can be incorporated in a predictive control strategy.
 
-Plant models: linear, nonlinear, discrete, or continuous-time
-
-Prediction models: deterministic, stochastic, or fuzzy
+- Plant models: linear, nonlinear, discrete, or continuous-time
+- Prediction models: deterministic, stochastic, or fuzzy
 
 ## Linear plant model
 
@@ -168,7 +167,7 @@ While the equality constraints are usually handled implicitly (i.e the plant mod
 
 This course is concerned with linear inequality constrains
 
-**Input constraints.**
+## Input constraints
 
 absolute constraint:
 
@@ -182,9 +181,9 @@ $$
 \underline{\Delta u} \leq u(k) - u(k-1) \leq \overline{\Delta u}
 $$
 
-Input constraints commonly arise as a result of actuator limits, e.g. torque saturation in d.c. motors and flow saturation in valvues.
+Input constraints commonly arise as a result of actuator limits, e.g. torque saturation in d.c. motors and flow saturation in values.
 
-**State constraints.**
+## State constraints
 
 Linear state constraints have the general form
 
