@@ -1,5 +1,5 @@
 ---
-title: "[Paper Review] Convergence Analysis of ODE Models for Accelerated First-Order Methods vis Positive Semidefinite Kernels"
+title: "[Paper Review] Convergence Analysis of ODE Models for Accelerated First-Order Methods"
 categories:
   - paperreview
 ---

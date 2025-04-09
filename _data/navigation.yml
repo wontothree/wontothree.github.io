@@ -22,8 +22,6 @@ sidebar-category:
         url: /java
       - title: "Data Structure"
         url: /datastructure
-      - title: "Database"
-        url: /database
       - title: "Artificial Intelligence"
         url: /artificialintelligence
       - title: "Machine Learning"
