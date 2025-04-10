@@ -1,5 +1,5 @@
 ---
-title: "[Paper Review] Convergence Analysis of ODE Models for Accelerated First-Order Methods"
+title: "[OPT for ML] Convergence Analysis of ODE Models for Accelerated First-Order Methods"
 categories:
   - paperreview
 ---
@@ -38,22 +38,10 @@ $$
 
 # Abstract
 
-- a novel methodology that systematically analyzes ordinary differential equation models for first-roder optimization methods
-- we establish convergence rates of various accelerated gradient flow models.
-
-# Introduction
-
-- gradient descent based first order methods에 대한 분석을 하는 논문이다.
-- gradient descent는 미분방정식으로 나타낼 수 있다. (gradient flow)
-
-- 그 ODE 모델의 수렴 속도를 분석한다.
+- novel methodology that systematically analyzes ordinary differential equation models for first-roder optimization methods
+- establish convergence rates of various accelerated gradient flow models.
 - Lagrangian dual of a related version of continuous-time PEP를 기반으로 만들어졌다.
 - 수렴 속도를 증명하는 작업을 특정 적분 커널의 positive semidefiniteness을 검증하는 문제로 변환한다. (?)
-
-## Related Work
-
-- Continuous-time models for first-roder methods
-- Performance estimation problems
 
 # Continuous PEP for minimizing objective function value
 
@@ -72,13 +60,13 @@ $$
 - 여기서 f는 object function
 - 위 방정식이 수렴한다는 것은 X → x^*, f → f(x^*) 이라는 것이다.
 
-만약 다음 부등식을 만족하는 rho가 존재한다면 f가 f(x^*)로 수렴한다는 것을 보장할 수 있다.
+만약 다음 부등식을 만족하는 rho가 존재한다면 f가 $f(x^*)$로 수렴한다는 것을 보장할 수 있다.
 
 $$
 f(X(T)) - f(x^*) \leq \rho \vert\vert x_0 - x^* \vert\vert^2
 $$
 
-우리는 이 rho를 찾기 위해 다음의 최적화 문제를 구성할 수 있다.
+우리는 이 $\rho$를 찾기 위해 다음의 최적화 문제를 구성할 수 있다.
 
 $$
 \begin{align*} & \underset{
