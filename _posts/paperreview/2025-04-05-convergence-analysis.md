@@ -5,7 +5,7 @@ categories:
 ---
 # 사전 지식
 
-### Definition of Stability
+## Definition of Stability
 
 임의의 epsilon > 0에 대해서 적당한 delta > 0가 존재하여 t = 0에서
 
