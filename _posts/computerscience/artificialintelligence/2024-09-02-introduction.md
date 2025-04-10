@@ -1,46 +1,9 @@
 ---
-title: "[Artificial Intelligence] Introduction"
+title: "[AI] Introduction"
 categories:
   - artificialintelligence
 ---
-What is AI?
-
-it is not easy to define AI
-
-What is intelligence?
-
-Learning (-> Skill, Knowledge)
-
-Knowledge (-> infomation / fact, reasoning-thinking process)
-
-Improvement over time = adaptability
-
-Scalability
-
-Generalization
-
-What is effect of learning or generalization?
-
-Problem Solving ("Capability of doing something")
-
-What are input and output of reasoning?
-
-Human is most intelligent being.
-
-Retrospect yourself open new area of intelligence.
-
-not just fact
-
-drive knowledge from given fact
-
-Assessment
-
-- 10 assignment
-- 40 midterm
-- 40 final
-- 10 attendance
-
-# 1. What is AI
+# 1. What is AI?
 
 ## Acting humanly: The Turing test approach
 
@@ -76,8 +39,4 @@ We provide a bried history of the disciplines that contributed ideas, viewpoints
 
 ## Control theory and cybernetics
 
-```md
 Modern control theory, especially the branch known as stochastic optimal control, has as its goal the design of systems that maximize a cost function over time. This roughly matches the standard model of AI: designing systems that behave optimally. Why, then, are AI and control theory two different fields, despite the close connections among their founders? The answer lies in the close coupling between the mathematical techniques that were familiar to the participants and the corresponding sets of problems that were encompassed in each world view. Calculus and matrix algebra, the tools of control theory, lend themselves to systems that are describable by fixed sets of continuous variables, whereas AI was founded in part as a way to escape from these perceived limitations. The tools of logical inference and computation allowed AI researchers to consider problems such as language, vision, and symbolic planning that fell completely outside the control theorist’s purview.
-```
-
-- Linguistics

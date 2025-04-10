@@ -1,5 +1,5 @@
 ---
-title: "[Artificial Intelligence] Intelligent Agents"
+title: "[AI] Intelligent Agents"
 categories:
   - artificialintelligence
 ---

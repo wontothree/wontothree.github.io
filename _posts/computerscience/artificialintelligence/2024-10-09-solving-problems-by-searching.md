@@ -1,5 +1,5 @@
 ---
-title: "[Artificial Intelligence] Solving Problems by Searching"
+title: "[AI] Solving Problems by Searching"
 categories:
   - artificialintelligence
 ---

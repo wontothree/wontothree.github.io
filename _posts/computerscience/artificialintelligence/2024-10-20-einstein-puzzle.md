@@ -1,5 +1,5 @@
 ---
-title: "[Artificial Intelligence] Einstein Puzzle"
+title: "[AI] Einstein Puzzle"
 categories:
   - artificialintelligence
 ---

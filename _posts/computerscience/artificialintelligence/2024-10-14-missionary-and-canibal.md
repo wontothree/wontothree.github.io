@@ -1,5 +1,5 @@
 ---
-title: "[Artificial Intelligence] Missionary and Cannibal"
+title: "[AI] Missionary and Cannibal"
 categories:
   - artificialintelligence
 ---

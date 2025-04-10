@@ -1,5 +1,5 @@
 ---
-title: "[Artificial Intelligence] Search in Complex Environments"
+title: "[AI] Search in Complex Environments"
 categories:
   - artificialintelligence
 ---
