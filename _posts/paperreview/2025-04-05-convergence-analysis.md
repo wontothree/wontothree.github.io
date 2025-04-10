@@ -43,9 +43,9 @@ $$
 - Lagrangian dual of a related version of continuous-time PEP를 기반으로 만들어졌다.
 - 수렴 속도를 증명하는 작업을 특정 적분 커널의 positive semidefiniteness을 검증하는 문제로 변환한다. (?)
 
-# Continuous PEP for minimizing objective function value
+# Continuous-time Performance Estimation Problem
 
-- Nesterov’s Accelerated Gradient Method에 대한 limiting ODE
+Nesterov’s Accelerated Gradient Method에 대한 limiting ODE
 
 $$
 \ddot{X} + \dfrac{1}{t} \dot{X} + \nabla f(X) = 0
@@ -57,16 +57,13 @@ $$
 X(0) = x_0, \;\;\; \dot{X}(0) = 0
 $$
 
-- 여기서 f는 object function
-- 위 방정식이 수렴한다는 것은 X → x^*, f → f(x^*) 이라는 것이다.
-
-만약 다음 부등식을 만족하는 rho가 존재한다면 f가 $f(x^*)$로 수렴한다는 것을 보장할 수 있다.
+만약 다음 부등식을 만족하는 $\rho$가 존재한다면 $f$가 $f(x^*)$로 수렴한다. 따라서 우리의 목표는 다음 부등식을 만족하는 $\rho$를 찾는 것이다.
 
 $$
 f(X(T)) - f(x^*) \leq \rho \vert\vert x_0 - x^* \vert\vert^2
 $$
 
-우리는 이 $\rho$를 찾기 위해 다음의 최적화 문제를 구성할 수 있다.
+우리는 이 $\rho$를 찾기 위해 다음의 최적화 문제(Exact PEP)를 구성한다.
 
 $$
 \begin{align*} & \underset{
@@ -74,5 +71,25 @@ $$
     f \in \mathcal{F}_0(\mathbb{R}^d; \mathbb{R}) \\
     X \in C^1([0, T]; \mathbb{R}^d)
   }
-}{\max} \;\; \dfrac{f(X(T)) - f(x^*)}{\vert\vert x_0 - x^* \vert\vert^2} \\ & \mathrm{subject \; to} \;\;\ddot{X} + \dfrac{1}{t} \dot{X} + \nabla f(X) = 0 \end{align*}
+}{\max} \;\; \dfrac{f(X(T)) - f(x^*)}{\vert\vert x_0 - x^* \vert\vert^2} \\ & \mathrm{subject \; to} \;\;\ddot{X} + \dfrac{1}{t} \dot{X} + \nabla f(X) = 0
+\end{align*}
+$$
+
+여기서 $\mathcal{F}_0(\mathbb{R}^d; \mathbb{R})$는 the set of continuously differentiable $\mu$-strongly convex functions on $\mathbb{R}^d$.
+
+Exact PEP의 결과값을 $\rho$로 설정할 수 있기 때문에 Exact PEP를 푸는 것은 유용하다. 하지만 최적화 변수인 함수 $f$를 모르기 때문에 Exact PEP는 풀기 어렵다. 따라서 우리는 조건
+
+$$
+f \in \mathcal{F}_0(\mathbb{R}^d; \mathbb{R})
+$$
+
+을 충분조건으로 대체함으로써 Exact PEP를 relax된 최적화 문제(Relaxed PEP)를 다룬다.
+
+$$
+\begin{align*}
+& \underset{ \rho, \gamma, v}{\max} \;\; \dfrac{f(X(t)) - f(x^*)}{\vert\vert x_0 - x^* \vert\vert^2} \\
+& \mathrm{subject \; to} \;\;\; t \in (0, T), \\
+& 0 = \dot{\rho}(t) + \Big\langle \gamma(t), \int^t_0 H(t, \gamma) \gamma(r) dr \rangle \\
+& 0 \geq \gamma(t) + \Big\langle \gamma(t), v + \int^t_0 \int^t_\tau H(s, \tau) \gamma(\tau) \; ds \; d\tau \Big\rangle \\
+\end{align*}
 $$
