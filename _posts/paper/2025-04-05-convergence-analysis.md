@@ -1,7 +1,7 @@
 ---
 title: "[OPT for ML] Convergence Analysis of ODE Models for Accelerated First-Order Methods"
 categories:
-  - paperreview
+  - paper
 ---
 [사전지식] Definition of Stability
 

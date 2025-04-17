@@ -54,8 +54,8 @@ sidebar-category:
         url: /engineeringmathematics  
   - title: "Paper Review"
     children:
-      - title: "Paper Review"
-        url: /paperreview
+      - title: "Paper"
+        url: /paper
       - title: "F1tenth"
         url: /f1tenth_ 
       - title: "Tmp"

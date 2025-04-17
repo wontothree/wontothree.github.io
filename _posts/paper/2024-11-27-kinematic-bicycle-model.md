@@ -1,7 +1,7 @@
 ---
 title: "[Paper Review] The kinematic bicycle model: A consistent model for planning feasible trajectories for autonomous vehicles?"
 categories:
-  - paperreview
+  - paper
 ---
 # Abstract
 

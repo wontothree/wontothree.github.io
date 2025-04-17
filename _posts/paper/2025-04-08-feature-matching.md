@@ -1,7 +1,7 @@
 ---
 title: "[Paper Review] Feature Matching: SuperGlue and LightGlue"
 categories:
-  - paperreview
+  - paper
 ---
 # SuperGlue
 

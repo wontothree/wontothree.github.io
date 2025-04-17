@@ -1,8 +1,7 @@
 ---
 title: "[Paper Review] Survey - Autonomous Vehicle Racing"
-excerpt: 'Autonomous Vehicles on the Edge : A Survey on Autonomous Vehicle Racing'
 categories:
-  - paperreview
+  - paper
 ---
 ## 1 INTRODUCTION
 

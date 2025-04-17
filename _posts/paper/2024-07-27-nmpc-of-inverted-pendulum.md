@@ -2,7 +2,7 @@
 title: "[Paper Review] NMPC of an Inverted Pendulum"
 excerpt:
 categories:
-  - paperreview
+  - paper
 ---
 ## I. Introudction
 

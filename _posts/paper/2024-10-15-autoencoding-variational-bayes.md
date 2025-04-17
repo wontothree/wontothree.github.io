@@ -1,7 +1,7 @@
 ---
 title: "[Generative AI] Variational Autoencoder"
 categories:
-  - paperreview
+  - paper
 ---
 관련 지식
 
