@@ -3,9 +3,7 @@ title: "[OPT for ML] Convergence Analysis of ODE Models for Accelerated First-Or
 categories:
   - paperreview
 ---
-# 사전 지식
-
-## Definition of Stability
+[사전지식] Definition of Stability
 
 임의의 epsilon > 0에 대해서 적당한 delta > 0가 존재하여 t = 0에서
 

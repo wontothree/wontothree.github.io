@@ -13,9 +13,7 @@ sidebar-category:
       - title: "Digital Control"
         url: /digitalcontrol
       - title: "Optimal Control"
-        url: /optimalcontrol
-      - title: "Reinforcement Learning"
-        url: /reinforcementlearning      
+        url: /optimalcontrol  
   - title: "Computer Science"
     children:
       - title: "Java"
@@ -26,6 +24,8 @@ sidebar-category:
         url: /artificialintelligence
       - title: "Machine Learning"
         url: /machinelearning
+      - title: "Reinforcement Learning"
+        url: /reinforcementlearning
   - title: "Electrical Engineering"
     children:
       - title: "Microprocessor"
