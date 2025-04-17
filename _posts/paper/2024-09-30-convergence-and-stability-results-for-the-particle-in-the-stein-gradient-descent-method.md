@@ -1,5 +1,5 @@
 ---
-title: "[Paper Review] Convergence and Stability Results for the Particle System in the Stein Gradient Descent Method"
+title: "[Paper] Convergence and Stability Results for the Particle System in the Stein Gradient Descent Method"
 categories:
   - paper
 ---

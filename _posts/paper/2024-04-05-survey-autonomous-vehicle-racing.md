@@ -1,5 +1,5 @@
 ---
-title: "[Paper Review] Survey - Autonomous Vehicle Racing"
+title: "[Paper] Survey - Autonomous Vehicle Racing"
 categories:
   - paper
 ---

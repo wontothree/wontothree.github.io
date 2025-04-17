@@ -1,5 +1,5 @@
 ---
-title: "[Paper Review] NMPC of an Inverted Pendulum"
+title: "[Paper] NMPC of an Inverted Pendulum"
 excerpt:
 categories:
   - paper

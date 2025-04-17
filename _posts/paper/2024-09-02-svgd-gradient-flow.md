@@ -1,5 +1,5 @@
 ---
-title: "[Paper Review] SVGD as Gradient Flow"
+title: "[Paper] SVGD as Gradient Flow"
 categories:
   - paper
 ---
