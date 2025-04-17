@@ -99,4 +99,34 @@ val(Relaxed PEP) $\geq$ val(Exact PEP)
 
 ## Lagrangian dual of relaxed PEP
 
+Let Lagrange multipliers
 
+$$
+\lambda_1 \in C^1 ([0, T]; \mathbb{R}), \;\;\; \lambda_2 \in C ([0, T]; \mathbb{R}_{\geq 0})
+$$
+
+which are continuous and differentiable to ensure that the dual problem is well-defined.
+
+Then we define the Lagrangian function as
+
+$$
+\begin{align*}
+\mathcal{L} (\varphi, \gamma, v; \lambda_1, \lambda_2)
+&= \varphi (T) - \int_0^T \lambda_1(t) \left( \dot{\varphi} + \Big\langle \gamma (t), \int_0^t H(t, \tau) \gamma(\tau) d\tau \Big\rangle \right) dt \\
+& \;\;\;\; - \int_0^T \lambda_2(t)\left(\varphi(t) + \Big\langle \gamma(t), v + \int_0^t \int_\tau^t H(s, \tau) \gamma(\tau) ds \; d\tau \Big\rangle \right) dt \\
+&= \varphi (T) - \langle \lambda_1, \dot{\varphi}_{L^2([0, T]; \mathbb{R}^d)} \rangle - \langle \lambda_2(t) v, \gamma(t)\rangle_{L^2([0, T]; \mathbb{R}^d)} \\
+& \;\;\;\; -\dfrac{1}{2} \langle K_{\gamma}, \gamma \rangle_{L^2([0, T]; \mathbb{R}^d)} - \langle \lambda_2(t)v, \gamma(t) \rangle_{L^2([0, T]; \mathbb{R}^d)}
+\end{align*}
+$$
+
+where K is the Hibert-Schmidt integral operator with the symmetric kernel k defined by
+
+$$
+k(t, \gamma) = \lambda_1(t) H(t, \tau) + \lambda_2 \int_{\tau}^t H(s, \tau) ds, \;\;\; t \geq \tau
+$$
+
+The dual function is defined as
+
+$$
+\text{Dual}(\lambda_1, \lambda_2) = \sup_{\varphi, \gamma, v} \mathcal{L}(\varphi, \gamma, v; \lambda_1, \lambda_2)
+$$
