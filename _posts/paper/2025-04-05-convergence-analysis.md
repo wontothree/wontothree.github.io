@@ -128,5 +128,21 @@ $$
 The dual function is defined as
 
 $$
-\text{Dual}(\lambda_1, \lambda_2) = \sup_{\varphi, \gamma, v} \mathcal{L}(\varphi, \gamma, v; \lambda_1, \lambda_2)
+\begin{align*}
+
+\text{Dual}(\lambda_1, \lambda_2)
+&= \sup_{\varphi, \gamma, v} \mathcal{L}(\varphi, \gamma, v; \lambda_1, \lambda_2) \\
+&=
+\begin{cases}
+\inf_{\nu \in (0, \infty)} [\nu: S_{\lambda_1, \lambda_{2, \nu}} \succeq 0] & \text{if } \lambda_1(0) = 0, \; \lambda_2(T) = 1, \; \dot{\lambda}_1(t) = \lambda_2(t) \\
+\infty & \text{otherwise}
+\end{cases}
+
+\end{align*}
+$$
+
+where $S_{\lambda_1, \lambda_2, \nu}$ is a symmetric kernel on $[0, T]^2$ (PEP kernel) given by
+
+$$
+S_{\lambda_1, \lambda_2, \nu} (t, \tau) = \nu \left( \lambda_1(t) H(t, \tau) + \lambda_2(t) \int_{\tau}^t H(s, \tau) ds \right) - \dfrac{1}{2} \lambda_2(t) \lambda(\tau), \;\;\; t \geq \tau
 $$
