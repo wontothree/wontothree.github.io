@@ -1,23 +1,16 @@
 ---
-title: "[Paper Review] Aggressive Driving with Model Predictive Path Integral Control"
+title: "[Paper Review] Aggressive Driving with MPPI Control"
 categories:
   - paperreview
 ---
-# Abstract
+- based on a stochastic optimal control framework using a fundamental relationship between the information theoretic notions of gree energy and relative entropy.
+- is able to generate new trajectories in real-time
+- a model predictive control algorithm based on the path integral control framework
+- not split the problem into a planning and execution phase, which allows for a simple problem formulation and optimal behavior with respect to the system dynamics.
 
-The algorithm is based on a stochastic optimal control framework using a fundamental relationship between the information theoretic notions of gree energy and relative entropy.
+# Stochastic Trajectory Optimization
 
-# 1. Introduction
-
-The method developed here is able to generate new trajectories in real-time
-
-The method we develop is a model predictive control algorithm based on the path integral control framework
-
-We do not split the problem into a planning and execution phase, which allows for a simple problem formulation and optimal behavior with respect to the system dynamics.
-
-# 2. Stochastic Trajectory Optimization
-
-The key insight which allows for this is the use of a fundamental relationship between the information theoretic notions of free energy and relative entropy (KL-Divergence).
+The key insight: fundamental relationship between the information theoretic notions of free energy and relative entropy (KL-Divergence).
 
 ## A. Problem Formulation
 
@@ -308,7 +301,7 @@ $$
 \end{align*}
 $$
 
-# 3. Model Predictive Control Algorithm
+# Model Predictive Control Algorithm
 
 GPU를 사용한 병렬 궤적 샘플링은 매우 효율적인 작업으로 복잡한 비선형 동역학에서도 수천 개의 궤적을 샘플링할 때 우리의 구현에서는 15ms 이하의 시간이 소요된다. MPPI 알고리즘을 구현하는 가장 간단한 방법은 샘플당 하나의 스레드를 사용하여 샘플링 반복문을 병렬화하는 것이다.
 
@@ -317,4 +310,4 @@ GPU를 사용한 병렬 궤적 샘플링은 매우 효율적인 작업으로 복
 # Reference
 
 - E. A. Theodorou and E. Todorov, “Relative entropy and free energy dualities: Connections to path integral and kl control,” in Decision and Control (CDC), 2012 IEEE 51st Annual Conference on. IEEE, 2012
-- E. A. Theodorou, “Nonlinear stochastic control and information the- oretic dualities: Connections, interdependencies and thermodynamic interpretations,” Entropy, vol. 17, no. 5, p. 3352, 2015.
+- E. A. Theodorou, “Nonlinear stochastic control and information theoretic dualities: Connections, interdependencies and thermodynamic interpretations,” Entropy, vol. 17, no. 5, p. 3352, 2015.
