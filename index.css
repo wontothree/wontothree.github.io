@@ -1,0 +1,126 @@
+* {
+    box-sizing: border-box;
+    text-rendering: optimizeLegibility;
+}
+
+/* hide scroll bar */
+::-webkit-scrollbar {
+    display: none;
+}
+
+#root, body, html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    line-height: 1.8rem;
+    font-family: sans-serif;
+    background-color: white;
+    color: #1e1e1e;
+    font-family: 'Helvetica Neue';
+}
+
+/* font size by screen size */
+html {
+    font-size: 16px;
+}
+
+/* width < 1440px */
+@media (max-width: 1440px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+/* width < 1200px */
+@media (max-width: 1200px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+/* width < 1024px */
+@media (max-width: 1024px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+/* width < 768px */
+@media (max-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+/* width < 480px */
+@media (max-width: 480px) {
+    html {
+        font-size: 12px;
+    }
+}
+
+/* print */
+@media print {
+    html {
+        font-size: 12px;
+    }
+}
+
+/* ------------------------------  custom ------------------------------ */
+
+/* -------------------- Tag style -------------------- */
+
+/* footor */
+footer {
+    text-align: center;
+    color: inherit;
+}
+
+a, a:focus {
+    color: #598be7 !important;
+    text-decoration: none !important;
+}
+
+a:hover {
+    color: #9bb9f1 !important;
+    text-decoration: none !important;
+}
+
+/* -------------------- Class style -------------------- */
+
+/* Classs "base" */
+.base {
+    width: min(min(100%, 60rem), 70rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0.3rem;
+    margin: 0 auto;
+}
+
+/* box style */
+.box {
+    width: 95%;                /* 너비를 100%로 설정하여 부모 요소에 맞춤 */
+    margin: 1rem 0;             /* 위쪽과 아래쪽 여백 */
+    border: 2px solid #444;
+    padding: 0.5rem;            /* between border and contents (rem, px) */
+    border-radius: 5px;         /* rounding of border */
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.tag-label {
+  display: inline-block;
+  background-color: #f0f0f0;
+  color: #333;
+  padding: 2px 6px;
+  border-radius: 8px;
+  font-size: 0.75em;
+  margin-right: 4px;
+  margin-bottom: 2px;
+  font-family: 'Segoe UI', sans-serif;
+  line-height: 1.4;
+  white-space: nowrap;
+}
