@@ -56,7 +56,7 @@ html {
 /* width < 480px */
 @media (max-width: 480px) {
     html {
-        font-size: 12px;
+        font-size: 10px;
     }
 }
 
@@ -123,4 +123,15 @@ a:hover {
   font-family: 'Segoe UI', sans-serif;
   line-height: 1.4;
   white-space: nowrap;
+}
+
+.progress-bar {
+    background: linear-gradient(to right, #598be7 var(--scroll), transparent 0);
+    background-repeat: no-repeat;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 5px;
+    z-index: 9000;
 }

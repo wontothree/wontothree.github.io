@@ -9,13 +9,29 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
+    <!-- This is the bar which shows scroll percentage -->
+    <div class="progress-bar"></div>
+    <!-- Script used to generate --scroll variable with current scroll percentage value -->
+    <script>
+        var element = document.documentElement,
+        body = document.body,
+        scrollTop = 'scrollTop',
+        scrollHeight = 'scrollHeight',
+        progress = document.querySelector('.progress-bar'),
+        scroll;
+
+        document.addEventListener('scroll', function() {
+            scroll = (element[scrollTop]||body[scrollTop]) / ((element[scrollHeight]||body[scrollHeight]) - element.clientHeight) * 100;
+            progress.style.setProperty('--scroll', scroll + '%');
+        });
+    </script>
+    
     <header class="header"></header>
 
     <br><br>
     
     <div class="base">
         <h1>Sewon Kim</h1>
-
         <div class="box" style="display: flex; flex-wrap: wrap; align-items: flex-start;">
             <img src="./imgs/profile.jpg" alt="Sewon Kim's Profile"
                 style="width: 300px; height: auto; margin-right: 20px; flex-shrink: 0;">
@@ -30,9 +46,9 @@
                 </p>
 
                 <p style="margin-bottom: 0px; text-align: center;">
-                    <a href="https://www.linkedin.com/in/wontothree">LinkedIn</a> |
-                    <a href="https://github.com/wontothree">GitHub</a> |
-                    <a href="https://wontothree.github.io/blog">Blog</a> |
+                    <a href="https://www.linkedin.com/in/wontothree" target="_blank" rel="noopener noreferrer">LinkedIn</a> |
+                    <a href="https://github.com/wontothree" target="_blank" rel="noopener noreferrer">GitHub</a> |
+                    <a href="https://wontothree.github.io/blog" target="_blank" rel="noopener noreferrer">Blog</a> |
                     <a href="">Email</a> |
                     <a href="">CV</a> |
                     <a href="">Google Scholar</a>
@@ -274,131 +290,12 @@
                 <span class="tag-label">GitHub</span>
             </div>
         </div>
-<!-- 
-        <a href="https://wontothree.github.io/cart-pole/" class="box">
-            <h3 style="margin-bottom: 0.2em;">
-                [07/25/2024–09/27/2024] Cart Pole System Design and Control with NMPC and PID
-            </h3>
-            <div style="margin-top: 0.2em">
-                🏆 People’s Choice Award at UOS ECE IF · 
-                <span style="color: #0077b5; font-weight: 500;">🔗 LinkedIn Viral (19k+ views, 600+ likes)</span>
-            </div>
-
-            <div style="position: relative; width: 100%; height: 0; padding-bottom: 56.25%;">
-                <iframe src="https://www.youtube.com/embed/Vz5JtkAQwwo" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen
-                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;">
-                </iframe>
-            </div>
-
-            <div style="margin-top: 0.5em;">
-                <span class="tag-label">Control</span>
-                <span class="tag-label">MPC</span>
-                <span class="tag-label">PID</span>
-                <span class="tag-label">Hardware</span>
-                <span class="tag-label">Mechanical Design</span>
-                <span class="tag-label">Embedded</span>
-                <span class="tag-label">Electronics</span>
-                <span class="tag-label">State Estimation</span>
-                <span class="tag-label">Stepper Motor</span>
-                <span class="tag-label">CartPole</span>
-            </div>
-        </a>
-
-        <a href="https://wontothree.github.io/inbody-ai-scale/" class="box">
-            <h3>[01/05/2024-01/31/2025] InBody AI Scale #CES'25</h3>
-            <div style="position: relative; width: 100%; height: auto;">
-                <img src="imgs/inbody-ai-scale.png" alt="InBody AI Scale" style="width: 100%; height: auto; border-radius: 8px;">
-            </div>
-            <div style="margin-top: 0.5em;">
-                <span class="tag-label">Computer Vision AI</span>
-                <span class="tag-label">Height Estimation</span>
-                <span class="tag-label">Face Recognition</span>
-                <span class="tag-label">Segmentation</span>
-                <span class="tag-label">Detection</span>
-                <span class="tag-label">Database</span>
-            </div>
-        </a>
-
-        <div class="box">
-            <h3>[09/01/2023-12/23/2023] Calculator with FPGA</h3>
-            <div style="position: relative; width: 100%; height: 0; padding-bottom: 56.25%; /* 16:9 비율 */">
-                <iframe src="https://www.youtube.com/embed/tZkCFCkbfnE?si=EjAZeElsOMEs2JCH" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen
-                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;">
-                </iframe>
-            </div>
-            <div style="margin-top: 0.5em;">
-                <span class="tag-label">FPGA</span>
-            </div>
-        </div>
-
-        <a href="https://wontothree.github.io/ecg-cardiovascular-diagnosis/" class="box">
-            <h3 style="margin-bottom: 0.2em;">[07/01/2023-07/31/2023] ECG-Based Cardiovascular Diagnosis Device</h3>
-            <div style="margin-top: 0.2em">🏆 Excellence Award at InBody Makerthon 2023 (Prize Money $1,462)</div>
-            <div style="position: relative; width: 100%; height: 0; padding-bottom: 56.25%; /* 16:9 비율 */">
-                <iframe src="https://www.youtube.com/embed/qWbYItPG7f0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen
-                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;">
-                </iframe>
-            </div>
-            <div style="margin-top: 0.5em;">
-                <span class="tag-label">CNN</span>
-                <span class="tag-label">ML</span>
-                <span class="tag-label">ECG</span>
-            </div>
-        </a>
-
-        <a href="https://wontothree.github.io/autonomous-mission-robot/" class="box">
-            <h3 style="margin-bottom: 0.2em;">[07/24/2023-07/28/2023] Autonomous Mobile Robot for Executing Missions</h3>
-            <div style="margin-top: 0.2em">🏆 Excellence Award at Excellence Prize at AI Object Detection-Based Solar Tracking Robot Challenge (Prize Money $200)</div>
-            <div style="position: relative; width: 100%; height: 0; padding-bottom: 56.25%; /* 16:9 비율 */">
-                <iframe src="https://www.youtube.com/embed/0FwY5ziacQI" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen
-                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;">
-                </iframe>
-            </div>
-            <div style="margin-top: 0.5em;">
-                <span class="tag-label">Robot Design</span>
-                <span class="tag-label">Raspberry Pi</span>
-                <span class="tag-label">Monocular Camera</span>
-                <span class="tag-label">Ultrasonic Sensor</span>
-                <span class="tag-label">Serial Communication</span>
-                <span class="tag-label">MQTT Communication</span>
-                <span class="tag-label">Python</span>
-                <span class="tag-label">OpenCV</span>
-            </div>
-        </a>
-
-        <div class="box">
-            <h3>[03/07/2022-01/31/2023] 시대팅 Frontend Development</h3>
-            <div>
-                I worked as a member of the frontend development team for <em>UOSLIFE</em>, a community app for the University of Seoul.
-                Our team developed and operated <em>시대팅</em>, an on-campus matchmaking service that received over 1,700 applications.
-                My role was to develop a matching algorithm that maximized user satisfaction and to build the web app frontend.
-                I collaborated closely with the project planning team to discuss questions such as, "What information should we collect to provide ideal matches for both users, and is it technically feasible?"
-                I also continuously coordinated with the design team to find a balance between user-friendly design and development feasibility.
-                Based on these collaborations, I developed the frontend for the app.
-            </div>
-            <div style="margin-top: 0.5em;">
-                <span class="tag-label">Javascript</span>
-                <span class="tag-label">React.js</span>
-                <span class="tag-label">Node.js</span>
-                <span class="tag-label">HTML</span>
-                <span class="tag-label">CSS</span>
-                <span class="tag-label">GitHub</span>
-            </div>
-        </div> -->
 
         <h1>Skills</h1>
         <div class="box">
             <ul style="padding-left: 20px;">
-                <li>Programming Language and Etc: C, C++, JAVA, PYTHON, JAVASCRIPT, React, HTML, CSS</li>
-                <li>Software: ROS1, ROS2, MUJOCO, MATLAB, DOCKER</li>
+                <li>Programming Language and Etc: C, C++, Java, Python, Javascript, React, Html, Css</li>
+                <li>Software: Ros1, Ros2, Mujoco, Matlab, Docker</li>
             </ul>
         </div>
 
