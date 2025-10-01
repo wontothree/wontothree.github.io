@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,28 +9,29 @@
     <title>Sewon Kim</title>
     <link rel="stylesheet" href="index.css">
 </head>
+
 <body>
     <!-- This is the bar which shows scroll percentage -->
     <div class="progress-bar"></div>
     <!-- Script used to generate --scroll variable with current scroll percentage value -->
     <script>
         var element = document.documentElement,
-        body = document.body,
-        scrollTop = 'scrollTop',
-        scrollHeight = 'scrollHeight',
-        progress = document.querySelector('.progress-bar'),
-        scroll;
+            body = document.body,
+            scrollTop = 'scrollTop',
+            scrollHeight = 'scrollHeight',
+            progress = document.querySelector('.progress-bar'),
+            scroll;
 
-        document.addEventListener('scroll', function() {
-            scroll = (element[scrollTop]||body[scrollTop]) / ((element[scrollHeight]||body[scrollHeight]) - element.clientHeight) * 100;
+        document.addEventListener('scroll', function () {
+            scroll = (element[scrollTop] || body[scrollTop]) / ((element[scrollHeight] || body[scrollHeight]) - element.clientHeight) * 100;
             progress.style.setProperty('--scroll', scroll + '%');
         });
     </script>
-    
+
     <header class="header"></header>
 
     <br><br>
-    
+
     <div class="base">
         <h1>Sewon Kim</h1>
         <div class="box" style="display: flex; flex-wrap: wrap; align-items: flex-start;">
@@ -37,16 +39,20 @@
                 style="width: 300px; height: auto; margin-right: 20px; flex-shrink: 0;">
 
             <div style="flex: 1; min-width: 250px;">
-                <p><strong>Embodied System</strong>, <strong>Optimal Control</strong>, and <strong>Robot Learning</strong></p>
+                <p><strong>Embodied System</strong>, <strong>Optimal Control</strong>, and <strong>Robot
+                        Learning</strong></p>
                 <p>
                     This is Sewon Kim.
-                    I'm an undergraduate student in electrical and computer engineering based at the Unitversity of Seoul.
+                    I'm an undergraduate student in electrical and computer engineering based at the Unitversity of
+                    Seoul.
                     I've been focusing on <strong>optimal control</strong> and <strong>robot learning</strong>.
-                    I enjoy bringing mathematically sophisticated theory into the physical world but strive to maintain a sense of balance between theory and implementation.                    
+                    I enjoy bringing mathematically sophisticated theory into the physical world but strive to maintain
+                    a sense of balance between theory and implementation.
                 </p>
 
                 <p style="margin-bottom: 0px; text-align: center;">
-                    <a href="https://www.linkedin.com/in/wontothree" target="_blank" rel="noopener noreferrer">LinkedIn</a> |
+                    <a href="https://www.linkedin.com/in/wontothree" target="_blank"
+                        rel="noopener noreferrer">LinkedIn</a> |
                     <a href="https://github.com/wontothree" target="_blank" rel="noopener noreferrer">GitHub</a> |
                     <a href="https://wontothree.github.io/blog" target="_blank" rel="noopener noreferrer">Blog</a> |
                     <a href="">Email</a> |
@@ -56,11 +62,12 @@
 
                 <p>
                     By the way, I'm 24 years old (international age) and originally from Seoul, South Korea 🇰🇷.
-                    I have a passion for jazz and heavy metal, and I played acoustic and electric guitar in rock bands throughout middle school, high school, and university 🎸.
+                    I have a passion for jazz and heavy metal, and I played acoustic and electric guitar in rock bands
+                    throughout middle school, high school, and university 🎸.
                 </p>
             </div>
         </div>
-        
+
         <h1>Research Interest</h1>
         <div class="box">
             <h3>Main Interest</h3>
@@ -74,10 +81,9 @@
             <ul style="padding-left: 20px;">
                 <li>Mathematical Optimization</li>
                 <li>Computer Vision AI</li>
-                <li>State Estimation, SLAM</li>
+                <li>State Estimation, Localization, SLAM</li>
                 <li>Hardware: Embedded, Mechanical Design, 3D Modeling, Electronics, PCB</li>
-                <li>Sensors & Actuators: RGB-D Camera, LiDAR, IMU, Encoder, Stepper Motor, BLDC Motor, etc</li>
-                <li>Diverse Robotic Systems: Mobile Robotics, Quadrotor, Cart Pole</li>
+                <li>Sensors & Actuators: RGB-D Camera, LiDAR, IMU, Encoder, Stepper Motor, BLDC Motor</li>
             </ul>
         </div>
 
@@ -85,39 +91,40 @@
 
         <div class="box">
             <h3>[01/13/2025–07/12/2026] Drone Research, Institute of Innovation for Future Army</h3>
-            <div>Drone Researcher, Military Science Technology Soldier, 
-                <em>Military Science Technology Research Division</em>, 
+            <div>Drone Researcher, Military Science Technology Soldier,
+                <em>Military Science Technology Research Battalion</em>,
                 <em>Institute of Innovation for Future Army</em>,
-                <em>Republic of Korea Army</em>
+                <em>Republic of Korea Army</em> (mandatory duty)
             </div>
 
             <br>
 
             <h3>[01/05/2024-01/12/2025] AI Lead, InBody AI Scale</h3>
-            <div><em>InBody</em> Internship</div>
+            <div>AI lead engineer at <em>InBody AI Scale</em>Team, <em>InBody</em> (internship)</div>
 
             <br>
 
-            <h3>[01/31/2023-12/23/2024] F1tenth Autonomous Racing Lead, Control and Dynamic System Lab</h3>
-            <div>Internship, under the supervision of Prof. Gyunghoon Park</div>
+            <h3>[01/31/2023-12/23/2024] F1tenth Team Lead, Control and Dynamic System Lab</h3>
+            <div>F1tenth autonomous racing lead engineer at <em>Control and Dynamic System Lab</em> under the supervision of Prof. <em>Gyunghoon Park</em> (undergraduate research)</div>
         </div>
 
         <h1>Education</h1>
 
         <div class="box">
-            <h3>[03/01/2022-07/31/2027] Bechelor of Engineering at University of Seoul</h3>
+            <h3>[03/01/2022-07/31/2027] Bechelor of Engineering, University of Seoul</h3>
             <ul style="padding-left: 20px;">
                 <li>Major: Electrical and Computer Engineering</li>
                 <li>Minor: Mathematics</li>
             </ul>
             <a href="/career/uos">Courseworks</a>
         </div>
-        
+
         <h1>Projects</h1>
 
         <div class="box">
             <h3 style="margin-bottom: 0.2em;">[08/25/2025-09/25/2025] Self-Driving Air Purifier</h3>
-            <div style="margin-top: 0.2em">🏆 4th Plance at SK Advanced League (Autonomous Drving and Path Optimization) (Prize Money $2,200)</div>
+            <div style="margin-top: 0.2em">🏆 4th Place at SK Advanced League (Autonomous Drving and Path Optimization)
+                (Prize Money $2,200)</div>
             <!-- <div style="position: relative; width: 100%; height: 0; padding-bottom: 56.25%;">
                 <iframe src="https://www.youtube.com/embed/j076SK77TCg" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
@@ -129,7 +136,7 @@
             <div>
                 <a href="#">Project Page</a>
             </div>
-            
+
             <div style="margin-top: 0.5em;">
                 <span class="tag-label">Finite State Machine</span>
                 <span class="tag-label">Mission Planning</span>
@@ -143,12 +150,12 @@
 
             <br>
 
-            <h3>[03/01/2024-12/19/2024] F1tenth Autonomous Racing #CDC'24</h3>
+            <h3 style="margin-bottom: 0.2em;">[03/01/2024-12/19/2024] F1tenth Autonomous Racing</h3>
+            <div style="margin-top: 0.2em">5 Place (/12) at 22nd F1TENTH AUTONOMOUS GRAND Grand Prix at Conference on Decision and Control 2024 (Milan)</div>
             <div style="position: relative; width: 100%; height: 0; padding-bottom: 56.25%;">
-                <iframe src="https://www.youtube.com/embed/j076SK77TCg" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen
-                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;">
+                <iframe src="https://www.youtube.com/embed/j076SK77TCg"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;">
                 </iframe>
             </div>
 
@@ -157,7 +164,7 @@
                 <a href="https://github.com/wontothree/f1tenth_turtleship_ws/">Code</a> |
                 <a href="#">LinkedIn Post</a>
             </div>
-            
+
             <div style="margin-top: 0.5em;">
                 <span class="tag-label">SLAM</span>
                 <span class="tag-label">Localization</span>
@@ -176,17 +183,16 @@
             <div style="margin-top: 0.2em">🏆 People’s Choice Award at UOS ECE IF (Prize Money $220)</div>
 
             <div style="position: relative; width: 100%; height: 0; padding-bottom: 56.25%;">
-                <iframe src="https://www.youtube.com/embed/Vz5JtkAQwwo" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen
-                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;">
+                <iframe src="https://www.youtube.com/embed/Vz5JtkAQwwo"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;">
                 </iframe>
             </div>
 
             <div>
                 <a href="https://wontothree.github.io/cart-pole/">Project Page</a> |
                 <a href="https://github.com/wontothree/cart-pole/">Code</a> |
-                <a href="#">LinkedIn Post (Viral 19k+ views, 600+ likes)</a>
+                <a href="#">LinkedIn Post (19k+ views, 600+ likes)</a>
             </div>
 
             <div style="margin-top: 0.5em;">
@@ -204,16 +210,17 @@
 
             <br>
 
-            <h3>[01/05/2024-01/31/2025] InBody AI Scale #CES'25</h3>
+            <h3 style="margin-bottom: 0.2em;">[01/05/2024-01/31/2025] InBody AI Scale</h3>
+            <div style="margin-top: 0.2em">Consumer Electronic Show 2025 (Las Vegas)</div>
             <div style="position: relative; width: 100%; height: auto;">
-                <img src="imgs/inbody-ai-scale.png" alt="InBody AI Scale" style="width: 100%; height: auto; border-radius: 8px;">
+                <img src="imgs/inbody-ai-scale.png" alt="InBody AI Scale"
+                    style="width: 100%; height: auto; border-radius: 8px;">
             </div>
 
             <div>
-                <a href="https://wontothree.github.io/inbody-ai-scale/">Project Page</a> |
-                <a href="https://github.com/wontothree/inbody-ai-scale/">Code</a>
+                <a href="https://wontothree.github.io/inbody-ai-scale/">Project Page</a>
             </div>
-            
+
             <div style="margin-top: 0.5em;">
                 <span class="tag-label">Computer Vision AI</span>
                 <span class="tag-label">Height Estimation</span>
@@ -225,19 +232,19 @@
 
             <br>
 
-            <h3>[09/01/2023-12/23/2023] Calculator with FPGA</h3>
+            <h3 style="margin-bottom: 0.2em;">[09/01/2023-12/23/2023] Calculator with FPGA</h3>
+            <div style="margin-top: 0.2em">Course Project (A+)</div>
             <div style="position: relative; width: 100%; height: 0; padding-bottom: 56.25%; /* 16:9 비율 */">
-                <iframe src="https://www.youtube.com/embed/tZkCFCkbfnE?si=EjAZeElsOMEs2JCH" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen
-                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;">
+                <iframe src="https://www.youtube.com/embed/tZkCFCkbfnE?si=EjAZeElsOMEs2JCH"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;">
                 </iframe>
             </div>
 
             <div>
                 <a href="https://github.com/wontothree/fpga-calculator/">Code</a>
             </div>
-            
+
             <div style="margin-top: 0.5em;">
                 <span class="tag-label">FPGA</span>
             </div>
@@ -247,10 +254,9 @@
             <h3 style="margin-bottom: 0.2em;">[07/01/2023-07/31/2023] ECG-Based Cardiovascular Diagnosis Device</h3>
             <div style="margin-top: 0.2em">🏆 Excellence Award at InBody Makerthon 2023 (Prize Money $1,462)</div>
             <div style="position: relative; width: 100%; height: 0; padding-bottom: 56.25%; /* 16:9 비율 */">
-                <iframe src="https://www.youtube.com/embed/qWbYItPG7f0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen
-                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;">
+                <iframe src="https://www.youtube.com/embed/qWbYItPG7f0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;">
                 </iframe>
             </div>
 
@@ -258,7 +264,7 @@
                 <a href="https://wontothree.github.io/ecg-cardiovascular-diagnosis/">Project Page</a> |
                 <a href="https://github.com/wontothree/ecg-cardiovascular-diagnosis/">Code</a>
             </div>
-            
+
             <div style="margin-top: 0.5em;">
                 <span class="tag-label">CNN</span>
                 <span class="tag-label">ML</span>
@@ -268,12 +274,12 @@
             <br>
 
             <h3 style="margin-bottom: 0.2em;">[07/24/2023-07/28/2023] Autonomous Mobile Robot for Executing Missions</h3>
-            <div style="margin-top: 0.2em">🏆 Excellence Award at Excellence Prize at AI Object Detection-Based Solar Tracking Robot Challenge (Prize Money $200)</div>
+            <div style="margin-top: 0.2em">🏆 Excellence Award at Excellence Prize at AI Object Detection-Based Solar
+                Tracking Robot Challenge (Prize Money $200)</div>
             <div style="position: relative; width: 100%; height: 0; padding-bottom: 56.25%; /* 16:9 비율 */">
-                <iframe src="https://www.youtube.com/embed/0FwY5ziacQI" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen
-                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;">
+                <iframe src="https://www.youtube.com/embed/0FwY5ziacQI"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;">
                 </iframe>
             </div>
 
@@ -281,7 +287,7 @@
                 <a href="https://wontothree.github.io/autonomous-mission-robot/">Project Page</a> |
                 <a href="https://github.com/wontothree/autonomous-mission-robot/">Code</a>
             </div>
-            
+
             <div style="margin-top: 0.5em;">
                 <span class="tag-label">Robot Design</span>
                 <span class="tag-label">Raspberry Pi</span>
@@ -295,13 +301,28 @@
 
             <br>
 
-            <h3>[03/07/2022-01/31/2023] 시대팅 Frontend Development</h3>
+            <h3 style="margin-bottom: 0.2em;">[03/07/2022-01/31/2023] 시대팅 Frontend Development</h3>
+            <div style="margin-top: 0.2em">User Base of 1,700</div>
+            <div style="display: flex; gap: 5px; width: 100%;">
+                <img src="imgs/uoslife1.jpg" alt="UOSLIFE"
+                    style="width: calc(100% / 3.03); height: auto; border-radius: 8px;">
+                <img src="imgs/uoslife2.jpg" alt="UOSLIFE"
+                    style="width: calc(100% / 3.03); height: auto; border-radius: 8px;">
+                <img src="imgs/uoslife3.jpg" alt="UOSLIFE"
+                    style="width: calc(100% / 3.03); height: auto; border-radius: 8px;">
+            </div>
+
             <div>
-                I worked as a member of the frontend development team for <em>UOSLIFE</em>, a community app for the University of Seoul.
-                Our team developed and operated <em>시대팅</em>, an on-campus matchmaking service that received over 1,700 applications.
-                My role was to develop a matching algorithm that maximized user satisfaction and to build the web app frontend.
-                I collaborated closely with the project planning team to discuss questions such as, "What information should we collect to provide ideal matches for both users, and is it technically feasible?"
-                I also continuously coordinated with the design team to find a balance between user-friendly design and development feasibility.
+                I worked as a member of the frontend development team for <em>UOSLIFE</em>, a community app for the
+                University of Seoul.
+                Our team developed and operated <em>시대팅</em>, an on-campus matchmaking service that received over 1,700
+                applications.
+                My role was to develop a matching algorithm that maximized user satisfaction and to build the web app
+                frontend.
+                I collaborated closely with the project planning team to discuss questions such as, "What information
+                should we collect to provide ideal matches for both users, and is it technically feasible?"
+                I also continuously coordinated with the design team to find a balance between user-friendly design and
+                development feasibility.
                 Based on these collaborations, I developed the frontend for the app.
             </div>
             <div style="margin-top: 0.5em;">
@@ -332,7 +353,11 @@
 
         <h1>Activities</h1>
         <div class="box">
-            <h3>[09/18/2023-Present] AI Robotics KR Management Team</h3>
+            <h3>[09/18/2023-09/30/2024] Human and AI Robotics "Together", AI Robotics KR Team</h3>
+            <div style="position: relative; width: 100%; height: auto;">
+                <img src="imgs/human-and-ai-robotics-together.png" alt="Humand and AI Robotics Together"
+                    style="width: 100%; height: auto; border-radius: 8px;">
+            </div>
 
             <br>
 
@@ -343,8 +368,9 @@
 
     <br><br>
 
-    <footer>&copy; 2025 Sewon Kim</footer>    
+    <footer>&copy; 2025 Sewon Kim</footer>
 
     <br>
 </body>
+
 </html>
