@@ -8,7 +8,9 @@
     display: none;
 }
 
-#root, body, html {
+#root,
+body,
+html {
     width: 100%;
     height: 100%;
     margin: 0;
@@ -77,7 +79,8 @@ footer {
     color: inherit;
 }
 
-a, a:focus {
+a,
+a:focus {
     color: #598be7 !important;
     text-decoration: none !important;
 }
@@ -102,27 +105,31 @@ a:hover {
 
 /* box style */
 .box {
-    width: 95%;                /* 너비를 100%로 설정하여 부모 요소에 맞춤 */
-    margin: 1rem 0;             /* 위쪽과 아래쪽 여백 */
+    width: 100%;
+    /* 너비를 100%로 설정하여 부모 요소에 맞춤 */
+    margin: 1rem 0;
+    /* 위쪽과 아래쪽 여백 */
     border: 2px solid #444;
-    padding: 0.5rem;            /* between border and contents (rem, px) */
-    border-radius: 5px;         /* rounding of border */
+    padding: 0.5rem;
+    /* between border and contents (rem, px) */
+    border-radius: 5px;
+    /* rounding of border */
     padding-left: 10px;
     padding-right: 10px;
 }
 
 .tag-label {
-  display: inline-block;
-  background-color: #f0f0f0;
-  color: #333;
-  padding: 2px 6px;
-  border-radius: 8px;
-  font-size: 0.75em;
-  margin-right: 4px;
-  margin-bottom: 2px;
-  font-family: 'Segoe UI', sans-serif;
-  line-height: 1.4;
-  white-space: nowrap;
+    display: inline-block;
+    background-color: #f0f0f0;
+    color: #333;
+    padding: 2px 6px;
+    border-radius: 8px;
+    font-size: 0.75em;
+    margin-right: 4px;
+    margin-bottom: 2px;
+    font-family: 'Segoe UI', sans-serif;
+    line-height: 1.4;
+    white-space: nowrap;
 }
 
 .progress-bar {
