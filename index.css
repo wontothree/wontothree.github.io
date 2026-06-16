@@ -109,7 +109,7 @@ a:hover {
     /* 너비를 100%로 설정하여 부모 요소에 맞춤 */
     margin: 1rem 0;
     /* 위쪽과 아래쪽 여백 */
-    border: 2px solid #444;
+    border: 0.1px solid #444;
     padding: 0.5rem;
     /* between border and contents (rem, px) */
     border-radius: 5px;
