@@ -109,7 +109,7 @@
 
         <h1>Projects</h1>
         <div class="box">
-            <h3 style="margin-bottom: 0.2em;">[11/27/2025-01/21/2026] Autonomous Planetary Gearbox Assembly (by Galaxea R1)</h3>
+            <h3 style="margin-bottom: 0.2em;">[11/27/2025-01/21/2026] Autonomous Dual Arm Gearbox Assembly in Isaac Sim</h3>
 
             <div style="display: flex;  gap: 15px;">
                 <div style="position: relative; width: 50%; aspect-ratio: 16/9; overflow: hidden; border-radius: 0px;">
@@ -141,7 +141,7 @@
             <!-- ---------------------------------------------------------------------------------------------------- -->
             <!-- ---------------------------------------------------------------------------------------------------- -->
             <!-- ---------------------------------------------------------------------------------------------------- -->
-            <h3 style="margin-bottom: 0.2em;">[08/25/2025-09/25/2025] Autonomous Air Purifing Agent</h3>
+            <h3 style="margin-bottom: 0.2em;">[08/25/2025-09/25/2025] Autonomous Air Purification Agent</h3>
             <div style="margin-top: 0.2em">🏆 4th Place (/200) ($2,200) — SK NAMUH X A1: Autonomous Driving Path
                 Optimization
             </div>
@@ -207,8 +207,10 @@
                     <div style="margin-top: 10px;">
                         <p>
                             F1TENTH is a 1/10-scale autonomous racing platform designed for developing algorithms for high-speed, collision-free autonomous driving.
-                            We built a full-stack autonomous navigation system for racing completely
-                            from scratch, especially MPPI, and I led the project with two undergraduate students.
+                            I formulated autonomous racing as a two-stage problem: generating a time-optimal racing trajectory offline (global planning via trajectory optimization), and tracking the reference while avoiding collisions online (local planning via MPPI).
+                            
+                            We built a full-stack autonomous navigation system for racing completely from scratch, covering SLAM, localization, trajectory optimization, MPPI, moter control, and hardware.
+                            I led the project with two undergraduate students.
                         </p>
                     </div>
 
@@ -295,15 +297,20 @@
             <!-- ---------------------------------------------------------------------------------------------------- -->
             <h3 style="margin-bottom: 0.2em;">[01/05/2024-01/11/2025] InBody AI Scale</h3>
             <div style="margin-top: 0.2em">Consumer Electronic Show 2025, Las Vegas</div>
-            <div style="position: relative; width: 25%; aspect-ratio: 16/25; overflow: hidden; border-radius: 0px;">
-                <video autoplay muted loop playsinline
-                  style="width: 100%; height: 100%; object-fit: cover; background-color: black; display: block;">
-                    <source src="assets/videos/inbodyaiscale.mp4" type="video/mp4">
-                </video>
-
+            <div style="display: flex;  gap: 15px;">
+                <div style="position: relative; width: 25%; aspect-ratio: 16/25; overflow: hidden; border-radius: 0px;">
+                    <video autoplay muted loop playsinline
+                    style="width: 100%; height: 100%; object-fit: cover; background-color: black; display: block;">
+                        <source src="assets/videos/inbodyaiscale.mp4" type="video/mp4">
+                    </video>
+                </div>
                 <div style="flex: 1;">
                     <p>
-                        Developed height estimation model (acc 99.4%) and face recognition system of "InBody AI Scale", automated body composition analyzer that reduces measurement time from 120s to 40s.
+                        We (7 members and I) developed InBody AI Scale, fully-automated body composition analyzer, from scratch that reduces measurement time by 67% compared to the original model.
+
+                        I developed height estimation model (acc 99.4%) and face recognition system of "InBody AI Scale".
+
+                        We developed a near-production-ready product.
                     </p>
                 </div>
             </div>
@@ -325,11 +332,11 @@
             <!-- ---------------------------------------------------------------------------------------------------- -->
             <!-- ---------------------------------------------------------------------------------------------------- -->
             <!-- ---------------------------------------------------------------------------------------------------- -->
-            <h3 style="margin-bottom: 0.2em;">[09/01/2023-12/23/2023 | 03/01/2024-06/18/2924] Experiment Courses</h3>
-            <div style="display: flex; gap: 16px; flex-wrap: nowrap;">
+            <!-- <h3 style="margin-bottom: 0.2em;">[09/01/2023-12/23/2023 | 03/01/2024-06/18/2924] Experiment Courses</h3>
+            <div style="display: flex; gap: 16px; flex-wrap: nowrap;"> -->
 
                 <!-- FPGA Calculator -->
-                <div style="position: relative; width: 25%; aspect-ratio: 16/9; overflow: hidden; border-radius: 0px;">
+                <!-- <div style="position: relative; width: 25%; aspect-ratio: 16/9; overflow: hidden; border-radius: 0px;">
                     <div style="position: absolute; top: 8px; left: 8px; z-index: 10; color: white; font-weight: bold;">
                         FPGA Calculator
                     </div>
@@ -337,10 +344,10 @@
                       style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 0px;">
                         <source src="assets/videos/fpga.mp4" type="video/mp4">
                     </video>
-                </div>
+                </div> -->
 
                 <!-- Full-Wave Rectifier -->
-                <div style="position: relative; width: 25%; aspect-ratio: 1/1; overflow: hidden; border-radius: 0px;">
+                <!-- <div style="position: relative; width: 25%; aspect-ratio: 1/1; overflow: hidden; border-radius: 0px;">
                     <div style="position: absolute; top: 8px; left: 8px; z-index: 10; color: white; font-weight: bold;">
                         Full-Wave Rectifier with Voltage & Phase Control
                     </div>
@@ -348,9 +355,9 @@
                       style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 0px;">
                         <source src="assets/videos/elect.mp4" type="video/mp4">
                     </video>
-                </div>
+                </div> -->
 
-            </div>
+            <!-- </div> -->
 
             <!-- <div style="margin-top: 0.5em;">
                 <span class="tag-label">FPGA</span>
@@ -361,16 +368,21 @@
             <!-- ---------------------------------------------------------------------------------------------------- -->
             <!-- ---------------------------------------------------------------------------------------------------- -->
             <!-- ---------------------------------------------------------------------------------------------------- -->
-            <h3 style="margin-bottom: 0.2em;">[07/01/2023-07/31/2023] ECG-Based Cardiovascular Diagnosis Device Using ML
-            </h3>
-            <div style="margin-top: 0.2em">🏆 3rd Place (/12) ($1460) — InBody Makathon 2023
-            </div>
+            <h3 style="margin-bottom: 0.2em;">[07/01/2023-07/31/2023] ECG-Based Cardiovascular Diagnosis Device Using ML</h3>
+            <div style="margin-top: 0.2em">🏆 3rd Place (/12) ($1460) — InBody Makathon 2023</div>
 
-            <div style="position: relative; width: 50%; aspect-ratio: 16/9; overflow: hidden; border-radius: 0px;">
-                <video autoplay muted loop playsinline
-                  style="width: 100%; height: 100%; object-fit: cover; background-color: black; display: block;">
-                    <source src="assets/videos/ecg.mp4" type="video/mp4">
-                </video>
+            <div style="display: flex;  gap: 15px;">
+                <div style="position: relative; width: 50%; aspect-ratio: 16/9; overflow: hidden; border-radius: 0px;">
+                    <video autoplay muted loop playsinline
+                    style="width: 100%; height: 100%; object-fit: cover; background-color: black; display: block;">
+                        <source src="assets/videos/ecg.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div style="flex: 1;">
+                    <p>
+                        We rapidly prototyped the product.
+                    </p>
+                </div>
             </div>
 
             <div>
