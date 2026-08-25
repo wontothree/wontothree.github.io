@@ -19,7 +19,7 @@ html {
     font-family: sans-serif;
     background-color: white;
     color: #1e1e1e;
-    font-family: 'Helvetica Neue';
+    font-family: 'Monaspace Neon', monospace; /* Helvetica Neue */
 }
 
 /* font size by screen size */
