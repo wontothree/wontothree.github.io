@@ -12,7 +12,6 @@
 body,
 html {
     width: 100%;
-    height: 100%;
     margin: 0;
     padding: 0;
     line-height: 1.8rem;
@@ -106,16 +105,20 @@ a:hover {
 /* box style */
 .box {
     width: 100%;
-    /* 너비를 100%로 설정하여 부모 요소에 맞춤 */
     margin: 1rem 0;
-    /* 위쪽과 아래쪽 여백 */
     border: 0.1px solid #444;
     padding: 0.5rem;
-    /* between border and contents (rem, px) */
     border-radius: 5px;
-    /* rounding of border */
     padding-left: 10px;
     padding-right: 10px;
+}
+
+.plain-box {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: baseline;
 }
 
 .tag-label {
@@ -133,7 +136,7 @@ a:hover {
 }
 
 .progress-bar {
-    background: linear-gradient(to right, #598be7 var(--scroll), transparent 0);
+    background: linear-gradient(to right, #cea9b8 var(--scroll), transparent 0);
     background-repeat: no-repeat;
     width: 100%;
     position: fixed;

@@ -1,0 +1,1905 @@
+```html
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>3R Yaw-Pitch-Pitch Robot Manipulability</title>
+
+<style>
+
+html, body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: white;
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+</style>
+</head>
+
+
+<body>
+
+<canvas id="canvas"></canvas>
+
+
+<script>
+
+
+/* =========================================================
+   Canvas
+   ========================================================= */
+
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+
+function resize() {
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+}
+
+resize();
+
+window.addEventListener("resize", resize);
+
+
+
+/* =========================================================
+   Robot parameters
+   ========================================================= */
+
+const H  = 20;
+
+// Yaw joint -> Pitch 1 joint
+const L1 = 20;
+
+// Pitch 1 -> Pitch 2
+const L2 = 100;
+
+// Pitch 2 -> End-effector
+const L3 = 80;
+
+
+
+/* =========================================================
+   Joint angles
+   ========================================================= */
+
+let yaw = 0;
+
+let pitch1 =
+    35 * Math.PI / 180;
+
+let pitch2 =
+    35 * Math.PI / 180;
+
+
+
+/* =========================================================
+   GUI
+   ========================================================= */
+
+const guiContainer =
+    document.createElement("div");
+
+guiContainer.style.position =
+    "absolute";
+
+guiContainer.style.top =
+    "20px";
+
+guiContainer.style.left =
+    "20px";
+
+guiContainer.style.background =
+    "rgba(255,255,255,0.9)";
+
+guiContainer.style.padding =
+    "15px";
+
+guiContainer.style.borderRadius =
+    "8px";
+
+guiContainer.style.boxShadow =
+    "0 2px 10px rgba(0,0,0,0.1)";
+
+guiContainer.style.fontFamily =
+    "Arial, sans-serif";
+
+guiContainer.style.fontSize =
+    "14px";
+
+
+guiContainer.innerHTML = `
+
+<div style="margin-bottom:12px">
+
+<label>
+<b>Yaw (Rad):</b>
+<span id="valYaw">0.00</span>
+</label>
+
+<br>
+
+<input
+type="range"
+id="sliderYaw"
+min="-3.14"
+max="3.14"
+step="0.01"
+value="0"
+style="width:220px">
+
+</div>
+
+
+<div style="margin-bottom:12px">
+
+<label>
+<b>Pitch 1 (Rad):</b>
+<span id="valPitch1">0.61</span>
+</label>
+
+<br>
+
+<input
+type="range"
+id="sliderPitch1"
+min="-3.14"
+max="3.14"
+step="0.01"
+value="0.61"
+style="width:220px">
+
+</div>
+
+
+<div style="margin-bottom:12px">
+
+<label>
+<b>Pitch 2 (Rad):</b>
+<span id="valPitch2">0.61</span>
+</label>
+
+<br>
+
+<input
+type="range"
+id="sliderPitch2"
+min="-3.14"
+max="3.14"
+step="0.01"
+value="0.61"
+style="width:220px">
+
+</div>
+
+
+<div style="
+color:#666;
+font-size:12px;
+line-height:1.5;
+margin-top:8px;
+">
+
+Manipulability ellipsoid<br>
+is computed from J Jᵀ.
+
+</div>
+
+`;
+
+
+document.body.appendChild(guiContainer);
+
+
+
+const sliderYaw =
+    document.getElementById("sliderYaw");
+
+const sliderPitch1 =
+    document.getElementById("sliderPitch1");
+
+const sliderPitch2 =
+    document.getElementById("sliderPitch2");
+
+
+const valYaw =
+    document.getElementById("valYaw");
+
+const valPitch1 =
+    document.getElementById("valPitch1");
+
+const valPitch2 =
+    document.getElementById("valPitch2");
+
+
+
+sliderYaw.addEventListener("input", e => {
+
+    yaw =
+        parseFloat(e.target.value);
+
+    valYaw.textContent =
+        yaw.toFixed(2);
+
+    draw();
+
+});
+
+
+sliderPitch1.addEventListener("input", e => {
+
+    pitch1 =
+        parseFloat(e.target.value);
+
+    valPitch1.textContent =
+        pitch1.toFixed(2);
+
+    draw();
+
+});
+
+
+sliderPitch2.addEventListener("input", e => {
+
+    pitch2 =
+        parseFloat(e.target.value);
+
+    valPitch2.textContent =
+        pitch2.toFixed(2);
+
+    draw();
+
+});
+
+
+
+/* =========================================================
+   Camera
+   ========================================================= */
+
+const camera = {
+
+    x: 320,
+    y: -450,
+    z: 280
+
+};
+
+
+const target = {
+
+    x: 0,
+    y: 0,
+    z: 100
+
+};
+
+
+const focal = 700;
+
+
+
+/* =========================================================
+   Vector functions
+   ========================================================= */
+
+function sub(a,b) {
+
+    return {
+
+        x: a.x - b.x,
+        y: a.y - b.y,
+        z: a.z - b.z
+
+    };
+
+}
+
+
+function dot(a,b) {
+
+    return (
+
+        a.x*b.x +
+        a.y*b.y +
+        a.z*b.z
+
+    );
+
+}
+
+
+function cross(a,b) {
+
+    return {
+
+        x:
+            a.y*b.z -
+            a.z*b.y,
+
+        y:
+            a.z*b.x -
+            a.x*b.z,
+
+        z:
+            a.x*b.y -
+            a.y*b.x
+
+    };
+
+}
+
+
+function normalize(v) {
+
+    const n =
+        Math.sqrt(dot(v,v));
+
+    return {
+
+        x:v.x/n,
+        y:v.y/n,
+        z:v.z/n
+
+    };
+
+}
+
+
+
+/* =========================================================
+   Camera basis
+   ========================================================= */
+
+const forward =
+    normalize(
+        sub(target,camera)
+    );
+
+
+const worldUp = {
+
+    x:0,
+    y:0,
+    z:1
+
+};
+
+
+const right =
+    normalize(
+        cross(forward,worldUp)
+    );
+
+
+const up =
+    normalize(
+        cross(right,forward)
+    );
+
+
+
+/* =========================================================
+   3D -> 2D projection
+   ========================================================= */
+
+function project(p) {
+
+    const v =
+        sub(p,camera);
+
+
+    const x =
+        dot(v,right);
+
+    const y =
+        dot(v,up);
+
+    const z =
+        dot(v,forward);
+
+
+    if(z <= 0)
+        return null;
+
+
+    const scale =
+        focal/z;
+
+
+    return {
+
+        x:
+            canvas.width/2 +
+            x*scale,
+
+        y:
+            canvas.height/2 -
+            y*scale,
+
+        scale
+
+    };
+
+}
+
+
+
+/* =========================================================
+   Draw line
+   ========================================================= */
+
+function line(
+    a,
+    b,
+    width=3,
+    color="black"
+) {
+
+    const A = project(a);
+    const B = project(b);
+
+
+    if(!A || !B)
+        return;
+
+
+    ctx.beginPath();
+
+    ctx.moveTo(A.x,A.y);
+
+    ctx.lineTo(B.x,B.y);
+
+    ctx.strokeStyle=color;
+
+    ctx.lineWidth=width;
+
+    ctx.stroke();
+
+}
+
+
+
+/* =========================================================
+   Draw point
+   ========================================================= */
+
+function point(
+    p,
+    r=8,
+    fill="black"
+) {
+
+    const P = project(p);
+
+
+    if(!P)
+        return;
+
+
+    ctx.beginPath();
+
+    ctx.arc(
+        P.x,
+        P.y,
+        r,
+        0,
+        2*Math.PI
+    );
+
+
+    ctx.fillStyle=fill;
+
+    ctx.fill();
+
+
+    ctx.strokeStyle="black";
+
+    ctx.lineWidth=1.5;
+
+    ctx.stroke();
+
+}
+
+
+
+/* =========================================================
+   Coordinate axes
+   ========================================================= */
+
+function axes() {
+
+    const O = {
+
+        x:0,
+        y:0,
+        z:0
+
+    };
+
+
+    line(
+        O,
+        {x:150,y:0,z:0},
+        2,
+        "#cc4444"
+    );
+
+
+    line(
+        O,
+        {x:0,y:150,z:0},
+        2,
+        "#44aa66"
+    );
+
+
+    line(
+        O,
+        {x:0,y:0,z:220},
+        2,
+        "#4477cc"
+    );
+
+
+    const X =
+        project({
+            x:170,
+            y:0,
+            z:0
+        });
+
+
+    const Y =
+        project({
+            x:0,
+            y:170,
+            z:0
+        });
+
+
+    const Z =
+        project({
+            x:0,
+            y:0,
+            z:240
+        });
+
+
+    ctx.font="18px Arial";
+
+    ctx.fillStyle="black";
+
+
+    if(X)
+        ctx.fillText("x",X.x,X.y);
+
+    if(Y)
+        ctx.fillText("y",Y.x,Y.y);
+
+    if(Z)
+        ctx.fillText("z",Z.x,Z.y);
+
+}
+
+
+
+/* =========================================================
+   3R Forward Kinematics
+   =========================================================
+
+   q = [yaw, pitch1, pitch2]
+
+   The arm keeps the same Yaw-Pitch structure
+   as the original robot.
+
+========================================================= */
+
+function getRobotPoints() {
+
+
+    /*
+        Base
+    */
+
+    const base = {
+
+        x:0,
+        y:0,
+        z:0
+
+    };
+
+
+    /*
+        Yaw joint
+    */
+
+    const yawJoint = {
+
+        x:0,
+        y:0,
+        z:H
+
+    };
+
+
+    /*
+        Pitch 1 joint
+    */
+
+    const pitch1Joint = {
+
+        x:0,
+        y:0,
+        z:H+L1
+
+    };
+
+
+    /*
+        First pitch link direction
+
+        yaw determines the horizontal direction.
+
+        pitch1 determines elevation.
+    */
+
+    const horizontalX =
+        Math.cos(yaw);
+
+    const horizontalY =
+        Math.sin(yaw);
+
+
+    const phi1 =
+        pitch1;
+
+
+    /*
+        Pitch 2 position
+    */
+
+    const pitch2Joint = {
+
+        x:
+            pitch1Joint.x +
+            L2 *
+            Math.sin(phi1) *
+            horizontalX,
+
+        y:
+            pitch1Joint.y +
+            L2 *
+            Math.sin(phi1) *
+            horizontalY,
+
+        z:
+            pitch1Joint.z +
+            L2 *
+            Math.cos(phi1)
+
+    };
+
+
+    /*
+        Final link
+
+        pitch2 is relative to pitch1.
+
+        Therefore absolute elevation:
+
+            pitch1 + pitch2
+    */
+
+    const phi2 =
+        pitch1 + pitch2;
+
+
+    /*
+        End effector
+    */
+
+    const end = {
+
+        x:
+            pitch1Joint.x +
+
+            L2 *
+            Math.sin(phi1) *
+            horizontalX +
+
+            L3 *
+            Math.sin(phi2) *
+            horizontalX,
+
+        y:
+            pitch1Joint.y +
+
+            L2 *
+            Math.sin(phi1) *
+            horizontalY +
+
+            L3 *
+            Math.sin(phi2) *
+            horizontalY,
+
+        z:
+            pitch1Joint.z +
+
+            L2 *
+            Math.cos(phi1) +
+
+            L3 *
+            Math.cos(phi2)
+
+    };
+
+
+    return {
+
+        base,
+        yawJoint,
+        pitch1Joint,
+        pitch2Joint,
+        end
+
+    };
+
+}
+
+
+
+/* =========================================================
+   Jacobian
+   =========================================================
+
+   Position:
+
+   x =
+       cos(yaw)
+       [ L2 sin(p1)
+         + L3 sin(p1+p2) ]
+
+   y =
+       sin(yaw)
+       [ L2 sin(p1)
+         + L3 sin(p1+p2) ]
+
+   z =
+       H + L1
+       + L2 cos(p1)
+       + L3 cos(p1+p2)
+
+
+   J is 3 x 3.
+
+========================================================= */
+
+function getJacobian(
+    yaw,
+    p1,
+    p2
+) {
+
+
+    const s1 =
+        Math.sin(p1);
+
+    const c1 =
+        Math.cos(p1);
+
+
+    const s12 =
+        Math.sin(p1+p2);
+
+    const c12 =
+        Math.cos(p1+p2);
+
+
+    /*
+        Radial distance from z axis
+    */
+
+    const R =
+        L2*s1 +
+        L3*s12;
+
+
+    /*
+        Derivative wrt yaw
+    */
+
+    const J11 =
+        -R*Math.sin(yaw);
+
+    const J21 =
+         R*Math.cos(yaw);
+
+    const J31 =
+         0;
+
+
+    /*
+        Derivative wrt pitch1
+    */
+
+    const dRdp1 =
+        L2*c1 +
+        L3*c12;
+
+
+    const J12 =
+        dRdp1*Math.cos(yaw);
+
+    const J22 =
+        dRdp1*Math.sin(yaw);
+
+    const J32 =
+        -L2*s1 -
+        L3*s12;
+
+
+    /*
+        Derivative wrt pitch2
+    */
+
+    const dRdp2 =
+        L3*c12;
+
+
+    const J13 =
+        dRdp2*Math.cos(yaw);
+
+    const J23 =
+        dRdp2*Math.sin(yaw);
+
+    const J33 =
+        -L3*s12;
+
+
+    return [
+
+        J11,J12,J13,
+
+        J21,J22,J23,
+
+        J31,J32,J33
+
+    ];
+
+}
+
+
+
+/* =========================================================
+   3 x 3 matrix multiplication
+   ========================================================= */
+
+function multiply3x3(A,B) {
+
+    const C =
+        new Array(9).fill(0);
+
+
+    for(let i=0;i<3;i++) {
+
+        for(let j=0;j<3;j++) {
+
+            for(let k=0;k<3;k++) {
+
+                C[i*3+j] +=
+                    A[i*3+k] *
+                    B[k*3+j];
+
+            }
+
+        }
+
+    }
+
+
+    return C;
+
+}
+
+
+
+/* =========================================================
+   Jacobi Eigenvalue Algorithm
+   =========================================================
+
+   Used for symmetric 3 x 3 matrix
+
+       A = J J^T
+
+========================================================= */
+
+function eigenSymmetric3(A) {
+
+
+    let V = [
+
+        1,0,0,
+        0,1,0,
+        0,0,1
+
+    ];
+
+
+    let M = A.slice();
+
+
+    for(let iteration=0;
+        iteration<50;
+        iteration++) {
+
+
+        /*
+            Find largest off-diagonal element
+        */
+
+        let p=0;
+        let q=1;
+
+        let max =
+            Math.abs(M[1]);
+
+
+        if(
+            Math.abs(M[2]) > max
+        ) {
+
+            max =
+                Math.abs(M[2]);
+
+            p=0;
+            q=2;
+
+        }
+
+
+        if(
+            Math.abs(M[5]) > max
+        ) {
+
+            max =
+                Math.abs(M[5]);
+
+            p=1;
+            q=2;
+
+        }
+
+
+        if(max < 1e-9)
+            break;
+
+
+        const app =
+            M[p*3+p];
+
+        const aqq =
+            M[q*3+q];
+
+        const apq =
+            M[p*3+q];
+
+
+        const phi =
+            0.5 *
+            Math.atan2(
+                2*apq,
+                aqq-app
+            );
+
+
+        const c =
+            Math.cos(phi);
+
+        const s =
+            Math.sin(phi);
+
+
+        /*
+            Rotate rows/columns
+        */
+
+        for(let k=0;k<3;k++) {
+
+            const mkp =
+                M[k*3+p];
+
+            const mkq =
+                M[k*3+q];
+
+
+            M[k*3+p] =
+                c*mkp -
+                s*mkq;
+
+            M[k*3+q] =
+                s*mkp +
+                c*mkq;
+
+        }
+
+
+        for(let k=0;k<3;k++) {
+
+            const mpk =
+                M[p*3+k];
+
+            const mqk =
+                M[q*3+k];
+
+
+            M[p*3+k] =
+                c*mpk -
+                s*mqk;
+
+            M[q*3+k] =
+                s*mpk +
+                c*mqk;
+
+        }
+
+
+        /*
+            Update eigenvectors
+        */
+
+        for(let k=0;k<3;k++) {
+
+            const vkp =
+                V[k*3+p];
+
+            const vkq =
+                V[k*3+q];
+
+
+            V[k*3+p] =
+                c*vkp -
+                s*vkq;
+
+            V[k*3+q] =
+                s*vkp +
+                c*vkq;
+
+        }
+
+    }
+
+
+    return {
+
+        values: [
+
+            M[0],
+            M[4],
+            M[8]
+
+        ],
+
+        vectors: V
+
+    };
+
+}
+
+
+
+/* =========================================================
+   Manipulability Ellipsoid
+   ========================================================= */
+
+function getManipulability(J) {
+
+
+    /*
+        A = J J^T
+    */
+
+    const JT = [
+
+        J[0],J[3],J[6],
+
+        J[1],J[4],J[7],
+
+        J[2],J[5],J[8]
+
+    ];
+
+
+    const A =
+        multiply3x3(J,JT);
+
+
+    const eigen =
+        eigenSymmetric3(A);
+
+
+    /*
+        Sort eigenvalues descending
+    */
+
+    const indices = [0,1,2];
+
+
+    indices.sort(
+        (a,b) =>
+            eigen.values[b] -
+            eigen.values[a]
+    );
+
+
+    const radii = [];
+
+    const vectors = [];
+
+
+    for(const index of indices) {
+
+        radii.push(
+
+            Math.sqrt(
+                Math.max(
+                    0,
+                    eigen.values[index]
+                )
+            )
+
+        );
+
+
+        vectors.push({
+
+            x:
+                eigen.vectors[index],
+
+            y:
+                eigen.vectors[3+index],
+
+            z:
+                eigen.vectors[6+index]
+
+        });
+
+    }
+
+
+    return {
+
+        radii,
+        vectors,
+
+        sigma1:radii[0],
+        sigma2:radii[1],
+        sigma3:radii[2]
+
+    };
+
+}
+
+
+
+/* =========================================================
+   Draw 3D Ellipsoid
+   ========================================================= */
+
+function drawEllipsoid(center, ellipsoid) {
+
+
+    const {
+
+        radii,
+        vectors
+
+    } = ellipsoid;
+
+
+    /*
+        Scale only for visualization.
+    */
+
+    const scale =
+        0.35;
+
+
+    /*
+        Parametric ellipsoid:
+
+        p =
+            center
+            + r1 cos(phi) cos(theta) v1
+            + r2 cos(phi) sin(theta) v2
+            + r3 sin(phi)        v3
+    */
+
+
+    const rings = 10;
+
+    const segments = 24;
+
+
+    /*
+        Latitude lines
+    */
+
+    for(
+        let i=1;
+        i<rings;
+        i++
+    ) {
+
+
+        const phi =
+            -Math.PI/2 +
+            Math.PI*i/rings;
+
+
+        let previous=null;
+
+
+        for(
+            let j=0;
+            j<=segments;
+            j++
+        ) {
+
+
+            const theta =
+                2*Math.PI*j/segments;
+
+
+            const cp =
+                Math.cos(phi);
+
+            const sp =
+                Math.sin(phi);
+
+
+            const ct =
+                Math.cos(theta);
+
+            const st =
+                Math.sin(theta);
+
+
+            const p = {
+
+                x:
+                    center.x +
+
+                    scale * (
+
+                        radii[0] *
+                        cp * ct *
+                        vectors[0].x +
+
+                        radii[1] *
+                        cp * st *
+                        vectors[1].x +
+
+                        radii[2] *
+                        sp *
+                        vectors[2].x
+
+                    ),
+
+                y:
+                    center.y +
+
+                    scale * (
+
+                        radii[0] *
+                        cp * ct *
+                        vectors[0].y +
+
+                        radii[1] *
+                        cp * st *
+                        vectors[1].y +
+
+                        radii[2] *
+                        sp *
+                        vectors[2].y
+
+                    ),
+
+                z:
+                    center.z +
+
+                    scale * (
+
+                        radii[0] *
+                        cp * ct *
+                        vectors[0].z +
+
+                        radii[1] *
+                        cp * st *
+                        vectors[1].z +
+
+                        radii[2] *
+                        sp *
+                        vectors[2].z
+
+                    )
+
+            };
+
+
+            if(previous) {
+
+                line(
+                    previous,
+                    p,
+                    0.5,
+                    "#ffb8a5"
+                );
+
+            }
+
+
+            previous=p;
+
+        }
+
+    }
+
+
+    /*
+        Longitude lines
+    */
+
+    for(
+        let j=0;
+        j<segments;
+        j+=3
+    ) {
+
+
+        const theta =
+            2*Math.PI*j/segments;
+
+
+        let previous=null;
+
+
+        for(
+            let i=0;
+            i<=rings;
+            i++
+        ) {
+
+
+            const phi =
+                -Math.PI/2 +
+                Math.PI*i/rings;
+
+
+            const cp =
+                Math.cos(phi);
+
+            const sp =
+                Math.sin(phi);
+
+
+            const ct =
+                Math.cos(theta);
+
+            const st =
+                Math.sin(theta);
+
+
+            const p = {
+
+                x:
+                    center.x +
+
+                    scale * (
+
+                        radii[0] *
+                        cp * ct *
+                        vectors[0].x +
+
+                        radii[1] *
+                        cp * st *
+                        vectors[1].x +
+
+                        radii[2] *
+                        sp *
+                        vectors[2].x
+
+                    ),
+
+                y:
+                    center.y +
+
+                    scale * (
+
+                        radii[0] *
+                        cp * ct *
+                        vectors[0].y +
+
+                        radii[1] *
+                        cp * st *
+                        vectors[1].y +
+
+                        radii[2] *
+                        sp *
+                        vectors[2].y
+
+                    ),
+
+                z:
+                    center.z +
+
+                    scale * (
+
+                        radii[0] *
+                        cp * ct *
+                        vectors[0].z +
+
+                        radii[1] *
+                        cp * st *
+                        vectors[1].z +
+
+                        radii[2] *
+                        sp *
+                        vectors[2].z
+
+                    )
+
+            };
+
+
+            if(previous) {
+
+                line(
+                    previous,
+                    p,
+                    0.5,
+                    "#ffb8a5"
+                );
+
+            }
+
+
+            previous=p;
+
+        }
+
+    }
+
+}
+
+
+
+/* =========================================================
+   Workspace
+   ========================================================= */
+
+function workspace() {
+
+
+    /*
+        Maximum reach from pitch1 joint
+    */
+
+    const center = {
+
+        x:0,
+        y:0,
+        z:H+L1
+
+    };
+
+
+    const radius =
+        L2 + L3;
+
+
+    /*
+        Draw approximate workspace sphere.
+    */
+
+    for(
+        let phi=15;
+        phi<180;
+        phi+=15
+    ) {
+
+
+        const p =
+            phi*Math.PI/180;
+
+
+        let previous=null;
+
+
+        for(
+            let theta=0;
+            theta<=360;
+            theta+=5
+        ) {
+
+
+            const t =
+                theta*Math.PI/180;
+
+
+            const point3D = {
+
+                x:
+                    center.x +
+                    radius *
+                    Math.sin(p) *
+                    Math.cos(t),
+
+                y:
+                    center.y +
+                    radius *
+                    Math.sin(p) *
+                    Math.sin(t),
+
+                z:
+                    center.z +
+                    radius *
+                    Math.cos(p)
+
+            };
+
+
+            if(previous) {
+
+                line(
+                    previous,
+                    point3D,
+                    0.35,
+                    "#eeeeee"
+                );
+
+            }
+
+
+            previous =
+                point3D;
+
+        }
+
+    }
+
+}
+
+
+
+/* =========================================================
+   Robot
+   ========================================================= */
+
+function robot() {
+
+
+    const P =
+        getRobotPoints();
+
+
+    /*
+        Base
+    */
+
+    point(
+        P.base,
+        5,
+        "#777777"
+    );
+
+
+    /*
+        Vertical base / H
+    */
+
+    line(
+        P.base,
+        P.yawJoint,
+        5,
+        "#555555"
+    );
+
+
+    /*
+        Yaw joint
+    */
+
+    point(
+        P.yawJoint,
+        7,
+        "#44dddd"
+    );
+
+
+    /*
+        L1
+    */
+
+    line(
+        P.yawJoint,
+        P.pitch1Joint,
+        4,
+        "black"
+    );
+
+
+    /*
+        Pitch 1
+    */
+
+    point(
+        P.pitch1Joint,
+        8,
+        "#ff5555"
+    );
+
+
+    /*
+        L2
+    */
+
+    line(
+        P.pitch1Joint,
+        P.pitch2Joint,
+        5,
+        "#2196F3"
+    );
+
+
+    /*
+        Pitch 2
+    */
+
+    point(
+        P.pitch2Joint,
+        8,
+        "#ff5555"
+    );
+
+
+    /*
+        L3
+    */
+
+    line(
+        P.pitch2Joint,
+        P.end,
+        5,
+        "#2196F3"
+    );
+
+
+    /*
+        End-effector
+    */
+
+    point(
+        P.end,
+        7,
+        "#ffd43b"
+    );
+
+
+    /*
+        End-effector direction
+
+        Follows absolute pitch:
+
+            pitch1 + pitch2
+    */
+
+    const phi =
+        pitch1 + pitch2;
+
+
+    const toolLength = 25;
+
+
+    const tool = {
+
+        x:
+            P.end.x +
+            toolLength *
+            Math.sin(phi) *
+            Math.cos(yaw),
+
+        y:
+            P.end.y +
+            toolLength *
+            Math.sin(phi) *
+            Math.sin(yaw),
+
+        z:
+            P.end.z +
+            toolLength *
+            Math.cos(phi)
+
+    };
+
+
+    line(
+        P.end,
+        tool,
+        3,
+        "#FF5722"
+    );
+
+}
+
+
+
+/* =========================================================
+   Information
+   ========================================================= */
+
+function drawInfo(
+    ellipsoid
+) {
+
+
+    ctx.font =
+        "18px Arial";
+
+    ctx.fillStyle =
+        "black";
+
+
+    ctx.fillText(
+        `Yaw: ${(yaw*180/Math.PI).toFixed(1)}°`,
+        30,
+        40
+    );
+
+
+    ctx.fillText(
+        `Pitch 1: ${(pitch1*180/Math.PI).toFixed(1)}°`,
+        30,
+        68
+    );
+
+
+    ctx.fillText(
+        `Pitch 2: ${(pitch2*180/Math.PI).toFixed(1)}°`,
+        30,
+        96
+    );
+
+
+    ctx.fillText(
+        `σ₁: ${ellipsoid.sigma1.toFixed(2)}`,
+        30,
+        130
+    );
+
+
+    ctx.fillText(
+        `σ₂: ${ellipsoid.sigma2.toFixed(2)}`,
+        30,
+        158
+    );
+
+
+    ctx.fillText(
+        `σ₃: ${ellipsoid.sigma3.toFixed(2)}`,
+        30,
+        186
+    );
+
+}
+
+
+
+/* =========================================================
+   Main draw
+   ========================================================= */
+
+function draw() {
+
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    /*
+        Workspace first
+    */
+
+    workspace();
+
+
+    /*
+        Coordinate system
+    */
+
+    axes();
+
+
+    /*
+        Robot points
+    */
+
+    const P =
+        getRobotPoints();
+
+
+    /*
+        Manipulability
+    */
+
+    const J =
+        getJacobian(
+            yaw,
+            pitch1,
+            pitch2
+        );
+
+
+    const ellipsoid =
+        getManipulability(J);
+
+
+    /*
+        Draw ellipsoid before robot
+    */
+
+    drawEllipsoid(
+        P.end,
+        ellipsoid
+    );
+
+
+    /*
+        Robot
+    */
+
+    robot();
+
+
+    /*
+        Information
+    */
+
+    drawInfo(
+        ellipsoid
+    );
+
+}
+
+
+
+/* =========================================================
+   Start
+   ========================================================= */
+
+draw();
+
+
+</script>
+
+</body>
+</html>
+```

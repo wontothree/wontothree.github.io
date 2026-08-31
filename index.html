@@ -11,25 +11,8 @@
 </head>
 
 <body>
-    <!-- This is the bar which shows scroll percentage -->
     <div class="progress-bar"></div>
-    <!-- Script used to generate --scroll variable with current scroll percentage value -->
-    <script>
-        var element = document.documentElement,
-            body = document.body,
-            scrollTop = 'scrollTop',
-            scrollHeight = 'scrollHeight',
-            progress = document.querySelector('.progress-bar'),
-            scroll;
-
-        document.addEventListener('scroll', function () {
-            scroll = (element[scrollTop] || body[scrollTop]) / ((element[scrollHeight] || body[scrollHeight]) - element.clientHeight) * 100;
-            progress.style.setProperty('--scroll', scroll + '%');
-        });
-    </script>
-
-    <header class="header"></header>
-
+    <script src="./js/progress-bar.js"></script>
     <br><br>
 
     <div class="base">
@@ -41,7 +24,7 @@
             <div style="flex: 1; min-width: 250px;">
                 <p><strong>Optimal Control</strong> and <strong>Reinfocement Learning</strong></p>
                 <p>
-                    I am Sewon Kim (pronunciation: "seh-won"), an undergrad student in electrical and computer engineering at the University of
+                    I am Sewon Kim (pronunciation: "seh-won"), an undergraduate student in electrical and computer engineering at the University of
                     Seoul.
                     I am interested in developing scalable learning and control methods and their theoretical foundations for robotics.
                 </p>
@@ -79,37 +62,18 @@
                         </a>
                     </li>
                 </ul>
-
-                <p>
-                    I am from Seoul, South Korea 🇰🇷.
-                    I have a passion for jazz and heavy metal 🎸, and I love workout and traveling.
-                </p>
             </div>
         </div>
 
-        <h1>Publications</h1>
-        <div class="box">
-            <h3 style="margin-bottom: 0.2em;">First-Order Methods for Trilevel Optimization</h3>
-            <div style="margin-top: 0.2em"><strong>Sewon Kim</strong>, Hyunwoo Lee, Jeongyeol Kwon, and Dohyun Kwon. Under review at NeurIPS 2026.
-            </div>
-
-            <div style="display: flex;  gap: 15px;">
-                <div style="position: relative; width: 50%; aspect-ratio: 16/9; overflow: hidden; border-radius: 0px;">
-
-                <img src="assets/images/foto.png" style="position: absolute; top: 0; left: 0; width: 100%; height: 70%; object-fit: cover;">
-                </div>
-
-                <div style="flex: 1;">
-                    <p>
-                    </p>
-                </div>
-            </div>
-        </div>
+        <h1>Blog</h1>
+        <!-- <div class="box">
+            <a href="./blog/manipulability-ellipsoid">Manipulability Ellipsoid</a>
+        </div> -->
         
 
         <h1>Projects</h1>
         <div class="box">
-            <h3 style="margin-bottom: 0.2em;">[11/27/2025-01/21/2026] Autonomous Dual Arm Gearbox Assembly in Isaac Sim</h3>
+            <h3 style="margin-bottom: 0.2em;">[11/27/2025-01/21/2026] Autonomous Dual Arm Gearbox Assembly</h3>
 
             <div style="display: flex;  gap: 15px;">
                 <div style="position: relative; width: 50%; aspect-ratio: 16/9; overflow: hidden; border-radius: 0px;">
@@ -357,10 +321,8 @@
     </div>
 
     <br><br>
-
     <footer>&copy; 2026 Sewon Kim</footer>
-
-    <br>
+    <br><br>
 </body>
 
 </html>
