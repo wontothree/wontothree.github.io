@@ -9,7 +9,10 @@
 }
 
 #root,
-body,
+body {
+    /* background-color: #FF6B00; */
+}
+
 html {
     width: 100%;
     margin: 0;
@@ -89,6 +92,11 @@ a:hover {
     text-decoration: none !important;
 }
 
+
+p {
+    text-align: justify; 
+}
+
 /* -------------------- Class style -------------------- */
 
 /* Classs "base" */
@@ -106,7 +114,7 @@ a:hover {
 .box {
     width: 100%;
     margin: 1rem 0;
-    border: 0.1px solid #444;
+    /* border: 0.1px solid #444; */
     padding: 0.5rem;
     border-radius: 5px;
     padding-left: 10px;
@@ -145,3 +153,4 @@ a:hover {
     height: 5px;
     z-index: 9000;
 }
+
