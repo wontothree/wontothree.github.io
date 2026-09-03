@@ -9,9 +9,7 @@
 }
 
 #root,
-body {
-    /* background-color: #FF6B00; */
-}
+body,
 
 html {
     width: 100%;
@@ -83,12 +81,12 @@ footer {
 
 a,
 a:focus {
-    color: #b77b86 !important;
+    color: #FF4900 !important;
     text-decoration: none !important;
 }
 
 a:hover {
-    color: #cea9b8 !important;
+    color: #FFA43F !important;
     text-decoration: none !important;
 }
 
@@ -121,30 +119,8 @@ p {
     padding-right: 10px;
 }
 
-.plain-box {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-    align-items: baseline;
-}
-
-.tag-label {
-    display: inline-block;
-    background-color: #f0f0f0;
-    color: #333;
-    padding: 2px 6px;
-    border-radius: 8px;
-    font-size: 0.75em;
-    margin-right: 4px;
-    margin-bottom: 2px;
-    font-family: 'Segoe UI', sans-serif;
-    line-height: 1.4;
-    white-space: nowrap;
-}
-
 .progress-bar {
-    background: linear-gradient(to right, #cea9b8 var(--scroll), transparent 0);
+    background: linear-gradient(to right, #FF4900 var(--scroll), transparent 0);
     background-repeat: no-repeat;
     width: 100%;
     position: fixed;
@@ -153,4 +129,3 @@ p {
     height: 5px;
     z-index: 9000;
 }
-
