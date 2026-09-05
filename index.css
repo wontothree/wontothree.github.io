@@ -129,3 +129,32 @@ p {
     height: 5px;
     z-index: 9000;
 }
+
+/* 화면 폭이 600px 이하일 때 적용 */
+@media (max-width: 768px) {
+    /* 1. 프로젝트 영역: 세로 배치 */
+    .base .box > div[style*="display: flex"] {
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+
+    .base .box > div[style*="display: flex"] > div:first-child {
+        width: 100% !important;
+        margin-bottom: 12px;
+    }
+
+    /* 2. 프로필 영역: 세로 정렬 및 프로필 이미지 중앙 배치 */
+    .base > .box:first-of-type {
+        flex-direction: column !important;
+        align-items: center !important; /* 이미지 및 내부 요소를 중앙 정렬 */
+    }
+
+    .base > .box:first-of-type img[alt*="Profile"] {
+        margin-right: 0 !important;   /* PC용 우측 여백 제거 */
+        margin-bottom: 20px;         /* 이미지와 아래 텍스트 사이 간격 */
+    }
+
+    .base > .box:first-of-type > div {
+        text-align: center;          /* 모바일에서 프로필 소개 글 중앙 정렬 (선택사항) */
+    }
+}
