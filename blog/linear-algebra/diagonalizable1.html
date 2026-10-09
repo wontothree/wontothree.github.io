@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>행렬 대각화 3단계 연속 변환 시각화</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      margin-bottom: 5px;
+      color: #111827;
+    }
+    .subtitle {
+      color: #4b5563;
+      margin-bottom: 20px;
+      font-size: 0.95em;
+    }
+    .container {
+      display: flex;
+      gap: 20px;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 1000px;
+      width: 100%;
+    }
+    canvas {
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      background-color: #ffffff;
+    }
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      flex: 1;
+    }
+    .step-box {
+      background-color: #f3f4f6;
+      border-left: 4px solid #3b82f6;
+      padding: 12px;
+      border-radius: 0 8px 8px 0;
+    }
+    .step-title {
+      font-weight: bold;
+      color: #1d4ed8;
+      font-size: 1em;
+      margin-bottom: 4px;
+    }
+    .step-desc {
+      font-size: 0.85em;
+      color: #374151;
+      line-height: 1.4;
+    }
+    .button-group {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    button {
+      padding: 10px;
+      border: none;
+      background-color: #2563eb;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background-color: #1d4ed8;
+    }
+    button.active {
+      background-color: #059669;
+    }
+    .info-list {
+      font-size: 0.85em;
+      color: #4b5563;
+      line-height: 1.5;
+      background: #fafafa;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #eee;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>행렬 대각화 ($A = PDP^{-1}$) 연속 시각화</h1>
+  <div class="subtitle">3개의 연속적인 동작($P^{-1} \to D \to P$)으로 쪼개지는 애니메이션</div>
+
+  <div class="container">
+    <canvas id="canvas" width="540" height="540"></canvas>
+
+    <div class="controls">
+      <div class="step-box" id="stepBox">
+        <div class="step-title" id="stepTitle">Step 0: 초기 상태 (항등 변환 I)</div>
+        <div class="step-desc" id="stepDesc">버튼을 눌러 3단계 연속 변환 과정을 관찰해보세요.</div>
+      </div>
+
+      <div class="button-group">
+        <button id="btn0" class="active" onclick="transitionTo(0)">Step 0: 초기 상태 (I)</button>
+        <button id="btn1" onclick="transitionTo(1)">Step 1: 고유벡터 축 정렬 (P⁻¹)</button>
+        <button id="btn2" onclick="transitionTo(2)">Step 2: 독립적 축 스케일링 (D)</button>
+        <button id="btn3" onclick="transitionTo(3)">Step 3: 원래 좌표계 복귀 (P)</button>
+      </div>
+
+      <button style="background-color: #d97706; margin-top: 5px;" onclick="playFullAnimation()">▶ 전체 과정 연속 재생 (Step 0 → 3)</button>
+
+      <div class="info-list">
+        🟢 <b>고유벡터 1 ($\mathbf{v}_1$)</b>: $\lambda_1 = 3$ (3배 확장)<br>
+        🔵 <b>고유벡터 2 ($\mathbf{v}_2$)</b>: $\lambda_2 = 0.5$ (0.5배 축소)<br>
+        🟡 <b>노란색 원 / 도형</b>: 각 변환 단계에 따라 왜곡/확장되는 객체
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    const width = canvas.width;
+    const height = canvas.height;
+    const scale = 45;
+    const originX = width / 2;
+    const originY = height / 2;
+
+    // 대각화 기본 구성 요소
+    // P = [[1, -1], [1, 1]], D = [[3, 0], [0, 0.5]], Pinv = [[0.5, 0.5], [-0.5, 0.5]]
+    // A = P * D * Pinv = [[1.75, 1.25], [1.25, 1.75]]
+    const IMat = { a: 1, b: 0, c: 0, d: 1 };
+    const Pinv = { a: 0.5, b: 0.5, c: -0.5, d: 0.5 };
+    const DPinv = { a: 1.5, b: 1.5, c: -0.25, d: 0.25 }; // D * Pinv
+    const AMat = { a: 1.75, b: 1.25, c: 1.25, d: 1.75 };  // P * D * Pinv
+
+    // 각 Step별 도달 행렬
+    const stepMatrices = [IMat, Pinv, DPinv, AMat];
+
+    let currentStep = 0;
+    let animProgress = 1.0; // 0.0 ~ 1.0
+    let startMat = IMat;
+    let targetMat = IMat;
+    let animFrameId = null;
+
+    function toScreenX(x) { return originX + x * scale; }
+    function toScreenY(y) { return originY - y * scale; }
+
+    function applyMat(m, x, y) {
+      return { x: m.a * x + m.b * y, y: m.c * x + m.d * y };
+    }
+
+    function interpolateMat(m1, m2, t) {
+      return {
+        a: m1.a + (m2.a - m1.a) * t,
+        b: m1.b + (m2.b - m1.b) * t,
+        c: m1.c + (m2.c - m1.c) * t,
+        d: m1.d + (m2.d - m1.d) * t
+      };
+    }
+
+    function updateStepText(step) {
+      const title = document.getElementById('stepTitle');
+      const desc = document.getElementById('stepDesc');
+
+      if (step === 0) {
+        title.innerText = "Step 0: 초기 상태 (항등 변환 I)";
+        desc.innerText = "변환이 적용되기 전의 기본 2차원 단위 격자와 원입니다.";
+      } else if (step === 1) {
+        title.innerText = "Step 1: 고유벡터 축 정렬 (P⁻¹)";
+        desc.innerText = "고유벡터 방향(대각선)이 x축, y축과 일치하도록 공간 좌표계를 회전 및 정렬시킵니다.";
+      } else if (step === 2) {
+        title.innerText = "Step 2: 독립적 축 스케일링 (D)";
+        desc.innerText = "정렬된 상태에서 x축 방향 3배, y축 방향 0.5배로 수평/수직 스케일링합니다. (축 비틀림 없음)";
+      } else if (step === 3) {
+        title.innerText = "Step 3: 원래 좌표계 복귀 (P)";
+        desc.innerText = "스케일링이 끝난 공간을 원래 각도로 복원합니다. 결과는 직접 변환(A)과 완벽히 동일합니다.";
+      }
+    }
+
+    function transitionTo(step) {
+      if (animFrameId) cancelAnimationFrame(animFrameId);
+
+      document.querySelectorAll('.button-group button').forEach(b => b.classList.remove('active'));
+      document.getElementById('btn' + step).classList.add('active');
+
+      // 현재 그려진 행렬을 시작점으로 설정하여 끊김 없는 보간 수행
+      startMat = interpolateMat(startMat, targetMat, animProgress);
+      targetMat = stepMatrices[step];
+      currentStep = step;
+      animProgress = 0.0;
+
+      updateStepText(step);
+      animate();
+    }
+
+    function animate() {
+      animProgress += 0.03; // 애니메이션 속도 조절
+      if (animProgress > 1.0) animProgress = 1.0;
+
+      draw();
+
+      if (animProgress < 1.0) {
+        animFrameId = requestAnimationFrame(animate);
+      }
+    }
+
+    function playFullAnimation() {
+      let step = 0;
+      transitionTo(0);
+
+      function nextStep() {
+        if (step < 3) {
+          step++;
+          setTimeout(() => {
+            transitionTo(step);
+            if (step < 3) setTimeout(nextStep, 1500);
+          }, 1200);
+        }
+      }
+      setTimeout(nextStep, 1000);
+    }
+
+    function drawGrid(mat) {
+      ctx.lineWidth = 1;
+      const gridRange = 7;
+
+      for (let i = -gridRange; i <= gridRange; i++) {
+        ctx.strokeStyle = (i === 0) ? '#9ca3af' : '#f3f4f6';
+        ctx.lineWidth = (i === 0) ? 1.5 : 1;
+
+        // 세로선
+        let p1 = applyMat(mat, i, -gridRange);
+        let p2 = applyMat(mat, i, gridRange);
+        ctx.beginPath();
+        ctx.moveTo(toScreenX(p1.x), toScreenY(p1.y));
+        ctx.lineTo(toScreenX(p2.x), toScreenY(p2.y));
+        ctx.stroke();
+
+        // 가로선
+        p1 = applyMat(mat, -gridRange, i);
+        p2 = applyMat(mat, gridRange, i);
+        ctx.beginPath();
+        ctx.moveTo(toScreenX(p1.x), toScreenY(p1.y));
+        ctx.lineTo(toScreenX(p2.x), toScreenY(p2.y));
+        ctx.stroke();
+      }
+    }
+
+    function drawShape(mat) {
+      ctx.beginPath();
+      const segments = 60;
+      for (let i = 0; i <= segments; i++) {
+        const theta = (i / segments) * Math.PI * 2;
+        const x = Math.cos(theta);
+        const y = Math.sin(theta);
+        const pt = applyMat(mat, x, y);
+
+        if (i === 0) ctx.moveTo(toScreenX(pt.x), toScreenY(pt.y));
+        else ctx.lineTo(toScreenX(pt.x), toScreenY(pt.y));
+      }
+      ctx.closePath();
+      ctx.fillStyle = 'rgba(251, 191, 36, 0.35)';
+      ctx.fill();
+      ctx.strokeStyle = '#d97706';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+
+    function drawVector(mat, vx, vy, color) {
+      const pt = applyMat(mat, vx, vy);
+      const targetX = toScreenX(pt.x);
+      const targetY = toScreenY(pt.y);
+
+      ctx.strokeStyle = color;
+      ctx.fillStyle = color;
+      ctx.lineWidth = 3;
+
+      ctx.beginPath();
+      ctx.moveTo(originX, originY);
+      ctx.lineTo(targetX, targetY);
+      ctx.stroke();
+
+      const angle = Math.atan2(originY - targetY, targetX - originX);
+      const headLen = 8;
+      ctx.beginPath();
+      ctx.moveTo(targetX, targetY);
+      ctx.lineTo(targetX - headLen * Math.cos(angle - Math.PI / 6), targetY + headLen * Math.sin(angle - Math.PI / 6));
+      ctx.lineTo(targetX - headLen * Math.cos(angle + Math.PI / 6), targetY + headLen * Math.sin(angle + Math.PI / 6));
+      ctx.fill();
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, width, height);
+
+      // 현재 진행 상황에 따른 부드러운 행렬 보간 계산
+      const currentMat = interpolateMat(startMat, targetMat, animProgress);
+
+      // 1. 변형되는 격자
+      drawGrid(currentMat);
+
+      // 2. 변형되는 도형
+      drawShape(currentMat);
+
+      // 3. 고유벡터 방향 추적
+      // v1 = [1, 1], v2 = [-1, 1]
+      drawVector(currentMat, 1, 1, '#16a34a'); // 녹색 (lambda=3)
+      drawVector(currentMat, -1, 1, '#2563eb'); // 파란색 (lambda=0.5)
+    }
+
+    draw();
+  </script>
+</body>
+</html>

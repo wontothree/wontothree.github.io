@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>고유공간(Eigenspace) 시각화</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      margin-bottom: 10px;
+      color: #333;
+    }
+    .container {
+      display: flex;
+      gap: 20px;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 950px;
+      width: 100%;
+    }
+    canvas {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #ffffff;
+    }
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      flex: 1;
+    }
+    .matrix-input {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .matrix-input input {
+      width: 80%;
+      padding: 8px;
+      font-size: 16px;
+      text-align: center;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    .eigen-box {
+      background-color: #f0fdf4;
+      border: 2px solid #22c55e;
+      padding: 12px;
+      border-radius: 8px;
+    }
+    .eigen-title {
+      font-weight: bold;
+      color: #15803d;
+      margin-bottom: 6px;
+    }
+    .preset-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    button {
+      padding: 8px 12px;
+      border: none;
+      background-color: #16a34a;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background-color: #15803d;
+    }
+    .info {
+      font-size: 0.88em;
+      color: #555;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>고유공간 (Eigenspace) 시각화</h1>
+  
+  <div class="container">
+    <canvas id="canvas" width="520" height="520"></canvas>
+    
+    <div class="controls">
+      <h3>행렬 $A = \begin{bmatrix} a & b \\ c & d \end{bmatrix}$ 입력</h3>
+      
+      <div class="matrix-input">
+        <div>
+          <label>a:</label>
+          <input type="number" id="matA" value="2" step="0.5">
+        </div>
+        <div>
+          <label>b:</label>
+          <input type="number" id="matB" value="1" step="0.5">
+        </div>
+        <div>
+          <label>c:</label>
+          <input type="number" id="matC" value="1" step="0.5">
+        </div>
+        <div>
+          <label>d:</label>
+          <input type="number" id="matD" value="2" step="0.5">
+        </div>
+      </div>
+
+      <div class="slider-group">
+        <label>변환 진행률 ($t$): <span id="tVal">1.0</span></label>
+        <input type="range" id="tSlider" min="0" max="1" step="0.01" value="1" style="width: 100%;">
+      </div>
+
+      <div class="eigen-box">
+        <div class="eigen-title">✨ 고유값과 고유공간 정보</div>
+        <div id="eigenDisplay" style="font-size: 0.9em; color: #166534;">계산 중...</div>
+      </div>
+
+      <h4>대표 예시 프리셋</h4>
+      <div class="preset-buttons">
+        <button onclick="setPreset(2, 1, 1, 2)">대칭 행렬 ($\lambda=3, 1$)</button>
+        <button onclick="setPreset(3, 1, 0, 2)">삼각 행렬 ($\lambda=3, 2$)</button>
+        <button onclick="setPreset(1, 1, 0, 1)">결함 행렬 ($\lambda=1$ 중근)</button>
+        <button onclick="setPreset(0, -1, 1, 0)">순수 회전 (실수 고유값 없음)</button>
+      </div>
+
+      <div class="info">
+        🟢 <b>녹색 / 🔵 파란색 점선</b>: 고유공간 (변형 후에도 방향이 변하지 않는 직선)<br>
+        🔴 <b>일반 벡터 (주황색 등)</b>: 변환 과정에서 회전하며 방향이 바뀜
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    const width = canvas.width;
+    const height = canvas.height;
+    const scale = 45; 
+    const originX = width / 2;
+    const originY = height / 2;
+
+    let a = 2, b = 1, c = 1, d = 2;
+    let t = 1.0;
+
+    function toScreenX(x) { return originX + x * scale; }
+    function toScreenY(y) { return originY - y * scale; }
+
+    function transform(x, y, matA, matB, matC, matD) {
+      return {
+        x: matA * x + matB * y,
+        y: matC * x + matD * y
+      };
+    }
+
+    // 실수 고유값 및 고유벡터 계산
+    function calculateEigen() {
+      const trace = a + d;
+      const det = a * d - b * c;
+      const discriminant = trace * trace - 4 * det;
+
+      if (discriminant < 0) {
+        return []; // 허수 고유값
+      }
+
+      const l1 = (trace + Math.sqrt(discriminant)) / 2;
+      const l2 = (trace - Math.sqrt(discriminant)) / 2;
+
+      const eigens = [];
+
+      function getVector(lambda) {
+        if (Math.abs(b) > 0.0001) return { x: 1, y: (lambda - a) / b };
+        if (Math.abs(c) > 0.0001) return { x: (lambda - d) / c, y: 1 };
+        if (Math.abs(a - lambda) < 0.0001) return { x: 1, y: 0 };
+        return { x: 0, y: 1 };
+      }
+
+      const v1 = getVector(l1);
+      const len1 = Math.hypot(v1.x, v1.y);
+      eigens.push({ val: l1, x: v1.x / len1, y: v1.y / len1, color: '#16a34a' }); // 녹색
+
+      if (Math.abs(discriminant) > 0.0001) {
+        const v2 = getVector(l2);
+        const len2 = Math.hypot(v2.x, v2.y);
+        eigens.push({ val: l2, x: v2.x / len2, y: v2.y / len2, color: '#2563eb' }); // 파란색
+      }
+
+      return eigens;
+    }
+
+    function drawLine(vx, vy, color, isDashed = true) {
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 2;
+      if (isDashed) ctx.setLineDash([6, 6]);
+      else ctx.setLineDash([]);
+
+      const r = 10;
+      ctx.beginPath();
+      ctx.moveTo(toScreenX(-vx * r), toScreenY(-vy * r));
+      ctx.lineTo(toScreenX(vx * r), toScreenY(vy * r));
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+
+    function drawVector(x, y, color, strokeWidth = 3) {
+      const targetX = toScreenX(x);
+      const targetY = toScreenY(y);
+
+      ctx.strokeStyle = color;
+      ctx.fillStyle = color;
+      ctx.lineWidth = strokeWidth;
+
+      ctx.beginPath();
+      ctx.moveTo(originX, originY);
+      ctx.lineTo(targetX, targetY);
+      ctx.stroke();
+
+      const angle = Math.atan2(originY - targetY, targetX - originX);
+      const headLen = 9;
+      ctx.beginPath();
+      ctx.moveTo(targetX, targetY);
+      ctx.lineTo(targetX - headLen * Math.cos(angle - Math.PI / 6), targetY + headLen * Math.sin(angle - Math.PI / 6));
+      ctx.lineTo(targetX - headLen * Math.cos(angle + Math.PI / 6), targetY + headLen * Math.sin(angle + Math.PI / 6));
+      ctx.fill();
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, width, height);
+
+      const currentA = 1 + t * (a - 1);
+      const currentB = t * b;
+      const currentC = t * c;
+      const currentD = 1 + t * (d - 1);
+
+      // 1. 변형되는 일반 배경 격자 (회색)
+      ctx.lineWidth = 1;
+      const gridRange = 8;
+      for (let i = -gridRange; i <= gridRange; i++) {
+        ctx.strokeStyle = '#f0f0f0';
+        let start = transform(i, -gridRange, currentA, currentB, currentC, currentD);
+        let end = transform(i, gridRange, currentA, currentB, currentC, currentD);
+        ctx.beginPath();
+        ctx.moveTo(toScreenX(start.x), toScreenY(start.y));
+        ctx.lineTo(toScreenX(end.x), toScreenY(end.y));
+        ctx.stroke();
+
+        start = transform(-gridRange, i, currentA, currentB, currentC, currentD);
+        end = transform(gridRange, i, currentA, currentB, currentC, currentD);
+        ctx.beginPath();
+        ctx.moveTo(toScreenX(start.x), toScreenY(start.y));
+        ctx.lineTo(toScreenX(end.x), toScreenY(end.y));
+        ctx.stroke();
+      }
+
+      // 2. 기본 축
+      ctx.strokeStyle = '#d1d5db';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(0, originY); ctx.lineTo(width, originY);
+      ctx.moveTo(originX, 0); ctx.lineTo(originX, height);
+      ctx.stroke();
+
+      // 3. 고유공간(Eigenspace) 직선 및 고유벡터 시각화
+      const eigens = calculateEigen();
+      const eigenBox = document.getElementById('eigenDisplay');
+
+      if (eigens.length === 0) {
+        eigenBox.innerHTML = "실수 고유값이 존재하지 않음 (공간 전체가 회전함)";
+      } else {
+        let html = "";
+        eigens.forEach((e, idx) => {
+          // 변형된 고유벡터 위치
+          const transE = transform(e.x, e.y, currentA, currentB, currentC, currentD);
+          
+          // 고유공간 직선 (변형 전후 모두 자기 직선 위에 상주함)
+          drawLine(e.x, e.y, e.color + "55", true); // 고유공간 직선 배경
+          drawVector(transE.x, transE.y, e.color, 3.5); // 고유벡터
+
+          html += `<div style="margin-bottom: 4px;">
+            <b style="color:${e.color}">고유공간 ${idx+1}:</b> $\lambda_{${idx+1}} = ${e.val.toFixed(2)}$ 
+            (길이 <b>${(1 + t*(e.val - 1)).toFixed(2)}배</b> 변함)
+          </div>`;
+        });
+        eigenBox.innerHTML = html;
+      }
+
+      // 4. 방향이 바뀌는 비교용 일반 벡터 (주황색)
+      const testVec = { x: 1, y: 1.5 };
+      const transTest = transform(testVec.x, testVec.y, currentA, currentB, currentC, currentD);
+      drawVector(transTest.x, transTest.y, '#f97316', 2.5); // 주황색 (일반 벡터)
+    }
+
+    function updateValues() {
+      a = parseFloat(document.getElementById('matA').value) || 0;
+      b = parseFloat(document.getElementById('matB').value) || 0;
+      c = parseFloat(document.getElementById('matC').value) || 0;
+      d = parseFloat(document.getElementById('matD').value) || 0;
+      t = parseFloat(document.getElementById('tSlider').value);
+      document.getElementById('tVal').innerText = t.toFixed(2);
+      draw();
+    }
+
+    function setPreset(pA, pB, pC, pD) {
+      document.getElementById('matA').value = pA;
+      document.getElementById('matB').value = pB;
+      document.getElementById('matC').value = pC;
+      document.getElementById('matD').value = pD;
+      document.getElementById('tSlider').value = 1;
+      updateValues();
+    }
+
+    document.querySelectorAll('input').forEach(input => {
+      input.addEventListener('input', updateValues);
+    });
+
+    draw();
+  </script>
+</body>
+</html>

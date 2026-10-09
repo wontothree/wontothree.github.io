@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>3D 5-DOF Robot</title>
+
+<style>
+html, body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: white;
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="canvas"></canvas>
+
+<script>
+
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+
+resize();
+window.addEventListener("resize", resize);
+
+
+/* =========================================================
+   Robot parameters
+   ========================================================= */
+
+const L1 = 20;     // Yaw1 -> Pitch1
+const L2 = 100;    // Pitch1 -> Pitch2
+const L3 = 40;     // Pitch2 -> Pitch3
+const L4 = 40;     // Pitch3 -> Yaw2
+
+const H = 20;
+
+
+/* =========================================================
+   Joint angles
+   ========================================================= */
+
+let yaw1 = 0;
+
+let pitch1 = 30 * Math.PI / 180;
+let pitch2 = 20 * Math.PI / 180;
+let pitch3 = 20 * Math.PI / 180;
+
+let yaw2 = 0;
+
+
+/* =========================================================
+   Random target angles
+   ========================================================= */
+
+let targetYaw1 =
+    Math.random() * 2 * Math.PI;
+
+let targetPitch1 =
+    (15 + Math.random() * 150)
+    * Math.PI / 180;
+
+let targetPitch2 =
+    (-60 + Math.random() * 120)
+    * Math.PI / 180;
+
+let targetPitch3 =
+    (-60 + Math.random() * 120)
+    * Math.PI / 180;
+
+let targetYaw2 =
+    Math.random() * 2 * Math.PI;
+
+
+const motionSpeed = 0.01;
+
+
+/* =========================================================
+   Camera
+   ========================================================= */
+
+const camera = {
+    x: 350,
+    y: -500,
+    z: 300
+};
+
+const target = {
+    x: 0,
+    y: 0,
+    z: 100
+};
+
+const focal = 700;
+
+
+/* =========================================================
+   Vector functions
+   ========================================================= */
+
+function sub(a, b) {
+    return {
+        x: a.x - b.x,
+        y: a.y - b.y,
+        z: a.z - b.z
+    };
+}
+
+function dot(a, b) {
+    return (
+        a.x * b.x +
+        a.y * b.y +
+        a.z * b.z
+    );
+}
+
+function cross(a, b) {
+    return {
+        x: a.y * b.z - a.z * b.y,
+        y: a.z * b.x - a.x * b.z,
+        z: a.x * b.y - a.y * b.x
+    };
+}
+
+function normalize(v) {
+
+    const n = Math.sqrt(dot(v, v));
+
+    return {
+        x: v.x / n,
+        y: v.y / n,
+        z: v.z / n
+    };
+}
+
+
+/* =========================================================
+   Camera basis
+   ========================================================= */
+
+const forward =
+    normalize(sub(target, camera));
+
+const worldUp = {
+    x: 0,
+    y: 0,
+    z: 1
+};
+
+const right =
+    normalize(cross(forward, worldUp));
+
+const up =
+    normalize(cross(right, forward));
+
+
+/* =========================================================
+   3D -> 2D projection
+   ========================================================= */
+
+function project(p) {
+
+    const v = sub(p, camera);
+
+    const x = dot(v, right);
+    const y = dot(v, up);
+    const z = dot(v, forward);
+
+    if (z <= 0) {
+        return null;
+    }
+
+    const scale = focal / z;
+
+    return {
+        x: canvas.width / 2 + x * scale,
+        y: canvas.height / 2 - y * scale,
+        scale: scale
+    };
+}
+
+
+/* =========================================================
+   Draw 3D line
+   ========================================================= */
+
+function line(a, b, width = 3, color = "black") {
+
+    const A = project(a);
+    const B = project(b);
+
+    if (!A || !B) {
+        return;
+    }
+
+    ctx.beginPath();
+
+    ctx.moveTo(A.x, A.y);
+    ctx.lineTo(B.x, B.y);
+
+    ctx.strokeStyle = color;
+    ctx.lineWidth = width;
+
+    ctx.stroke();
+}
+
+
+/* =========================================================
+   Draw 3D point
+   ========================================================= */
+
+function point(p, r = 8, fill = "black") {
+
+    const P = project(p);
+
+    if (!P) {
+        return;
+    }
+
+    ctx.beginPath();
+
+    ctx.arc(
+        P.x,
+        P.y,
+        r,
+        0,
+        2 * Math.PI
+    );
+
+    ctx.fillStyle = fill;
+    ctx.fill();
+
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = 1.2;
+
+    ctx.stroke();
+}
+
+
+/* =========================================================
+   Coordinate axes
+   ========================================================= */
+
+function axes() {
+
+    const O = {
+        x: 0,
+        y: 0,
+        z: 0
+    };
+
+    line(
+        O,
+        {x:150, y:0, z:0},
+        2,
+        "#cc4444"
+    );
+
+    line(
+        O,
+        {x:0, y:150, z:0},
+        2,
+        "#44aa66"
+    );
+
+    line(
+        O,
+        {x:0, y:0, z:220},
+        2,
+        "#4477cc"
+    );
+
+    const X = project({
+        x:170,
+        y:0,
+        z:0
+    });
+
+    const Y = project({
+        x:0,
+        y:170,
+        z:0
+    });
+
+    const Z = project({
+        x:0,
+        y:0,
+        z:240
+    });
+
+    ctx.font = "18px Arial";
+    ctx.fillStyle = "black";
+
+    ctx.fillText("x", X.x, X.y);
+    ctx.fillText("y", Y.x, Y.y);
+    ctx.fillText("z", Z.x, Z.y);
+}
+
+
+/* =========================================================
+   Joint positions
+   ========================================================= */
+
+function getJointPositions() {
+
+    /*
+       First yaw determines the horizontal
+       direction of the whole pitch plane.
+    */
+
+    const hx = Math.cos(yaw1);
+    const hy = Math.sin(yaw1);
+
+
+    /* -----------------------------------------------------
+       Joint 1 : Yaw
+       ----------------------------------------------------- */
+
+    const yawJoint = {
+        x: 0,
+        y: 0,
+        z: H
+    };
+
+
+    /* -----------------------------------------------------
+       Joint 2 : Pitch
+       ----------------------------------------------------- */
+
+    const pitchJoint1 = {
+        x: 0,
+        y: 0,
+        z: H + L1
+    };
+
+
+    /* -----------------------------------------------------
+       Joint 3 : Pitch
+       ----------------------------------------------------- */
+
+    const pitchJoint2 = {
+
+        x:
+            pitchJoint1.x +
+            L2 *
+            Math.sin(pitch1) *
+            hx,
+
+        y:
+            pitchJoint1.y +
+            L2 *
+            Math.sin(pitch1) *
+            hy,
+
+        z:
+            pitchJoint1.z +
+            L2 *
+            Math.cos(pitch1)
+    };
+
+
+    /* -----------------------------------------------------
+       Joint 4 : Pitch
+       ----------------------------------------------------- */
+
+    const totalPitch2 =
+        pitch1 + pitch2;
+
+    const pitchJoint3 = {
+
+        x:
+            pitchJoint2.x +
+            L3 *
+            Math.sin(totalPitch2) *
+            hx,
+
+        y:
+            pitchJoint2.y +
+            L3 *
+            Math.sin(totalPitch2) *
+            hy,
+
+        z:
+            pitchJoint2.z +
+            L3 *
+            Math.cos(totalPitch2)
+    };
+
+
+    /* -----------------------------------------------------
+       Joint 5 : Yaw
+       ----------------------------------------------------- */
+
+    const yawJoint2 = {
+
+        x:
+            pitchJoint3.x +
+            L4 *
+            Math.sin(
+                pitch1 + pitch2 + pitch3
+            ) *
+            hx,
+
+        y:
+            pitchJoint3.y +
+            L4 *
+            Math.sin(
+                pitch1 + pitch2 + pitch3
+            ) *
+            hy,
+
+        z:
+            pitchJoint3.z +
+            L4 *
+            Math.cos(
+                pitch1 + pitch2 + pitch3
+            )
+    };
+
+
+    return {
+        yawJoint,
+        pitchJoint1,
+        pitchJoint2,
+        pitchJoint3,
+        yawJoint2
+    };
+}
+
+
+/* =========================================================
+   Flashlight
+   ========================================================= */
+
+function flashlight(p) {
+
+    /*
+       The flashlight is attached to
+       Yaw 2 joint.
+
+       It remains vertical while its
+       horizontal direction is controlled
+       by yaw2.
+    */
+
+    const top = {
+        x: p.x,
+        y: p.y,
+        z: p.z + 8
+    };
+
+
+    /* Body */
+
+    line(
+        p,
+        top,
+        3,
+        "#222222"
+    );
+
+
+    /* Head */
+
+    point(
+        top,
+        8,
+        "#ffd43b"
+    );
+
+
+    /*
+       Final yaw orientation.
+
+       yaw1 determines the global pitch plane.
+       yaw2 adds an additional rotation.
+    */
+
+    const flashlightYaw =
+        yaw1 + yaw2;
+
+    const dx =
+        Math.cos(flashlightYaw);
+
+    const dy =
+        Math.sin(flashlightYaw);
+
+
+    /* Light beam */
+
+    const beam = {
+        x: top.x + dx * 55,
+        y: top.y + dy * 55,
+        z: top.z
+    };
+
+    line(
+        top,
+        beam,
+        2,
+        "#f0b400"
+    );
+}
+
+
+/* =========================================================
+   Robot
+   ========================================================= */
+
+function robot() {
+
+    const {
+        yawJoint,
+        pitchJoint1,
+        pitchJoint2,
+        pitchJoint3,
+        yawJoint2
+    } = getJointPositions();
+
+
+    /* -----------------------------------------------------
+       Base
+       ----------------------------------------------------- */
+
+    point(
+        {x:0, y:0, z:0},
+        4,
+        "#777777"
+    );
+
+
+    /* -----------------------------------------------------
+       Joint 1 : Yaw
+       ----------------------------------------------------- */
+
+    point(
+        yawJoint,
+        6,
+        "#44dddd"
+    );
+
+
+    /* Link 1 */
+
+    line(
+        yawJoint,
+        pitchJoint1,
+        3,
+        "black"
+    );
+
+
+    /* -----------------------------------------------------
+       Joint 2 : Pitch
+       ----------------------------------------------------- */
+
+    point(
+        pitchJoint1,
+        7,
+        "#ff5555"
+    );
+
+
+    /* Link 2 */
+
+    line(
+        pitchJoint1,
+        pitchJoint2,
+        3,
+        "black"
+    );
+
+
+    /* -----------------------------------------------------
+       Joint 3 : Pitch
+       ----------------------------------------------------- */
+
+    point(
+        pitchJoint2,
+        7,
+        "#ff9900"
+    );
+
+
+    /* Link 3 */
+
+    line(
+        pitchJoint2,
+        pitchJoint3,
+        3,
+        "black"
+    );
+
+
+    /* -----------------------------------------------------
+       Joint 4 : Pitch
+       ----------------------------------------------------- */
+
+    point(
+        pitchJoint3,
+        7,
+        "#aa55ff"
+    );
+
+
+    /* Link 4 */
+
+    line(
+        pitchJoint3,
+        yawJoint2,
+        3,
+        "black"
+    );
+
+
+    /* -----------------------------------------------------
+       Joint 5 : Yaw
+       ----------------------------------------------------- */
+
+    point(
+        yawJoint2,
+        7,
+        "#3366ff"
+    );
+
+
+    /* -----------------------------------------------------
+       End-effector
+       ----------------------------------------------------- */
+
+    flashlight(yawJoint2);
+}
+
+
+/* =========================================================
+   Random target
+   ========================================================= */
+
+function randomTarget() {
+
+    targetYaw1 =
+        Math.random() * 2 * Math.PI;
+
+    targetPitch1 =
+        (
+            15 +
+            Math.random() * 150
+        ) * Math.PI / 180;
+
+    targetPitch2 =
+        (
+            -60 +
+            Math.random() * 120
+        ) * Math.PI / 180;
+
+    targetPitch3 =
+        (
+            -60 +
+            Math.random() * 120
+        ) * Math.PI / 180;
+
+    targetYaw2 =
+        Math.random() * 2 * Math.PI;
+}
+
+
+/* =========================================================
+   Smooth angle interpolation
+   ========================================================= */
+
+function moveAngle(current, target, speed) {
+
+    let d = target - current;
+
+    while (d > Math.PI) {
+        d -= 2 * Math.PI;
+    }
+
+    while (d < -Math.PI) {
+        d += 2 * Math.PI;
+    }
+
+    return current + d * speed;
+}
+
+
+/* =========================================================
+   Update motion
+   ========================================================= */
+
+function updateMotion() {
+
+    yaw1 =
+        moveAngle(
+            yaw1,
+            targetYaw1,
+            motionSpeed
+        );
+
+    pitch1 +=
+        (targetPitch1 - pitch1)
+        * motionSpeed;
+
+    pitch2 +=
+        (targetPitch2 - pitch2)
+        * motionSpeed;
+
+    pitch3 +=
+        (targetPitch3 - pitch3)
+        * motionSpeed;
+
+    yaw2 =
+        moveAngle(
+            yaw2,
+            targetYaw2,
+            motionSpeed
+        );
+
+
+    const yawError =
+        Math.abs(
+            Math.atan2(
+                Math.sin(targetYaw1 - yaw1),
+                Math.cos(targetYaw1 - yaw1)
+            )
+        );
+
+    const pitch1Error =
+        Math.abs(targetPitch1 - pitch1);
+
+    const pitch2Error =
+        Math.abs(targetPitch2 - pitch2);
+
+    const pitch3Error =
+        Math.abs(targetPitch3 - pitch3);
+
+    const yaw2Error =
+        Math.abs(
+            Math.atan2(
+                Math.sin(targetYaw2 - yaw2),
+                Math.cos(targetYaw2 - yaw2)
+            )
+        );
+
+
+    if (
+        yawError < 0.01 &&
+        pitch1Error < 0.01 &&
+        pitch2Error < 0.01 &&
+        pitch3Error < 0.01 &&
+        yaw2Error < 0.01
+    ) {
+
+        randomTarget();
+    }
+}
+
+
+/* =========================================================
+   Angle + coordinate display
+   ========================================================= */
+
+function drawInfo() {
+
+    const {
+        yawJoint2
+    } = getJointPositions();
+
+
+    let yaw1Degrees =
+        yaw1 * 180 / Math.PI;
+
+    yaw1Degrees =
+        ((yaw1Degrees % 360) + 360) % 360;
+
+
+    let yaw2Degrees =
+        yaw2 * 180 / Math.PI;
+
+    yaw2Degrees =
+        ((yaw2Degrees % 360) + 360) % 360;
+
+
+    const p1 =
+        pitch1 * 180 / Math.PI;
+
+    const p2 =
+        pitch2 * 180 / Math.PI;
+
+    const p3 =
+        pitch3 * 180 / Math.PI;
+
+
+    ctx.font = "20px Arial";
+    ctx.fillStyle = "black";
+
+
+    ctx.fillText(
+        `Yaw 1: ${yaw1Degrees.toFixed(1)}°`,
+        30,
+        35
+    );
+
+    ctx.fillText(
+        `Pitch 1: ${p1.toFixed(1)}°`,
+        30,
+        62
+    );
+
+    ctx.fillText(
+        `Pitch 2: ${p2.toFixed(1)}°`,
+        30,
+        89
+    );
+
+    ctx.fillText(
+        `Pitch 3: ${p3.toFixed(1)}°`,
+        30,
+        116
+    );
+
+    ctx.fillText(
+        `Yaw 2: ${yaw2Degrees.toFixed(1)}°`,
+        30,
+        143
+    );
+
+
+    ctx.fillText(
+        `Position: (` +
+        `${yawJoint2.x.toFixed(1)}, ` +
+        `${yawJoint2.y.toFixed(1)}, ` +
+        `${yawJoint2.z.toFixed(1)})`,
+        30,
+        170
+    );
+}
+
+
+/* =========================================================
+   Main animation
+   ========================================================= */
+
+function animate() {
+
+    updateMotion();
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    axes();
+
+    robot();
+
+    drawInfo();
+
+    requestAnimationFrame(animate);
+}
+
+
+animate();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>5-DOF Robot Manipulability (Base Yaw / Head Yaw)</title>
+<style>
+    html, body {
+        margin: 0; width: 100%; height: 100%; overflow: hidden;
+        background: white; font-family: Arial, sans-serif; font-size: 13px;
+        display: flex; flex-direction: column;
+    }
+    
+    /* Canvas 영역 */
+    .canvas-container {
+        flex: 1; position: relative; width: 100%; min-height: 0;
+    }
+    canvas { width: 100%; height: 100%; display: block; }
+
+    /* 하단 패널 */
+    .bottom-panel {
+        display: flex; gap: 20px; padding: 12px 20px;
+        background: rgba(255, 255, 255, 0.95);
+        align-items: flex-start; justify-content: center;
+    }
+
+    /* Kinematic Equation Card Container */
+    .jacobian-card {
+        background: transparent; border: 1px solid #2d323f; border-radius: 8px;
+        padding: 10px 14px; color: #fff;
+    }
+    .jacobian-header {
+        display: flex; justify-content: space-between; align-items: center;
+        margin-bottom: 8px;
+    }
+    .jacobian-title {
+        font-size: 11px; color: #3f4761; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .manipulability-badge {
+        font-size: 12px; font-weight: bold; background: transparent; color: #3f4761;
+        padding: 2px 8px; border-radius: 4px; border: 1px solid #3f4761;
+    }
+    
+    /* Equation Container Layout (V = J * theta_dot) */
+    .equation-container {
+        display: flex; align-items: center; gap: 6px;
+    }
+    .operator {
+        color: #3f4761; font-weight: bold; font-size: 14px; padding: 0 2px;
+    }
+
+    /* Vector/Matrix Tables */
+    .matrix-table {
+        border-collapse: separate; border-spacing: 3px; font-family: 'Consolas', monospace; font-size: 11px;
+        table-layout: fixed;
+    }
+    .matrix-table th { color: #3f4761; padding-bottom: 2px; text-align: center; }
+    .matrix-table td.row-label { color: #3f4761; font-weight: bold; padding-right: 4px; text-align: right; width: 28px; }
+    .matrix-table tr.sep-row td { border-top: 1px solid #3a3f50; padding-top: 4px; }
+    
+    .j-cell {
+        width: 54px;
+        height: 24px;
+        border-radius: 4px;
+        text-align: center;
+        vertical-align: middle;
+        background: transparent;
+        color: #3f4761;
+        border: 1px solid #2d323f;
+        font-weight: bold;
+        box-sizing: border-box;
+        transition: background-color 0.15s, color 0.15s;
+        overflow: hidden;
+        white-space: nowrap;
+        font-variant-numeric: tabular-nums;
+    }
+
+    /* GUI Card */
+    .gui-card {
+        background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px;
+        padding: 12px 16px;
+    }
+    .gui-grid {
+        display: grid; grid-template-columns: 1fr; gap: 6px;
+    }
+    .gui-item { margin-bottom: 2px; display: flex; flex-direction: column; }
+    .gui-item label { font-size: 11px; margin-bottom: 2px; }
+    .gui-item input { width: 220px; accent-color: #333; }
+</style>
+</head>
+<body>
+
+<div class="canvas-container">
+    <canvas id="canvas"></canvas>
+</div>
+
+<div class="bottom-panel">
+    <div class="jacobian-card">
+        <div class="jacobian-header">
+            <div class="jacobian-title">Velocity Kinematics</div>
+            <div class="manipulability-badge" id="manipulability-val">w = 0.000</div>
+        </div>
+        
+        <div class="equation-container">
+            <!-- 1. End-Effector Twist V (6x1) (v_x, v_y, v_z, ω_x, ω_y, ω_z 표시) -->
+            <table class="matrix-table">
+                <thead>
+                    <tr><th style="width:28px;"></th><th>V</th></tr>
+                </thead>
+                <tbody id="twist-body"></tbody>
+            </table>
+
+            <div class="operator">=</div>
+
+            <!-- 2. Jacobian Matrix J (6x5) -->
+            <table class="matrix-table">
+                <thead>
+                    <tr>
+                        <th style="width:48px;">J<sub>1</sub></th>
+                        <th style="width:48px;">J<sub>2</sub></th>
+                        <th style="width:48px;">J<sub>3</sub></th>
+                        <th style="width:48px;">J<sub>4</sub></th>
+                        <th style="width:48px;">J<sub>5</sub></th>
+                    </tr>
+                </thead>
+                <tbody id="jacobian-body"></tbody>
+            </table>
+
+            <div class="operator">·</div>
+
+            <!-- 3. Joint Velocity theta_dot (5x1) -->
+            <table class="matrix-table" style="align-self: flex-start;">
+                <thead>
+                    <tr><th style="width:28px;"></th><th>&theta;&#775;</th></tr>
+                </thead>
+                <tbody id="qdot-body"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Theta Input GUI -->
+    <div class="gui-card">
+        <div class="gui-grid" id="gui"></div>
+    </div>
+</div>
+
+<script>
+    const canvas = document.getElementById("canvas"), ctx = canvas.getContext("2d");
+    const resize = () => {
+        const container = canvas.parentElement;
+        canvas.width = container.clientWidth;
+        canvas.height = container.clientHeight;
+        draw();
+    };
+    window.addEventListener("resize", resize);
+
+    // Robot Link Lengths
+    const H = 20, L1 = 20, L2 = 60, L3 = 70, L4 = 40, L5 = 20;
+
+    // Initial 관절 각도 (deg) 및 각속도 (deg/s)
+    let qDeg = [0, 0, 0, 0, 0];
+    let qDotDeg = [0, 0, 0, 0, 0];
+    let lastChangeTime = [0, 0, 0, 0, 0];
+
+    // GUI Setup
+    const gui = document.getElementById("gui");
+    const jointNames = [
+        "&theta;<sub>1</sub>: Base Yaw (+Z)",
+        "&theta;<sub>2</sub>: Shoulder Pitch (+Y)",
+        "&theta;<sub>3</sub>: Elbow Pitch (+Y)",
+        "&theta;<sub>4</sub>: Neck Pitch (+Y)",
+        "&theta;<sub>5</sub>: Head Yaw (+Z)"
+    ];
+
+    gui.innerHTML = jointNames.map((name, i) => `
+        <div class="gui-item">
+            <label><b>${name}:</b> <span id="v${i}">${qDeg[i]}</span>°</label>
+            <input type="range" id="s${i}" min="-180" max="180" step="1" value="${qDeg[i]}">
+        </div>
+    `).join('');
+
+    jointNames.forEach((_, i) => {
+        document.getElementById(`s${i}`).addEventListener("input", e => {
+            const now = performance.now();
+            const newDeg = parseFloat(e.target.value);
+            const deltaDeg = newDeg - qDeg[i];
+            const dt = (now - (lastChangeTime[i] || now)) / 1000;
+
+            if (dt > 0.001) {
+                qDotDeg[i] = deltaDeg / dt;
+            }
+
+            qDeg[i] = newDeg;
+            lastChangeTime[i] = now;
+            document.getElementById(`v${i}`).textContent = qDeg[i];
+            draw();
+        });
+    });
+
+    setInterval(() => {
+        const now = performance.now();
+        let updated = false;
+        for (let i = 0; i < 5; i++) {
+            if (now - lastChangeTime[i] > 150 && qDotDeg[i] !== 0) {
+                qDotDeg[i] *= 0.7;
+                if (Math.abs(qDotDeg[i]) < 0.1) qDotDeg[i] = 0;
+                updated = true;
+            }
+        }
+        if (updated) draw();
+    }, 50);
+
+    // Camera Projection
+    const camera = { x: 550, y: 180, z: 220 }, target = { x: 0, y: 0, z: 90 }, focal = 700;
+    const sub = (a, b) => ({ x: a.x - b.x, y: a.y - b.y, z: a.z - b.z });
+    const dot = (a, b) => a.x*b.x + a.y*b.y + a.z*b.z;
+    const cross = (a, b) => ({ x: a.y*b.z - a.z*b.y, y: a.z*b.x - a.x*b.z, z: a.x*b.y - a.y*b.x });
+    const norm = v => { const n = Math.sqrt(dot(v, v)) || 1e-9; return { x: v.x/n, y: v.y/n, z: v.z/n }; };
+
+    const fwd = norm(sub(target, camera));
+    const rgt = norm(cross(fwd, { x: 0, y: 0, z: 1 }));
+    const up  = norm(cross(rgt, fwd));
+
+    function project(p) {
+        const v = sub(p, camera), z = dot(v, fwd);
+        if (z <= 0) return null;
+        const sc = focal / z;
+        return { x: canvas.width / 2 + dot(v, rgt) * sc, y: canvas.height / 2 - dot(v, up) * sc };
+    }
+
+    function line(a, b, w = 3, col = "black") {
+        const A = project(a), B = project(b);
+        if (!A || !B) return;
+        ctx.beginPath(); ctx.moveTo(A.x, A.y); ctx.lineTo(B.x, B.y);
+        ctx.strokeStyle = col; ctx.lineWidth = w; ctx.stroke();
+    }
+
+    function arrow(from, to, w = 2, col = "black") {
+        line(from, to, w, col);
+        const A = project(from), B = project(to);
+        if (!A || !B) return;
+        const angle = Math.atan2(B.y - A.y, B.x - A.x);
+        const headLen = 9;
+        ctx.beginPath();
+        ctx.moveTo(B.x, B.y);
+        ctx.lineTo(B.x - headLen * Math.cos(angle - Math.PI / 6), B.y - headLen * Math.sin(angle - Math.PI / 6));
+        ctx.lineTo(B.x - headLen * Math.cos(angle + Math.PI / 6), B.y - headLen * Math.sin(angle + Math.PI / 6));
+        ctx.closePath();
+        ctx.fillStyle = col;
+        ctx.fill();
+    }
+
+    function point(p, r = 8, fill = "black") {
+        const P = project(p);
+        if (!P) return;
+        ctx.beginPath(); ctx.arc(P.x, P.y, r, 0, 2 * Math.PI);
+        ctx.fillStyle = fill; ctx.fill(); ctx.strokeStyle = "black"; ctx.lineWidth = 1.5; ctx.stroke();
+    }
+
+    function text3D(txt, p, col = "black", font = "bold 13px Arial") {
+        const P = project(p);
+        if (!P) return;
+        ctx.font = font; ctx.fillStyle = col;
+        ctx.fillText(txt, P.x + 6, P.y + 4);
+    }
+
+    // Forward Kinematics
+    function getRobotPoints() {
+        const qRad = qDeg.map(d => d * Math.PI / 180);
+        const [j1, j2, j3, j4, j5] = qRad;
+
+        const base = { x: 0, y: 0, z: 0 };
+        const j1P = { x: 0, y: 0, z: H };
+        const j2P = { x: 0, y: 0, z: H + L1 };
+
+        const hX = Math.cos(j1), hY = Math.sin(j1);
+        let phi = j2;
+        const j3P = { x: j2P.x + L2 * Math.sin(phi) * hX, y: j2P.y + L2 * Math.sin(phi) * hY, z: j2P.z + L2 * Math.cos(phi) };
+        
+        phi += j3;
+        const j4P = { x: j3P.x + L3 * Math.sin(phi) * hX, y: j3P.y + L3 * Math.sin(phi) * hY, z: j3P.z + L3 * Math.cos(phi) };
+
+        phi += j4;
+        const j5P = { x: j4P.x + L4 * Math.sin(phi) * hX, y: j4P.y + L4 * Math.sin(phi) * hY, z: j4P.z + L4 * Math.cos(phi) };
+
+        const totalYaw = j1 + j5;
+        const hX5 = Math.cos(totalYaw), hY5 = Math.sin(totalYaw);
+        const head = { x: j5P.x + L5 * Math.sin(phi) * hX5, y: j5P.y + L5 * Math.sin(phi) * hY5, z: j5P.z + L5 * Math.cos(phi) };
+
+        return { base, j1P, j2P, j3P, j4P, j5P, head };
+    }
+
+    // Velocity Kinematics Jacobian & Dynamic Equation UI Update
+    function updateKinematics() {
+        const qRad = qDeg.map(d => d * Math.PI / 180);
+        const [j1, j2, j3, j4, j5] = qRad;
+
+        const sy1 = Math.sin(j1), cy1 = Math.cos(j1);
+        const totalYaw = j1 + j5;
+        const sy5 = Math.sin(totalYaw), cy5 = Math.cos(totalYaw);
+
+        const angles = [j2, j2 + j3, j2 + j3 + j4];
+        const Ls = [L2, L3, L4];
+
+        let R_body = 0;
+        for (let i = 0; i < 3; i++) R_body += Ls[i] * Math.sin(angles[i]);
+        const R_head = L5 * Math.sin(j2 + j3 + j4);
+
+        let J = Array.from({ length: 6 }, () => Array(5).fill(0));
+
+        // Linear Velocity
+        J[0][0] = -R_body * sy1 - R_head * sy5;
+        J[1][0] =  R_body * cy1 + R_head * cy5;
+        J[2][0] = 0;
+
+        J[0][4] = -R_head * sy5;
+        J[1][4] =  R_head * cy5;
+        J[2][4] = 0;
+
+        for (let col = 1; col <= 3; col++) {
+            let dR = 0, dZ = 0;
+            for (let i = col - 1; i < 3; i++) {
+                dR += Ls[i] * Math.cos(angles[i]);
+                dZ -= Ls[i] * Math.sin(angles[i]);
+            }
+            dR += L5 * Math.cos(j2 + j3 + j4);
+            dZ -= L5 * Math.sin(j2 + j3 + j4);
+
+            J[0][col] = dR * cy1;
+            J[1][col] = dR * sy1;
+            J[2][col] = dZ;
+        }
+
+        // Angular Velocity
+        J[3][0] = 0; J[4][0] = 0; J[5][0] = 1;
+        for (let col = 1; col <= 3; col++) {
+            J[3][col] = -sy1;
+            J[4][col] =  cy1;
+            J[5][col] =  0;
+        }
+        J[3][4] = 0; J[4][4] = 0; J[5][4] = 1;
+
+        // Manipulability Index
+        let JJT = Array.from({ length: 3 }, () => Array(3).fill(0));
+        for(let r = 0; r < 3; r++) {
+            for(let c = 0; c < 3; c++) {
+                let sum = 0;
+                for(let k = 0; k < 5; k++) sum += (J[r][k]/100) * (J[c][k]/100);
+                JJT[r][c] = sum;
+            }
+        }
+        const detJJT = Math.max(0, 
+            JJT[0][0]*(JJT[1][1]*JJT[2][2] - JJT[1][2]*JJT[2][1]) -
+            JJT[0][1]*(JJT[1][0]*JJT[2][2] - JJT[1][2]*JJT[2][0]) +
+            JJT[0][2]*(JJT[1][0]*JJT[2][1] - JJT[1][1]*JJT[2][0])
+        );
+        const w = Math.sqrt(detJJT);
+        document.getElementById("manipulability-val").textContent = `w = ${w.toFixed(3)}`;
+
+        // Calculate V = J * theta_dot
+        const qDotRad = qDotDeg.map(d => d * Math.PI / 180);
+        let V = [0, 0, 0, 0, 0, 0];
+        for (let r = 0; r < 6; r++) {
+            for (let c = 0; c < 5; c++) {
+                const jVal = (r < 3) ? J[r][c] / 100 : J[r][c];
+                V[r] += jVal * qDotRad[c];
+            }
+        }
+
+        const twistRowLabels = ['v<sub>x</sub>', 'v<sub>y</sub>', 'v<sub>z</sub>', 'ω<sub>x</sub>', 'ω<sub>y</sub>', 'ω<sub>z</sub>'];
+        const thetaDotLabels = ['&theta;&#775;<sub>1</sub>', '&theta;&#775;<sub>2</sub>', '&theta;&#775;<sub>3</sub>', '&theta;&#775;<sub>4</sub>', '&theta;&#775;<sub>5</sub>'];
+
+        // --- Render 1. Twist Vector V (6x1) (v_x, v_y, v_z, ω_x, ω_y, ω_z 행 라벨 적용) ---
+        const twistBody = document.getElementById("twist-body");
+        twistBody.innerHTML = twistRowLabels.map((label, r) => {
+            const val = V[r];
+            const absVal = Math.abs(val);
+            const formatted = (val >= 0 ? "+" : "") + val.toFixed(2);
+            let style = "";
+            if (absVal > 0.01) {
+                style = `background-color: rgba(56, 237, 248, 0.25); color: #38edf8; border-color: rgba(56, 237, 248, 0.6);`;
+            }
+            const sepClass = r === 3 ? ' class="sep-row"' : '';
+            return `<tr${sepClass}><td class="row-label">${label}</td><td class="j-cell" style="${style}">${formatted}</td></tr>`;
+        }).join('');
+
+        // --- Render 2. Jacobian Matrix J (6x5) ---
+        const tbody = document.getElementById("jacobian-body");
+        tbody.innerHTML = J.map((row, r) => {
+            const isAngular = r >= 3;
+            const cells = row.map(val => {
+                let normVal = isAngular ? val : val / 100;
+                if (Math.abs(normVal) < 1e-5) normVal = 0;
+                
+                const absVal = Math.abs(normVal);
+                const signStr = normVal > 0 ? "+" : (normVal < 0 ? "-" : "+");
+                const formatted = signStr + absVal.toFixed(2);
+
+                let style = "";
+                if (absVal > 0.02) {
+                    const alpha = Math.min(0.85, 0.25 + absVal / (isAngular ? 0.6 : 0.8));
+                    style = `background-color: rgba(99, 102, 241, ${alpha.toFixed(2)}); color: #ffffff; border-color: rgba(129, 140, 248, 0.6);`;
+                }
+
+                return `<td class="j-cell" style="${style}">${formatted}</td>`;
+            }).join('');
+
+            const sepClass = r === 3 ? ' class="sep-row"' : '';
+            return `<tr${sepClass}>${cells}</tr>`;
+        }).join('');
+
+        // --- Render 3. Joint Velocity Vector theta_dot (5x1) ---
+        const qdotBody = document.getElementById("qdot-body");
+        qdotBody.innerHTML = thetaDotLabels.map((label, c) => {
+            const val = qDotDeg[c];
+            const absVal = Math.abs(val);
+            const formatted = (val >= 0 ? "+" : "") + val.toFixed(1);
+            let style = "";
+            if (absVal > 0.1) {
+                style = `background-color: rgba(74, 222, 128, 0.25); color: #4ade80; border-color: rgba(74, 222, 128, 0.6);`;
+            }
+            return `<tr><td class="row-label">${label}</td><td class="j-cell" style="${style}">${formatted}</td></tr>`;
+        }).join('');
+    }
+
+    // Render Loop
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Coordinate Axes
+        const O = {x: 0, y: 0, z: 0}, axisLen = 180;
+        arrow(O, {x: axisLen, y: 0, z: 0}, 2, "#e03131");
+        text3D("X", {x: axisLen + 8, y: 0, z: 0}, "#e03131");
+
+        arrow(O, {x: 0, y: axisLen, z: 0}, 2, "#2f9e44");
+        text3D("Y", {x: 0, y: axisLen + 8, z: 0}, "#2f9e44");
+
+        arrow(O, {x: 0, y: 0, z: axisLen}, 2, "#1971c2");
+        text3D("Z", {x: 0, y: 0, z: axisLen + 8}, "#1971c2");
+
+        const P = getRobotPoints();
+
+        // Render Base & Links
+        point(P.base, 5, "#777");
+        line(P.base, P.j1P, 5, "black");
+        point(P.j1P, 7, "#44dddd");
+
+        line(P.j1P, P.j2P, 4, "black");
+        point(P.j2P, 8, "#ff5555");
+
+        line(P.j2P, P.j3P, 5, "black");
+        point(P.j3P, 8, "#ff5555");
+
+        line(P.j3P, P.j4P, 5, "black");
+        point(P.j4P, 8, "#ff5555");
+
+        line(P.j4P, P.j5P, 4, "black");
+        point(P.j5P, 7, "#44dddd");
+
+        line(P.j5P, P.head, 3, "black");
+        point(P.head, 6, "#ffd43b");
+
+        // Kinematics & Matrix UI Update
+        updateKinematics();
+    }
+
+    resize();
+</script>
+</body>
+</html>

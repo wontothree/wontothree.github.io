@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>행렬식(Determinant)과 면적 변화율 시각화</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      margin-bottom: 10px;
+      color: #333;
+    }
+    .container {
+      display: flex;
+      gap: 20px;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 950px;
+      width: 100%;
+    }
+    canvas {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #ffffff;
+    }
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      flex: 1;
+    }
+    .matrix-input {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .matrix-input input {
+      width: 80%;
+      padding: 8px;
+      font-size: 16px;
+      text-align: center;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    .det-box {
+      background-color: #eef2ff;
+      border: 2px solid #6366f1;
+      padding: 12px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .det-value {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #4f46e5;
+    }
+    .preset-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    button {
+      padding: 8px 12px;
+      border: none;
+      background-color: #4f46e5;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background-color: #3730a3;
+    }
+    .info {
+      font-size: 0.88em;
+      color: #555;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>행렬식(Determinant)과 면적 변화율 시각화</h1>
+  
+  <div class="container">
+    <canvas id="canvas" width="520" height="520"></canvas>
+    
+    <div class="controls">
+      <h3>행렬 $A = \begin{bmatrix} a & b \\ c & d \end{bmatrix}$ 입력</h3>
+      
+      <div class="matrix-input">
+        <div>
+          <label>a ($\hat{i}_x$):</label>
+          <input type="number" id="matA" value="2" step="0.5">
+        </div>
+        <div>
+          <label>b ($\hat{j}_x$):</label>
+          <input type="number" id="matB" value="1" step="0.5">
+        </div>
+        <div>
+          <label>c ($\hat{i}_y$):</label>
+          <input type="number" id="matC" value="0.5" step="0.5">
+        </div>
+        <div>
+          <label>d ($\hat{j}_y$):</label>
+          <input type="number" id="matD" value="1.5" step="0.5">
+        </div>
+      </div>
+
+      <div class="slider-group">
+        <label>변환 진행률 ($t$): <span id="tVal">1.0</span></label>
+        <input type="range" id="tSlider" min="0" max="1" step="0.01" value="1" style="width: 100%;">
+      </div>
+
+      <div class="det-box">
+        <div>행렬식 $\det(A) = ad - bc$</div>
+        <div class="det-value" id="detDisplay">2.50</div>
+        <div id="detMeaning" style="font-size: 0.85em; margin-top: 4px; color: #333;">원래 면적의 2.50배로 확장됨</div>
+      </div>
+
+      <h4>실험 프리셋 (Presets)</h4>
+      <div class="preset-buttons">
+        <button onclick="setPreset(2, 0, 0, 1.5)">면적 확장 (det = 3)</button>
+        <button onclick="setPreset(1, 2, 1, 2)">차원 축소 (det = 0)</button>
+        <button onclick="setPreset(-1, 0, 0, 1)">공간 뒤집힘 (det = -1)</button>
+        <button onclick="setPreset(0.5, 0, 0, 0.5)">면적 축소 (det = 0.25)</button>
+      </div>
+
+      <div class="info">
+        🟨 <b>노란색 영역</b>: 변환된 단위 평행사변형 면적<br>
+        ⚪ <b>점선 회색 정사각형</b>: 변환 전 단위 면적 ($1 \times 1 = 1$)<br>
+        🔴 <b>$\hat{i}$</b> / 🟢 <b>$\hat{j}$</b> : 기저 벡터 위치
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    const width = canvas.width;
+    const height = canvas.height;
+    const scale = 50; // 1단위당 50픽셀
+    const originX = width / 2;
+    const originY = height / 2;
+
+    let a = 2, b = 1, c = 0.5, d = 1.5;
+    let t = 1.0;
+
+    function toScreenX(x) { return originX + x * scale; }
+    function toScreenY(y) { return originY - y * scale; }
+
+    function transform(x, y, matA, matB, matC, matD) {
+      return {
+        x: matA * x + matB * y,
+        y: matC * x + matD * y
+      };
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, width, height);
+
+      // 보간된 변환 행렬 A(t) = I + t(A - I)
+      const currentA = 1 + t * (a - 1);
+      const currentB = t * b;
+      const currentC = t * c;
+      const currentD = 1 + t * (d - 1);
+
+      // 1. 기본 격자 배경
+      ctx.lineWidth = 1;
+      const gridRange = 8;
+      for (let i = -gridRange; i <= gridRange; i++) {
+        // 배경 가로/세로 격자선
+        ctx.strokeStyle = '#f0f0f0';
+        
+        let start = transform(i, -gridRange, currentA, currentB, currentC, currentD);
+        let end = transform(i, gridRange, currentA, currentB, currentC, currentD);
+        ctx.beginPath();
+        ctx.moveTo(toScreenX(start.x), toScreenY(start.y));
+        ctx.lineTo(toScreenX(end.x), toScreenY(end.y));
+        ctx.stroke();
+
+        start = transform(-gridRange, i, currentA, currentB, currentC, currentD);
+        end = transform(gridRange, i, currentA, currentB, currentC, currentD);
+        ctx.beginPath();
+        ctx.moveTo(toScreenX(start.x), toScreenY(start.y));
+        ctx.lineTo(toScreenX(end.x), toScreenY(end.y));
+        ctx.stroke();
+      }
+
+      // 2. 원래 $1 \times 1$ 단위 정사각형 (기준선)
+      ctx.strokeStyle = '#a0a0a0';
+      ctx.setLineDash([4, 4]);
+      ctx.strokeRect(toScreenX(0), toScreenY(1), scale, scale);
+      ctx.setLineDash([]); // 다시 실선으로 복구
+
+      // 3. 변환된 단위 평행사변형 면적 채우기 (노란색 영역)
+      const p0 = transform(0, 0, currentA, currentB, currentC, currentD);
+      const p1 = transform(1, 0, currentA, currentB, currentC, currentD); // i-hat
+      const p2 = transform(1, 1, currentA, currentB, currentC, currentD); // i-hat + j-hat
+      const p3 = transform(0, 1, currentA, currentB, currentC, currentD); // j-hat
+
+      ctx.beginPath();
+      ctx.moveTo(toScreenX(p0.x), toScreenY(p0.y));
+      ctx.lineTo(toScreenX(p1.x), toScreenY(p1.y));
+      ctx.lineTo(toScreenX(p2.x), toScreenY(p2.y));
+      ctx.lineTo(toScreenX(p3.x), toScreenY(p3.y));
+      ctx.closePath();
+
+      // 행렬식의 음수/양수 여부에 따라 면적 색상 구분
+      const currentDet = currentA * currentD - currentB * currentC;
+      if (Math.abs(currentDet) < 0.001) {
+        ctx.fillStyle = 'rgba(239, 68, 68, 0.5)'; // det = 0 일 때 붉은 선 처리
+      } else if (currentDet > 0) {
+        ctx.fillStyle = 'rgba(251, 191, 36, 0.45)'; // 노란색
+      } else {
+        ctx.fillStyle = 'rgba(168, 85, 247, 0.45)'; // 음수일 때 보라색 (뒤집힘)
+      }
+      ctx.fill();
+      ctx.strokeStyle = '#d97706';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // 4. 메인 좌표축
+      ctx.strokeStyle = '#888888';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(0, originY); ctx.lineTo(width, originY);
+      ctx.moveTo(originX, 0); ctx.lineTo(originX, height);
+      ctx.stroke();
+
+      // 5. 기저 벡터 i-hat, j-hat
+      drawVector(p1.x, p1.y, '#e63946', 3); // i-hat (빨강)
+      drawVector(p3.x, p3.y, '#2a9d8f', 3); // j-hat (초록)
+
+      // 6. 행렬식 값 계산 및 UI 업데이트
+      updateDetUI(currentDet);
+    }
+
+    function drawVector(x, y, color, strokeWidth) {
+      const targetX = toScreenX(x);
+      const targetY = toScreenY(y);
+
+      ctx.strokeStyle = color;
+      ctx.fillStyle = color;
+      ctx.lineWidth = strokeWidth;
+
+      ctx.beginPath();
+      ctx.moveTo(originX, originY);
+      ctx.lineTo(targetX, targetY);
+      ctx.stroke();
+
+      const angle = Math.atan2(originY - targetY, targetX - originX);
+      const headLen = 9;
+      ctx.beginPath();
+      ctx.moveTo(targetX, targetY);
+      ctx.lineTo(targetX - headLen * Math.cos(angle - Math.PI / 6), targetY + headLen * Math.sin(angle - Math.PI / 6));
+      ctx.lineTo(targetX - headLen * Math.cos(angle + Math.PI / 6), targetY + headLen * Math.sin(angle + Math.PI / 6));
+      ctx.fill();
+    }
+
+    function updateDetUI(currentDet) {
+      const fullDet = a * d - b * c;
+      document.getElementById('detDisplay').innerText = fullDet.toFixed(2);
+
+      const meaningBox = document.getElementById('detMeaning');
+      if (Math.abs(fullDet) < 0.0001) {
+        meaningBox.innerHTML = "<b style='color: #ef4444;'>차원 축소!</b> (2D 평면이 1D 선/점으로 압축됨, 면적 = 0)";
+      } else if (fullDet < 0) {
+        meaningBox.innerHTML = `면적이 <b>${Math.abs(fullDet).toFixed(2)}배</b>가 되고 <b>공간의 방향(오른손 법칙)이 뒤집힘</b>`;
+      } else {
+        meaningBox.innerHTML = `원래 면적($1$)의 <b>${fullDet.toFixed(2)}배</b>로 면적이 변경됨`;
+      }
+    }
+
+    function updateValues() {
+      a = parseFloat(document.getElementById('matA').value) || 0;
+      b = parseFloat(document.getElementById('matB').value) || 0;
+      c = parseFloat(document.getElementById('matC').value) || 0;
+      d = parseFloat(document.getElementById('matD').value) || 0;
+      t = parseFloat(document.getElementById('tSlider').value);
+      document.getElementById('tVal').innerText = t.toFixed(2);
+      draw();
+    }
+
+    function setPreset(pA, pB, pC, pD) {
+      document.getElementById('matA').value = pA;
+      document.getElementById('matB').value = pB;
+      document.getElementById('matC').value = pC;
+      document.getElementById('matD').value = pD;
+      document.getElementById('tSlider').value = 1;
+      updateValues();
+    }
+
+    document.querySelectorAll('input').forEach(input => {
+      input.addEventListener('input', updateValues);
+    });
+
+    draw();
+  </script>
+</body>
+</html>

@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>3D Yaw-Pitch-Pitch Robot Workspace</title>
+
+<style>
+html, body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: white;
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+</style>
+</head>
+
+<body>
+<canvas id="canvas"></canvas>
+
+<script>
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+function resize() {
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
+}
+
+resize();
+addEventListener("resize", resize);
+
+
+// Robot parameters
+const L1 = 20, L2 = 100, L3 = 80, H = 20;
+const motionSpeed = 0.01;
+
+let yaw = 0;
+let pitch1 = 30 * Math.PI / 180;
+let pitch2 = 30 * Math.PI / 180;
+
+let targetYaw, targetPitch1, targetPitch2;
+
+
+// Random target
+function setRandomTarget() {
+    const minR = Math.abs(L2 - L3);
+    const maxR = L2 + L3;
+
+    const r = Math.cbrt(
+        Math.random() * (maxR ** 3 - minR ** 3) + minR ** 3
+    );
+
+    const yawTarget = Math.random() * 2 * Math.PI;
+    const theta = Math.acos(2 * Math.random() - 1);
+
+    let c = (r * r - L2 * L2 - L3 * L3) / (2 * L2 * L3);
+    c = Math.max(-1, Math.min(1, c));
+
+    let p2 = Math.acos(c);
+    if (Math.random() < 0.5) p2 = -p2;
+
+    const k1 = L2 + L3 * Math.cos(p2);
+    const k2 = L3 * Math.sin(p2);
+    const p1 = theta - Math.atan2(k2, k1);
+
+    targetYaw = yawTarget;
+    targetPitch1 = p1;
+    targetPitch2 = p2;
+}
+
+setRandomTarget();
+
+
+// Camera
+const camera = {x: 350, y: -500, z: 300};
+const target = {x: 0, y: 0, z: 100};
+const focal = 700;
+
+
+// Vector functions
+const sub = (a, b) => ({
+    x: a.x - b.x,
+    y: a.y - b.y,
+    z: a.z - b.z
+});
+
+const dot = (a, b) => a.x * b.x + a.y * b.y + a.z * b.z;
+
+const cross = (a, b) => ({
+    x: a.y * b.z - a.z * b.y,
+    y: a.z * b.x - a.x * b.z,
+    z: a.x * b.y - a.y * b.x
+});
+
+function normalize(v) {
+    const n = Math.sqrt(dot(v, v));
+    return {x: v.x / n, y: v.y / n, z: v.z / n};
+}
+
+
+// Camera basis
+const forward = normalize(sub(target, camera));
+const worldUp = {x: 0, y: 0, z: 1};
+const right = normalize(cross(forward, worldUp));
+const up = normalize(cross(right, forward));
+
+
+// Projection
+function project(p) {
+    const v = sub(p, camera);
+    const x = dot(v, right);
+    const y = dot(v, up);
+    const z = dot(v, forward);
+
+    if (z <= 0) return null;
+
+    const scale = focal / z;
+
+    return {
+        x: canvas.width / 2 + x * scale,
+        y: canvas.height / 2 - y * scale,
+        scale
+    };
+}
+
+
+// Drawing
+function line(a, b, width = 3, color = "black") {
+    const A = project(a), B = project(b);
+    if (!A || !B) return;
+
+    ctx.beginPath();
+    ctx.moveTo(A.x, A.y);
+    ctx.lineTo(B.x, B.y);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = width;
+    ctx.stroke();
+}
+
+function point(p, r = 8, fill = "black") {
+    const P = project(p);
+    if (!P) return;
+
+    ctx.beginPath();
+    ctx.arc(P.x, P.y, r, 0, 2 * Math.PI);
+    ctx.fillStyle = fill;
+    ctx.fill();
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = 1.2;
+    ctx.stroke();
+}
+
+
+// Coordinate axes
+function axes() {
+    const O = {x: 0, y: 0, z: 0};
+
+    line(O, {x: 150, y: 0, z: 0}, 2, "#cc4444");
+    line(O, {x: 0, y: 150, z: 0}, 2, "#44aa66");
+    line(O, {x: 0, y: 0, z: 220}, 2, "#4477cc");
+
+    const X = project({x: 170, y: 0, z: 0});
+    const Y = project({x: 0, y: 170, z: 0});
+    const Z = project({x: 0, y: 0, z: 240});
+
+    ctx.font = "18px Arial";
+    ctx.fillStyle = "black";
+
+    ctx.fillText("x", X.x, X.y);
+    ctx.fillText("y", Y.x, Y.y);
+    ctx.fillText("z", Z.x, Z.y);
+}
+
+
+// Workspace
+function workspace() {
+    const center = {x: 0, y: 0, z: H + L1};
+    const rMin = Math.abs(L2 - L3);
+    const rMax = L2 + L3;
+    const shells = 5;
+
+    for (let s = 0; s <= shells; s++) {
+        const radius = rMin + (rMax - rMin) * s / shells;
+
+        for (let phiDeg = 10; phiDeg < 180; phiDeg += 20) {
+            const phi = phiDeg * Math.PI / 180;
+            let previous = null;
+
+            for (let thetaDeg = 0; thetaDeg <= 360; thetaDeg += 10) {
+                const theta = thetaDeg * Math.PI / 180;
+
+                const p = {
+                    x: center.x + radius * Math.sin(phi) * Math.cos(theta),
+                    y: center.y + radius * Math.sin(phi) * Math.sin(theta),
+                    z: center.z + radius * Math.cos(phi)
+                };
+
+                if (previous) line(previous, p, 0.35, "#dddddd");
+                previous = p;
+            }
+        }
+    }
+}
+
+
+// Robot geometry
+function getJointPositions() {
+    const h = {
+        x: Math.cos(yaw),
+        y: Math.sin(yaw)
+    };
+
+    const yawJoint = {x: 0, y: 0, z: H};
+    const pitchJoint1 = {x: 0, y: 0, z: H + L1};
+
+    const pitchJoint2 = {
+        x: L2 * Math.sin(pitch1) * h.x,
+        y: L2 * Math.sin(pitch1) * h.y,
+        z: H + L1 + L2 * Math.cos(pitch1)
+    };
+
+    const p = pitch1 + pitch2;
+
+    const end = {
+        x: pitchJoint2.x + L3 * Math.sin(p) * h.x,
+        y: pitchJoint2.y + L3 * Math.sin(p) * h.y,
+        z: pitchJoint2.z + L3 * Math.cos(p)
+    };
+
+    return {yawJoint, pitchJoint1, pitchJoint2, end};
+}
+
+
+// Flashlight
+function flashlight(p) {
+    // End-effector itself is the flashlight
+    point(p, 9, "#ffd43b");
+
+    const beam = {
+        x: p.x + Math.cos(yaw) * 50,
+        y: p.y + Math.sin(yaw) * 50,
+        z: p.z
+    };
+
+    line(p, beam, 2, "#f0b400");
+}
+
+
+// Robot
+function robot() {
+    const {yawJoint, pitchJoint1, pitchJoint2, end} =
+        getJointPositions();
+
+    point({x: 0, y: 0, z: 0}, 4, "#777777");
+    point(yawJoint, 6, "#44dddd");
+
+    line(yawJoint, pitchJoint1);
+    point(pitchJoint1, 6, "#ff5555");
+
+    line(pitchJoint1, pitchJoint2);
+    point(pitchJoint2, 6, "#ff5555");
+
+    line(pitchJoint2, end);
+    // point(end, 6, "#ffd43b");
+
+    flashlight(end);
+}
+
+
+// End-effector trajectory
+const trajectory = [];
+
+function drawTrajectory() {
+    for (const p of trajectory) point(p, 1.5, "#aaaaaa");
+}
+
+
+// Motion
+function moveAngle(current, target, speed) {
+    let d = target - current;
+
+    if (d > Math.PI) d -= 2 * Math.PI;
+    if (d < -Math.PI) d += 2 * Math.PI;
+
+    return current + d * speed;
+}
+
+function updateMotion() {
+    yaw = moveAngle(yaw, targetYaw, motionSpeed);
+    pitch1 += (targetPitch1 - pitch1) * motionSpeed;
+    pitch2 += (targetPitch2 - pitch2) * motionSpeed;
+
+    const yawError = Math.abs(
+        Math.atan2(
+            Math.sin(targetYaw - yaw),
+            Math.cos(targetYaw - yaw)
+        )
+    );
+
+    if (
+        yawError < 0.01 &&
+        Math.abs(targetPitch1 - pitch1) < 0.01 &&
+        Math.abs(targetPitch2 - pitch2) < 0.01
+    ) {
+        setRandomTarget();
+    }
+}
+
+
+// Angle and position display
+function drawAngle() {
+    let yawDeg = yaw * 180 / Math.PI;
+    yawDeg = ((yawDeg % 360) + 360) % 360;
+
+    const p1 = pitch1 * 180 / Math.PI;
+    const p2 = pitch2 * 180 / Math.PI;
+    const {end} = getJointPositions();
+
+    ctx.font = "15px Arial";
+    ctx.fillStyle = "black";
+
+    ctx.fillText(`Pitch 1: ${p1.toFixed(1)}°`, 30, 40);
+    ctx.fillText(`Pitch 2: ${p2.toFixed(1)}°`, 30, 70);
+    ctx.fillText(`Yaw: ${yawDeg.toFixed(1)}°`, 30, 100);
+    ctx.fillText(
+        `Position: (${end.x.toFixed(1)}, ${end.y.toFixed(1)}, ${end.z.toFixed(1)})`,
+        30, 130
+    );
+}
+
+
+// Animation
+function animate() {
+    updateMotion();
+
+    const {end} = getJointPositions();
+
+    if (!trajectory.length || Math.random() < 0.08) {
+        trajectory.push({...end});
+        if (trajectory.length > 500) trajectory.shift();
+    }
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    workspace();
+    axes();
+    drawTrajectory();
+    robot();
+    drawAngle();
+
+    requestAnimationFrame(animate);
+}
+
+animate();
+</script>
+
+</body>
+</html>

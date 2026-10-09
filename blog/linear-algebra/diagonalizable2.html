@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>대각화 시각화: 종합 관점 (A, D, P⁻¹, P)</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #f3f4f6;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 { margin-bottom: 5px; color: #111827; }
+    .subtitle { color: #4b5563; margin-bottom: 20px; font-size: 0.95em; text-align: center; max-width: 800px;}
+    
+    .section-title {
+      width: 100%;
+      max-width: 1100px;
+      margin-top: 15px;
+      margin-bottom: 10px;
+      font-weight: bold;
+      color: #1f2937;
+      font-size: 1.1em;
+      border-left: 4px solid #2563eb;
+      padding-left: 10px;
+    }
+
+    .main-container {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+      max-width: 1140px;
+    }
+
+    .view-panel {
+      flex: 1;
+      min-width: 500px;
+      background: white;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .view-header {
+      width: 100%;
+      text-align: center;
+      margin-bottom: 10px;
+      padding-bottom: 5px;
+      border-bottom: 2px solid;
+    }
+    
+    canvas {
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      background-color: #fafafa;
+    }
+
+    .controls-panel {
+      width: 100%;
+      max-width: 1100px;
+      background: white;
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .slider-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: center;
+    }
+    
+    input[type=range] { flex: 1; max-width: 500px; }
+
+    .formula-box {
+      background-color: #f9fafb;
+      font-family: "Courier New", Courier, monospace;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #eee;
+      text-align: center;
+      font-size: 0.9em;
+      color: #374151;
+    }
+
+    .legend {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      font-size: 0.85em;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>단위 원(Unit Circle)의 변형 관찰</h1>
+  <div class="subtitle">
+    대각화 식 $A = PDP^{-1}$을 구성하는 각 변환의 기하학적 역할을 비교 시각화합니다.<br>
+    공통 슬라이더 $t$ ($0 \to 1$)를 조작하여 각 행렬이 공간에 미치는 영향을 관찰하세요.
+  </div>
+
+  <!-- 섹션 1: 기존 A vs D 대비 관점 -->
+  <div class="section-title">1. 전체 변환 $A$ vs 고유공간 단순 스케일링 $D$</div>
+  <div class="main-container">
+    <!-- 기존 왼쪽: 표준 좌표계 관점 (A) -->
+    <div class="view-panel">
+      <div class="view-header" style="border-color: #1d4ed8; color: #1d4ed8;">
+        <h3>왼쪽: 표준 좌표계 (Standard View)</h3>
+        <div style="font-size:0.9em;">표준 축 기준 복잡한 비틀림: $A\mathbf{x}$</div>
+      </div>
+      <canvas id="canvasA" width="500" height="500"></canvas>
+    </div>
+
+    <!-- 기존 오른쪽: 고유벡터 좌표계 관점 (D) -->
+    <div class="view-panel">
+      <div class="view-header" style="border-color: #059669; color: #059669;">
+        <h3>오른쪽: 고유벡터 좌표계 (Eigen View)</h3>
+        <div style="font-size:0.9em;">고유 축 기준 단순 스케일링: $D\mathbf{y}$</div>
+      </div>
+      <canvas id="canvasD" width="500" height="500"></canvas>
+    </div>
+  </div>
+
+  <!-- 섹션 2: 신규 P^-1 vs P 독립 관점 -->
+  <div class="section-title">2. 좌표계 정렬 $P^{-1}$ vs 관점 복원 $P$ (독립 변환)</div>
+  <div class="main-container">
+    <!-- 추가: P^-1 단독 변환 -->
+    <div class="view-panel">
+      <div class="view-header" style="border-color: #0284c7; color: #0284c7;">
+        <h3>$P^{-1}$ 단독 변환 (좌표계 정렬)</h3>
+        <div style="font-size:0.9em;">고유벡터 축들을 표준 축 방향으로 시계 회전/정렬</div>
+      </div>
+      <canvas id="canvasPinv" width="500" height="500"></canvas>
+    </div>
+
+    <!-- 추가: P 단독 변환 -->
+    <div class="view-panel">
+      <div class="view-header" style="border-color: #7c3aed; color: #7c3aed;">
+        <h3>$P$ 단독 변환 (관점 복원)</h3>
+        <div style="font-size:0.9em;">정렬된 축을 원래 비스듬한 고유벡터 축 방향으로 복원</div>
+      </div>
+      <canvas id="canvasP" width="500" height="500"></canvas>
+    </div>
+  </div>
+
+  <div class="controls-panel">
+    <div class="slider-group">
+      <label>변환 진행률 (t): <b id="tVal">1.00</b></label>
+      <input type="range" id="tSlider" min="0" max="1" step="0.01" value="1">
+    </div>
+
+    <div class="formula-box">
+      사용된 행렬: 
+      $A = \begin{bmatrix} 1.75 & 1.25 \\ 1.25 & 1.75 \end{bmatrix}$, 
+      $D = \begin{bmatrix} 3 & 0 \\ 0 & 0.5 \end{bmatrix}$, 
+      $P = \begin{bmatrix} 1 & -1 \\ 1 & 1 \end{bmatrix}$,
+      $P^{-1} = \begin{bmatrix} 0.5 & 0.5 \\ -0.5 & 0.5 \end{bmatrix}$
+    </div>
+
+    <div class="legend">
+      <span>🟡 변형되는 원/타원 영역</span>
+      <span style="color: #16a34a;">🟢 고유벡터 1 ($\mathbf{v}_1 = [1, 1]^T, \lambda_1=3$)</span>
+      <span style="color: #2563eb;">🔵 고유벡터 2 ($\mathbf{v}_2 = [-1, 1]^T, \lambda_2=0.5$)</span>
+    </div>
+  </div>
+
+  <script>
+    // --- 설정 ---
+    const scale = 50; // 1단위당 픽셀
+    const gridRange = 6;
+    const circleSegments = 100; // 원을 그릴 선분 개수
+
+    // 행렬 데이터 (A = PDP^-1)
+    const A = { a: 1.75, b: 1.25, c: 1.25, d: 1.75 };
+    const D = { a: 3, b: 0, c: 0, d: 0.5 };
+    const P = { a: 1, b: -1, c: 1, d: 1 }; // 열벡터: [1,1], [-1,1]
+    const Pinv = { a: 0.5, b: 0.5, c: -0.5, d: 0.5 }; // P 역행렬
+    const I = { a: 1, b: 0, c: 0, d: 1 }; // 항등 행렬
+
+    // --- Canvas 세팅 ---
+    const canvasA = document.getElementById('canvasA');
+    const ctxA = canvasA.getContext('2d');
+    const canvasD = document.getElementById('canvasD');
+    const ctxD = canvasD.getContext('2d');
+    
+    // 추가 캔버스
+    const canvasPinv = document.getElementById('canvasPinv');
+    const ctxPinv = canvasPinv.getContext('2d');
+    const canvasP = document.getElementById('canvasP');
+    const ctxP = canvasP.getContext('2d');
+
+    const origins = {
+      A: { x: canvasA.width / 2, y: canvasA.height / 2 },
+      D: { x: canvasD.width / 2, y: canvasD.height / 2 },
+      Pinv: { x: canvasPinv.width / 2, y: canvasPinv.height / 2 },
+      P: { x: canvasP.width / 2, y: canvasP.height / 2 }
+    };
+
+    // --- 유틸리티 함수 ---
+    function toScreen(orig, x, y) {
+      return { x: orig.x + x * scale, y: orig.y - y * scale };
+    }
+
+    function applyMat(m, x, y) {
+      return { x: m.a * x + m.b * y, y: m.c * x + m.d * y };
+    }
+
+    function interpolateMat(m1, m2, t) {
+      return {
+        a: m1.a + (m2.a - m1.a) * t,
+        b: m1.b + (m2.b - m1.b) * t,
+        c: m1.c + (m2.c - m1.c) * t,
+        d: m1.d + (m2.d - m1.d) * t
+      };
+    }
+
+    // --- 그리기 함수 ---
+    function drawAxisAndGrid(ctx, orig, mat, colorMain, colorGrid) {
+      ctx.lineWidth = 1;
+      
+      for (let i = -gridRange; i <= gridRange; i++) {
+        // 그리드 선 (변형됨)
+        ctx.strokeStyle = (i === 0) ? colorMain : colorGrid;
+        ctx.lineWidth = (i === 0) ? 1.5 : 0.5;
+
+        // 세로 그리드
+        let p1 = applyMat(mat, i, -gridRange);
+        let p2 = applyMat(mat, i, gridRange);
+        let s1 = toScreen(orig, p1.x, p1.y);
+        let s2 = toScreen(orig, p2.x, p2.y);
+        ctx.beginPath(); ctx.moveTo(s1.x, s1.y); ctx.lineTo(s2.x, s2.y); ctx.stroke();
+
+        // 가로 그리드
+        p1 = applyMat(mat, -gridRange, i);
+        p2 = applyMat(mat, gridRange, i);
+        s1 = toScreen(orig, p1.x, p1.y);
+        s2 = toScreen(orig, p2.x, p2.y);
+        ctx.beginPath(); ctx.moveTo(s1.x, s1.y); ctx.lineTo(s2.x, s2.y); ctx.stroke();
+      }
+    }
+
+    function drawTransformedCircle(ctx, orig, mat) {
+      ctx.beginPath();
+      for (let i = 0; i <= circleSegments; i++) {
+        const theta = (i / circleSegments) * Math.PI * 2;
+        // 단위 원 상의 점 (x, y)
+        const unitX = Math.cos(theta);
+        const unitY = Math.sin(theta);
+        
+        // 행렬 변환 적용
+        const pt = applyMat(mat, unitX, unitY);
+        const sPt = toScreen(orig, pt.x, pt.y);
+
+        if (i === 0) ctx.moveTo(sPt.x, sPt.y);
+        else ctx.lineTo(sPt.x, sPt.y);
+      }
+      ctx.closePath();
+      
+      // 영역 채우기
+      ctx.fillStyle = 'rgba(251, 191, 36, 0.3)'; // 노란색 투명
+      ctx.fill();
+      
+      // 테두리
+      ctx.strokeStyle = '#d97706';
+      ctx.lineWidth = 2.5;
+      ctx.stroke();
+    }
+
+    function drawVector(ctx, orig, mat, vx, vy, color) {
+      const pt = applyMat(mat, vx, vy);
+      const sPt = toScreen(orig, pt.x, pt.y);
+      const sOrig = toScreen(orig, 0, 0);
+
+      ctx.strokeStyle = color;
+      ctx.fillStyle = color;
+      ctx.lineWidth = 3;
+
+      // 선
+      ctx.beginPath();
+      ctx.moveTo(sOrig.x, sOrig.y);
+      ctx.lineTo(sPt.x, sPt.y);
+      ctx.stroke();
+
+      // 화살표 머리
+      const angle = Math.atan2(sOrig.y - sPt.y, sPt.x - sOrig.x);
+      const headLen = 10;
+      ctx.beginPath();
+      ctx.moveTo(sPt.x, sPt.y);
+      ctx.lineTo(sPt.x - headLen * Math.cos(angle - Math.PI / 6), sPt.y + headLen * Math.sin(angle - Math.PI / 6));
+      ctx.lineTo(sPt.x - headLen * Math.cos(angle + Math.PI / 6), sPt.y + headLen * Math.sin(angle + Math.PI / 6));
+      ctx.fill();
+    }
+
+    // --- 메인 렌더링 ---
+    function render() {
+      const t = parseFloat(document.getElementById('tSlider').value);
+      document.getElementById('tVal').innerText = t.toFixed(2);
+
+      // t에 따른 보간 행렬 계산
+      const currentA = interpolateMat(I, A, t);       // Standard View: I -> A
+      const currentD = interpolateMat(I, D, t);       // Eigen View: I -> D
+      const currentPinv = interpolateMat(I, Pinv, t); // P^-1 단독 변환: I -> P^-1
+      const currentP = interpolateMat(I, P, t);       // P 단독 변환: I -> P
+
+      // 1. 기존 왼쪽 화면 (Standard View: A)
+      ctxA.clearRect(0, 0, canvasA.width, canvasA.height);
+      drawAxisAndGrid(ctxA, origins.A, currentA, '#9ca3af', '#e5e7eb'); 
+      drawVector(ctxA, origins.A, I, 1, 1, 'rgba(22, 163, 74, 0.2)');
+      drawVector(ctxA, origins.A, I, -1, 1, 'rgba(37, 99, 235, 0.2)');
+      drawTransformedCircle(ctxA, origins.A, currentA);
+      drawVector(ctxA, origins.A, currentA, 1, 1, '#16a34a');
+      drawVector(ctxA, origins.A, currentA, -1, 1, '#2563eb');
+
+      // 2. 기존 오른쪽 화면 (Eigen View: D)
+      ctxD.clearRect(0, 0, canvasD.width, canvasD.height);
+      drawAxisAndGrid(ctxD, origins.D, currentD, '#374151', '#e5e7eb');
+      drawTransformedCircle(ctxD, origins.D, currentD);
+      drawVector(ctxD, origins.D, currentD, 1, 0, '#16a34a');
+      drawVector(ctxD, origins.D, currentD, 0, 1, '#2563eb');
+
+      // 3. 추가 화면 (P^-1 단독 변환)
+      ctxPinv.clearRect(0, 0, canvasPinv.width, canvasPinv.height);
+      drawAxisAndGrid(ctxPinv, origins.Pinv, currentPinv, '#0284c7', '#e5e7eb');
+      drawTransformedCircle(ctxPinv, origins.Pinv, currentPinv);
+      drawVector(ctxPinv, origins.Pinv, currentPinv, 1, 1, '#16a34a');
+      drawVector(ctxPinv, origins.Pinv, currentPinv, -1, 1, '#2563eb');
+
+      // 4. 추가 화면 (P 단독 변환)
+      ctxP.clearRect(0, 0, canvasP.width, canvasP.height);
+      drawAxisAndGrid(ctxP, origins.P, currentP, '#7c3aed', '#e5e7eb');
+      drawTransformedCircle(ctxP, origins.P, currentP);
+      drawVector(ctxP, origins.P, currentP, 1, 0, '#16a34a');
+      drawVector(ctxP, origins.P, currentP, 0, 1, '#2563eb');
+    }
+
+    // --- 이벤트 리스너 ---
+    document.getElementById('tSlider').addEventListener('input', render);
+
+    // 초기 렌더링
+    render();
+  </script>
+</body>
+</html>

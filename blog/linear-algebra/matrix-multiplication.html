@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>선형 변환(Linear Transformation) 시각화</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      margin-bottom: 10px;
+      color: #333;
+    }
+    .container {
+      display: flex;
+      gap: 20px;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 900px;
+      width: 100%;
+    }
+    canvas {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #ffffff;
+    }
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      flex: 1;
+    }
+    .matrix-input {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 5px;
+    }
+    .matrix-input input {
+      width: 80%;
+      padding: 8px;
+      font-size: 16px;
+      text-align: center;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    .preset-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    button {
+      padding: 8px 12px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .slider-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>선형 변환 (Linear Transformation) 시각화</h1>
+  
+  <div class="container">
+    <canvas id="canvas" width="500" height="500"></canvas>
+    
+    <div class="controls">
+      <h3>행렬 $A = \begin{bmatrix} a & b \\ c & d \end{bmatrix}$ 입력</h3>
+      
+      <div class="matrix-input">
+        <div>
+          <label>a (i-hat x):</label>
+          <input type="number" id="matA" value="1" step="0.5">
+        </div>
+        <div>
+          <label>b (j-hat x):</label>
+          <input type="number" id="matB" value="1" step="0.5">
+        </div>
+        <div>
+          <label>c (i-hat y):</label>
+          <input type="number" id="matC" value="0" step="0.5">
+        </div>
+        <div>
+          <label>d (j-hat y):</label>
+          <input type="number" id="matD" value="1" step="0.5">
+        </div>
+      </div>
+
+      <div class="slider-group">
+        <label>변환 진행률 ($t$): <span id="tVal">1.0</span></label>
+        <input type="range" id="tSlider" min="0" max="1" step="0.01" value="1">
+      </div>
+
+      <h4>프리셋 (Presets)</h4>
+      <div class="preset-buttons">
+        <button onclick="setPreset(1, 1, 0, 1)">전단 변환 (Shear)</button>
+        <button onclick="setPreset(0, -1, 1, 0)">90도 회전 (Rotation)</button>
+        <button onclick="setPreset(2, 0, 0, 0.5)">스케일링 (Scaling)</button>
+        <button onclick="setPreset(1, 0, 0, 0)">차원 축소 (det=0)</button>
+      </div>
+
+      <p style="font-size: 0.9em; color: #666; margin-top: 15px;">
+        🔴 <b>빨간색 화살표</b>: $\hat{i}$ 이 이동한 위치<br>
+        🟢 <b>초록색 화살표</b>: $\hat{j}$ 가 이동한 위치
+      </p>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    const width = canvas.width;
+    const height = canvas.height;
+    const scale = 40; // 1단위당 40픽셀
+    const originX = width / 2;
+    const originY = height / 2;
+
+    // 변환 행렬 성분
+    let a = 1, b = 1, c = 0, d = 1;
+    let t = 1.0;
+
+    function toScreenX(x) { return originX + x * scale; }
+    function toScreenY(y) { return originY - y * scale; }
+
+    function drawGrid() {
+      ctx.clearRect(0, 0, width, height);
+
+      // 보간된(Interpolated) 변환 행렬: I + t(A - I)
+      const currentA = 1 + t * (a - 1);
+      const currentB = t * b;
+      const currentC = t * c;
+      const currentD = 1 + t * (d - 1);
+
+      // 격자선 그리자 (Grid lines)
+      ctx.lineWidth = 1;
+      const gridRange = 10;
+
+      for (let i = -gridRange; i <= gridRange; i++) {
+        // 세로 격자선 (x = i)
+        ctx.strokeStyle = '#e0e0e0';
+        ctx.beginPath();
+        let start = transform(i, -gridRange, currentA, currentB, currentC, currentD);
+        let end = transform(i, gridRange, currentA, currentB, currentC, currentD);
+        ctx.moveTo(toScreenX(start.x), toScreenY(start.y));
+        ctx.lineTo(toScreenX(end.x), toScreenY(end.y));
+        ctx.stroke();
+
+        // 가로 격자선 (y = i)
+        ctx.beginPath();
+        start = transform(-gridRange, i, currentA, currentB, currentC, currentD);
+        end = transform(gridRange, i, currentA, currentB, currentC, currentD);
+        ctx.moveTo(toScreenX(start.x), toScreenY(start.y));
+        ctx.lineTo(toScreenX(end.x), toScreenY(end.y));
+        ctx.stroke();
+      }
+
+      // X, Y 메인 축 (원래 기준축)
+      ctx.strokeStyle = '#aaaaaa';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(0, originY); ctx.lineTo(width, originY);
+      ctx.moveTo(originX, 0); ctx.lineTo(originX, height);
+      ctx.stroke();
+
+      // 기저 벡터 i-hat (1, 0) 및 j-hat (0, 1)의 이동
+      const iTrans = transform(1, 0, currentA, currentB, currentC, currentD);
+      const jTrans = transform(0, 1, currentA, currentB, currentC, currentD);
+
+      drawVector(iTrans.x, iTrans.y, '#e63946', 3); // 빨강: i-hat
+      drawVector(jTrans.x, jTrans.y, '#2a9d8f', 3); // 초록: j-hat
+    }
+
+    function transform(x, y, matA, matB, matC, matD) {
+      return {
+        x: matA * x + matB * y,
+        y: matC * x + matD * y
+      };
+    }
+
+    function drawVector(x, y, color, strokeWidth) {
+      const targetX = toScreenX(x);
+      const targetY = toScreenY(y);
+
+      ctx.strokeStyle = color;
+      ctx.fillStyle = color;
+      ctx.lineWidth = strokeWidth;
+
+      ctx.beginPath();
+      ctx.moveTo(originX, originY);
+      ctx.lineTo(targetX, targetY);
+      ctx.stroke();
+
+      // 화살표 머리
+      const angle = Math.atan2(originY - targetY, targetX - originX);
+      const headLen = 10;
+      ctx.beginPath();
+      ctx.moveTo(targetX, targetY);
+      ctx.lineTo(targetX - headLen * Math.cos(angle - Math.PI / 6), targetY + headLen * Math.sin(angle - Math.PI / 6));
+      ctx.lineTo(targetX - headLen * Math.cos(angle + Math.PI / 6), targetY + headLen * Math.sin(angle + Math.PI / 6));
+      ctx.fill();
+    }
+
+    function updateValues() {
+      a = parseFloat(document.getElementById('matA').value) || 0;
+      b = parseFloat(document.getElementById('matB').value) || 0;
+      c = parseFloat(document.getElementById('matC').value) || 0;
+      d = parseFloat(document.getElementById('matD').value) || 0;
+      t = parseFloat(document.getElementById('tSlider').value);
+      document.getElementById('tVal').innerText = t.toFixed(2);
+      drawGrid();
+    }
+
+    function setPreset(pA, pB, pC, pD) {
+      document.getElementById('matA').value = pA;
+      document.getElementById('matB').value = pB;
+      document.getElementById('matC').value = pC;
+      document.getElementById('matD').value = pD;
+      document.getElementById('tSlider').value = 1;
+      updateValues();
+    }
+
+    // 이벤트를 통한 UI 연동
+    document.querySelectorAll('input').forEach(input => {
+      input.addEventListener('input', updateValues);
+    });
+
+    drawGrid();
+  </script>
+</body>
+</html>

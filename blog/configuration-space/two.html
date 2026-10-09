@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>3D Yaw-Pitch Robot Workspace</title>
+
+<style>
+html, body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: white;
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="canvas"></canvas>
+
+<script>
+
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+
+resize();
+window.addEventListener("resize", resize);
+
+
+/* =========================================================
+   Robot parameters
+   ========================================================= */
+
+const L1 = 20;     // Yaw joint -> Pitch joint
+const L2 = 180;    // Pitch joint -> End-effector
+const H  = 20;
+
+
+/* =========================================================
+   Joint angles
+   ========================================================= */
+
+let yaw = 0;
+let pitch = 30 * Math.PI / 180;
+
+
+/* Target angles for random motion */
+
+let targetYaw =
+    Math.random() * 2 * Math.PI;
+
+let targetPitch =
+    10 * Math.PI / 180 +
+    Math.random() * 160 * Math.PI / 180;
+
+
+/* Motion speed */
+
+const motionSpeed = 0.015;
+
+
+/* =========================================================
+   Camera
+   ========================================================= */
+
+const camera = {
+    x: 350,
+    y: -500,
+    z: 300
+};
+
+const target = {
+    x: 0,
+    y: 0,
+    z: 100
+};
+
+const focal = 700;
+
+
+/* =========================================================
+   Vector functions
+   ========================================================= */
+
+function sub(a, b) {
+
+    return {
+        x: a.x - b.x,
+        y: a.y - b.y,
+        z: a.z - b.z
+    };
+}
+
+
+function dot(a, b) {
+
+    return (
+        a.x * b.x +
+        a.y * b.y +
+        a.z * b.z
+    );
+}
+
+
+function cross(a, b) {
+
+    return {
+        x: a.y * b.z - a.z * b.y,
+        y: a.z * b.x - a.x * b.z,
+        z: a.x * b.y - a.y * b.x
+    };
+}
+
+
+function normalize(v) {
+
+    const n = Math.sqrt(dot(v, v));
+
+    return {
+        x: v.x / n,
+        y: v.y / n,
+        z: v.z / n
+    };
+}
+
+
+/* =========================================================
+   Camera basis
+   ========================================================= */
+
+const forward =
+    normalize(sub(target, camera));
+
+const worldUp = {
+    x: 0,
+    y: 0,
+    z: 1
+};
+
+const right =
+    normalize(cross(forward, worldUp));
+
+const up =
+    normalize(cross(right, forward));
+
+
+/* =========================================================
+   3D -> 2D projection
+   ========================================================= */
+
+function project(p) {
+
+    const v = sub(p, camera);
+
+    const x = dot(v, right);
+    const y = dot(v, up);
+    const z = dot(v, forward);
+
+    if (z <= 0) {
+        return null;
+    }
+
+    const scale = focal / z;
+
+    return {
+        x: canvas.width / 2 + x * scale,
+        y: canvas.height / 2 - y * scale,
+        scale: scale
+    };
+}
+
+
+/* =========================================================
+   Draw 3D line
+   ========================================================= */
+
+function line(a, b, width = 3, color = "black") {
+
+    const A = project(a);
+    const B = project(b);
+
+    if (!A || !B) {
+        return;
+    }
+
+    ctx.beginPath();
+    ctx.moveTo(A.x, A.y);
+    ctx.lineTo(B.x, B.y);
+
+    ctx.strokeStyle = color;
+    ctx.lineWidth = width;
+
+    ctx.stroke();
+}
+
+
+/* =========================================================
+   Draw 3D point
+   ========================================================= */
+
+function point(p, r = 8, fill = "black") {
+
+    const P = project(p);
+
+    if (!P) {
+        return;
+    }
+
+    ctx.beginPath();
+
+    ctx.arc(
+        P.x,
+        P.y,
+        r,
+        0,
+        2 * Math.PI
+    );
+
+    ctx.fillStyle = fill;
+    ctx.fill();
+
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+}
+
+
+/* =========================================================
+   Coordinate axes
+   ========================================================= */
+
+function axes() {
+
+    const O = {
+        x: 0,
+        y: 0,
+        z: 0
+    };
+
+    line(O, { x: 150, y: 0, z: 0 }, 2, "#cc4444");
+    line(O, { x: 0, y: 150, z: 0 }, 2, "#44aa66");
+    line(O, { x: 0, y: 0, z: 220 }, 2, "#4477cc");
+
+    const X = project({
+        x: 170,
+        y: 0,
+        z: 0
+    });
+
+    const Y = project({
+        x: 0,
+        y: 170,
+        z: 0
+    });
+
+    const Z = project({
+        x: 0,
+        y: 0,
+        z: 240
+    });
+
+    ctx.font = "18px Arial";
+    ctx.fillStyle = "black";
+
+    ctx.fillText("x", X.x, X.y);
+    ctx.fillText("y", Y.x, Y.y);
+    ctx.fillText("z", Z.x, Z.y);
+}
+
+
+/* =========================================================
+   Workspace sphere
+   ========================================================= */
+
+function workspace() {
+
+    /*
+       Workspace center = Pitch joint
+
+              center
+                 ●
+              /  |  \
+             /   |   \
+            /    |    \
+           sphere
+
+       Radius = L2
+    */
+
+    const center = {
+        x: 0,
+        y: 0,
+        z: H + L1
+    };
+
+    const radius = L2;
+
+
+    /* -----------------------------------------------------
+       Latitude
+       ----------------------------------------------------- */
+
+    for (let pitchAngle = 10;
+         pitchAngle < 180;
+         pitchAngle += 10) {
+
+        const phi =
+            pitchAngle * Math.PI / 180;
+
+        let previous = null;
+
+        for (let yawAngle = 0;
+             yawAngle <= 360;
+             yawAngle += 5) {
+
+            const theta =
+                yawAngle * Math.PI / 180;
+
+            const p = {
+
+                x: center.x +
+                    radius *
+                    Math.sin(phi) *
+                    Math.cos(theta),
+
+                y: center.y +
+                    radius *
+                    Math.sin(phi) *
+                    Math.sin(theta),
+
+                z: center.z +
+                    radius *
+                    Math.cos(phi)
+            };
+
+            if (previous) {
+
+                line(
+                    previous,
+                    p,
+                    0.5,
+                    "#cccccc"
+                );
+            }
+
+            previous = p;
+        }
+    }
+
+
+    /* -----------------------------------------------------
+       Longitude
+       ----------------------------------------------------- */
+
+    for (let yawAngle = 0;
+         yawAngle < 360;
+         yawAngle += 15) {
+
+        const theta =
+            yawAngle * Math.PI / 180;
+
+        let previous = null;
+
+        for (let pitchAngle = 0;
+             pitchAngle <= 180;
+             pitchAngle += 5) {
+
+            const phi =
+                pitchAngle * Math.PI / 180;
+
+            const p = {
+
+                x: center.x +
+                    radius *
+                    Math.sin(phi) *
+                    Math.cos(theta),
+
+                y: center.y +
+                    radius *
+                    Math.sin(phi) *
+                    Math.sin(theta),
+
+                z: center.z +
+                    radius *
+                    Math.cos(phi)
+            };
+
+            if (previous) {
+
+                line(
+                    previous,
+                    p,
+                    0.5,
+                    "#cccccc"
+                );
+            }
+
+            previous = p;
+        }
+    }
+}
+
+
+/* =========================================================
+   Flashlight
+   ========================================================= */
+
+function flashlight(p) {
+
+    /*
+       Flashlight remains vertical.
+    */
+
+    const top = {
+
+        x: p.x,
+        y: p.y,
+        z: p.z + 8
+    };
+
+
+    /* Body */
+
+    line(
+        p,
+        top,
+        3,
+        "#222222"
+    );
+
+
+    /* Head */
+
+    point(
+        top,
+        8,
+        "#ffd43b"
+    );
+
+
+    /*
+       Light direction follows yaw.
+    */
+
+    const dx = Math.cos(yaw);
+    const dy = Math.sin(yaw);
+
+    const beam = {
+
+        x: top.x + dx * 50,
+        y: top.y + dy * 50,
+        z: top.z
+    };
+
+
+    line(
+        top,
+        beam,
+        2,
+        "#f0b400"
+    );
+}
+
+
+/* =========================================================
+   End-effector position
+   ========================================================= */
+
+function getEndEffector() {
+
+    const pitchJoint = {
+
+        x: 0,
+        y: 0,
+        z: H + L1
+    };
+
+
+    /*
+       Horizontal direction determined by yaw
+    */
+
+    const horizontalX =
+        Math.cos(yaw);
+
+    const horizontalY =
+        Math.sin(yaw);
+
+
+    /*
+       Position from pitch joint
+
+          x = L sin(pitch) cos(yaw)
+          y = L sin(pitch) sin(yaw)
+          z = L cos(pitch)
+    */
+
+    return {
+
+        x: pitchJoint.x +
+            L2 *
+            Math.sin(pitch) *
+            horizontalX,
+
+        y: pitchJoint.y +
+            L2 *
+            Math.sin(pitch) *
+            horizontalY,
+
+        z: pitchJoint.z +
+            L2 *
+            Math.cos(pitch)
+    };
+}
+
+
+/* =========================================================
+   Robot
+   ========================================================= */
+
+function robot() {
+
+
+    /* -----------------------------------------------------
+       Base
+       ----------------------------------------------------- */
+
+    point(
+        {
+            x: 0,
+            y: 0,
+            z: 0
+        },
+        4,
+        "#777777"
+    );
+
+
+    /* -----------------------------------------------------
+       Yaw joint
+       ----------------------------------------------------- */
+
+    const yawJoint = {
+
+        x: 0,
+        y: 0,
+        z: H
+    };
+
+
+    point(
+        yawJoint,
+        6,
+        "#44dddd"
+    );
+
+
+    /* -----------------------------------------------------
+       Pitch joint
+       ----------------------------------------------------- */
+
+    const pitchJoint = {
+
+        x: 0,
+        y: 0,
+        z: H + L1
+    };
+
+
+    /* First link */
+
+    line(
+        yawJoint,
+        pitchJoint,
+        3,
+        "black"
+    );
+
+
+    /* Pitch joint */
+
+    point(
+        pitchJoint,
+        7,
+        "#ff5555"
+    );
+
+
+    /* -----------------------------------------------------
+       End effector
+       ----------------------------------------------------- */
+
+    const end = getEndEffector();
+
+
+    /* Second link */
+
+    line(
+        pitchJoint,
+        end,
+        3,
+        "black"
+    );
+
+
+    /* End-effector point */
+
+    point(
+        end,
+        6,
+        "#ffd43b"
+    );
+
+
+    /* Flashlight */
+
+    flashlight(end);
+}
+
+
+/* =========================================================
+   Random target
+   ========================================================= */
+
+function randomTarget() {
+
+    targetYaw =
+        Math.random() * 2 * Math.PI;
+
+    /*
+       Avoid the exact poles because
+       the yaw direction becomes visually
+       meaningless there.
+    */
+
+    targetPitch =
+        (15 + Math.random() * 150)
+        * Math.PI / 180;
+}
+
+
+/* =========================================================
+   Smooth angle interpolation
+   ========================================================= */
+
+function moveAngle(current, target, speed) {
+
+    let difference =
+        target - current;
+
+    /*
+       Shortest path for yaw
+    */
+
+    while (difference > Math.PI) {
+        difference -= 2 * Math.PI;
+    }
+
+    while (difference < -Math.PI) {
+        difference += 2 * Math.PI;
+    }
+
+    return current + difference * speed;
+}
+
+
+/* =========================================================
+   Random movement
+   ========================================================= */
+
+function updateMotion() {
+
+    yaw =
+        moveAngle(
+            yaw,
+            targetYaw,
+            motionSpeed
+        );
+
+    pitch =
+        pitch +
+        (targetPitch - pitch) *
+        motionSpeed;
+
+
+    /*
+       If sufficiently close,
+       generate another random target.
+    */
+
+    const yawError =
+        Math.abs(
+            Math.atan2(
+                Math.sin(targetYaw - yaw),
+                Math.cos(targetYaw - yaw)
+            )
+        );
+
+    const pitchError =
+        Math.abs(targetPitch - pitch);
+
+
+    if (
+        yawError < 0.01 &&
+        pitchError < 0.01
+    ) {
+        randomTarget();
+    }
+}
+
+
+/* =========================================================
+   Angle display
+   ========================================================= */
+
+function drawAngle() {
+
+    let yawDegrees =
+        yaw * 180 / Math.PI;
+
+    yawDegrees =
+        ((yawDegrees % 360) + 360) % 360;
+
+
+    let pitchDegrees =
+        pitch * 180 / Math.PI;
+
+
+    ctx.font = "22px Arial";
+    ctx.fillStyle = "black";
+
+
+    ctx.fillText(
+        `Yaw: ${yawDegrees.toFixed(1)}°`,
+        30,
+        40
+    );
+
+    ctx.fillText(
+        `Pitch: ${pitchDegrees.toFixed(1)}°`,
+        30,
+        70
+    );
+}
+
+
+/* =========================================================
+   Main animation
+   ========================================================= */
+
+function animate() {
+
+    updateMotion();
+
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    /* Workspace first */
+
+    workspace();
+
+
+    /* Coordinate system */
+
+    axes();
+
+
+    /* Robot */
+
+    robot();
+
+
+    /* Current angles */
+
+    drawAngle();
+
+
+    requestAnimationFrame(animate);
+}
+
+
+animate();
+
+</script>
+
+</body>
+</html>

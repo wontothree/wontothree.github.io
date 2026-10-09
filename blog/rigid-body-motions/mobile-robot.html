@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Differential Drive Robot</title>
+
+<style>
+html,body{
+    margin:0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:white;
+}
+canvas{
+    width:100%;
+    height:100%;
+    display:block;
+}
+</style>
+</head>
+
+<body>
+<canvas id="canvas"></canvas>
+
+<script>
+
+const canvas=document.getElementById("canvas");
+const ctx=canvas.getContext("2d");
+
+function resize(){
+    canvas.width=innerWidth;
+    canvas.height=innerHeight;
+}
+resize();
+addEventListener("resize",resize);
+
+
+// ========================================================
+// Parameters
+// ========================================================
+
+const scale=80;
+
+const offset={
+    x:-200,
+    y:100
+};
+
+// Camera pose in robot frame
+const pc_r={
+    x:0.5,
+    y:-0.5
+};
+
+
+// ========================================================
+// Colors
+// ========================================================
+
+const WORLD_COLOR="#d32f2f";
+const ROBOT_COLOR="#1976d2";
+const CAMERA_COLOR="#388e3c";
+const GT_COLOR="#e53935";
+
+
+// ========================================================
+// Target points
+// ========================================================
+
+const points=[
+    {x:0,y:0},
+    {x:3,y:3},
+    {x:4,y:1}
+];
+
+let current=0;
+
+
+// ========================================================
+// Robot
+// ========================================================
+
+const robot={
+    x:0,
+    y:0,
+    theta:0
+};
+
+const speed=.008;
+
+
+// ========================================================
+// Ground Truth Camera (실제 센서 노이즈가 섞인 참값 모사)
+// ========================================================
+
+const cameraGT={
+    x:0,
+    y:0,
+    theta:0
+};
+
+function updateCameraGT(){
+    const cam = getCameraTransform();
+    const t = performance.now() / 1000;
+
+    // 계산된 카메라 포즈에 약간의 실제 환경 노이즈/오차를 가미하여 GT 생성
+    cameraGT.x = cam.x + Math.sin(t * 2) * 0.00;
+    cameraGT.y = cam.y + Math.cos(t * 2) * 0.00;
+    cameraGT.theta = cam.theta + Math.sin(t) * 0.00;
+
+    const c = Math.cos(cameraGT.theta);
+    const s = Math.sin(cameraGT.theta);
+    cameraGT.R = [
+        [c, -s],
+        [s,  c]
+    ];
+}
+
+
+// ========================================================
+// Coordinate conversion
+// ========================================================
+
+function screen(p){
+    return {
+        x:canvas.width/2+offset.x+p.x*scale,
+        y:canvas.height/2+offset.y-p.y*scale
+    };
+}
+
+
+// ========================================================
+// Drawing utilities
+// ========================================================
+
+function line(a,b,color="#000",width=2,dash=false){
+    const A=screen(a);
+    const B=screen(b);
+
+    ctx.beginPath();
+    ctx.moveTo(A.x,A.y);
+    ctx.lineTo(B.x,B.y);
+
+    ctx.strokeStyle=color;
+    ctx.lineWidth=width;
+    ctx.setLineDash(dash?[5,5]:[]);
+    ctx.stroke();
+    ctx.setLineDash([]);
+}
+
+function dot(p,color="#000",r=6){
+    const P=screen(p);
+
+    ctx.beginPath();
+    ctx.arc(P.x,P.y,r,0,Math.PI*2);
+
+    ctx.fillStyle=color;
+    ctx.fill();
+
+    ctx.strokeStyle="#000";
+    ctx.stroke();
+}
+
+function arrow(a,b,color,width=3){
+    line(a,b,color,width);
+
+    const A=screen(a);
+    const B=screen(b);
+
+    const angle=Math.atan2(
+        B.y-A.y,
+        B.x-A.x
+    );
+
+    const h=10;
+
+    ctx.beginPath();
+    ctx.moveTo(B.x,B.y);
+    ctx.lineTo(
+        B.x-h*Math.cos(angle-Math.PI/6),
+        B.y-h*Math.sin(angle-Math.PI/6)
+    );
+    ctx.lineTo(
+        B.x-h*Math.cos(angle+Math.PI/6),
+        B.y-h*Math.sin(angle+Math.PI/6)
+    );
+    ctx.closePath();
+
+    ctx.fillStyle=color;
+    ctx.fill();
+}
+
+
+// ========================================================
+// Grid & World
+// ========================================================
+
+function drawGrid(){
+    for(let x=-1;x<=5;x++)
+        line({x,y:-1},{x,y:4},"#ddd",1,true);
+
+    for(let y=-1;y<=4;y++)
+        line({x:-1,y},{x:5,y},"#ddd",1,true);
+}
+
+function drawWorldFrame(){
+    const O={x:0,y:0};
+    arrow(O,{x:1,y:0},WORLD_COLOR);
+    arrow(O,{x:0,y:1},WORLD_COLOR);
+
+    const W=screen(O);
+    const X=screen({x:1,y:0});
+    const Y=screen({x:0,y:1});
+
+    ctx.font="18px Arial";
+    ctx.fillStyle="#000";
+    ctx.fillText("x_w",X.x+8,X.y+5);
+    ctx.fillText("y_w",Y.x+8,Y.y-5);
+    ctx.fillText("{w}",W.x-18,W.y+28);
+}
+
+
+// ========================================================
+// Targets
+// ========================================================
+
+function drawTargets(){
+    points.forEach((p,i)=>{
+        dot(p,"#777",7);
+        const P=screen(p);
+        ctx.font="18px Arial";
+        ctx.fillStyle="#000";
+        ctx.fillText(String.fromCharCode(65+i),P.x+12,P.y-12);
+    });
+
+    for(let i=0;i<points.length;i++)
+        line(points[i],points[(i+1)%points.length],"#ddd",2);
+}
+
+
+// ========================================================
+// Camera Pose Calculation via Kinematics
+// ========================================================
+
+function getCameraTransform(){
+    const c=Math.cos(robot.theta);
+    const s=Math.sin(robot.theta);
+
+    const x = robot.x + c * pc_r.x - s * pc_r.y;
+    const y = robot.y + s * pc_r.x + c * pc_r.y;
+    const theta = robot.theta - Math.PI/2;
+
+    const Rwc=[
+        [c, -s],
+        [s,  c]
+    ];
+    
+    const Rrc=[
+        [0, 1],
+        [-1,0]
+    ];
+
+    const R_final=[
+        [
+            Rwc[0][0]*Rrc[0][0]+Rwc[0][1]*Rrc[1][0],
+            Rwc[0][0]*Rrc[0][1]+Rwc[0][1]*Rrc[1][1]
+        ],
+        [
+            Rwc[1][0]*Rrc[0][0]+Rwc[1][1]*Rrc[1][0],
+            Rwc[1][0]*Rrc[0][1]+Rwc[1][1]*Rrc[1][1]
+        ]
+    ];
+
+    return { x, y, theta, R: R_final };
+}
+
+
+// ========================================================
+// Robot body & Cameras
+// ========================================================
+
+function drawRobot(){
+    const C=screen(robot);
+    const R=1;
+
+    ctx.beginPath();
+    ctx.arc(C.x, C.y, R*scale, 0, Math.PI*2);
+    ctx.strokeStyle="#000";
+    ctx.lineWidth=4;
+    ctx.stroke();
+
+    dot(robot,"#000",5);
+
+    const camera = getCameraTransform();
+
+    line(robot, camera, "#777", 2);
+
+    // GT 카메라와 계산된 카메라를 각각 다르게 표시하여 비교
+    dot(cameraGT, GT_COLOR, 9);
+    dot(camera, CAMERA_COLOR, 5);
+}
+
+
+function drawRobotFrame(){
+    const c=Math.cos(robot.theta);
+    const s=Math.sin(robot.theta);
+
+    const xb={ x:robot.x+c, y:robot.y+s };
+    const yb={ x:robot.x-s, y:robot.y+c };
+
+    arrow(robot,xb,ROBOT_COLOR);
+    arrow(robot,yb,ROBOT_COLOR);
+
+    const X=screen(xb);
+    const Y=screen(yb);
+    const B=screen(robot);
+
+    ctx.font="17px Arial";
+    ctx.fillStyle="#000";
+    ctx.fillText("x_r",X.x+5,X.y);
+    ctx.fillText("y_r",Y.x+5,Y.y);
+    ctx.fillText("{r}",B.x-15,B.y+28);
+}
+
+
+function drawCameraFrame(){
+    const camera=getCameraTransform();
+    const theta=camera.theta;
+
+    const xc={ x:camera.x+Math.cos(theta), y:camera.y+Math.sin(theta) };
+    const yc={ x:camera.x-Math.sin(theta), y:camera.y+Math.cos(theta) };
+
+    arrow(camera,xc,CAMERA_COLOR);
+    arrow(camera,yc,CAMERA_COLOR);
+
+    const X=screen(xc);
+    const Y=screen(yc);
+    const C=screen(camera);
+
+    ctx.font="17px Arial";
+    ctx.fillStyle="#000";
+    ctx.fillText("x_c",X.x+5,X.y);
+    ctx.fillText("y_c",Y.x+5,Y.y);
+    ctx.fillText("{c}",C.x+10,C.y+25);
+}
+
+
+function drawTheta(){
+    const W=screen({x:0,y:0});
+    const B=screen(robot);
+
+    line({x:0,y:0}, robot, "#777", 2);
+
+    const angle=Math.atan2(B.y-W.y, B.x-W.x);
+
+    ctx.beginPath();
+    ctx.arc(W.x, W.y, 45, 0, angle, angle<0);
+    ctx.strokeStyle="#777";
+    ctx.lineWidth=2;
+    ctx.stroke();
+
+    let deg=robot.theta*180/Math.PI;
+    if(deg>180)deg-=360;
+    if(deg<-180)deg+=360;
+
+    ctx.font="18px Arial";
+    ctx.fillStyle="#000";
+    ctx.fillText(`θ = ${deg.toFixed(1)}°`, W.x+55, W.y-20);
+}
+
+
+// ========================================================
+// Comparison
+// ========================================================
+
+function drawComparison(){
+    const cam=getCameraTransform();
+
+    // Position error 계산
+    const positionError = Math.hypot(
+        cam.x - cameraGT.x,
+        cam.y - cameraGT.y
+    );
+
+    const Rgt = cameraGT.R;
+    const R = cam.R;
+
+    // Rotation matrix error 계산
+    const rotationError = Math.sqrt(
+        (R[0][0]-Rgt[0][0])**2 +
+        (R[0][1]-Rgt[0][1])**2 +
+        (R[1][0]-Rgt[1][0])**2 +
+        (R[1][1]-Rgt[1][1])**2
+    );
+
+    ctx.font="17px Arial";
+
+    ctx.fillStyle=CAMERA_COLOR;
+    ctx.fillText(`p_c^w = [${cam.x.toFixed(2)}, ${cam.y.toFixed(2)}]`, 25, 65);
+    ctx.fillText(`P_c^w = [${R[0][0].toFixed(2)} ${R[0][1].toFixed(2)}]`, 25, 90);
+    ctx.fillText(`               [${R[1][0].toFixed(2)} ${R[1][1].toFixed(2)}]`, 25, 112);
+
+    ctx.fillStyle=GT_COLOR;
+    ctx.fillText(`GT p_c^w = [${cameraGT.x.toFixed(2)}, ${cameraGT.y.toFixed(2)}]`, 25, 145);
+    ctx.fillText(`GT P_c^w = [${Rgt[0][0].toFixed(2)} ${Rgt[0][1].toFixed(2)}]`, 25, 170);
+    ctx.fillText(`                     [${Rgt[1][0].toFixed(2)} ${Rgt[1][1].toFixed(2)}]`, 25, 192);
+
+    // ctx.fillStyle="#000";
+    // ctx.fillText(`Position Error = ${positionError.toFixed(4)}`, 25, 225);
+    // ctx.fillText(`Rotation Error = ${rotationError.toFixed(4)}`, 25, 250);
+}
+
+
+// ========================================================
+// Motion
+// ========================================================
+
+function update(){
+    const target=points[current];
+    const dx=target.x-robot.x;
+    const dy=target.y-robot.y;
+    const distance=Math.hypot(dx,dy);
+
+    if(distance<.03){
+        robot.x=target.x;
+        robot.y=target.y;
+        current=(current+1)%points.length;
+        return;
+    }
+
+    const desired=Math.atan2(dy,dx);
+    let dtheta=desired-robot.theta;
+
+    if(dtheta>Math.PI) dtheta-=2*Math.PI;
+    if(dtheta<-Math.PI) dtheta+=2*Math.PI;
+
+    robot.theta+=dtheta*.03;
+    robot.x+=Math.cos(robot.theta)*speed;
+    robot.y+=Math.sin(robot.theta)*speed;
+}
+
+
+// ========================================================
+// Animation
+// ========================================================
+
+function animate(){
+    update();
+    updateCameraGT(); // GT 업데이트 호출 부활
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    drawGrid();
+    drawWorldFrame();
+    drawTargets();
+    drawTheta();
+    drawRobot();
+    drawRobotFrame();
+    drawCameraFrame();
+    drawComparison();
+
+    requestAnimationFrame(animate);
+}
+
+animate();
+
+</script>
+
+</body>
+</html>

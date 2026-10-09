@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>행렬 거듭제곱(A^k)과 대각화 시각화</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 { margin-bottom: 5px; color: #111827; }
+    .subtitle { color: #4b5563; margin-bottom: 20px; font-size: 0.95em; text-align: center; }
+
+    .dual-container {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      width: 100%;
+      max-width: 1100px;
+    }
+
+    .view-panel {
+      flex: 1;
+      background: white;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .view-header {
+      width: 100%;
+      text-align: center;
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid;
+    }
+
+    canvas {
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      background-color: #fafafa;
+    }
+
+    .controls-panel {
+      width: 100%;
+      max-width: 1070px;
+      background: white;
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .slider-box {
+      background: #f1f5f9;
+      padding: 12px;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      font-size: 0.85em;
+      color: #334155;
+    }
+
+    .info-card {
+      background: #f8fafc;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #e2e8f0;
+      line-height: 1.5;
+      font-family: "Courier New", Courier, monospace;
+    }
+
+    .legend {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      font-size: 0.85em;
+      color: #475569;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>행렬 거듭제곱 ($A^k$) 시각화: 대각화의 위력</h1>
+  <div class="subtitle">
+    거듭제곱 횟수 $k$가 증가할 때 $A^k$의 복잡한 연산과 $P D^k P^{-1}$의 대각 지수 연산의 기하학적 동일성 관찰
+  </div>
+
+  <div class="dual-container">
+    <div class="view-panel">
+      <div class="view-header" style="border-color: #1d4ed8; color: #1d4ed8;">
+        <h3>왼쪽: $A^k$ 직접 반복 곱셈</h3>
+        <div style="font-size: 0.85em;">표준 축 기준: $A \cdot A \cdot \dots \cdot A \mathbf{x}$</div>
+      </div>
+      <canvas id="canvasLeft" width="500" height="500"></canvas>
+    </div>
+
+    <div class="view-panel">
+      <div class="view-header" style="border-color: #059669; color: #059669;">
+        <h3>오른쪽: $P D^k P^{-1}$ 대각 지수 연산</h3>
+        <div style="font-size: 0.85em;">고유 축 기준 단순 지수 곱: $P \begin{bmatrix} \lambda_1^k & 0 \\ 0 & \lambda_2^k \end{bmatrix} P^{-1} \mathbf{x}$</div>
+      </div>
+      <canvas id="canvasRight" width="500" height="500"></canvas>
+    </div>
+  </div>
+
+  <div class="controls-panel">
+    <div class="slider-box">
+      <label style="font-size: 0.9em; font-weight: bold; display: flex; justify-content: space-between;">
+        <span>거듭제곱 횟수 ($k$): <b id="kVal" style="color: #2563eb;">1</b></span>
+        <span style="font-weight: normal; font-size: 0.85em; color: #64748b;">(k=0: 항등 상태 | k가 커질수록 주 고유벡터 방향으로 강력하게 쏠림)</span>
+      </label>
+      <input type="range" id="kSlider" min="0" max="8" step="0.1" value="1" style="width: 100%;">
+    </div>
+
+    <div class="info-grid">
+      <div class="info-card" id="leftFormula">
+        <b>[왼쪽 $A^k$ 연산 상태]</b><br>
+        A^k 계산 중...
+      </div>
+      <div class="info-card" id="rightFormula">
+        <b>[오른쪽 $D^k$ 연산 상태]</b><br>
+        D^k 계산 중...
+      </div>
+    </div>
+
+    <div class="legend">
+      <span>🟡 <b>변형되는 원/타원</b></span>
+      <span style="color: #16a34a;">🟢 <b>주 고유벡터 ($\mathbf{v}_1 = [1, 1]^T, \lambda_1 = 1.4$)</b></span>
+      <span style="color: #2563eb;">🔵 <b>부 고유벡터 ($\mathbf{v}_2 = [-1, 1]^T, \lambda_2 = 0.7$)</b></span>
+    </div>
+  </div>
+
+  <script>
+    const scale = 40;
+    const gridRange = 8;
+
+    // 대각화 가능한 예제 행렬 A (수렴/발산 양상을 선명하게 보기 위해 L1=1.4, L2=0.7 채택)
+    // P = [[1, -1], [1, 1]], D = [[1.4, 0], [0, 0.7]], Pinv = [[0.5, 0.5], [-0.5, 0.5]]
+    // A = P * D * Pinv = [[1.05, 0.35], [0.35, 1.05]]
+    const P = { a: 1, b: -1, c: 1, d: 1 };
+    const Pinv = { a: 0.5, b: 0.5, c: -0.5, d: 0.5 };
+    const l1 = 1.4;
+    const l2 = 0.7;
+
+    const canvasLeft = document.getElementById('canvasLeft');
+    const ctxLeft = canvasLeft.getContext('2d');
+    const canvasRight = document.getElementById('canvasRight');
+    const ctxRight = canvasRight.getContext('2d');
+
+    const origLeft = { x: canvasLeft.width / 2, y: canvasLeft.height / 2 };
+    const origRight = { x: canvasRight.width / 2, y: canvasRight.height / 2 };
+
+    function toScreen(orig, x, y) {
+      return { x: orig.x + x * scale, y: orig.y - y * scale };
+    }
+
+    function applyMat(m, x, y) {
+      return { x: m.a * x + m.b * y, y: m.c * x + m.d * y };
+    }
+
+    function multiplyMat(m1, m2) {
+      return {
+        a: m1.a * m2.a + m1.b * m2.c,
+        b: m1.a * m2.b + m1.b * m2.d,
+        c: m1.c * m2.a + m1.d * m2.c,
+        d: m1.c * m2.b + m1.d * m2.d
+      };
+    }
+
+    function drawGrid(ctx, orig, mat) {
+      ctx.lineWidth = 1;
+      for (let i = -gridRange; i <= gridRange; i++) {
+        ctx.strokeStyle = (i === 0) ? '#64748b' : '#f1f5f9';
+        ctx.lineWidth = (i === 0) ? 1.5 : 0.8;
+
+        let p1 = applyMat(mat, i, -gridRange);
+        let p2 = applyMat(mat, i, gridRange);
+        let s1 = toScreen(orig, p1.x, p1.y);
+        let s2 = toScreen(orig, p2.x, p2.y);
+        ctx.beginPath(); ctx.moveTo(s1.x, s1.y); ctx.lineTo(s2.x, s2.y); ctx.stroke();
+
+        p1 = applyMat(mat, -gridRange, i);
+        p2 = applyMat(mat, gridRange, i);
+        s1 = toScreen(orig, p1.x, p1.y);
+        s2 = toScreen(orig, p2.x, p2.y);
+        ctx.beginPath(); ctx.moveTo(s1.x, s1.y); ctx.lineTo(s2.x, s2.y); ctx.stroke();
+      }
+    }
+
+    function drawCircle(ctx, orig, mat) {
+      ctx.beginPath();
+      const segments = 100;
+      for (let i = 0; i <= segments; i++) {
+        const theta = (i / segments) * Math.PI * 2;
+        const pt = applyMat(mat, Math.cos(theta), Math.sin(theta));
+        const s = toScreen(orig, pt.x, pt.y);
+        if (i === 0) ctx.moveTo(s.x, s.y);
+        else ctx.lineTo(s.x, s.y);
+      }
+      ctx.closePath();
+      ctx.fillStyle = 'rgba(251, 191, 36, 0.35)';
+      ctx.fill();
+      ctx.strokeStyle = '#d97706';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+
+    function drawVector(ctx, orig, mat, vx, vy, color) {
+      const pt = applyMat(mat, vx, vy);
+      const sPt = toScreen(orig, pt.x, pt.y);
+      const sOrig = toScreen(orig, 0, 0);
+
+      ctx.strokeStyle = color;
+      ctx.fillStyle = color;
+      ctx.lineWidth = 3;
+
+      ctx.beginPath();
+      ctx.moveTo(sOrig.x, sOrig.y);
+      ctx.lineTo(sPt.x, sPt.y);
+      ctx.stroke();
+
+      const angle = Math.atan2(sOrig.y - sPt.y, sPt.x - sOrig.x);
+      const headLen = 9;
+      ctx.beginPath();
+      ctx.moveTo(sPt.x, sPt.y);
+      ctx.lineTo(sPt.x - headLen * Math.cos(angle - Math.PI / 6), sPt.y + headLen * Math.sin(angle - Math.PI / 6));
+      ctx.lineTo(sPt.x - headLen * Math.cos(angle + Math.PI / 6), sPt.y + headLen * Math.sin(angle + Math.PI / 6));
+      ctx.fill();
+    }
+
+    function render() {
+      const k = parseFloat(document.getElementById('kSlider').value);
+      document.getElementById('kVal').innerText = k.toFixed(1);
+
+      // D^k 계산: 지수승 적용
+      const l1_k = Math.pow(l1, k);
+      const l2_k = Math.pow(l2, k);
+      const D_k = { a: l1_k, b: 0, c: 0, d: l2_k };
+
+      // P * D^k * P^-1 계산
+      const PD_k = multiplyMat(P, D_k);
+      const Ak = multiplyMat(PD_k, Pinv);
+
+      // 정보 디스플레이 업데이트
+      document.getElementById('leftFormula').innerHTML = 
+        `<b>[왼쪽 $A^{${k.toFixed(1)}}$ 직접 연산]</b><br>` +
+        `A^k = [[ ${Ak.a.toFixed(2)}, ${Ak.b.toFixed(2)} ],<br>` +
+        `       [ ${Ak.c.toFixed(2)}, ${Ak.d.toFixed(2)} ]]`;
+
+      document.getElementById('rightFormula').innerHTML = 
+        `<b>[오른쪽 $D^{${k.toFixed(1)}}$ 대각 지수 연산]</b><br>` +
+        `D^k = [[ 1.4^k, 0 ], [ 0, 0.7^k ]]<br>` +
+        `    = [[ ${l1_k.toFixed(2)}, 0.00 ], [ 0.00, ${l2_k.toFixed(2)} ]]`;
+
+      // 1. 왼쪽 Canvas (A^k)
+      ctxLeft.clearRect(0, 0, canvasLeft.width, canvasLeft.height);
+      drawGrid(ctxLeft, origLeft, Ak);
+      drawCircle(ctxLeft, origLeft, Ak);
+      drawVector(ctxLeft, origLeft, Ak, 1, 1, '#16a34a');
+      drawVector(ctxLeft, origLeft, Ak, -1, 1, '#2563eb');
+
+      // 2. 오른쪽 Canvas (P D^k P^-1)
+      ctxRight.clearRect(0, 0, canvasRight.width, canvasRight.height);
+      drawGrid(ctxRight, origRight, Ak);
+      drawCircle(ctxRight, origRight, Ak);
+      drawVector(ctxRight, origRight, Ak, 1, 1, '#16a34a');
+      drawVector(ctxRight, origRight, Ak, -1, 1, '#2563eb');
+    }
+
+    document.getElementById('kSlider').addEventListener('input', render);
+
+    render();
+  </script>
+</body>
+</html>

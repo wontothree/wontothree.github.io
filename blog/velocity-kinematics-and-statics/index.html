@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sewon Kim">
+    <meta name="author" content="Sewon Kim">
+    <title>Sewon Kim</title>
+    <link rel="stylesheet" href="./../../index.css">
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        }
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+    <div class="progress-bar"></div>
+    <script src="./../../js/progress-bar.js"></script>
+    <br><br>
+
+    <div class="base">
+        <h1>Velocity Kinematics</h1>
+        <div class="box">
+            <p>
+              We are interested in transformation from joint space to task space. Forward kinematics is about calculating the robot end-effector frame's position and orientation for agiven set of joint positions.
+              $$
+              \theta \in \mathbb R^n \xrightarrow{\text{Forward Kinematics}} T(\theta) := \begin{bmatrix}
+              R(\theta) & p(\theta) \\
+              0 & 1
+              \end{bmatrix} \in SE(3)
+              $$
+              where $\theta \in \mathbb R^n$ is a set of joint angles, $R \in SO(3)$, and $p \in \mathbb R^3$.
+              In this post, we will talk about other transformation form joint space to task space. It is the problem of calculating the twist of the end-effctor of an open chain from a given set of joint positions and velocities.
+              $$
+              \dot \theta \in \mathbb R^n \xrightarrow[\mathcal V = \textcolor{red}{J(\theta)} \dot \theta]{\text{Velocity Kinematics}} \mathcal V := \begin{bmatrix} v \\ \omega \end{bmatrix} \in \mathbb R^6
+              $$
+            </p>
+        </div>
+
+        <iframe src="./jacobian.html" style="height:800px; width: 1000px; border: none"></iframe>
+    </div>
+
+    <br><br>
+    <footer>&copy; 2026 Sewon Kim</footer>
+    <br><br>
+</body>
+
+</html>

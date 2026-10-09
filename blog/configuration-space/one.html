@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>3D Yaw Joint Robot</title>
+
+<style>
+html, body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="canvas"></canvas>
+
+<script>
+
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+
+/* =========================
+   Robot
+   ========================= */
+
+const L = 200;
+const H = 20;
+
+let yaw = 0;
+const yawSpeed = 0.015;
+
+
+/* =========================
+   Camera
+   ========================= */
+
+const camera = {
+    x: 350,
+    y: -500,
+    z: 300
+};
+
+const target = {
+    x: 0,
+    y: 0,
+    z: 100
+};
+
+const focal = 700;
+
+
+/* =========================
+   Vector functions
+   ========================= */
+
+function sub(a,b) {
+    return {
+        x:a.x-b.x,
+        y:a.y-b.y,
+        z:a.z-b.z
+    };
+}
+
+function dot(a,b) {
+    return a.x*b.x+a.y*b.y+a.z*b.z;
+}
+
+function cross(a,b) {
+    return {
+        x:a.y*b.z-a.z*b.y,
+        y:a.z*b.x-a.x*b.z,
+        z:a.x*b.y-a.y*b.x
+    };
+}
+
+function normalize(v) {
+
+    const n=Math.sqrt(dot(v,v));
+
+    return {
+        x:v.x/n,
+        y:v.y/n,
+        z:v.z/n
+    };
+}
+
+
+/* =========================
+   Camera basis
+   ========================= */
+
+const forward =
+    normalize(sub(target,camera));
+
+const worldUp = {
+    x:0,
+    y:0,
+    z:1
+};
+
+const right =
+    normalize(cross(forward,worldUp));
+
+const up =
+    normalize(cross(right,forward));
+
+
+/* =========================
+   3D → 2D
+   ========================= */
+
+function project(p) {
+
+    const v=sub(p,camera);
+
+    const x=dot(v,right);
+    const y=dot(v,up);
+    const z=dot(v,forward);
+
+    const scale=focal/z;
+
+    return {
+        x:canvas.width/2+x*scale,
+        y:canvas.height/2-y*scale,
+        scale:scale
+    };
+}
+
+
+/* =========================
+   Draw 3D line
+   ========================= */
+
+function line(a,b,width=3) {
+
+    const A=project(a);
+    const B=project(b);
+
+    ctx.beginPath();
+    ctx.moveTo(A.x,A.y);
+    ctx.lineTo(B.x,B.y);
+
+    ctx.strokeStyle="black";
+    ctx.lineWidth=width;
+    ctx.stroke();
+}
+
+
+/* =========================
+   Draw 3D point
+   ========================= */
+
+function point(p,r=8,fill="black") {
+
+    const P=project(p);
+
+    ctx.beginPath();
+    ctx.arc(P.x,P.y,r,0,Math.PI*2);
+
+    ctx.fillStyle=fill;
+    ctx.fill();
+
+    ctx.strokeStyle="black";
+    ctx.lineWidth=2;
+    ctx.stroke();
+}
+
+
+/* =========================
+   Coordinate axes
+   ========================= */
+
+function axes() {
+
+    const O={x:0,y:0,z:0};
+
+    line(O,{x:150,y:0,z:0},2);
+    line(O,{x:0,y:150,z:0},2);
+    line(O,{x:0,y:0,z:220},2);
+
+    const X=project({x:170,y:0,z:0});
+    const Y=project({x:0,y:170,z:0});
+    const Z=project({x:0,y:0,z:240});
+
+    ctx.font="18px Arial";
+    ctx.fillStyle="black";
+
+    ctx.fillText("x",X.x,X.y);
+    ctx.fillText("y",Y.x,Y.y);
+    ctx.fillText("z",Z.x,Z.y);
+}
+
+
+/* =========================
+   Flashlight
+   ========================= */
+
+function flashlight(p) {
+
+    // 전등은 수직으로 세움
+    const top = {
+        x: p.x,
+        y: p.y,
+        z: p.z + 1
+    };
+
+    // 전등 몸체
+    line(
+        p,
+        top,
+        14
+    );
+
+    // 전등 머리
+    point(
+        top,
+        10,
+        "#ffd43b"
+    );
+
+    // yaw 방향을 보여주는 빛
+    const dx = Math.cos(yaw);
+    const dy = Math.sin(yaw);
+
+    const beam = {
+        x: top.x + dx * 70,
+        y: top.y + dy * 70,
+        z: top.z
+    };
+
+    line(
+        top,
+        beam,
+        2
+    );
+}
+
+
+/* =========================
+   Robot
+   ========================= */
+
+function robot() {
+/* =========================
+   Base
+   ========================= */
+
+point(
+    {x:0,y:0,z:0},
+    4,              // 기존 12 → 4
+    "#777777"
+);
+
+
+/* =========================
+   Yaw joint
+   ========================= */
+
+const joint = {
+    x:0,
+    y:0,
+    z:H
+};
+
+point(
+    joint,
+    6,              // 기존 10 → 6
+    "#44dddd"
+);
+
+    /*
+       Vertical link
+
+       The link rotates around
+       the yaw axis.
+    */
+
+    const top={
+        x:0,
+        y:0,
+        z:H+L
+    };
+
+    line(
+        joint,
+        top,
+        7
+    );
+
+
+    /*
+       Flashlight
+    */
+
+    flashlight(top);
+}
+
+
+/* =========================
+   Angle display
+   ========================= */
+
+function drawAngle() {
+
+    let degrees =
+        yaw * 180 / Math.PI;
+
+    degrees =
+        ((degrees % 360) + 360) % 360;
+
+    ctx.font="24px Arial";
+    ctx.fillStyle="black";
+
+    ctx.fillText(
+        `Yaw: ${degrees.toFixed(1)}°`,
+        30,
+        40
+    );
+}
+
+
+/* =========================
+   Animation
+   ========================= */
+
+function animate() {
+
+    yaw += yawSpeed;
+
+    if (yaw >= 2*Math.PI) {
+        yaw -= 2*Math.PI;
+    }
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    axes();
+
+    robot();
+
+    drawAngle();
+
+    requestAnimationFrame(animate);
+}
+
+animate();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>영공간(Nullspace) 시각화</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      margin-bottom: 10px;
+      color: #333;
+    }
+    .container {
+      display: flex;
+      gap: 20px;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 950px;
+      width: 100%;
+    }
+    canvas {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #ffffff;
+    }
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      flex: 1;
+    }
+    .matrix-input {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .matrix-input input {
+      width: 80%;
+      padding: 8px;
+      font-size: 16px;
+      text-align: center;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    .null-box {
+      background-color: #fef2f2;
+      border: 2px solid #ef4444;
+      padding: 12px;
+      border-radius: 8px;
+    }
+    .null-title {
+      font-weight: bold;
+      color: #991b1b;
+      margin-bottom: 6px;
+    }
+    .preset-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    button {
+      padding: 8px 12px;
+      border: none;
+      background-color: #dc2626;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background-color: #991b1b;
+    }
+    .info {
+      font-size: 0.88em;
+      color: #555;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>영공간 (Nullspace) 시각화</h1>
+  
+  <div class="container">
+    <canvas id="canvas" width="520" height="520"></canvas>
+    
+    <div class="controls">
+      <h3>행렬 $A = \begin{bmatrix} a & b \\ c & d \end{bmatrix}$ 입력</h3>
+      
+      <div class="matrix-input">
+        <div>
+          <label>a:</label>
+          <input type="number" id="matA" value="1" step="0.5">
+        </div>
+        <div>
+          <label>b:</label>
+          <input type="number" id="matB" value="2" step="0.5">
+        </div>
+        <div>
+          <label>c:</label>
+          <input type="number" id="matC" value="0.5" step="0.5">
+        </div>
+        <div>
+          <label>d:</label>
+          <input type="number" id="matD" value="1" step="0.5">
+        </div>
+      </div>
+
+      <div class="slider-group">
+        <label>변환 진행률 ($t$): <span id="tVal">1.0</span></label>
+        <input type="range" id="tSlider" min="0" max="1" step="0.01" value="1" style="width: 100%;">
+      </div>
+
+      <div class="null-box">
+        <div class="null-title">🎯 영공간(Nullspace) 분석</div>
+        <div id="nullDisplay" style="font-size: 0.9em; color: #7f1d1d;">계산 중...</div>
+      </div>
+
+      <h4>실험 프리셋</h4>
+      <div class="preset-buttons">
+        <button onclick="setPreset(1, 2, 0.5, 1)">1D 영공간 (det = 0)</button>
+        <button onclick="setPreset(1, -1, -1, 1)">x=y 영공간 (det = 0)</button>
+        <button onclick="setPreset(0, 0, 0, 0)">영행렬 (모든 공간 $\to \mathbf{0}$)</button>
+        <button onclick="setPreset(2, 1, 0, 1)">가역 행렬 (영공간 = $\{\mathbf{0}\}$)</button>
+      </div>
+
+      <div class="info">
+        🔴 <b>빨간색 점선</b>: 변환 후 원점($\mathbf{0}$)으로 찌그러져 들어가는 <b>영공간 축</b><br>
+        🔴 <b>빨간색 점들</b>: 영공간 위에 있던 점들이 진행률 $t$에 따라 원점으로 수렴함<br>
+        ⚪ <b>검은색 직선</b>: 변환 후 남은 1차원 이미지(Column Space / 열공간)
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    const width = canvas.width;
+    const height = canvas.height;
+    const scale = 45; 
+    const originX = width / 2;
+    const originY = height / 2;
+
+    let a = 1, b = 2, c = 0.5, d = 1;
+    let t = 1.0;
+
+    function toScreenX(x) { return originX + x * scale; }
+    function toScreenY(y) { return originY - y * scale; }
+
+    function transform(x, y, matA, matB, matC, matD) {
+      return {
+        x: matA * x + matB * y,
+        y: matC * x + matD * y
+      };
+    }
+
+    // 영공간 기저 벡터 구하기
+    function getNullspace() {
+      const det = a * d - b * c;
+      if (Math.abs(det) > 0.0001) {
+        return null; // 가역 행렬 (영공간은 원점 하나뿐)
+      }
+
+      if (Math.abs(a) < 0.0001 && Math.abs(b) < 0.0001 && Math.abs(c) < 0.0001 && Math.abs(d) < 0.0001) {
+        return { isFull: true }; // 영행렬 (전체 공간이 영공간)
+      }
+
+      // a*x + b*y = 0 연립방정식의 해 방향
+      let nx = 0, ny = 0;
+      if (Math.abs(a) > 0.0001 || Math.abs(b) > 0.0001) {
+        nx = -b;
+        ny = a;
+      } else {
+        nx = -d;
+        ny = c;
+      }
+
+      const len = Math.hypot(nx, ny);
+      return { isFull: false, x: nx / len, y: ny / len };
+    }
+
+    function drawLine(vx, vy, color, isDashed = true) {
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 2;
+      if (isDashed) ctx.setLineDash([6, 6]);
+      else ctx.setLineDash([]);
+
+      const r = 10;
+      ctx.beginPath();
+      ctx.moveTo(toScreenX(-vx * r), toScreenY(-vy * r));
+      ctx.lineTo(toScreenX(vx * r), toScreenY(vy * r));
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, width, height);
+
+      const currentA = 1 + t * (a - 1);
+      const currentB = t * b;
+      const currentC = t * c;
+      const currentD = 1 + t * (d - 1);
+
+      // 1. 배경 격자망
+      ctx.lineWidth = 1;
+      const gridRange = 8;
+      for (let i = -gridRange; i <= gridRange; i++) {
+        ctx.strokeStyle = '#f0f0f0';
+        let start = transform(i, -gridRange, currentA, currentB, currentC, currentD);
+        let end = transform(i, gridRange, currentA, currentB, currentC, currentD);
+        ctx.beginPath();
+        ctx.moveTo(toScreenX(start.x), toScreenY(start.y));
+        ctx.lineTo(toScreenX(end.x), toScreenY(end.y));
+        ctx.stroke();
+
+        start = transform(-gridRange, i, currentA, currentB, currentC, currentD);
+        end = transform(gridRange, i, currentA, currentB, currentC, currentD);
+        ctx.beginPath();
+        ctx.moveTo(toScreenX(start.x), toScreenY(start.y));
+        ctx.lineTo(toScreenX(end.x), toScreenY(end.y));
+        ctx.stroke();
+      }
+
+      // 2. 축
+      ctx.strokeStyle = '#d1d5db';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(0, originY); ctx.lineTo(width, originY);
+      ctx.moveTo(originX, 0); ctx.lineTo(originX, height);
+      ctx.stroke();
+
+      // 3. 영공간 분석 및 시각화
+      const nullInfo = getNullspace();
+      const nullBox = document.getElementById('nullDisplay');
+
+      if (!nullInfo) {
+        nullBox.innerHTML = "<b>$\text{Nullity}(A) = 0$</b><br>원점 $\\mathbf{0}$ 이외에는 원점으로 흡수되는 공간이 없음 (역행렬 존재)";
+      } else if (nullInfo.isFull) {
+        nullBox.innerHTML = "<b>$\text{Nullity}(A) = 2$</b><br>2차원 공간 전체가 원점 $\\mathbf{0}$ 으로 흡수됨";
+        ctx.fillStyle = 'rgba(239, 68, 68, 0.2)';
+        ctx.fillRect(0, 0, width, height);
+      } else {
+        nullBox.innerHTML = `<b>$\text{Nullity}(A) = 1$</b><br>빨간색 직선 상의 모든 점이 원점 $\\mathbf{0}$ 으로 압축됨`;
+
+        // 원래 영공간 직선 축 (빨간 점선)
+        drawLine(nullInfo.x, nullInfo.y, '#ef4444', true);
+
+        // 영공간 위에 놓인 점들이 변환에 따라 원점으로 이동하는 모습
+        for (let k = -5; k <= 5; k += 0.5) {
+          if (k === 0) continue;
+          const pt = { x: nullInfo.x * k, y: nullInfo.y * k };
+          const transPt = transform(pt.x, pt.y, currentA, currentB, currentC, currentD);
+
+          ctx.fillStyle = '#dc2626';
+          ctx.beginPath();
+          ctx.arc(toScreenX(transPt.x), toScreenY(transPt.y), 4, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      // 4. 열공간 (Column Space / Image) 직선 (검은색 실선)
+      if (nullInfo && !nullInfo.isFull) {
+        // 첫 번째 nonzero 열벡터의 방향
+        let cx = a, cy = c;
+        if (Math.abs(cx) < 0.0001 && Math.abs(cy) < 0.0001) {
+          cx = b; cy = d;
+        }
+        const cLen = Math.hypot(cx, cy);
+        if (cLen > 0.0001) {
+          drawLine(cx / cLen, cy / cLen, '#111827', false);
+        }
+      }
+    }
+
+    function updateValues() {
+      a = parseFloat(document.getElementById('matA').value) || 0;
+      b = parseFloat(document.getElementById('matB').value) || 0;
+      c = parseFloat(document.getElementById('matC').value) || 0;
+      d = parseFloat(document.getElementById('matD').value) || 0;
+      t = parseFloat(document.getElementById('tSlider').value);
+      document.getElementById('tVal').innerText = t.toFixed(2);
+      draw();
+    }
+
+    function setPreset(pA, pB, pC, pD) {
+      document.getElementById('matA').value = pA;
+      document.getElementById('matB').value = pB;
+      document.getElementById('matC').value = pC;
+      document.getElementById('matD').value = pD;
+      document.getElementById('tSlider').value = 1;
+      updateValues();
+    }
+
+    document.querySelectorAll('input').forEach(input => {
+      input.addEventListener('input', updateValues);
+    });
+
+    draw();
+  </script>
+</body>
+</html>

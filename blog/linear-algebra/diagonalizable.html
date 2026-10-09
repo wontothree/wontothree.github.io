@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>행렬 대각화(Diagonalization) 기하학적 시각화</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      margin-bottom: 5px;
+      color: #111827;
+    }
+    .subtitle {
+      color: #4b5563;
+      margin-bottom: 20px;
+      font-size: 0.95em;
+    }
+    .container {
+      display: flex;
+      gap: 20px;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 1000px;
+      width: 100%;
+    }
+    canvas {
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      background-color: #ffffff;
+    }
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      flex: 1;
+    }
+    .step-box {
+      background-color: #f3f4f6;
+      border-left: 4px solid #3b82f6;
+      padding: 12px;
+      border-radius: 0 8px 8px 0;
+    }
+    .step-title {
+      font-weight: bold;
+      color: #1d4ed8;
+      font-size: 1em;
+      margin-bottom: 4px;
+    }
+    .step-desc {
+      font-size: 0.85em;
+      color: #374151;
+      line-height: 1.4;
+    }
+    .button-group {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    button {
+      padding: 10px;
+      border: none;
+      background-color: #2563eb;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background-color: #1d4ed8;
+    }
+    button.active {
+      background-color: #059669;
+    }
+    .info-list {
+      font-size: 0.85em;
+      color: #4b5563;
+      line-height: 1.5;
+      background: #fafafa;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #eee;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>행렬 대각화 ($A = PDP^{-1}$) 시각화</h1>
+  <div class="subtitle">고유벡터 좌표계로의 전환을 통한 선형 변환의 단순화 관찰</div>
+
+  <div class="container">
+    <canvas id="canvas" width="540" height="540"></canvas>
+
+    <div class="controls">
+      <div class="step-box" id="stepBox">
+        <div class="step-title" id="stepTitle">단계별 보기 선택</div>
+        <div class="step-desc" id="stepDesc">아래 버튼을 눌러 대각화의 3단계 관점을 비교해보세요.</div>
+      </div>
+
+      <div class="button-group">
+        <button id="btnA" onclick="setMode('A')">1. 원래 공간에서의 복잡한 변환 (A)</button>
+        <button id="btnPinv" onclick="setMode('Pinv')">2-1. 고유벡터 좌표계로 전환 (P⁻¹)</button>
+        <button id="btnD" onclick="setMode('D')">2-2. 축 방향 단순히 확장/축소 (D)</button>
+        <button id="btnP" onclick="setMode('P')">2-3. 원래 좌표계로 복귀 (P)</button>
+      </div>
+
+      <div class="info-list">
+        🟢 <b>고유벡터 1 ($\mathbf{v}_1$)</b>: $\lambda_1 = 3$ (3배 확장)<br>
+        🔵 <b>고유벡터 2 ($\mathbf{v}_2$)</b>: $\lambda_2 = 0.5$ (0.5배 축소)<br>
+        🟡 <b>노란색 원 / 도형</b>: 공간 상의 도형이 각 단계별로 변형되는 형태
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    const width = canvas.width;
+    const height = canvas.height;
+    const scale = 45;
+    const originX = width / 2;
+    const originY = height / 2;
+
+    // 행렬 A = [[2, 1], [1, 2]] 근처의 대각화 가능 예시
+    // 고유값 L1 = 3, v1 = [1, 1] / L2 = 1, v2 = [-1, 1]
+    // 여기서는 변화를 명확히 보기 위해 L1=3, L2=0.5 사용
+    // P = [[1, -1], [1, 1]], D = [[3, 0], [0, 0.5]]
+    // A = P * D * P^-1 = [[1.75, 1.25], [1.25, 1.75]]
+    const P = { a: 1, b: -1, c: 1, d: 1 };
+    const Pinv = { a: 0.5, b: 0.5, c: -0.5, d: 0.5 };
+    const D = { a: 3, b: 0, c: 0, d: 0.5 };
+    const A = { a: 1.75, b: 1.25, c: 1.25, d: 1.75 };
+
+    let currentMode = 'A';
+
+    function toScreenX(x) { return originX + x * scale; }
+    function toScreenY(y) { return originY - y * scale; }
+
+    function applyMat(m, x, y) {
+      return { x: m.a * x + m.b * y, y: m.c * x + m.d * y };
+    }
+
+    function setMode(mode) {
+      currentMode = mode;
+      document.querySelectorAll('.button-group button').forEach(b => b.classList.remove('active'));
+
+      const box = document.getElementById('stepBox');
+      const title = document.getElementById('stepTitle');
+      const desc = document.getElementById('stepDesc');
+
+      if (mode === 'A') {
+        document.getElementById('btnA').classList.add('active');
+        title.innerText = "1. 직접 변환 (A 곱하기)";
+        desc.innerText = "표준 좌표계에서 행렬 A를 직접 곱하면 원이 비스듬하게 회전하며 늘어나는 복잡한 변형이 일어납니다.";
+      } else if (mode === 'Pinv') {
+        document.getElementById('btnPinv').classList.add('active');
+        title.innerText = "2-1. 좌표계 전환 (P⁻¹ 곱하기)";
+        desc.innerText = "고유벡터 방향(대각선 축)들이 표준 x, y축에 오도록 공간을 회전/정렬합니다.";
+      } else if (mode === 'D') {
+        document.getElementById('btnD').classList.add('active');
+        title.innerText = "2-2. 독립적 스케일링 (D 곱하기)";
+        desc.innerText = "정렬된 상태에서 x축 방향으로 3배, y축 방향으로 0.5배 단순히 길이를 조절합니다. (복잡한 회전 없음!)";
+      } else if (mode === 'P') {
+        document.getElementById('btnP').classList.add('active');
+        title.innerText = "2-3. 원래 좌표계 복귀 (P 곱하기)";
+        desc.innerText = "스케일링이 끝난 뒤, 다시 원래 좌표계로 돌려놓습니다. 결과는 1번(A)과 100% 동일합니다!";
+      }
+
+      draw();
+    }
+
+    function drawGrid(mat) {
+      ctx.lineWidth = 1;
+      const gridRange = 7;
+
+      for (let i = -gridRange; i <= gridRange; i++) {
+        ctx.strokeStyle = (i === 0) ? '#9ca3af' : '#f3f4f6';
+        ctx.lineWidth = (i === 0) ? 1.5 : 1;
+
+        // 세로선
+        let p1 = applyMat(mat, i, -gridRange);
+        let p2 = applyMat(mat, i, gridRange);
+        ctx.beginPath();
+        ctx.moveTo(toScreenX(p1.x), toScreenY(p1.y));
+        ctx.lineTo(toScreenX(p2.x), toScreenY(p2.y));
+        ctx.stroke();
+
+        // 가로선
+        p1 = applyMat(mat, -gridRange, i);
+        p2 = applyMat(mat, gridRange, i);
+        ctx.beginPath();
+        ctx.moveTo(toScreenX(p1.x), toScreenY(p1.y));
+        ctx.lineTo(toScreenX(p2.x), toScreenY(p2.y));
+        ctx.stroke();
+      }
+    }
+
+    function drawShape(mat) {
+      // 단위 원 그리기
+      ctx.beginPath();
+      const segments = 60;
+      for (let i = 0; i <= segments; i++) {
+        const theta = (i / segments) * Math.PI * 2;
+        const x = Math.cos(theta);
+        const y = Math.sin(theta);
+        const pt = applyMat(mat, x, y);
+
+        if (i === 0) ctx.moveTo(toScreenX(pt.x), toScreenY(pt.y));
+        else ctx.lineTo(toScreenX(pt.x), toScreenY(pt.y));
+      }
+      ctx.closePath();
+      ctx.fillStyle = 'rgba(251, 191, 36, 0.35)';
+      ctx.fill();
+      ctx.strokeStyle = '#d97706';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+
+    function drawVector(mat, vx, vy, color) {
+      const pt = applyMat(mat, vx, vy);
+      const targetX = toScreenX(pt.x);
+      const targetY = toScreenY(pt.y);
+
+      ctx.strokeStyle = color;
+      ctx.fillStyle = color;
+      ctx.lineWidth = 3;
+
+      ctx.beginPath();
+      ctx.moveTo(originX, originY);
+      ctx.lineTo(targetX, targetY);
+      ctx.stroke();
+
+      const angle = Math.atan2(originY - targetY, targetX - originX);
+      const headLen = 8;
+      ctx.beginPath();
+      ctx.moveTo(targetX, targetY);
+      ctx.lineTo(targetX - headLen * Math.cos(angle - Math.PI / 6), targetY + headLen * Math.sin(angle - Math.PI / 6));
+      ctx.lineTo(targetX - headLen * Math.cos(angle + Math.PI / 6), targetY + headLen * Math.sin(angle + Math.PI / 6));
+      ctx.fill();
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, width, height);
+
+      let effectiveMat = { a: 1, b: 0, c: 0, d: 1 }; // Identity
+
+      if (currentMode === 'A') {
+        effectiveMat = A;
+      } else if (currentMode === 'Pinv') {
+        effectiveMat = Pinv;
+      } else if (currentMode === 'D') {
+        // D * Pinv
+        effectiveMat = {
+          a: D.a * Pinv.a, b: D.a * Pinv.b,
+          c: D.d * Pinv.c, d: D.d * Pinv.d
+        };
+      } else if (currentMode === 'P') {
+        // P * D * Pinv = A
+        effectiveMat = A;
+      }
+
+      // 1. 변형된 격자
+      drawGrid(effectiveMat);
+
+      // 2. 변형된 도형 (원)
+      drawShape(effectiveMat);
+
+      // 3. 변형된 고유벡터 표시
+      // v1 = [1, 1], v2 = [-1, 1]
+      drawVector(effectiveMat, 1, 1, '#16a34a'); // 녹색 (lambda=3)
+      drawVector(effectiveMat, -1, 1, '#2563eb'); // 파란색 (lambda=0.5)
+    }
+
+    setMode('A');
+  </script>
+</body>
+</html>
