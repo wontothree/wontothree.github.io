@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5-DOF Robot Statics & Null Space Simulator</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0f172a; color: #f8fafc; overflow: hidden; display: flex; height: 100vh; }
+        #canvas-container { flex: 1; position: relative; background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%); }
+        canvas { width: 100%; height: 100%; display: block; }
+        #sidebar { width: 360px; background: #1e293b; border-left: 1px solid #334155; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; font-size: 13px; }
+        h2 { font-size: 18px; font-weight: 700; color: #38bdf8; border-bottom: 1px solid #334155; padding-bottom: 8px; }
+        .section-title { font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; font-size: 11px; margin-top: 4px; }
+        .control-group { background: #0f172a; padding: 12px; border-radius: 8px; border: 1px solid #334155; display: flex; flex-direction: column; gap: 8px; }
+        .slider-item { display: flex; flex-direction: column; gap: 2px; }
+        .slider-label { display: flex; justify-content: space-between; color: #cbd5e1; }
+        input[type="range"] { width: 100%; accent-color: #38bdf8; cursor: pointer; }
+        .torque-display { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; text-align: center; }
+        .torque-card { background: #1e293b; padding: 8px 4px; border-radius: 6px; border: 1px solid #334155; }
+        .torque-val { font-weight: 700; font-size: 13px; margin-top: 2px; color: #38bdf8; }
+        button { background: #0284c7; color: white; border: none; padding: 10px; border-radius: 6px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+        button:hover { background: #0369a1; }
+        .null-btn { background: #059669; }
+        .null-btn:hover { background: #047857; }
+        .info-box { background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); padding: 10px; border-radius: 6px; color: #7dd3fc; line-height: 1.4; font-size: 12px; }
+    </style>
+</head>
+<body>
+
+    <div id="canvas-container">
+        <canvas id="canvas"></canvas>
+    </div>
+
+    <div id="sidebar">
+        <h2>5-DOF Robot Statics</h2>
+        <div class="info-box">
+            <b>Statics Duality:</b> $\tau = J_s^T(\theta) \mathcal{F}_s$<br>
+            엔드이펙터에 가해진 외부 힘($F_s$)에 대응하기 위해 모터에 필요한 관절 토크($\tau$)를 나타냅니다.
+        </div>
+
+        <div class="section-title">Joint Angles ($\theta$, deg)</div>
+        <div class="control-group" id="joint-controls"></div>
+
+        <div class="section-title">External Wrench ($F_s$, N)</div>
+        <div class="control-group">
+            <div class="slider-item">
+                <div class="slider-label"><span>Fx (Forward/Backward)</span><span id="v-fx">0</span> N</div>
+                <input type="range" id="f-fx" min="-50" max="50" value="0">
+            </div>
+            <div class="slider-item">
+                <div class="slider-label"><span>Fy (Left/Right)</span><span id="v-fy">0</span> N</div>
+                <input type="range" id="f-fy" min="-50" max="50" value="0">
+            </div>
+            <div class="slider-item">
+                <div class="slider-label"><span>Fz (Up/Down)</span><span id="v-fz">0</span> N</div>
+                <input type="range" id="f-fz" min="-50" max="50" value="0">
+            </div>
+        </div>
+
+        <button class="null-btn" onclick="setNullSpacePreset()">Test Null Space Force ($\tau \approx 0$ Demo)</button>
+        <button onclick="resetForces()">Reset All Forces</button>
+
+        <div class="section-title">Calculated Joint Torques ($\tau$, Nm)</div>
+        <div class="torque-display" id="torque-cards"></div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+
+        // Robot parameters (link length h1=h2=h3=h4=1, normalized scale = 70px)
+        const L = 70;
+        let qDeg = [0, 30, 20, 10, 0];
+        let Fs = [0, 0, 0, 0, 0, 0]; // [mx, my, mz, fx, fy, fz]
+
+        const jointNames = ["J1: BaseYaw", "J2: ShoulderPitch", "J3: ElbowPitch", "J4: NeckPitch", "J5: HeadYaw"];
+
+        // Init UI Sliders
+        const jointControls = document.getElementById("joint-controls");
+        jointNames.forEach((name, i) => {
+            jointControls.innerHTML += `
+                <div class="slider-item">
+                    <div class="slider-label"><span>${name}</span><span id="v-q${i}">${qDeg[i]}</span>°</div>
+                    <input type="range" id="q${i}" min="-180" max="180" value="${qDeg[i]}">
+                </div>
+            `;
+        });
+
+        const torqueCards = document.getElementById("torque-cards");
+        jointNames.forEach((_, i) => {
+            torqueCards.innerHTML += `
+                <div class="torque-card">
+                    <div style="font-size:10px; color:#94a3b8;">&tau;<sub>${i+1}</sub></div>
+                    <div class="torque-val" id="t-${i}">0.0</div>
+                </div>
+            `;
+        });
+
+        // Event Listeners
+        for(let i=0; i<5; i++) {
+            document.getElementById(`q${i}`).addEventListener("input", (e) => {
+                qDeg[i] = parseFloat(e.target.value);
+                document.getElementById(`v-q${i}`).textContent = qDeg[i];
+                draw();
+            });
+        }
+
+        ["fx", "fy", "fz"].forEach((axis, idx) => {
+            document.getElementById(`f-${axis}`).addEventListener("input", (e) => {
+                const val = parseFloat(e.target.value);
+                Fs[3 + idx] = val;
+                document.getElementById(`v-${axis}`).textContent = val;
+                draw();
+            });
+        });
+
+        function resetForces() {
+            ["fx", "fy", "fz"].forEach((axis, idx) => {
+                document.getElementById(`f-${axis}`).value = 0;
+                document.getElementById(`v-${axis}`).textContent = 0;
+                Fs[3 + idx] = 0;
+            });
+            draw();
+        }
+
+        function setNullSpacePreset() {
+            // Straight line configuration where force along link direction yields tau = 0
+            qDeg = [0, 0, 0, 0, 0];
+            for(let i=0; i<5; i++) {
+                document.getElementById(`q${i}`).value = 0;
+                document.getElementById(`v-q${i}`).textContent = 0;
+            }
+            // Force directly pushing into the base along the arm's longitudinal line
+            resetForces();
+            document.getElementById("f-fz").value = -40;
+            document.getElementById("v-fz").textContent = -40;
+            Fs[5] = -40;
+            draw();
+        }
+
+        function resize() {
+            canvas.width = canvas.parentElement.clientWidth;
+            canvas.height = canvas.parentElement.clientHeight;
+            draw();
+        }
+        window.addEventListener("resize", resize);
+
+        // 6x5 Space Jacobian Computation
+        function computeJs(qRad) {
+            const [q1, q2, q3, q4, q5] = qRad;
+            const s1 = Math.sin(q1), c1 = Math.cos(q1);
+            const s2 = Math.sin(q2), c2 = Math.cos(q2);
+            const s23 = Math.sin(q2 + q3), c23 = Math.cos(q2 + q3);
+            const s234 = Math.sin(q2 + q3 + q4), c234 = Math.cos(q2 + q3 + q4);
+
+            const px = (s2 + s23 + s234) * c1;
+            const py = (s2 + s23 + s234) * s1;
+            const pz = 1 + c2 + c23 + c234;
+
+            const w5 = [s1 * s234, -c1 * s234, c234];
+            const v5 = [
+                -c1 * c234 * (s2 + s23 + s234) + s1 * s234 * pz,
+                -s1 * c234 * (s2 + s23 + s234) - c1 * s234 * pz,
+                s234 * (s2 + s23 + s234)
+            ];
+
+            return [
+                [0, -s1, -s1, -s1, w5[0]],
+                [0, c1, c1, c1, w5[1]],
+                [1, 0, 0, 0, w5[2]],
+                [0, -c1, -(1 + c2) * c1, -(1 + c2 + c23) * c1, v5[0]],
+                [0, -s1, -(1 + c2) * s1, -(1 + c2 + c23) * s1, v5[1]],
+                [0, 0, -s2, -(s2 + s23), v5[2]]
+            ];
+        }
+
+        // tau = Js^T * Fs
+        function computeTorques(Js, Fs) {
+            const tau = [0, 0, 0, 0, 0];
+            for (let j = 0; j < 5; j++) {
+                for (let i = 0; i < 6; i++) {
+                    tau[j] += Js[i][j] * Fs[i];
+                }
+            }
+            return tau;
+        }
+
+        // 3D Forward Kinematics for Rendering
+        function computeFK(qRad) {
+            const [q1, q2, q3, q4, q5] = qRad;
+            const pts = [[0, 0, 0]]; // J1 base
+
+            let R = [
+                [Math.cos(q1), -Math.sin(q1), 0],
+                [Math.sin(q1),  Math.cos(q1), 0],
+                [0, 0, 1]
+            ];
+
+            let p = [0, 0, 1]; // J2 position
+            pts.push([...p]);
+
+            const pitchAngles = [q2, q3, q4];
+            let currentPitch = 0;
+
+            for (let i = 0; i < 3; i++) {
+                currentPitch += pitchAngles[i];
+                const dx = Math.sin(currentPitch);
+                const dz = Math.cos(currentPitch);
+                
+                const worldDx = R[0][0]*dx + R[0][2]*dz;
+                const worldDy = R[1][0]*dx + R[1][2]*dz;
+                const worldDz = R[2][0]*dx + R[2][2]*dz;
+
+                p = [p[0] + worldDx, p[1] + worldDy, p[2] + worldDz];
+                pts.push([...p]);
+            }
+
+            return pts;
+        }
+
+        // Isometric Projection
+        function project(x, y, z) {
+            const cx = canvas.width / 2;
+            const cy = canvas.height / 2 + 100;
+            const scale = L;
+
+            const isoX = (x - y) * Math.cos(Math.PI / 6);
+            const isoY = -z + (x + y) * Math.sin(Math.PI / 6);
+
+            return [cx + isoX * scale, cy + isoY * scale];
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const qRad = qDeg.map(d => d * Math.PI / 180);
+            const Js = computeJs(qRad);
+            const tau = computeTorques(Js, Fs);
+
+            // Update Torque Cards UI
+            tau.forEach((tVal, i) => {
+                const elem = document.getElementById(`t-${i}`);
+                if (elem) {
+                    elem.textContent = tVal.toFixed(1);
+                    elem.style.color = Math.abs(tVal) > 30 ? "#ef4444" : Math.abs(tVal) > 5 ? "#f59e0b" : "#38bdf8";
+                }
+            });
+
+            // Draw Ground Grid
+            ctx.strokeStyle = "#334155";
+            ctx.lineWidth = 1;
+            for(let i = -3; i <= 3; i++) {
+                let [x1, y1] = project(i, -3, 0);
+                let [x2, y2] = project(i, 3, 0);
+                ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+
+                [x1, y1] = project(-3, i, 0);
+                [x2, y2] = project(3, i, 0);
+                ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+            }
+
+            const pts = computeFK(qRad);
+            const projPts = pts.map(pt => project(pt[0], pt[1], pt[2]));
+
+            // Draw Links
+            ctx.lineWidth = 8;
+            ctx.lineCap = "round";
+            ctx.lineJoin = "round";
+
+            for(let i=0; i<projPts.length-1; i++) {
+                ctx.strokeStyle = "#64748b";
+                ctx.beginPath();
+                ctx.moveTo(projPts[i][0], projPts[i][1]);
+                ctx.lineTo(projPts[i+1][0], projPts[i+1][1]);
+                ctx.stroke();
+            }
+
+            // Draw Joints color-coded by Torque Stress
+            projPts.forEach((pt, i) => {
+                const tVal = i < 5 ? Math.abs(tau[i]) : 0;
+                let color = "#10b981"; // Low torque (Green - Structural Passive Bearing)
+                if (tVal > 30) color = "#ef4444"; // High torque (Red)
+                else if (tVal > 5) color = "#f59e0b"; // Medium torque (Yellow)
+
+                ctx.fillStyle = color;
+                ctx.beginPath();
+                ctx.arc(pt[0], pt[1], 10, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.strokeStyle = "#ffffff";
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            });
+
+            // Draw External Force Vector (F_ext Arrow) at End-Effector
+            const ee = projPts[projPts.length - 1];
+            const fx = Fs[3], fy = Fs[4], fz = Fs[5];
+            if (Math.abs(fx) > 0 || Math.abs(fy) > 0 || Math.abs(fz) > 0) {
+                const target3D = [pts[pts.length-1][0] + fx*0.02, pts[pts.length-1][1] + fy*0.02, pts[pts.length-1][2] + fz*0.02];
+                const target2D = project(target3D[0], target3D[1], target3D[2]);
+
+                ctx.strokeStyle = "#ec4899";
+                ctx.lineWidth = 4;
+                ctx.beginPath();
+                ctx.moveTo(ee[0], ee[1]);
+                ctx.lineTo(target2D[0], target2D[1]);
+                ctx.stroke();
+
+                ctx.fillStyle = "#ec4899";
+                ctx.beginPath();
+                ctx.arc(target2D[0], target2D[1], 5, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        // Initial launch
+        setTimeout(() => {
+            resize();
+        }, 100);
+    </script>
+</body>
+</html>

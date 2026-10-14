@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>5-DOF Robot Manipulability (Base Yaw / Head Yaw)</title>
+<link rel="stylesheet" href="sim.css">
+</head>
+<body>
+
+<div class="canvas-container">
+    <canvas id="canvas"></canvas>
+</div>
+
+<div class="bottom-panel">
+    <div class="jacobian-card">
+        <div class="jacobian-header">
+            <div class="jacobian-title">Velocity Kinematics</div>
+            <div class="manipulability-badge" id="manipulability-val">w = 0.000</div>
+        </div>
+        
+        <div class="equation-container">
+            <!-- 1. End-Effector Twist V (6x1) (v_x, v_y, v_z, ω_x, ω_y, ω_z 표시) -->
+            <table class="matrix-table">
+                <thead>
+                    <tr><th style="width:28px;"></th><th>V</th></tr>
+                </thead>
+                <tbody id="twist-body"></tbody>
+            </table>
+
+            <div class="operator">=</div>
+
+            <!-- 2. Jacobian Matrix J (6x5) -->
+            <table class="matrix-table">
+                <thead>
+                    <tr>
+                        <th style="width:48px;" id="jh-0">J<sub>1</sub></th>
+                        <th style="width:48px;" id="jh-1">J<sub>2</sub></th>
+                        <th style="width:48px;" id="jh-2">J<sub>3</sub></th>
+                        <th style="width:48px;" id="jh-3">J<sub>4</sub></th>
+                        <th style="width:48px;" id="jh-4">J<sub>5</sub></th>
+                    </tr>
+                </thead>
+                <tbody id="jacobian-body"></tbody>
+            </table>
+
+            <div class="operator">·</div>
+
+            <!-- 3. Joint Velocity theta_dot (5x1) -->
+            <table class="matrix-table" style="align-self: flex-start;">
+                <thead>
+                    <tr><th style="width:28px;"></th><th>&theta;&#775;</th></tr>
+                </thead>
+                <tbody id="qdot-body"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Theta Input GUI -->
+    <div class="gui-card">
+        <div class="gui-grid" id="gui"></div>
+    </div>
+</div>
+
+<div class="bottom-panel">
+    <div class="gui-card wrench-card">
+        <div class="jacobian-header">
+            <div class="jacobian-title">External Wrench</div>
+            <div class="manipulability-badge" id="wrench-norm">
+                ‖F‖ = 0.00
+            </div>
+        </div>
+
+        <div class="wrench-grid">
+            <div class="wrench-item">
+                <label for="wrench-fx">
+                    Fx (N): <span id="value-fx">0</span>
+                </label>
+                <input type="range" id="wrench-fx"
+                       min="-50" max="50" step="1" value="0">
+            </div>
+
+            <div class="wrench-item">
+                <label for="wrench-fy">
+                    Fy (N): <span id="value-fy">0</span>
+                </label>
+                <input type="range" id="wrench-fy"
+                       min="-50" max="50" step="1" value="0">
+            </div>
+
+            <div class="wrench-item">
+                <label for="wrench-fz">
+                    Fz (N): <span id="value-fz">0</span>
+                </label>
+                <input type="range" id="wrench-fz"
+                       min="-50" max="50" step="1" value="0">
+            </div>
+
+            <div class="wrench-item">
+                <label for="wrench-mx">
+                    Mx (N·m): <span id="value-mx">0</span>
+                </label>
+                <input type="range" id="wrench-mx"
+                       min="-20" max="20" step="0.5" value="0">
+            </div>
+
+            <div class="wrench-item">
+                <label for="wrench-my">
+                    My (N·m): <span id="value-my">0</span>
+                </label>
+                <input type="range" id="wrench-my"
+                       min="-20" max="20" step="0.5" value="0">
+            </div>
+
+            <div class="wrench-item">
+                <label for="wrench-mz">
+                    Mz (N·m): <span id="value-mz">0</span>
+                </label>
+                <input type="range" id="wrench-mz"
+                       min="-20" max="20" step="0.5" value="0">
+            </div>
+        </div>
+
+        <div class="wrench-output">
+            <strong>Wrench vector</strong>
+            <code id="wrench-vector">
+                [0, 0, 0, 0, 0, 0]ᵀ
+            </code>
+        </div>
+
+        <button type="button" class="reset-btn"
+                id="reset-wrench">
+            Reset Wrench
+        </button>
+    </div>
+</div>
+<script src="logic.js" defer></script>
+</body>
+</html>

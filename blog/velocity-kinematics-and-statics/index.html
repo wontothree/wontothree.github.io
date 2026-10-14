@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Sewon Kim">
     <meta name="author" content="Sewon Kim">
-    <title>Sewon Kim</title>
+    <title>Blog</title>
     <link rel="stylesheet" href="./../../index.css">
     <script>
       MathJax = {
         tex: {
-          inlineMath: [['$', '$'], ['\\(', '\\)']],
-          displayMath: [['$$', '$$'], ['\\[', '\\]']]
+          inlineMath: [['$', '$']],
+          displayMath: [['$$', '$$']]
         }
       };
     </script>
@@ -25,25 +25,402 @@
     <br><br>
 
     <div class="base">
-        <h1>Velocity Kinematics</h1>
-        <div class="box">
+      <h1>Velocity Kinematics</h1>
+      <div class="box">
+        <p>
+          In this post, our goal is to understand some concepts related to Jacobian through visualization.
+        </p>
+        <h1>Simulator</h1>
+        <iframe id="robot-frame" src="./sim.html" style="width: 100%; height: 1000px; border: none; display: block;" scrolling="no"></iframe>
+        <p>
+          In this simulation, we introduced 5-FOF robotic arm that has 5 revolute joints. Each joints' axis are 
+          yaw (+z) (J1), pitch (+y) (J2), pitch (+y) (J2), pitch (+y) (J3), pitch (+z) (J4), yaw (+z) (J5), respectively from the bottom.
+          The length of link (L1) between J1 and J2 and the length of link (L5) between J5 and end effector are 1. 
+          Also, the length of links (L2, L3, L4) between J2 and J3, J3 and J4, J4 and J5 are 2.
+        </p>
+        <p>
+          Space frame is located in J1 and body frame is located in end-effector.
+        </p>
+        <h1>Manipulator Jacobian</h1>
+        <p>
+          We are interested in transformation from joint space to task space. Forward kinematics is about calculating the robot end-effector frame's position and orientation for agiven set of joint positions.
+          $$
+          \theta \in \mathbb R^n \xrightarrow{\text{Forward Kinematics}} T(\theta) := \begin{bmatrix}
+          R(\theta) & p(\theta) \\
+          0 & 1
+          \end{bmatrix} \in SE(3)
+          $$
+          where $\theta \in \mathbb R^n$ is a set of joint angles, $R \in SO(3)$, and $p \in \mathbb R^3$.
+          The forward kinematics of $n$-link open chain is as follows:
+          $$
+          T(\mathbf{\theta}) = e^{[\mathcal S_1]\theta_1} \cdots e^{[\mathcal S_n]\theta_n} M.
+          $$
+          In this post, we will talk about other transformation form joint space to task space. It is the problem of calculating the twist of the end-effctor of an open chain from a given set of joint positions and velocities.
+          $$
+          \dot \theta \in \mathbb R^n \xrightarrow[\mathcal V = \textcolor{red}{J(\theta)} \dot \theta]{\text{Velocity Kinematics}} \mathcal V := \begin{bmatrix} \omega \\ v \end{bmatrix} \in se(3)
+          $$
+        </p>
+        <h2>Space Jacobain</h2>
+        <p>
+          The spatial twist is
+          $$
+          \begin{aligned}
+          \left[ \mathcal{V}_s \right]
+          =& \dot T T^{-1}
+          \\
+          =& [\mathcal S_1] \dot\theta_1 + e^{[\mathcal S_1]\theta_1}[\mathcal S_2] e^{-[\mathcal S_1]\theta_1}\dot\theta_2 + e^{[\mathcal S_1]\theta_1}e^{[\mathcal S_2]\theta_2} [\mathcal S_2] e^{-[\mathcal S_2]\theta_2} e^{-[\mathcal S_1]\theta_1}\dot\theta_2 + \cdots
+          \end{aligned}
+          $$
+
+          or
+          $$
+          \begin{aligned}
+          \mathcal V_s =& \mathcal S_1 \dot\theta_1 + \text{Ad}_{e^{[\mathcal S_1]\theta_1}}(\mathcal S_2) \dot\theta_2 + \text{Ad}_{e^{[\mathcal S_1]\theta_1} e^{[\mathcal S_2]\theta_2}}(\mathcal S_3) \dot\theta_3 + \cdots
+          \\
+          =& \begin{bmatrix}
+          J_{s1} & \cdots & J_{sn}
+          \end{bmatrix}
+          \begin{bmatrix}
+          \dot\theta_1 \\
+          \vdots \\
+          \dot\theta_2 \\
+          \end{bmatrix}, \quad \text{where }\quad
+          J_{si}(\theta)=\begin{cases}
+          S_i, & i = 1, \\
+          \text{Ad}_{e^{[\mathcal S_1]}\theta_1 \dots e^{[\mathcal S_{i-1}]\theta_{i-1}}}(\mathcal S_i), & i = 2, \dots, n. \\
+          \end{cases}
+          \end{aligned}
+          $$
+          Now, we define the Jacobian.
+          <fieldset class="definition-fieldset">
+            <legend>&nbsp;Definition: Space Jacobian&nbsp;</legend>
             <p>
-              We are interested in transformation from joint space to task space. Forward kinematics is about calculating the robot end-effector frame's position and orientation for agiven set of joint positions.
+              Let the forward kinematics of an $n$-link open chain be expressed in the following form:
               $$
-              \theta \in \mathbb R^n \xrightarrow{\text{Forward Kinematics}} T(\theta) := \begin{bmatrix}
-              R(\theta) & p(\theta) \\
-              0 & 1
-              \end{bmatrix} \in SE(3)
+              T(\theta) = e^{[\mathcal S_1]\theta_1} \cdots e^{[\mathcal S_n]\theta_n} M.
               $$
-              where $\theta \in \mathbb R^n$ is a set of joint angles, $R \in SO(3)$, and $p \in \mathbb R^3$.
-              In this post, we will talk about other transformation form joint space to task space. It is the problem of calculating the twist of the end-effctor of an open chain from a given set of joint positions and velocities.
+              The <strong>space Jacobian</strong> $J_s(\theta) \in \mathbb R^{6 \times n}$ is given by
               $$
-              \dot \theta \in \mathbb R^n \xrightarrow[\mathcal V = \textcolor{red}{J(\theta)} \dot \theta]{\text{Velocity Kinematics}} \mathcal V := \begin{bmatrix} v \\ \omega \end{bmatrix} \in \mathbb R^6
+              \mathcal V_s = J_s(\theta) \dot \theta,
+              $$
+              where the $i$-th column of $J_s(\theta)$ is as follows
+              $$
+              J_{si}(\theta)=\begin{cases}
+              \mathcal S_i, & i = 1, \\
+              \text{Ad}_{e^{[\mathcal S_1]\theta_1} \dots e^{[\mathcal S_{i-1}]\theta_{i-1}}}(\mathcal S_i), & i = 2, \cdots, n. \\
+              \end{cases}
               $$
             </p>
-        </div>
+          </fieldset>      
+        </p>
+        Let's calculate the spatial Jacobain of the given arm.
+        <p>
+          $(i)$
+          $$
+          J_{s1}(\theta) = \mathcal S_1 = \begin{bmatrix} \omega_1 \\ v_1 \\ \end{bmatrix} 
+          = \begin{bmatrix} \omega_1 \\ -\omega_1 \times q_1 \end{bmatrix}
+          = \begin{bmatrix} 0 & 0 & 1 & 0 & 0 & 0 \end{bmatrix}^\top.
+          $$
+          where $\omega_1 = \begin{bmatrix} 0 & 0 & 1 \end{bmatrix}^\top$ and $q_1 = \begin{bmatrix} 0 & 0 & 0 \end{bmatrix}^\top.$
+        </p>
+        <p>
+          $(ii)$
+          $$
+          \mathcal S_2 = \begin{bmatrix} 0 & 1 & 0 & -L_1 & 0 & 0 \end{bmatrix}^\top.
+          $$
+          where $\omega_1 = \begin{bmatrix} 0 & 1 & 0 \end{bmatrix}^\top$ and $q_1 = \begin{bmatrix} 0 & 0 & L_1 \end{bmatrix}^\top.$ 
+          Since the joint 1 rotate in axis Z, the homogeneous transofrmation matrix in Joint 1 is given by
+          $$
+          e^{[\mathcal S_1] \theta_1}= 
+          T_{01}(\theta_1) = \begin{bmatrix} R_z(\theta_1) & p_1 \\ \mathbf{0}_{1\times 3} & 1 \end{bmatrix} = \begin{bmatrix} \cos\theta_1 & -\sin\theta_1 & 0 & 0 \\ \sin\theta_1 & \cos\theta_1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}.
+          $$
+          where $p_1 = \begin{bmatrix} 0 & 0 & 0 \end{bmatrix}^\top$. The adjoint representation for $T_{01}$ is given by
+          $$
+          [\text{Ad}_{T_{01}}] = \begin{bmatrix} R_z(\theta_1) & \mathbf{0}_{3\times 3} \\ [p_1]R_z(\theta_1) & R_z(\theta_1) \end{bmatrix}
+          = \begin{bmatrix} R_z(\theta_1) & \mathbf{0}_{3\times 3} \\ \mathbf{0}_{3\times 3} & R_z(\theta_1) \end{bmatrix}.
+          $$
+          Therefore, we have
+          $$
+          J_{s2} = \text{Ad}_{e^{[\mathcal S_1]\theta_1}}(\mathcal S_2) =
+          \begin{bmatrix} \cos\theta_1 & -\sin\theta_1 & 0 & 0 & 0 & 0 \\ \sin\theta_1 & \cos\theta_1 & 0 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 & 0 & 0 \\ 0 & 0 & 0 & \cos\theta_1 & -\sin\theta_1 & 0 \\ 0 & 0 & 0 & \sin\theta_1 & \cos\theta_1 & 0 \\ 0 & 0 & 0 & 0 & 0 & 1 \end{bmatrix}
+          \begin{bmatrix} 0 \\ 1 \\ 0 \\ -L_1 \\ 0 \\ 0 \end{bmatrix}
+          = \begin{bmatrix} -\sin\theta_1 \\  \cos\theta_1 \\  0 \\  -L_1\cos\theta_1 \\  -L_1\sin\theta_1 \\  0 \end{bmatrix}.
+          $$
+        </p>
+        <p>
+          $(iii)$
+          $$
+          \mathcal S_3 = \begin{bmatrix} 0 & 1 & 0 & -L_1 & 0 & L_2 \end{bmatrix}^\top.
+          $$
+          where $\omega_2 = \begin{bmatrix} 0 & 1 & 0 \end{bmatrix}^\top$ and $q_2 = \begin{bmatrix} L_2 & 0 & L_1 \end{bmatrix}^\top.$ 
+          Since the joint 2 rotate in axis Y, the homogeneous transformation matrix in Joint 2 at zero position is given by
+          $$
+          e^{[\mathcal S_2] \theta_2}= 
+          T_{12}(\theta_2) = \begin{bmatrix} R_y(\theta_2) & p_2 \\ \mathbf{0}_{1\times 3} & 1 \end{bmatrix} = \begin{bmatrix} \cos\theta_2 & 0 & \sin\theta_2 & 0 \\ 0 & 1 & 0 & 0 \\ -\sin\theta_2 & 0 & \cos\theta_2 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}.
+          $$
+          where $p_2 = \begin{bmatrix} 0 & 0 & 0 \end{bmatrix}^\top$. The cumulative homogeneous transformation matrix up to Joint 2 is given by
+          $$
+          T_{02}(\theta_1, \theta_2) = T_{01}(\theta_1) T_{12}(\theta_2) = \begin{bmatrix} R_z(\theta_1)R_y(\theta_2) & \mathbf{0}_{3\times 1} \\ \mathbf{0}_{1\times 3} & 1 \end{bmatrix}.
+          $$
+          The adjoint representation for $T_{02}$ is given by
+          $$
+          [\text{Ad}_{T_{02}}] = \begin{bmatrix} R_z(\theta_1)R_y(\theta_2) & \mathbf{0}_{3\times 3} \\ \mathbf{0}_{3\times 3} & R_z(\theta_1)R_y(\theta_2) \end{bmatrix}.
+          $$
+          Therefore, we have
+          $$
+          J_{s3} = \text{Ad}_{e^{[\mathcal S_1]\theta_1}e^{[\mathcal S_2]\theta_2}}(\mathcal S_3) =
+          \begin{bmatrix} R_z(\theta_1)R_y(\theta_2) & \mathbf{0}_{3\times 3} \\ \mathbf{0}_{3\times 3} & R_z(\theta_1)R_y(\theta_2) \end{bmatrix}
+          \begin{bmatrix} 0 \\ 1 \\ 0 \\ -L_1 \\ 0 \\ L_2 \end{bmatrix}
+          = \begin{bmatrix} -\sin\theta_1 \\ \cos\theta_1 \\ 0 \\ -L_1\cos\theta_1 + L_2\sin\theta_1\sin\theta_2 \\ -L_1\sin\theta_1 - L_2\cos\theta_1\sin\theta_2 \\ L_2\cos\theta_2 \end{bmatrix}.
+          $$
+        </p>
+        <details>
+          <summary>You can see the calculation about $J_{s4}$ and $J_{s5}$ in detail.</summary>
+          <p>
+            $(iv)$
+            $$
+            \mathcal S_4 = \begin{bmatrix} 0 & 1 & 0 & -L_1 & 0 & L_2 + L_3 \end{bmatrix}^\top.
+            $$
+            where $\omega_3 = \begin{bmatrix} 0 & 1 & 0 \end{bmatrix}^\top$ and $q_3 = \begin{bmatrix} L_2 + L_3 & 0 & L_1 \end{bmatrix}^\top.$ 
+            Since the joint 3 rotate in axis Y, the homogeneous transformation matrix in Joint 3 at zero position is given by
+            $$
+            e^{[\mathcal S_3] \theta_3}= 
+            T_{23}(\theta_3) = \begin{bmatrix} R_y(\theta_3) & p_3 \\ \mathbf{0}_{1\times 3} & 1 \end{bmatrix} = \begin{bmatrix} \cos\theta_3 & 0 & \sin\theta_3 & 0 \\ 0 & 1 & 0 & 0 \\ -\sin\theta_3 & 0 & \cos\theta_3 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}.
+            $$
+            where $p_3 = \begin{bmatrix} 0 & 0 & 0 \end{bmatrix}^\top$. The cumulative homogeneous transformation matrix up to Joint 3 is given by
+            $$
+            T_{03}(\theta_1, \theta_2, \theta_3) = T_{01}(\theta_1) T_{12}(\theta_2) T_{23}(\theta_3) = \begin{bmatrix} R_z(\theta_1)R_y(\theta_2 + \theta_3) & \mathbf{0}_{3\times 1} \\ \mathbf{0}_{1\times 3} & 1 \end{bmatrix}.
+            $$
+            The adjoint representation for $T_{03}$ is given by
+            $$
+            [\text{Ad}_{T_{03}}] = \begin{bmatrix} R_z(\theta_1)R_y(\theta_2 + \theta_3) & \mathbf{0}_{3\times 3} \\ \mathbf{0}_{3\times 3} & R_z(\theta_1)R_y(\theta_2 + \theta_3) \end{bmatrix}.
+            $$
+            Therefore, we have
+            $$
+            \begin{aligned}
+            J_{s4} =& \text{Ad}_{e^{[\mathcal S_1]\theta_1}e^{[\mathcal S_2]\theta_2}e^{[\mathcal S_3]\theta_3}}(\mathcal S_4) =
+            \begin{bmatrix} R_z(\theta_1)R_y(\theta_2 + \theta_3) & \mathbf{0}_{3\times 3} \\ \mathbf{0}_{3\times 3} & R_z(\theta_1)R_y(\theta_2 + \theta_3) \end{bmatrix}
+            \begin{bmatrix} 0 \\ 1 \\ 0 \\ -L_1 \\ 0 \\ L_2 + L_3 \end{bmatrix}
+            \\
+            =& \begin{bmatrix} -\sin\theta_1 \\ \cos\theta_1 \\ 0 \\ -L_1\cos\theta_1 + (L_2 + L_3)\sin\theta_1\sin(\theta_2 + \theta_3) \\ -L_1\sin\theta_1 - (L_2 + L_3)\cos\theta_1\sin(\theta_2 + \theta_3) \\ (L_2 + L_3)\cos(\theta_2 + \theta_3) \end{bmatrix}.
+            \end{aligned}
+            $$
+          </p>
+          <p>
+            $(v)$
+            $$
+            \mathcal S_5 = \begin{bmatrix} 0 & 0 & 1 & 0 & L_2 + L_3 + L_4 & 0 \end{bmatrix}^\top.
+            $$
+            where $\omega_4 = \begin{bmatrix} 0 & 0 & 1 \end{bmatrix}^\top$ and $q_4 = \begin{bmatrix} L_2 + L_3 + L_4 & 0 & L_1 \end{bmatrix}^\top.$ 
+            Since the joint 4 rotate in axis Y, the homogeneous transformation matrix in Joint 4 at zero position is given by
+            $$
+            e^{[\mathcal S_4] \theta_4}= 
+            T_{34}(\theta_4) = \begin{bmatrix} R_y(\theta_4) & p_4 \\ \mathbf{0}_{1\times 3} & 1 \end{bmatrix} = \begin{bmatrix} \cos\theta_4 & 0 & \sin\theta_4 & 0 \\ 0 & 1 & 0 & 0 \\ -\sin\theta_4 & 0 & \cos\theta_4 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}.
+            $$
+            where $p_4 = \begin{bmatrix} 0 & 0 & 0 \end{bmatrix}^\top$. The cumulative homogeneous transformation matrix up to Joint 4 is given by
+            $$
+            T_{04}(\theta_1, \theta_2, \theta_3, \theta_4) = T_{01}(\theta_1) T_{12}(\theta_2) T_{23}(\theta_3) T_{34}(\theta_4) = \begin{bmatrix} R_z(\theta_1)R_y(\theta_2 + \theta_3 + \theta_4) & \mathbf{0}_{3\times 1} \\ \mathbf{0}_{1\times 3} & 1 \end{bmatrix}.
+            $$
+            The adjoint representation for $T_{04}$ is given by
+            $$
+            [\text{Ad}_{T_{04}}] = \begin{bmatrix} R_z(\theta_1)R_y(\theta_2 + \theta_3 + \theta_4) & \mathbf{0}_{3\times 3} \\ \mathbf{0}_{3\times 3} & R_z(\theta_1)R_y(\theta_2 + \theta_3 + \theta_4) \end{bmatrix}.
+            $$
+            Therefore, we have
+            $$
+            \begin{aligned}
+            J_{s5} 
+            =& \text{Ad}_{e^{[\mathcal S_1]\theta_1}e^{[\mathcal S_2]\theta_2}e^{[\mathcal S_3]\theta_3}e^{[\mathcal S_4]\theta_4}}(\mathcal S_5) =
+            \begin{bmatrix} R_z(\theta_1)R_y(\theta_2 + \theta_3 + \theta_4) & \mathbf{0}_{3\times 3} \\ \mathbf{0}_{3\times 3} & R_z(\theta_1)R_y(\theta_2 + \theta_3 + \theta_4) \end{bmatrix}
+            \begin{bmatrix} 0 \\ 0 \\ 1 \\ 0 \\ L_2 + L_3 + L_4 \\ 0 \end{bmatrix}
+            \\
+            =& \begin{bmatrix} \sin\theta_1\sin(\theta_2 + \theta_3 + \theta_4) \\ -\cos\theta_1\sin(\theta_2 + \theta_3 + \theta_4) \\ \cos(\theta_2 + \theta_3 + \theta_4) \\
+            (L_2 + L_3 + L_4)\left( \cos\theta_1\cos(\theta_2 + \theta_3 + \theta_4) - \sin\theta_1\sin\theta_1\sin(\theta_2 + \theta_3 + \theta_4) \right) \\
+            (L_2 + L_3 + L_4)\left( \sin\theta_1\cos(\theta_2 + \theta_3 + \theta_4) + \cos\theta_1\sin\theta_1\sin(\theta_2 + \theta_3 + \theta_4) \right) \\
+            -(L_2 + L_3 + L_4)\sin(\theta_2 + \theta_3 + \theta_4) \\
+            \end{bmatrix}
+            \end{aligned}
+            $$
+          </p>
+        </details>
 
-        <iframe src="./jacobian.html" style="height:800px; width: 1000px; border: none"></iframe>
+        <h2>Body Jacobain</h2>
+        <p>
+          <fieldset class="definition-fieldset">
+            <legend>&nbsp;Definition: Body Jacobian&nbsp;</legend>
+            <p>
+              Let the forward kinematics of an $n$-link open chain be expressed in the following form:
+              $$
+              T(\theta) = e^{[\mathcal S_1]\theta_1} \cdots e^{[\mathcal S_n]\theta_n} M.
+              $$
+              The <strong>Body Jacobian</strong> $J_b(\theta) \in \mathbb R^{6 \times n}$ is given by
+              $$
+              \mathcal V_b = J_b(\theta) \dot \theta.
+              $$
+              where the $i$-th column of $J_b(\theta)$ is as follows
+              $$
+              J_{bi}(\theta)=\begin{cases}
+              \mathcal B_i, & i = n, \\
+              \text{Ad}_{e^{-[\mathcal B_n]\theta_n} \dots e^{-[\mathcal B_{i+1}]\theta_{i+1}}}(\mathcal B_i), & i = n-1, \cdots, 1. \\
+              \end{cases}
+              $$
+            </p>
+          </fieldset>
+        </p>
+        
+        <h2>Relationship between the Space and Body Jacobian</h2>
+        <p>
+          Denoting the fixed frame by $\{s\}$ and the end-effector frame by $\{b \}$, the forward kinematics can be written as $T_{sb}(\theta)$.
+          The twists is
+          $$
+          \mathcal V_s = J_s(\theta)\dot \theta, \quad
+          \mathcal V_b = J_b(\theta)\dot \theta.
+          $$
+          Therefore,
+          $$
+          \text{Ad}_{T_{sb}}(\mathcal V_b) = \mathcal V_s = J_s(\theta)\dot \theta.
+          $$
+          Taking $[\text{Ad}_{T_{bs}}]$ on the both sides yields
+          $$
+          \text{Ad}_{T_{bs}}(\text{Ad}_{T_{sb}}(\mathcal V_b)) = \text{Ad}_{T_{bs}T_{sb}}(\mathcal V_b) = \mathcal V_b = \text{Ad}_{T_{bs}}(J_s(\theta))\dot\theta.
+          $$
+          Therefore,
+          $$
+          J_b(\theta) = [\text{Ad}_{T_{bs}}] J_s(\theta), \quad J_s(\theta) = [\text{Ad}_{T_{sb}}]\mathcal J_b(\theta).
+          $$
+          The fact that the space and body Jacobians, and the space and body twists, are similarly related by the adjoint map should not be surprising 
+          since each column of the space or body Jacobian corresponds to a twist.
+        </p>
+
+      </div>
+
+      <div class="box">
+        <h1>Statics</h1>
+        <p>
+          For $\tau$ is the joint torque vector, the static equilibrium equation is given by
+          $$
+          \tau^\top \dot\theta = \mathcal F^\top \mathcal V.
+          $$
+          Using $\mathcal V = J(\theta)\dot \theta$, we have
+          $$
+          \tau = J^\top(\theta) \mathcal F
+          $$
+          We can express this equation in both the end-effector frame (body frame) and the fixed space frame.
+        </p>
+        <p>
+          We can interpret this equation from two perspectives:
+          <ol>
+            <li>When an external wrench $-\mathcal F$ is applied to the end-effector, what is the joint torques to stay in equilibrium?</li>
+            <li>What is the end-effector wrench generated by the joint torques?</li>
+          </ol>
+          For the second perspective, there are somethings to consider.
+        </p>
+        <p>
+          $(i)$ The case of $n=6$.
+          If $J^\top$ is a $6 \times 6$ invertible matrix, then $\mathcal F = J^{-\top}(\theta)\tau$. 
+          If the number of joints $n$ is not equal to 6, then $J^\top$ is not invertible, and the question is not well posed.
+        </p>
+        <p>
+          $(ii)$ The case of $n>6$.
+          If the robot is redundant ($n > 6$) then, even if the end-effector is embedded in concrete, the robot is not immobilized and the joint torques may cause internal motions of the links.
+        </p>
+        <p>
+          $(iii)$
+          If $n \le 6$ and $J^\top \in \mathbb R^{n \times 6}$ has rank $n$ then embedding the end-effector in concrete will immobilize the robot.
+          If $n < 6$, no matter what $\tau$ we choose, the robot cannot actively generate forces in the $6-n$ wrench directions defined by the null space of $J^\top$,
+
+          $$
+          \text{Null}(J^\top(\theta)) = \{ \mathcal F \;\vert\; J^\top(\theta) \mathcal F = 0 \}
+          $$
+
+          since no actuators act in these directions.
+        </p>
+        <p>
+          On the other hand, The robot can resist arbitrary externally applied wrenches in the space $\text{Null}(J^\top(\theta))$ without moving, owing to the lack of joints.
+        </p>
+      </div>
+
+      <div class="box">
+        <h1>Singularity</h1>
+        <p>
+          <fieldset class="definition-fieldset">
+            <legend>&nbsp;(Kinematic) Singularity&nbsp;</legend>
+            <p>
+              Postures at which the robot’s end-effector loses the ability to move instantaneously in one or more directions.
+            </p>
+          </fieldset>
+          <br>
+          A singular posture occurs when the Jacobian fails to be of maximal rank, meaning its column space fails to span the full task space.
+        </p>
+        <h2>Singularity Case Study</h2>
+        <p>Case 1: Two Collinear Revolute Joint Axes</p>
+        <p>Case 2: Three Coplanar and Parallel Revolute Joint Axes</p>
+        <p>Case 3: Four Coplanar Revolute Joints</p>
+      </div>
+
+      <div class="box">
+        <h1>Manipulability</h1>
+        <p>
+          <fieldset class="definition-fieldset">
+            <legend>&nbsp;Definition: Manipulability Ellipsoid&nbsp;</legend>
+            <p>
+              We consider an $n$-joint open chain have joint configuration $\theta \in \mathbb{R}^n$, a task space configuration $x \in \mathbb{R}^m$, and the Jacobian $J(\theta) \in \mathbb R^{m \times n}$ where $m \le n$ and $m \le 6$. 
+              The <strong>Manipulability Ellipsoid</strong> $\mathcal{E} \subseteq \mathcal C(J(\theta)) \subseteq \mathbb{R}^m$ is defined as the image of the unit ball in joint-velocity space under the linear mapping $J(\theta)$:
+              $$
+              \mathcal{E} := \left\{ \dot x \in \mathbb{R}^m \;\middle|\; \dot x = J(\theta)\dot{\theta}, \; \dot{\theta} \in \mathbb{R}^n, \; \|\dot{\theta}\|_2 \le 1 \right\}.
+              $$
+              Assuming $J(\theta)$ is of full row rank ($\operatorname{rank}(J(\theta)) = m$), this set is equivalently expressed in quadratic form as:
+              $$
+              \mathcal{E} = \left\{ \dot x \in \mathbb{R}^m \;\middle|\; \dot x^\top \left( J(\theta) J^\top(\theta) \right)^{-1} \dot x \le 1 \right\}.
+              $$
+            </p>
+          </fieldset>
+          <br>
+          Assuming $J$ is invertible, the unit joint-velocity condition can be written
+          $$
+          \begin{aligned}
+          1 \ge& \dot \theta^\top \dot\theta \\
+          =& (J^{-1}\dot x)^\top (J^{-1}\dot x) \\
+          =& \dot x^\top J^{-\top}J^{-1} \dot x \\
+          =& \dot x^\top (JJ^\top)^{-1} \dot x \\
+          =& \dot x^\top A^{-1} \dot x.
+          \end{aligned}
+          $$
+          where $A = JJ^\top \in \mathbb R^{m \times m}$. If $J$ is full rank (i.e., of rank $m$), the matrix $A$ is square, symmetric, and positive definite, as is $A^{-1}$
+        </p>
+        <h2>Manipulability Measures</h2>
+        <p>
+          - ratio of the longest and shortest semi-axes of the manipulability ellipsoid
+        </p>
+        <p>
+          - condition number
+        </p>
+        <p>
+          - volume of the manipulability ellipsoid
+        </p>
+
+        <h2>Force Ellipsoid</h2>
+        <p>
+          <fieldset class="definition-fieldset">
+            <legend>&nbsp;Definition: Force Ellipsoid&nbsp;</legend>
+            <p>
+              For an $n$-joint open chain with Jacobian $J(\theta) \in \mathbb R^{m \times n}$ ($m \le n$),
+              the <strong>Force Ellipsoid</strong> $\mathcal{E}_f \subseteq \mathcal C(J^{-\top}(\theta)) \subseteq \mathbb{R}^m$ is defined as the image of the unit ball in the joint-torque space under the dual mapping $J^{-\top}(\theta)$:
+              $$
+              \mathcal{E}_f := \left\{ \mathcal{F} \in \mathbb{R}^m \;\middle|\; \mathcal{F} = J^{-\top}(\theta)\tau, \; \|\tau\|_2 \le 1 \right\}.
+              $$
+              Assuming $J(\theta)$ is of full row rank ($\operatorname{rank}(J(\theta)) = m$), this set is equivalently expressed in quadratic form as:
+              $$
+              \mathcal{E}_f = \left\{ \mathcal{F} \in \mathbb{R}^m \;\middle|\; \mathcal{F}^\top \left( J(\theta) J^\top(\theta) \right) \mathcal{F} \le 1 \right\}.
+              $$
+            </p>
+          </fieldset>
+        </p>
+      </div>
+
+      <div class="box">
+        <h1>References</h1>
+        <p>Lynch, Kevin M., and Frank C. Park. "Modern robotics." Mechanics, Planning, and Control (2017).</p>
+      </div>
     </div>
 
     <br><br>

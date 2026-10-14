@@ -1,0 +1,152 @@
+html, body {
+        margin: 0; width: 100%; height: 100%; overflow: hidden;
+        background: white; font-family: Arial, sans-serif; font-size: 13px;
+        display: flex; flex-direction: column;
+    }
+    
+    /* Canvas 영역 */
+    .canvas-container {
+        flex: 1; position: relative; width: 100%; min-height: 0;
+    }
+    canvas { width: 100%; height: 100%; display: block; }
+
+    /* 하단 패널 */
+    .bottom-panel {
+        display: flex; gap: 20px; padding: 12px 20px;
+        background: rgba(255, 255, 255, 0.95);
+        align-items: flex-start; justify-content: center;
+    }
+
+    /* Kinematic Equation Card Container */
+    .jacobian-card {
+        background: transparent; border: 1px solid #2d323f; border-radius: 8px;
+        padding: 10px 14px; color: #fff;
+    }
+    .jacobian-header {
+        display: flex; justify-content: space-between; align-items: center;
+        margin-bottom: 8px;
+    }
+    .jacobian-title {
+        font-size: 11px; color: #3f4761; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .manipulability-badge {
+        font-size: 12px; font-weight: bold; background: transparent; color: #3f4761;
+        padding: 2px 8px; border-radius: 4px; border: 1px solid #3f4761;
+    }
+    
+    /* Equation Container Layout (V = J * theta_dot) */
+    .equation-container {
+        display: flex; align-items: center; gap: 6px;
+    }
+    .operator {
+        color: #3f4761; font-weight: bold; font-size: 14px; padding: 0 2px;
+    }
+
+    /* Vector/Matrix Tables */
+    .matrix-table {
+        border-collapse: separate; 
+        border-spacing: 3px; 
+        font-family: 'Consolas', monospace; 
+        font-size: 11px;
+        table-layout: fixed;
+        width: auto; /* 또는 고정 너비가 필요한 경우 auto 유지 */
+    }
+    .matrix-table th { color: #3f4761; padding-bottom: 2px; text-align: center; }
+    .matrix-table td.row-label { color: #3f4761; font-weight: bold; padding-right: 4px; text-align: right; width: 28px; }
+    .matrix-table tr.sep-row td { border-top: 1px solid #3f4761; padding-top: 4px; }
+    
+    .j-cell {
+        width: 54px;
+        height: 24px;
+        border-radius: 4px;
+        text-align: center;
+        vertical-align: middle;
+        background: transparent;
+        color: #3f4761;
+        border: 1px solid #2d323f;
+        font-weight: bold;
+        box-sizing: border-box;
+        transition: background-color 0.15s, color 0.15s;
+        overflow: hidden;
+        white-space: nowrap;
+        font-variant-numeric: tabular-nums;
+    }
+
+    /* GUI Card */
+    .gui-card {
+        background: transparent; border: 1px solid #2d323f; border-radius: 8px;
+        padding: 12px 16px;
+    }
+    .gui-grid {
+        display: grid; grid-template-columns: 1fr; gap: 6px;
+    }
+    .gui-item { margin-bottom: 2px; display: flex; flex-direction: column; }
+    .gui-item label { font-size: 11px; margin-bottom: 2px; }
+
+    .gui-item input { 
+        width: 220px; 
+        accent-color: #333; 
+        cursor: pointer;
+    } 
+    /* 호버 시 슬라이더 트랙/버튼 강조 */
+    .gui-item.active-item input {
+        accent-color: #ff7700;
+    }
+    .gui-item.active-item label b {
+        color: #ff7700;
+    }
+
+    /* 야코비안 행렬 헤더(J1 ~ J5) 호버 하이라이트 */
+    .matrix-table th.active-col {
+        color: #ff7700 !important;
+        font-weight: bold;
+    }
+
+/* --- */
+
+.wrench-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px 20px;
+    margin-top: 16px;
+}
+
+.wrench-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+.wrench-item label {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.wrench-item input[type="range"] {
+    width: 100%;
+    cursor: pointer;
+}
+
+.wrench-output {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
+    font-size: 13px;
+}
+
+#wrench-vector {
+    overflow-wrap: anywhere;
+}
+
+#reset-wrench {
+    margin-top: 12px;
+}
+
+@media (max-width: 600px) {
+    .wrench-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}

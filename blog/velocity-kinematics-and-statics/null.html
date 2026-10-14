@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5-DOF Robot Statics & Null Space Visualizer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$']],
+          displayMath: [['$$', '$$']]
+        }
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+            user-select: none;
+        }
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            cursor: grab;
+        }
+        canvas:active {
+            cursor: grabbing;
+        }
+        /* Custom scrollbars */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1e293b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+    </style>
+</head>
+<body class="h-screen w-screen overflow-hidden flex flex-col font-sans">
+
+    <!-- Navigation Header -->
+    <header class="bg-slate-900/80 backdrop-blur border-b border-slate-800 px-6 py-3 flex justify-between items-center z-10">
+        <div class="flex items-center gap-3">
+            <div class="p-2 bg-indigo-600/20 text-indigo-400 rounded-lg border border-indigo-500/30">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                </svg>
+            </div>
+            <div>
+                <h1 class="text-lg font-bold text-slate-100 leading-none">5-DOF Kinematics & Statics Visualizer</h1>
+                <p class="text-xs text-slate-400 mt-1">Exploring $\tau = J_s^T(\theta)\mathcal{F}_s$ and $\text{Null}(J_s^T)$ Passive Resistance</p>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+            <button id="btn-null-test" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs rounded-lg shadow-lg shadow-emerald-900/30 transition-all flex items-center gap-2 border border-emerald-400/30 active:scale-95">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+                Test Null Space Force ($\tau = 0$)
+            </button>
+            <button id="btn-reset" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium text-xs rounded-lg border border-slate-700 transition-all">
+                Reset Pose
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <div class="flex-1 flex overflow-hidden relative">
+
+        <!-- Left Sidebar: Controls -->
+        <aside class="w-80 bg-slate-900/90 border-r border-slate-800 flex flex-col z-10 overflow-y-auto">
+            <!-- Joint Angles Section -->
+            <div class="p-4 border-b border-slate-800">
+                <div class="flex justify-between items-center mb-3">
+                    <h2 class="text-xs font-semibold uppercase tracking-wider text-indigo-400 flex items-center gap-1.5">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+                        Joint Angles ($\theta_i$)
+                    </h2>
+                </div>
+
+                <div class="space-y-3" id="joint-controls">
+                    <!-- Dynamic joint controls inserted here -->
+                </div>
+            </div>
+
+            <!-- External Force Control (Wrench) -->
+            <div class="p-4 border-b border-slate-800">
+                <h2 class="text-xs font-semibold uppercase tracking-wider text-rose-400 mb-3 flex items-center gap-1.5">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    End-Effector External Force ($\mathcal{F}_s$)
+                </h2>
+                
+                <div class="space-y-3">
+                    <div>
+                        <div class="flex justify-between text-xs text-slate-400 mb-1">
+                            <span>$F_x$ (Linear X)</span>
+                            <span id="val-fx" class="font-mono text-slate-200">0 N</span>
+                        </div>
+                        <input type="range" id="slider-fx" min="-50" max="50" value="0" step="1" class="w-full accent-rose-500 bg-slate-800 rounded-lg h-1.5">
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs text-slate-400 mb-1">
+                            <span>$F_y$ (Linear Y)</span>
+                            <span id="val-fy" class="font-mono text-slate-200">0 N</span>
+                        </div>
+                        <input type="range" id="slider-fy" min="-50" max="50" value="0" step="1" class="w-full accent-rose-500 bg-slate-800 rounded-lg h-1.5">
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs text-slate-400 mb-1">
+                            <span>$F_z$ (Linear Z)</span>
+                            <span id="val-fz" class="font-mono text-slate-200">0 N</span>
+                        </div>
+                        <input type="range" id="slider-fz" min="-50" max="50" value="0" step="1" class="w-full accent-rose-500 bg-slate-800 rounded-lg h-1.5">
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs text-slate-400 mb-1">
+                            <span>$M_z$ (Moment Z)</span>
+                            <span id="val-mz" class="font-mono text-slate-200">0 Nm</span>
+                        </div>
+                        <input type="range" id="slider-mz" min="-20" max="20" value="0" step="0.5" class="w-full accent-amber-500 bg-slate-800 rounded-lg h-1.5">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Joint Torque Display Section -->
+            <div class="p-4 flex-1">
+                <h2 class="text-xs font-semibold uppercase tracking-wider text-amber-400 mb-3 flex items-center gap-1.5">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    Calculated Joint Torques ($\tau = J_s^T \mathcal{F}_s$)
+                </h2>
+
+                <div class="space-y-2.5" id="torque-display">
+                    <!-- Dynamic torque bars inserted here -->
+                </div>
+            </div>
+        </aside>
+
+        <!-- Center: 3D Render Canvas -->
+        <main class="flex-1 relative bg-slate-950">
+            <canvas id="robot-canvas"></canvas>
+
+            <!-- Camera & View Controls overlay -->
+            <div class="absolute bottom-4 left-4 bg-slate-900/80 backdrop-blur border border-slate-800 p-2 rounded-xl text-xs text-slate-400 flex items-center gap-3">
+                <span class="flex items-center gap-1">
+                    <kbd class="px-1.5 py-0.5 bg-slate-800 border border-slate-700 rounded text-[10px]">Left Mouse</kbd> Rotate View
+                </span>
+                <span class="flex items-center gap-1">
+                    <kbd class="px-1.5 py-0.5 bg-slate-800 border border-slate-700 rounded text-[10px]">Scroll</kbd> Zoom
+                </span>
+            </div>
+
+            <!-- Status Badge overlay -->
+            <div id="status-badge" class="absolute top-4 right-4 bg-slate-900/90 border border-slate-700 p-3 rounded-xl shadow-xl backdrop-blur max-w-sm transition-all duration-300">
+                <div class="flex items-center gap-2">
+                    <div id="status-indicator" class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></div>
+                    <span id="status-title" class="font-semibold text-xs text-slate-200">System Ready</span>
+                </div>
+                <p id="status-desc" class="text-[11px] text-slate-400 mt-1 leading-snug">
+                    Adjust external force or joint angles. Notice how forces in $\text{Null}(J_s^T)$ produce $\tau = 0$.
+                </p>
+            </div>
+        </main>
+
+        <!-- Right Sidebar: Jacobian Matrix Display -->
+        <aside class="w-96 bg-slate-900/90 border-l border-slate-800 flex flex-col z-10 overflow-hidden">
+            <div class="p-4 border-b border-slate-800 flex justify-between items-center">
+                <h2 class="text-xs font-semibold uppercase tracking-wider text-cyan-400 flex items-center gap-1.5">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    Real-Time Space Jacobian $J_s(\theta)$ ($6 \times 5$)
+                </h2>
+            </div>
+
+            <!-- Matrix Content -->
+            <div class="p-4 flex-1 overflow-y-auto font-mono text-[11px]">
+                <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800 shadow-inner overflow-x-auto">
+                    <table class="w-full text-center border-collapse text-slate-300">
+                        <thead>
+                            <tr class="text-slate-500 border-b border-slate-800/80">
+                                <th class="p-1"></th>
+                                <th class="p-1 text-indigo-400">J1</th>
+                                <th class="p-1 text-indigo-400">J2</th>
+                                <th class="p-1 text-indigo-400">J3</th>
+                                <th class="p-1 text-indigo-400">J4</th>
+                                <th class="p-1 text-indigo-400">J5</th>
+                            </tr>
+                        </thead>
+                        <tbody id="jacobian-matrix-body" class="divide-y divide-slate-900">
+                            <!-- Rows inserted dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-4 p-3 bg-slate-800/40 rounded-xl border border-slate-800 text-[11px] text-slate-400 space-y-2">
+                    <div class="font-semibold text-slate-300">Mathematical Duality:</div>
+                    <div class="text-slate-400">$$\mathcal{V}_s = J_s(\theta)\dot{\theta}$$</div>
+                    <div class="text-slate-400">$$\tau = J_s^T(\theta)\mathcal{F}_s$$</div>
+                    <p class="text-[10px] leading-relaxed text-slate-500 mt-2">
+                        If $\mathcal{F}_s \in \text{Null}(J_s^T)$, then $J_s^T \mathcal{F}_s = 0$. The rigid link structure passively absorbs external forces without requiring motor torque.
+                    </p>
+                </div>
+            </div>
+        </aside>
+
+    </div>
+
+    <script>
+        // Robot Link Lengths (Normalized units, h_1 = h_2 = h_3 = h_4 = 1.0 -> scaled for canvas)
+        const LINK_SCALE = 50; 
+        const H = [1.0, 1.0, 1.0, 1.0].map(h => h * LINK_SCALE);
+
+        // Joint State Definition
+        const joints = [
+            { name: "θ₁: Base Yaw (+Z)", axis: "Z", angle: 0, min: -180, max: 180 },
+            { name: "θ₂: Shoulder Pitch (+Y)", axis: "Y", angle: 30, min: -120, max: 120 },
+            { name: "θ₃: Elbow Pitch (+Y)", axis: "Y", angle: -45, min: -150, max: 150 },
+            { name: "θ₄: Neck Pitch (+Y)", axis: "Y", angle: 15, min: -120, max: 120 },
+            { name: "θ₅: Head Yaw (+Z)", axis: "Z", angle: 0, min: -180, max: 180 }
+        ];
+
+        // External Wrench (Fs = [Mx, My, Mz, Fx, Fy, Fz]^T)
+        let F_ext = { fx: 0, fy: 0, fz: 0, mx: 0, my: 0, mz: 0 };
+
+        // Real-time calculated values
+        let Js = Array(6).fill(0).map(() => Array(5).fill(0));
+        let jointTorques = Array(5).fill(0);
+
+        // Canvas & 3D Camera Controls
+        const canvas = document.getElementById("robot-canvas");
+        const ctx = canvas.getContext("2d");
+        let camera = {
+            rotX: 25 * Math.PI / 180,
+            rotY: -35 * Math.PI / 180,
+            distance: 400,
+            panX: 0,
+            panY: -50,
+            isDragging: false,
+            lastX: 0,
+            lastY: 0
+        };
+
+        function initUI() {
+            // Build Joint Angle Sliders
+            const jointContainer = document.getElementById("joint-controls");
+            jointContainer.innerHTML = joints.map((j, i) => `
+                <div>
+                    <div class="flex justify-between text-xs text-slate-400 mb-1">
+                        <span class="font-medium text-slate-300">${j.name}</span>
+                        <span id="val-q${i}" class="font-mono text-indigo-400">${j.angle}°</span>
+                    </div>
+                    <input type="range" id="slider-q${i}" min="${j.min}" max="${j.max}" value="${j.angle}" step="1" 
+                        class="w-full accent-indigo-500 bg-slate-800 rounded-lg h-1.5">
+                </div>
+            `).join('');
+
+            // Build Torque Display Bars
+            const torqueContainer = document.getElementById("torque-display");
+            torqueContainer.innerHTML = joints.map((j, i) => `
+                <div class="bg-slate-800/60 p-2.5 rounded-lg border border-slate-800/80">
+                    <div class="flex justify-between text-xs mb-1">
+                        <span class="text-slate-300 font-medium">τ<sub>${i+1}</sub> (${j.axis})</span>
+                        <span id="txt-tau-${i}" class="font-mono text-slate-200">0.00 Nm</span>
+                    </div>
+                    <div class="w-full bg-slate-950 rounded-full h-2 overflow-hidden flex">
+                        <div id="bar-tau-${i}" class="h-full bg-emerald-500 transition-all duration-150 rounded-full" style="width: 0%"></div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Attach Joint Slider Listeners
+            joints.forEach((_, i) => {
+                const slider = document.getElementById(`slider-q${i}`);
+                slider.addEventListener("input", (e) => {
+                    joints[i].angle = parseFloat(e.target.value);
+                    document.getElementById(`val-q${i}`).textContent = `${joints[i].angle}°`;
+                    updateKinematicsAndStatics();
+                });
+            });
+
+            // External Force Slider Listeners
+            ['fx', 'fy', 'fz', 'mz'].forEach(key => {
+                const slider = document.getElementById(`slider-${key}`);
+                slider.addEventListener("input", (e) => {
+                    F_ext[key] = parseFloat(e.target.value);
+                    const unit = key.startsWith('m') ? 'Nm' : 'N';
+                    document.getElementById(`val-${key}`).textContent = `${F_ext[key]} ${unit}`;
+                    updateKinematicsAndStatics();
+                });
+            });
+
+            // Null Space Test Button
+            document.getElementById("btn-null-test").addEventListener("click", applyNullSpaceTest);
+
+            // Reset Button
+            document.getElementById("btn-reset").addEventListener("click", () => {
+                joints[0].angle = 0;
+                joints[1].angle = 0;
+                joints[2].angle = 0;
+                joints[3].angle = 0;
+                joints[4].angle = 0;
+
+                joints.forEach((j, i) => {
+                    document.getElementById(`slider-q${i}`).value = j.angle;
+                    document.getElementById(`val-q${i}`).textContent = `${j.angle}°`;
+                });
+
+                ['fx', 'fy', 'fz', 'mz'].forEach(k => {
+                    F_ext[k] = 0;
+                    document.getElementById(`slider-${k}`).value = 0;
+                    const unit = k.startsWith('m') ? 'Nm' : 'N';
+                    document.getElementById(`val-${k}`).textContent = `0 ${unit}`;
+                });
+
+                updateStatusBadge("System Reset", "All joint angles set to 0°, external forces cleared.", "emerald");
+                updateKinematicsAndStatics();
+            });
+
+            // Mouse Camera Interactions
+            canvas.addEventListener("mousedown", (e) => {
+                camera.isDragging = true;
+                camera.lastX = e.clientX;
+                camera.lastY = e.clientY;
+            });
+
+            window.addEventListener("mousemove", (e) => {
+                if (!camera.isDragging) return;
+                const dx = e.clientX - camera.lastX;
+                const dy = e.clientY - camera.lastY;
+                camera.rotY += dx * 0.008;
+                camera.rotX += dy * 0.008;
+                camera.rotX = Math.max(-Math.PI/2.2, Math.min(Math.PI/2.2, camera.rotX));
+                camera.lastX = e.clientX;
+                camera.lastY = e.clientY;
+                render();
+            });
+
+            window.addEventListener("mouseup", () => camera.isDragging = false);
+
+            canvas.addEventListener("wheel", (e) => {
+                e.preventDefault();
+                camera.distance += e.deltaY * 0.3;
+                camera.distance = Math.max(150, Math.min(800, camera.distance));
+                render();
+            });
+
+            window.addEventListener("resize", resizeCanvas);
+            resizeCanvas();
+        }
+
+        function resizeCanvas() {
+            const container = canvas.parentElement;
+            canvas.width = container.clientWidth;
+            canvas.height = container.clientHeight;
+            render();
+        }
+
+        function updateKinematicsAndStatics() {
+            const rad = joints.map(j => j.angle * Math.PI / 180);
+            const [q1, q2, q3, q4, q5] = rad;
+
+            // Trigonometric helpers
+            const s1 = Math.sin(q1), c1 = Math.cos(q1);
+            const s2 = Math.sin(q2), c2 = Math.cos(q2);
+            const s23 = Math.sin(q2 + q3), c23 = Math.cos(q2 + q3);
+            const s234 = Math.sin(q2 + q3 + q4), c234 = Math.cos(q2 + q3 + q4);
+
+            // Normalized link offsets (h = 1.0)
+            const h1 = 1.0, h2 = 1.0, h3 = 1.0, h4 = 1.0;
+
+            // Compute Column 5 elements (Head Yaw)
+            const w5 = [s1 * s234, -c1 * s234, c234];
+            
+            // Real-time joint 5 position for moment vector [p]R
+            const px = (h2 * s2 + h3 * s23 + h4 * s234) * c1;
+            const py = (h2 * s2 + h3 * s23 + h4 * s234) * s1;
+            const pz = h1 + h2 * c2 + h3 * c23 + h4 * c234;
+
+            const v5 = [
+                py * w5[2] - pz * w5[1],
+                pz * w5[0] - px * w5[2],
+                px * w5[1] - py * w5[0]
+            ];
+
+            // Space Jacobian J_s (6x5 Matrix)
+            Js = [
+                [0, -s1, -s1, -s1, w5[0]],
+                [0, c1, c1, c1, w5[1]],
+                [1, 0, 0, 0, w5[2]],
+                [0, -h1 * c1, -(h1 + h2 * c2) * c1, -(h1 + h2 * c2 + h3 * c23) * c1, v5[0]],
+                [0, -h1 * s1, -(h1 + h2 * c2) * s1, -(h1 + h2 * c2 + h3 * c23) * s1, v5[1]],
+                [0, 0, -h2 * s2, -(h2 * s2 + h3 * s23), v5[2]]
+            ];
+
+            // Wrench vector F_s = [Mx, My, Mz, Fx, Fy, Fz]^T
+            const Fs = [F_ext.mx, F_ext.my, F_ext.mz, F_ext.fx, F_ext.fy, F_ext.fz];
+
+            // Calculate Joint Torques: tau = J_s^T * F_s
+            jointTorques = Array(5).fill(0);
+            for (let j = 0; j < 5; j++) {
+                for (let i = 0; i < 6; i++) {
+                    jointTorques[j] += Js[i][j] * Fs[i];
+                }
+            }
+
+            updateMatrixTable();
+            updateTorqueUI();
+            render();
+        }
+
+        function applyNullSpaceTest() {
+            // Set arm straight out in line with the base
+            joints[0].angle = 0;
+            joints[1].angle = 0;
+            joints[2].angle = 0;
+            joints[3].angle = 0;
+            joints[4].angle = 0;
+
+            joints.forEach((j, i) => {
+                document.getElementById(`slider-q${i}`).value = j.angle;
+                document.getElementById(`val-q${i}`).textContent = `${j.angle}°`;
+            });
+
+            // Apply force strictly aligned along the straight link axis (Fx = 40 N)
+            // This axial force passes directly through the joint axes, producing ZERO joint torque!
+            F_ext.fx = 40; F_ext.fy = 0; F_ext.fz = 0; F_ext.mz = 0;
+
+            document.getElementById("slider-fx").value = 40;
+            document.getElementById("val-fx").textContent = "40 N";
+            document.getElementById("slider-fy").value = 0;
+            document.getElementById("val-fy").textContent = "0 N";
+            document.getElementById("slider-fz").value = 0;
+            document.getElementById("val-fz").textContent = "0 N";
+            document.getElementById("slider-mz").value = 0;
+            document.getElementById("val-mz").textContent = "0 Nm";
+
+            updateStatusBadge(
+                "Null Space Force Active!", 
+                "Axial force Fx=40N applied. Notice τ = [0, 0, 0, 0, 0]! Rigid arm structure passively bears force without motor consumption.",
+                "emerald"
+            );
+
+            updateKinematicsAndStatics();
+        }
+
+        function updateStatusBadge(title, desc, colorClass) {
+            const titleElem = document.getElementById("status-title");
+            const descElem = document.getElementById("status-desc");
+            const indicator = document.getElementById("status-indicator");
+
+            titleElem.textContent = title;
+            descElem.textContent = desc;
+
+            if (colorClass === "emerald") {
+                indicator.className = "w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse";
+            } else if (colorClass === "rose") {
+                indicator.className = "w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping";
+            } else {
+                indicator.className = "w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse";
+            }
+        }
+
+        function updateMatrixTable() {
+            const rowNames = ["ω_x", "ω_y", "ω_z", "v_x", "v_y", "v_z"];
+            const tbody = document.getElementById("jacobian-matrix-body");
+
+            tbody.innerHTML = Js.map((row, rIdx) => `
+                <tr class="hover:bg-slate-800/50 transition-colors">
+                    <td class="p-1 font-semibold text-slate-500 text-left">${rowNames[rIdx]}</td>
+                    ${row.map(val => `
+                        <td class="p-1 ${Math.abs(val) < 0.001 ? 'text-slate-600' : 'text-cyan-300'}">
+                            ${val.toFixed(2)}
+                        </td>
+                    `).join('')}
+                </tr>
+            `).join('');
+        }
+
+        function updateTorqueUI() {
+            const maxExpectedTorque = 100; // Normalization threshold
+
+            jointTorques.forEach((tau, i) => {
+                const txt = document.getElementById(`txt-tau-${i}`);
+                const bar = document.getElementById(`bar-tau-${i}`);
+                const absTau = Math.abs(tau);
+                const percent = Math.min(100, (absTau / maxExpectedTorque) * 100);
+
+                txt.textContent = `${tau.toFixed(2)} Nm`;
+
+                bar.style.width = `${percent}%`;
+                if (absTau < 0.05) {
+                    bar.className = "h-full bg-emerald-400 rounded-full transition-all duration-150";
+                } else if (absTau < 30) {
+                    bar.className = "h-full bg-indigo-500 rounded-full transition-all duration-150";
+                } else {
+                    bar.className = "h-full bg-rose-500 rounded-full transition-all duration-150";
+                }
+            });
+        }
+
+        function project3D(x, y, z) {
+            // Apply Camera Rotations
+            const cosY = Math.cos(camera.rotY), sinY = Math.sin(camera.rotY);
+            const cosX = Math.cos(camera.rotX), sinX = Math.sin(camera.rotX);
+
+            // Rotate around Y
+            let x1 = x * cosY - z * sinY;
+            let z1 = x * sinY + z * cosY;
+
+            // Rotate around X
+            let y2 = y * cosX - z1 * sinX;
+            let z2 = y * sinX + z1 * cosX;
+
+            // Perspective scale
+            const fov = camera.distance;
+            const scale = fov / (fov + z2);
+
+            return {
+                x: canvas.width / 2 + (x1 + camera.panX) * scale,
+                y: canvas.height / 2 - (y2 + camera.panY) * scale,
+                scale: scale,
+                z: z2
+            };
+        }
+
+        function render() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // 1. Draw Grid Floor
+            drawGrid();
+
+            // 2. Compute 3D Positions of Joints (Forward Kinematics)
+            const rad = joints.map(j => j.angle * Math.PI / 180);
+            const [q1, q2, q3, q4, q5] = rad;
+
+            // Compute positions
+            const pts = [];
+            pts.push({ x: 0, y: 0, z: 0 }); // Base Ground
+
+            // Joint 1: Base Yaw (+Z)
+            let currentP = { x: 0, y: H[0], z: 0 };
+            pts.push({ ...currentP });
+
+            // Joint 2: Shoulder Pitch (+Y) -> Link 1
+            const c1 = Math.cos(q1), s1 = Math.sin(q1);
+            const s2 = Math.sin(q2), c2 = Math.cos(q2);
+            currentP.x += H[1] * s2 * c1;
+            currentP.y += H[1] * c2;
+            currentP.z += H[1] * s2 * s1;
+            pts.push({ ...currentP });
+
+            // Joint 3: Elbow Pitch (+Y) -> Link 2
+            const s23 = Math.sin(q2 + q3), c23 = Math.cos(q2 + q3);
+            currentP.x += H[2] * s23 * c1;
+            currentP.y += H[2] * c23;
+            currentP.z += H[2] * s23 * s1;
+            pts.push({ ...currentP });
+
+            // Joint 4: Neck Pitch (+Y) -> Link 3
+            const s234 = Math.sin(q2 + q3 + q4), c234 = Math.cos(q2 + q3 + q4);
+            currentP.x += H[3] * s234 * c1;
+            currentP.y += H[3] * c234;
+            currentP.z += H[3] * s234 * s1;
+            pts.push({ ...currentP });
+
+            // Joint 5: End-Effector Head
+            const eeLength = 30;
+            const eeP = {
+                x: currentP.x + eeLength * s234 * c1,
+                y: currentP.y + eeLength * c234,
+                z: currentP.z + eeLength * s234 * s1
+            };
+            pts.push({ ...eeP });
+
+            // Project Points to 2D Screen
+            const projPts = pts.map(p => project3D(p.x, p.y, p.z));
+
+            // Draw Robot Links
+            for (let i = 0; i < projPts.length - 1; i++) {
+                const pA = projPts[i];
+                const pB = projPts[i + 1];
+
+                // Determine color based on joint torque load
+                const loadIndex = Math.min(i, 4);
+                const absTau = Math.abs(jointTorques[loadIndex]);
+                
+                let linkColor = "#6366f1"; // Default Indigo
+                if (absTau < 0.1 && (F_ext.fx !== 0 || F_ext.fy !== 0 || F_ext.fz !== 0)) {
+                    linkColor = "#10b981"; // Emerald green for Passive Resistance!
+                } else if (absTau > 30) {
+                    linkColor = "#f43f5e"; // Glowing red for high stress
+                }
+
+                ctx.save();
+                ctx.beginPath();
+                ctx.moveTo(pA.x, pA.y);
+                ctx.lineTo(pB.x, pB.y);
+                ctx.lineWidth = 8 * pA.scale;
+                ctx.strokeStyle = linkColor;
+                ctx.lineCap = "round";
+                ctx.shadowColor = linkColor;
+                ctx.shadowBlur = 12;
+                ctx.stroke();
+                ctx.restore();
+            }
+
+            // Draw Joints (Spheres)
+            projPts.forEach((p, idx) => {
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, (idx === 0 ? 12 : 8) * p.scale, 0, Math.PI * 2);
+                ctx.fillStyle = idx === projPts.length - 1 ? "#f59e0b" : "#38bdf8";
+                ctx.fill();
+                ctx.lineWidth = 2 * p.scale;
+                ctx.strokeStyle = "#0f172a";
+                ctx.stroke();
+                ctx.restore();
+            });
+
+            // Draw External Force Vector Arrow at End-Effector
+            if (F_ext.fx !== 0 || F_ext.fy !== 0 || F_ext.fz !== 0) {
+                const ee = pts[pts.length - 1];
+                const forceScale = 1.2;
+                const arrowEnd = {
+                    x: ee.x + F_ext.fx * forceScale,
+                    y: ee.y + F_ext.fz * forceScale, // Swap Y/Z for visualization clarity
+                    z: ee.z + F_ext.fy * forceScale
+                };
+
+                const pStart = project3D(ee.x, ee.y, ee.z);
+                const pEnd = project3D(arrowEnd.x, arrowEnd.y, arrowEnd.z);
+
+                ctx.save();
+                ctx.beginPath();
+                ctx.moveTo(pStart.x, pStart.y);
+                ctx.lineTo(pEnd.x, pEnd.y);
+                ctx.lineWidth = 4 * pStart.scale;
+                ctx.strokeStyle = "#f43f5e";
+                ctx.stroke();
+
+                // Arrowhead
+                const angle = Math.atan2(pEnd.y - pStart.y, pEnd.x - pStart.x);
+                ctx.beginPath();
+                ctx.moveTo(pEnd.x, pEnd.y);
+                ctx.lineTo(pEnd.x - 12 * Math.cos(angle - Math.PI / 6), pEnd.y - 12 * Math.sin(angle - Math.PI / 6));
+                ctx.lineTo(pEnd.x - 12 * Math.cos(angle + Math.PI / 6), pEnd.y - 12 * Math.sin(angle + Math.PI / 6));
+                ctx.closePath();
+                ctx.fillStyle = "#f43f5e";
+                ctx.fill();
+
+                // Force Label
+                ctx.font = "11px Inter";
+                ctx.fillStyle = "#fb7185";
+                ctx.fillText("F_ext", pEnd.x + 8, pEnd.y - 8);
+                ctx.restore();
+            }
+        }
+
+        function drawGrid() {
+            const size = 300;
+            const step = 30;
+
+            ctx.save();
+            ctx.strokeStyle = "#1e293b";
+            ctx.lineWidth = 1;
+
+            for (let i = -size; i <= size; i += step) {
+                // X-parallel lines
+                let p1 = project3D(-size, 0, i);
+                let p2 = project3D(size, 0, i);
+                ctx.beginPath();
+                ctx.moveTo(p1.x, p1.y);
+                ctx.lineTo(p2.x, p2.y);
+                ctx.stroke();
+
+                // Z-parallel lines
+                p1 = project3D(i, 0, -size);
+                p2 = project3D(i, 0, size);
+                ctx.beginPath();
+                ctx.moveTo(p1.x, p1.y);
+                ctx.lineTo(p2.x, p2.y);
+                ctx.stroke();
+            }
+            ctx.restore();
+        }
+
+        // Initialize Application on Load
+        window.onload = () => {
+            initUI();
+            updateKinematicsAndStatics();
+        };
+    </script>
+</body>
+</html>

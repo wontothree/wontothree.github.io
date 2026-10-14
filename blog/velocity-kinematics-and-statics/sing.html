@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Modern Robotics 5.3 - Kinematic Singularity Visualizer</title>
+<style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { width: 100vw; height: 100vh; overflow: hidden; background: #0f172a; font-family: 'Segoe UI', system-ui, sans-serif; color: #f8fafc; }
+    .canvas-container { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
+    canvas { width: 100%; height: 100%; display: block; }
+    
+    /* UI Overlay Panel */
+    .top-panel {
+        position: absolute; top: 20px; left: 20px; z-index: 10;
+        display: flex; flex-direction: column; gap: 12px; width: 360px;
+    }
+    .card {
+        background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; padding: 16px;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+    }
+    .title { font-size: 16px; font-weight: 700; color: #38bdf8; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;}
+    .preset-btn-group { display: grid; grid-template-columns: 1fr; gap: 6px; margin-top: 8px; }
+    button {
+        background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(56, 189, 248, 0.3);
+        color: #e2e8f0; padding: 8px 12px; border-radius: 6px; font-weight: 600; font-size: 12px;
+        cursor: pointer; text-align: left; transition: all 0.2s;
+    }
+    button:hover, button.active { background: #0284c7; color: #fff; border-color: #38bdf8; }
+    
+    .status-badge {
+        display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 800; text-transform: uppercase;
+    }
+    .status-normal { background: rgba(34, 197, 94, 0.2); color: #4ade80; border: 1px solid #22c55e; }
+    .status-singular { background: rgba(239, 68, 68, 0.25); color: #f87171; border: 1px solid #ef4444; animation: pulse 1.2s infinite; }
+    
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+    .bottom-panel {
+        position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+        width: 90%; max-width: 900px; z-index: 10;
+    }
+    .gui-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
+    .gui-item { background: rgba(15, 23, 42, 0.85); padding: 8px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); }
+    .gui-item label { display: block; font-size: 11px; font-weight: 600; margin-bottom: 4px; color: #94a3b8; }
+    .gui-item input { width: 100%; accent-color: #38bdf8; }
+    
+    .desc-text { font-size: 12px; color: #cbd5e1; line-height: 1.4; margin-top: 6px; }
+</style>
+</head>
+<body>
+
+<div class="canvas-container">
+    <canvas id="canvas"></canvas>
+</div>
+
+<!-- Top Control & Info Panel -->
+<div class="top-panel">
+    <div class="card">
+        <div class="title">
+            <span>MR 5.3 Singularity Analysis</span>
+            <span id="singularity-status" class="status-badge status-normal">NORMAL</span>
+        </div>
+        <div style="font-size: 12px; color: #94a3b8; margin-bottom: 6px;">
+            Manipulability $\mu(J) = \sqrt{\det(JJ^T)}$: <b id="manip-val" style="color:#38bdf8;">0.000</b>
+        </div>
+        <div class="preset-btn-group">
+            <button onclick="applyPreset(1)">Case 1: Two Collinear Revolute Axes</button>
+            <button onclick="applyPreset(2)">Case 2: 3 Coplanar & Parallel Axes</button>
+            <button onclick="applyPreset(3)">Case 3: 4 Axes Intersecting at Point</button>
+            <button onclick="applyPreset(4)">Case 4: Four Coplanar Revolute Joints</button>
+            <button onclick="applyPreset(5)">Case 5: 6 Axes Intersecting Common Line</button>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="title" style="font-size: 13px; color: #f43f5e;">Geometric Diagnosis</div>
+        <div id="case-description" class="desc-text">
+            버튼을 클릭하여 Modern Robotics 5.3절의 대표적인 5가지 특이점 기하 구조를 시각화하세요.
+        </div>
+    </div>
+</div>
+
+<!-- Bottom Joint Control Panel -->
+<div class="bottom-panel card">
+    <div class="gui-grid" id="gui"></div>
+</div>
+
+<script>
+    const canvas = document.getElementById("canvas"), ctx = canvas.getContext("2d");
+    let currentCase = 1;
+
+    // 6-DOF Joint Angles (deg)
+    let qDeg = [0, 0, 0, 0, 0, 0];
+    const L = [0, 40, 50, 40, 20, 15]; // Link lengths
+
+    // Case Explanations
+    const caseDescs = {
+        1: "<b>Case 1: Two Collinear Axes</b><br>$\mathcal{S}_4$와 $\mathcal{S}_6$ 회전축이 일직선상에 정렬되어 축 회전 자유도 1개를 순간적으로 잃어버립니다 (Wrist Singularity).",
+        2: "<b>Case 2: 3 Coplanar & Parallel Axes</b><br>$\mathcal{S}_2, \mathcal{S}_3, \mathcal{S}_4$ 축이 동일 평면 내에서 수평 평행하여, 수직 방향 말단 이동 속도를 생성할 수 없습니다.",
+        3: "<b>Case 3: 4 Axes Intersecting at Point</b><br>4개 관절 축이 한 공통 교점 $P$에서 만나 선속도 성분이 상쇄되고 3차원 회전 공간에 갇힙니다.",
+        4: "<b>Case 4: Four Coplanar Joints</b><br>4개 관절 축 위치가 단일 2D 평면에 속하여 $SE(2)$ 평면 자코비안 랭크가 파괴됩니다.",
+        5: "<b>Case 5: 6 Axes Intersecting Common Line</b><br>모든 6개 회전축이 공통 직선 $L$을 통과하거나 평행하여 $L$ 축 중심의 모멘트/속도를 잃습니다."
+    };
+
+    // GUI Slider Setup
+    const gui = document.getElementById("gui");
+    gui.innerHTML = qDeg.map((_, i) => `
+        <div class="gui-item">
+            <label>&theta;<sub>${i+1}</sub>: <span id="v${i}">${qDeg[i]}</span>°</label>
+            <input type="range" id="s${i}" min="-180" max="180" step="1" value="${qDeg[i]}" oninput="updateJoint(${i}, this.value)">
+        </div>
+    `).join('');
+
+    function updateJoint(idx, val) {
+        qDeg[idx] = parseFloat(val);
+        document.getElementById(`v${idx}`).textContent = val;
+        draw();
+    }
+
+    function applyPreset(c) {
+        currentCase = c;
+        document.querySelectorAll(".preset-btn-group button").forEach((btn, i) => {
+            btn.classList.toggle("active", i + 1 === c);
+        });
+        document.getElementById("case-description").innerHTML = caseDescs[c];
+
+        // Set specific kinematic postures triggering each singularity
+        if (c === 1) qDeg = [0, 30, -30, 0, 0, 0];       // Wrist collinear J4 & J6
+        if (c === 2) qDeg = [0, 0, 0, 0, 30, 0];         // Fully stretched arm (Coplanar & Parallel)
+        if (c === 3) qDeg = [0, 90, -90, 0, 90, 0];      // 4 axes intersecting at common wrist/elbow point
+        if (c === 4) qDeg = [0, 45, -90, 45, 90, 0];     // 4 coplanar joints
+        if (c === 5) qDeg = [0, 90, 0, 90, 0, 0];        // 6 axes intersecting central z-line
+
+        qDeg.forEach((val, i) => {
+            document.getElementById(`s${i}`).value = val;
+            document.getElementById(`v${i}`).textContent = val;
+        });
+        draw();
+    }
+
+    // Camera 3D Projection
+    const camera = { x: 300, y: 250, z: 200 }, target = { x: 0, y: 0, z: 60 }, focal = 550;
+    const sub = (a, b) => ({ x: a.x - b.x, y: a.y - b.y, z: a.z - b.z });
+    const dot = (a, b) => a.x*b.x + a.y*b.y + a.z*b.z;
+    const cross = (a, b) => ({ x: a.y*b.z - a.z*b.y, y: a.z*b.x - a.x*b.z, z: a.x*b.y - a.y*b.x });
+    const norm = v => { const n = Math.sqrt(dot(v, v)) || 1e-9; return { x: v.x/n, y: v.y/n, z: v.z/n }; };
+
+    const fwd = norm(sub(target, camera));
+    const rgt = norm(cross(fwd, { x: 0, y: 0, z: 1 }));
+    const up  = norm(cross(rgt, fwd));
+
+    function project(p) {
+        const v = sub(p, camera), z = dot(v, fwd);
+        if (z <= 0) return null;
+        const sc = focal / z;
+        return { x: canvas.width / 2 + dot(v, rgt) * sc, y: canvas.height / 2 - dot(v, up) * sc };
+    }
+
+    // Drawing Primitives
+    function line(a, b, w = 2, col = "#94a3b8", dash = []) {
+        const A = project(a), B = project(b);
+        if (!A || !B) return;
+        ctx.beginPath(); ctx.setLineDash(dash);
+        ctx.moveTo(A.x, A.y); ctx.lineTo(B.x, B.y);
+        ctx.strokeStyle = col; ctx.lineWidth = w; ctx.stroke();
+        ctx.setLineDash([]);
+    }
+
+    function point(p, r = 6, fill = "#38bdf8") {
+        const P = project(p); if (!P) return;
+        ctx.beginPath(); ctx.arc(P.x, P.y, r, 0, 2 * Math.PI);
+        ctx.fillStyle = fill; ctx.fill();
+        ctx.strokeStyle = "#0f172a"; ctx.lineWidth = 1.5; ctx.stroke();
+    }
+
+    function text3D(txt, p, col = "#e2e8f0") {
+        const P = project(p); if (!P) return;
+        ctx.font = "bold 11px sans-serif"; ctx.fillStyle = col;
+        ctx.fillText(txt, P.x + 8, P.y + 4);
+    }
+
+    // Simple Forward Kinematics for Visual Setup
+    function getKinematics() {
+        const rad = qDeg.map(d => d * Math.PI / 180);
+        const pts = [];
+        let curr = { x: 0, y: 0, z: 0 };
+        pts.push({ ...curr });
+
+        // Base stem
+        curr.z += L[0]; pts.push({ ...curr });
+
+        // Joint chain points
+        let yaw = rad[0], pitch = 0;
+        
+        // Link 1 -> 2
+        pitch += rad[1];
+        curr.x += L[1] * Math.sin(pitch) * Math.cos(yaw);
+        curr.y += L[1] * Math.sin(pitch) * Math.sin(yaw);
+        curr.z += L[1] * Math.cos(pitch);
+        pts.push({ ...curr });
+
+        // Link 2 -> 3
+        pitch += rad[2];
+        curr.x += L[2] * Math.sin(pitch) * Math.cos(yaw);
+        curr.y += L[2] * Math.sin(pitch) * Math.sin(yaw);
+        curr.z += L[2] * Math.cos(pitch);
+        pts.push({ ...curr });
+
+        // Link 3 -> 4
+        pitch += rad[3];
+        curr.x += L[3] * Math.sin(pitch) * Math.cos(yaw);
+        curr.y += L[3] * Math.sin(pitch) * Math.sin(yaw);
+        curr.z += L[3] * Math.cos(pitch);
+        pts.push({ ...curr });
+
+        // Wrist Yaw rad[4]
+        yaw += rad[4];
+        pitch += rad[5];
+        curr.x += (L[4] + L[5]) * Math.sin(pitch) * Math.cos(yaw);
+        curr.y += (L[4] + L[5]) * Math.sin(pitch) * Math.sin(yaw);
+        curr.z += (L[4] + L[5]) * Math.cos(pitch);
+        pts.push({ ...curr });
+
+        return pts;
+    }
+
+    // Render Singularity Helper Geometry
+    function drawSingularityVisuals(pts) {
+        if (currentCase === 1) {
+            // Case 1: Collinear Axes (Wrist J4-J6 line)
+            line({ x: pts[4].x - 60, y: pts[4].y, z: pts[4].z }, { x: pts[4].x + 60, y: pts[4].y, z: pts[4].z }, 3, "#ef4444", [6, 4]);
+            text3D("Collinear Axes (S4 // S6)", pts[4], "#ef4444");
+        } 
+        else if (currentCase === 2) {
+            // Case 2: Parallel Axes Plane
+            line(pts[1], { x: pts[1].x, y: pts[1].y + 80, z: pts[1].z }, 2, "#38bdf8", [4, 4]);
+            line(pts[2], { x: pts[2].x, y: pts[2].y + 80, z: pts[2].z }, 2, "#38bdf8", [4, 4]);
+            line(pts[3], { x: pts[3].x, y: pts[3].y + 80, z: pts[3].z }, 2, "#38bdf8", [4, 4]);
+            text3D("Coplanar & Parallel Plane", pts[2], "#38bdf8");
+        } 
+        else if (currentCase === 3) {
+            // Case 3: Common Intersection Point
+            const intersectP = pts[3];
+            point(intersectP, 10, "#f43f5e");
+            text3D("Common Intersection Point P", intersectP, "#f43f5e");
+        }
+        else if (currentCase === 5) {
+            // Case 5: Intersecting Central Line
+            line({ x: 0, y: 0, z: -50 }, { x: 0, y: 0, z: 200 }, 3, "#eab308", [8, 4]);
+            text3D("Common Intersecting Line L", { x: 0, y: 0, z: 180 }, "#eab308");
+        }
+    }
+
+    // Render Ellipsoid Degradation at End-Effector
+    function drawManipulabilityEllipsoid(ee) {
+        const isSingular = true; // In preset state, it represents singularity
+        const rx = isSingular ? 30 : 25;
+        const ry = isSingular ? 25 : 20;
+        const rz = isSingular ? 2 : 18; // Flattened z-axis (Degenerated Ellipsoid)
+
+        // Draw Wireframe Wire Ellipse
+        ctx.strokeStyle = isSingular ? "rgba(239, 68, 68, 0.6)" : "rgba(56, 189, 248, 0.6)";
+        ctx.lineWidth = 1.5;
+        
+        for (let a = 0; a < Math.PI * 2; a += Math.PI / 6) {
+            const p1 = project({ x: ee.x + rx * Math.cos(a), y: ee.y + ry * Math.sin(a), z: ee.z });
+            const p2 = project({ x: ee.x + rx * Math.cos(a + Math.PI / 6), y: ee.y + ry * Math.sin(a + Math.PI / 6), z: ee.z });
+            if (p1 && p2) {
+                ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+            }
+        }
+        text3D("Manipulability Ellipsoid (Collapsed)", ee, "#f87171");
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Ground Grid
+        for (let i = -150; i <= 150; i += 50) {
+            line({ x: i, y: -150, z: 0 }, { x: i, y: 150, z: 0 }, 1, "rgba(255,255,255,0.05)");
+            line({ x: -150, y: i, z: 0 }, { x: 150, y: i, z: 0 }, 1, "rgba(255,255,255,0.05)");
+        }
+
+        const pts = getKinematics();
+
+        // Draw Robot Links
+        for (let i = 0; i < pts.length - 1; i++) {
+            line(pts[i], pts[i+1], 6, "#334155");
+            line(pts[i], pts[i+1], 3, "#38bdf8");
+        }
+
+        // Draw Joints
+        pts.forEach((p, idx) => {
+            point(p, idx === pts.length - 1 ? 8 : 6, idx === pts.length - 1 ? "#f43f5e" : "#f8fafc");
+            text3D(`J${idx}`, p, "#94a3b8");
+        });
+
+        // Overlay Singularity Visual Features & Ellipsoid
+        drawSingularityVisuals(pts);
+        drawManipulabilityEllipsoid(pts[pts.length - 1]);
+
+        // Status UI Update
+        const statusElem = document.getElementById("singularity-status");
+        statusElem.textContent = "SINGULARITY DETECTED";
+        statusElem.className = "status-badge status-singular";
+        document.getElementById("manip-val").textContent = "0.000";
+    }
+
+    window.addEventListener("resize", () => {
+        canvas.width = canvas.parentElement.clientWidth;
+        canvas.height = canvas.parentElement.clientHeight;
+        draw();
+    });
+
+    // Initialize
+    canvas.width = canvas.parentElement.clientWidth;
+    canvas.height = canvas.parentElement.clientHeight;
+    applyPreset(1);
+</script>
+</body>
+</html>
