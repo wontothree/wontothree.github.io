@@ -14,8 +14,8 @@
 <div class="bottom-panel">
     <div class="jacobian-card">
         <div class="jacobian-header">
-            <div class="jacobian-title">Velocity Kinematics</div>
-            <div class="manipulability-badge" id="manipulability-val">w = 0.000</div>
+            <div class="jacobian-title">Velocity Kinematics with Space Jacobian</div>
+            <div class="manipulability-badge" id="manipulability-val">&mu;<sub>1</sub> = 1.000 &nbsp;|&nbsp; w = 0.000</div>
         </div>
         
         <div class="equation-container">
@@ -61,10 +61,58 @@
     </div>
 </div>
 
+
+
 <div class="bottom-panel">
+    <!-- 2. Force Statics Matrix Card (tau = J^T * F 연산 결과 시각화) -->
+    <div class="jacobian-card">
+        <div class="jacobian-header">
+            <div class="jacobian-title">Force Statics</div>
+            <div class="manipulability-badge" id="manipulability-val">&mu;<sub>3</sub> = 1.000</div>
+        </div>
+        
+        <div class="equation-container">
+            <!-- 2-1. Joint Torque Vector tau (5x1) -->
+            <table class="matrix-table" style="align-self: flex-start;">
+                <thead>
+                    <tr><th style="width:28px;"></th><th>&tau;</th></tr>
+                </thead>
+                <tbody id="torque-body"></tbody>
+            </table>
+
+            <div class="operator">=</div>
+
+            <!-- 2-2. Transposed Space Jacobian J^T (5x6) -->
+            <table class="matrix-table">
+                <thead>
+                    <tr>
+                        <th style="width:36px;">&omega;<sub>x</sub></th>
+                        <th style="width:36px;">&omega;<sub>y</sub></th>
+                        <th style="width:36px;">&omega;<sub>z</sub></th>
+                        <th style="width:36px;">v<sub>x</sub></th>
+                        <th style="width:36px;">v<sub>y</sub></th>
+                        <th style="width:36px;">v<sub>z</sub></th>
+                    </tr>
+                </thead>
+                <tbody id="jacobian-transpose-body"></tbody>
+            </table>
+
+            <div class="operator">&middot;</div>
+
+            <!-- 2-3. Space Wrench F_s (6x1) -->
+            <table class="matrix-table">
+                <thead>
+                    <tr><th style="width:28px;"></th><th>𝓕<sub>s</sub></th></tr>
+                </thead>
+                <tbody id="wrench-matrix-body"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 1. External Wrench Slider Control Card (기존 ID 유지하여 JS 에러 방지) -->
     <div class="gui-card wrench-card">
         <div class="jacobian-header">
-            <div class="jacobian-title">External Wrench</div>
+            <div class="jacobian-title">External Wrench Control</div>
             <div class="manipulability-badge" id="wrench-norm">
                 ‖F‖ = 0.00
             </div>
@@ -75,63 +123,56 @@
                 <label for="wrench-fx">
                     Fx (N): <span id="value-fx">0</span>
                 </label>
-                <input type="range" id="wrench-fx"
-                       min="-50" max="50" step="1" value="0">
+                <input type="range" id="wrench-fx" min="-50" max="50" step="1" value="0">
             </div>
 
             <div class="wrench-item">
                 <label for="wrench-fy">
                     Fy (N): <span id="value-fy">0</span>
                 </label>
-                <input type="range" id="wrench-fy"
-                       min="-50" max="50" step="1" value="0">
+                <input type="range" id="wrench-fy" min="-50" max="50" step="1" value="0">
             </div>
 
             <div class="wrench-item">
                 <label for="wrench-fz">
                     Fz (N): <span id="value-fz">0</span>
                 </label>
-                <input type="range" id="wrench-fz"
-                       min="-50" max="50" step="1" value="0">
+                <input type="range" id="wrench-fz" min="-50" max="50" step="1" value="0">
             </div>
 
             <div class="wrench-item">
                 <label for="wrench-mx">
                     Mx (N·m): <span id="value-mx">0</span>
                 </label>
-                <input type="range" id="wrench-mx"
-                       min="-20" max="20" step="0.5" value="0">
+                <input type="range" id="wrench-mx" min="-20" max="20" step="0.5" value="0">
             </div>
 
             <div class="wrench-item">
                 <label for="wrench-my">
                     My (N·m): <span id="value-my">0</span>
                 </label>
-                <input type="range" id="wrench-my"
-                       min="-20" max="20" step="0.5" value="0">
+                <input type="range" id="wrench-my" min="-20" max="20" step="0.5" value="0">
             </div>
 
             <div class="wrench-item">
                 <label for="wrench-mz">
                     Mz (N·m): <span id="value-mz">0</span>
                 </label>
-                <input type="range" id="wrench-mz"
-                       min="-20" max="20" step="0.5" value="0">
+                <input type="range" id="wrench-mz" min="-20" max="20" step="0.5" value="0">
             </div>
         </div>
-
+<!-- 
         <div class="wrench-output">
             <strong>Wrench vector</strong>
             <code id="wrench-vector">
                 [0, 0, 0, 0, 0, 0]ᵀ
             </code>
-        </div>
+        </div> -->
 
-        <button type="button" class="reset-btn"
-                id="reset-wrench">
+        <button type="button" class="reset-btn" id="reset-wrench">
             Reset Wrench
         </button>
-    </div>
+    </div>  
 </div>
 <script src="logic.js" defer></script>
 </body>

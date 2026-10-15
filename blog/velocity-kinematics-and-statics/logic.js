@@ -23,6 +23,70 @@ class RobotEngine {
         };
     }
 
+    /** Symmetric 3x3 Matrix Eigen Decomposition (Jacobi Algorithm) */
+    static solveEigen3x3(A) {
+        let V = [[1, 0, 0], [0, 1, 0], [0, 0, 1]];
+        let D = [
+            [A[0][0], A[0][1], A[0][2]],
+            [A[1][0], A[1][1], A[1][2]],
+            [A[2][0], A[2][1], A[2][2]]
+        ];
+
+        for (let iter = 0; iter < 15; iter++) {
+            let p = 0, q = 1;
+            let max = Math.abs(D[0][1]);
+            if (Math.abs(D[0][2]) > max) { max = Math.abs(D[0][2]); p = 0; q = 2; }
+            if (Math.abs(D[1][2]) > max) { max = Math.abs(D[1][2]); p = 1; q = 2; }
+
+            if (max < 1e-9) break;
+
+            let diff = D[q][q] - D[p][p];
+            let t;
+            if (Math.abs(D[p][q]) < 1e-11) {
+                t = 0;
+            } else {
+                let phi = diff / (2 * D[p][q]);
+                t = 1 / (Math.abs(phi) + Math.sqrt(phi * phi + 1));
+                if (phi < 0) t = -t;
+            }
+
+            let c = 1 / Math.sqrt(t * t + 1);
+            let s = t * c;
+            let tau = s / (1 + c);
+
+            let temp = D[p][q];
+            D[p][q] = 0;
+            D[q][p] = 0;
+            D[p][p] -= t * temp;
+            D[q][q] += t * temp;
+
+            for (let i = 0; i < 3; i++) {
+                if (i !== p && i !== q) {
+                    let g = D[i][p], h = D[i][q];
+                    D[i][p] = g - s * (h + g * tau);
+                    D[p][i] = D[i][p];
+                    D[i][q] = h + s * (g - h * tau);
+                    D[q][i] = D[i][q];
+                }
+            }
+
+            for (let i = 0; i < 3; i++) {
+                let g = V[i][p], h = V[i][q];
+                V[i][p] = g - s * (h + g * tau);
+                V[i][q] = h + s * (g - h * tau);
+            }
+        }
+
+        return {
+            values: [D[0][0], D[1][1], D[2][2]],
+            vectors: [
+                { x: V[0][0], y: V[1][0], z: V[2][0] },
+                { x: V[0][1], y: V[1][1], z: V[2][1] },
+                { x: V[0][2], y: V[1][2], z: V[2][2] }
+            ]
+        };
+    }
+
     /** Forward Kinematics & Joint Position/Axis Calculation */
     computeFK(qDeg) {
         const qRad = qDeg.map(d => (d * Math.PI) / 180);
@@ -105,7 +169,7 @@ class RobotEngine {
             J[5][i] = v.z;
         }
 
-        // 2. Manipulability Index (w)
+        // 2. Manipulability Index (w) & Linear Velocity J_v * J_v^T
         const JJT = this.JJT;
         for (let r = 0; r < 3; r++) {
             for (let c = 0; c < 3; c++) {
@@ -124,6 +188,23 @@ class RobotEngine {
         );
         const w = Math.sqrt(detJJT);
 
+        // 2.1 Compute Eigenvalues & Eigenvectors for Manipulability Ellipsoid
+        const eigen = RobotEngine.solveEigen3x3(JJT);
+        const sortedValues = [...eigen.values].map(v => Math.max(0, v)).sort((a, b) => b - a);
+
+        const lambdaMax = sortedValues[0];
+        const lambdaMin = sortedValues[2];
+
+        const condNum = (lambdaMin > 1e-8 && lambdaMax > 1e-8) 
+            ? Math.sqrt(lambdaMax / lambdaMin) 
+            : Infinity;
+
+        const ellipsoid = {
+            radii: sortedValues.map(v => Math.sqrt(v)),
+            axes: eigen.vectors
+        };
+
+
         // 3. End-Effector Twist V = J * qDot
         const V = this.V;
         V.fill(0);
@@ -135,7 +216,6 @@ class RobotEngine {
         }
 
         // 4. Joint Torque Calculation: tau = J^T * W
-        // Wrench W = [Mx, My, Mz, Fx, Fy, Fz]^T (Aligned with J row structure)
         const W = [
             wrench.mx, wrench.my, wrench.mz,
             wrench.fx, wrench.fy, wrench.fz
@@ -144,19 +224,18 @@ class RobotEngine {
         for (let j = 0; j < 5; j++) {
             let t = 0;
             for (let r = 0; r < 6; r++) {
-                // Apply length normalization (/100) for linear velocity Jacobian (cm -> m)
                 const jScale = r >= 3 ? J[r][j] / 100.0 : J[r][j];
                 t += jScale * W[r];
             }
             tau[j] = t;
         }
 
-        return { points, axes, J, V, w, tau };
+        return { points, axes, J, V, w, condNum, tau, ellipsoid };
     }
 }
 
 /* ==========================================================================
-2. Canvas 3D View Renderer (Enhanced Rotation Axis & Wrench/Torque Visualization)
+2. Canvas 3D View Renderer
    ========================================================================== */
 class RobotRenderer {
     constructor(canvas) {
@@ -231,12 +310,9 @@ class RobotRenderer {
         this.ctx.fillText(txt, P.x + 6, P.y + 4);
     }
 
-    /** Draw intuitive 3D rotation arc around joint axis */
     drawRotationArrow(center, axis, angle, radius = 16) {
         const a = axis;
-        const ref = Math.abs(a.z) < 0.9
-            ? { x: 0, y: 0, z: 1 }
-            : { x: 0, y: 1, z: 0 };
+        const ref = Math.abs(a.z) < 0.9 ? { x: 0, y: 0, z: 1 } : { x: 0, y: 1, z: 0 };
 
         const cross = (u, v) => ({
             x: u.y * v.z - u.z * v.y,
@@ -269,15 +345,73 @@ class RobotRenderer {
             this.line(points[i], points[i + 1], 2, "#ff7700");
         }
 
-        this.arrow(
-            points[points.length - 2],
-            points[points.length - 1],
-            2,
-            "#ff7700"
-        );
+        this.arrow(points[points.length - 2], points[points.length - 1], 2, "#ff7700");
     }
 
-    draw(points, axes, activeJointIndex, wrench, tau, qDeg) {
+    /** 3D Manipulability Ellipsoid Renderer */
+    drawEllipsoid(center, ellipsoid, scale = 35) {
+        const { radii, axes } = ellipsoid;
+        const latSteps = 12, lonSteps = 24;
+        const gridPoints = [];
+
+        // 1. Principal Axes
+        const colors = ["#e03131", "#2f9e44", "#1971c2"];
+        for (let i = 0; i < 3; i++) {
+            const len = radii[i] * scale;
+            if (len < 1e-3) continue;
+            const dir = axes[i];
+            const p1 = {
+                x: center.x + dir.x * len,
+                y: center.y + dir.y * len,
+                z: center.z + dir.z * len
+            };
+            const p2 = {
+                x: center.x - dir.x * len,
+                y: center.y - dir.y * len,
+                z: center.z - dir.z * len
+            };
+            this.line(p2, p1, 2, colors[i]);
+        }
+
+        // 2. Wireframe Surface Mesh
+        for (let i = 0; i <= latSteps; i++) {
+            const theta = (i * Math.PI) / latSteps; // 0 to pi
+            const sinT = Math.sin(theta), cosT = Math.cos(theta);
+            const row = [];
+
+            for (let j = 0; j <= lonSteps; j++) {
+                const phi = (j * 2 * Math.PI) / lonSteps; // 0 to 2pi
+                const sinP = Math.sin(phi), cosP = Math.cos(phi);
+
+                // Parametric sphere coordinates mapped by principal axes
+                const dx = radii[0] * sinT * cosP;
+                const dy = radii[1] * sinT * sinP;
+                const dz = radii[2] * cosT;
+
+                const worldX = center.x + scale * (axes[0].x * dx + axes[1].x * dy + axes[2].x * dz);
+                const worldY = center.y + scale * (axes[0].y * dx + axes[1].y * dy + axes[2].y * dz);
+                const worldZ = center.z + scale * (axes[0].z * dx + axes[1].z * dy + axes[2].z * dz);
+
+                row.push({ x: worldX, y: worldY, z: worldZ });
+            }
+            gridPoints.push(row);
+        }
+
+        // Render Latitude & Longitude Circles
+        const meshCol = "rgba(0, 180, 216, 0.35)";
+        for (let i = 0; i <= latSteps; i++) {
+            for (let j = 0; j < lonSteps; j++) {
+                this.line(gridPoints[i][j], gridPoints[i][j + 1], 1, meshCol);
+            }
+        }
+        for (let j = 0; j <= lonSteps; j++) {
+            for (let i = 0; i < latSteps; i++) {
+                this.line(gridPoints[i][j], gridPoints[i + 1][j], 1, meshCol);
+            }
+        }
+    }
+
+    draw(points, axes, activeJointIndex, wrench, tau, qDeg, ellipsoid) {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         // World Axes
@@ -302,6 +436,11 @@ class RobotRenderer {
         this.line(P.j5P, P.head, 3, "black");
         this.point(P.head, 6, "#598be7");
 
+        // Render Linear Velocity Manipulability Ellipsoid at Head
+        if (ellipsoid) {
+            this.drawEllipsoid(P.head, ellipsoid, 35);
+        }
+
         const jointPoints = [P.j1P, P.j2P, P.j3P, P.j4P, P.j5P];
         jointPoints.forEach((p, idx) => {
             const isHovered = (activeJointIndex === idx);
@@ -310,7 +449,6 @@ class RobotRenderer {
 
             this.point(p, radius, color);
             
-            // Draw joint rotation axis vector (Cyan dashed arrow)
             const axisVec = axes[idx];
             const axisEnd = {
                 x: p.x + axisVec.x * 25,
@@ -319,22 +457,16 @@ class RobotRenderer {
             };
             this.arrow(p, axisEnd, 2, "#888888");
 
-            // Draw rotation curved arrow for clear axis direction intuition
             if (isHovered) {
                 this.drawRotationArrow(p, axisVec, qDeg[idx] || 1, 18);
             }
-
-            // Torque numerical display
-            const torqueVal = tau ? tau[idx].toFixed(1) : "0.0";
-            this.text3D(`θ${idx + 1} (${torqueVal} N·m)`, p, isHovered ? "#ff7700" : "#222222", isHovered ? "bold 15px Arial" : "12px Arial");
         });
 
-        // Wrench (Force & Moment) Visualization at Head
+        // Wrench Visualization at Head
         const head = P.head;
-        const fScale = 0.8; // Force scale factor
-        const mScale = 1.8; // Moment scale factor
+        const fScale = 0.8;
+        const mScale = 1.8;
 
-        // Force Vector (Red arrow)
         if (Math.abs(wrench.fx) > 0.1 || Math.abs(wrench.fy) > 0.1 || Math.abs(wrench.fz) > 0.1) {
             const fEnd = {
                 x: head.x + wrench.fx * fScale,
@@ -345,7 +477,6 @@ class RobotRenderer {
             this.text3D("F", fEnd, "#ff3300", "bold 14px Arial");
         }
 
-        // Moment Vector (Purple arrow)
         if (Math.abs(wrench.mx) > 0.1 || Math.abs(wrench.my) > 0.1 || Math.abs(wrench.mz) > 0.1) {
             const mEnd = {
                 x: head.x + wrench.mx * mScale,
@@ -359,7 +490,7 @@ class RobotRenderer {
 }
 
 /* ==========================================================================
-3. DOM Manager (DOM Updates & Wrench UI Control Integration)
+3. DOM Manager (DOM Updates & Force Statics Table Integration)
    ========================================================================== */
 class DOMManager {
     constructor(jointNames, callbacks) {
@@ -372,9 +503,12 @@ class DOMManager {
         this.qdotBody = document.getElementById("qdot-body");
         this.manipBadge = document.getElementById("manipulability-val");
 
-        // Wrench DOM Elements
+        this.torqueBody = document.getElementById("torque-body");
+        this.jtBody = document.getElementById("jacobian-transpose-body");
+        this.wrenchMatrixBody = document.getElementById("wrench-matrix-body");
+        this.maxTorqueVal = document.getElementById("max-torque-val");
+
         this.wrenchNorm = document.getElementById("wrench-norm");
-        this.wrenchVector = document.getElementById("wrench-vector");
         this.resetWrenchBtn = document.getElementById("reset-wrench");
 
         this.wrenchInputs = {
@@ -454,7 +588,7 @@ class DOMManager {
     }
 
     buildMatrixTables() {
-        const twistLabels = ['ω<sub>x</sub>', 'ω<sub>y</sub>', 'ω<sub>z</sub>', 'v<sub>x</sub>', 'v<sub>y</sub>', 'v<sub>z</sub>'];
+        const twistLabels = ['&omega;<sub>x</sub>', '&omega;<sub>y</sub>', '&omega;<sub>z</sub>', 'v<sub>x</sub>', 'v<sub>y</sub>', 'v<sub>z</sub>'];
         this.twistBody.innerHTML = twistLabels.map((l, r) => 
             `<tr><td class="row-label">${l}</td><td class="j-cell" id="v-cell-${r}">0.00</td></tr>`
         ).join('');
@@ -470,23 +604,38 @@ class DOMManager {
         this.qdotBody.innerHTML = qdotLabels.map((l, c) => 
             `<tr><td class="row-label">${l}</td><td class="j-cell" id="qdot-cell-${c}">0.0</td></tr>`
         ).join('');
+
+        const tauLabels = ['&tau;<sub>1</sub>', '&tau;<sub>2</sub>', '&tau;<sub>3</sub>', '&tau;<sub>4</sub>', '&tau;<sub>5</sub>'];
+        this.torqueBody.innerHTML = tauLabels.map((l, r) =>
+            `<tr><td class="row-label">${l}</td><td class="j-cell" id="tau-cell-${r}">0.00</td></tr>`
+        ).join('');
+
+        this.jtBody.innerHTML = Array.from({ length: 5 }, (_, r) => {
+            const cells = Array.from({ length: 6 }, (_, c) => 
+                `<td class="j-cell" id="jt-cell-${r}-${c}">0.00</td>`
+            ).join('');
+            return `<tr>${cells}</tr>`;
+        }).join('');
+
+        const wrenchLabels = ['M<sub>x</sub>', 'M<sub>y</sub>', 'M<sub>z</sub>', 'F<sub>x</sub>', 'F<sub>y</sub>', 'F<sub>z</sub>'];
+        this.wrenchMatrixBody.innerHTML = wrenchLabels.map((l, r) =>
+            `<tr><td class="row-label">${l}</td><td class="j-cell" id="wrench-cell-${r}">0.00</td></tr>`
+        ).join('');
     }
 
     updateAngleDisplay(i, val) {
         document.getElementById(`v${i}`).textContent = val;
     }
 
-    updateUI({ J, V, w }, qDotDeg, activeJointIndex, wrench) {
-        // Manipulability Badge
-        this.manipBadge.textContent = `w = ${w.toFixed(3)}`;
-
-        // Active Column Highlight
+    updateUI({ J, V, w, condNum, tau }, qDotDeg, activeJointIndex, wrench) {
+        const condStr = (condNum === Infinity || isNaN(condNum)) ? "∞" : condNum.toFixed(3);
+        this.manipBadge.innerHTML = `&mu;<sub>1</sub> = ${condStr} &nbsp;|&nbsp; &mu;<sub>3</sub> = ${w.toFixed(3)}`;
+        
         for (let c = 0; c < 5; c++) {
             const th = document.getElementById(`jh-${c}`);
             if (th) th.classList.toggle("active-col", c === activeJointIndex);
         }
 
-        // Twist Vector Update
         for (let r = 0; r < 6; r++) {
             const val = V[r];
             const absVal = Math.abs(val);
@@ -496,7 +645,6 @@ class DOMManager {
             cell.style.color = absVal > 0.01 ? "#38edf8" : "";
         }
 
-        // Jacobian Matrix Update
         for (let r = 0; r < 6; r++) {
             const isAngular = r < 3;
             for (let c = 0; c < 5; c++) {
@@ -518,7 +666,6 @@ class DOMManager {
             }
         }
 
-        // Joint Velocity Vector Update
         for (let c = 0; c < 5; c++) {
             const val = qDotDeg[c];
             const absVal = Math.abs(val);
@@ -528,15 +675,59 @@ class DOMManager {
             cell.style.color = absVal > 0.1 ? "#4ade80" : "";
         }
 
-        // Wrench Info Update
+        let maxAbsTau = 0;
+        for (let r = 0; r < 5; r++) {
+            const val = tau[r];
+            const absVal = Math.abs(val);
+            if (absVal > maxAbsTau) maxAbsTau = absVal;
+
+            const cell = document.getElementById(`tau-cell-${r}`);
+            cell.textContent = val === 0 ? "0.00" : (val > 0 ? "+" : "") + val.toFixed(2);
+            cell.style.backgroundColor = absVal > 0.1 ? "rgba(234, 179, 8, 0.3)" : "";
+            cell.style.color = absVal > 0.1 ? "#facc15" : "";
+        }
+        if (this.maxTorqueVal) {
+            this.maxTorqueVal.textContent = `Max τ = ${maxAbsTau.toFixed(1)} N·m`;
+        }
+
+        for (let r = 0; r < 5; r++) {
+            for (let c = 0; c < 6; c++) {
+                const isAngularCol = c < 3;
+                let normVal = isAngularCol ? J[c][r] : J[c][r] / 100;
+                if (Math.abs(normVal) < 1e-5) normVal = 0;
+
+                const absVal = Math.abs(normVal);
+                const cell = document.getElementById(`jt-cell-${r}-${c}`);
+                cell.textContent = normVal === 0 ? "0.00" : (normVal > 0 ? "+" : "-") + absVal.toFixed(2);
+
+                if (absVal > 0.02) {
+                    const alpha = Math.min(0.75, 0.2 + absVal / (isAngularCol ? 0.6 : 0.8));
+                    cell.style.backgroundColor = `rgba(168, 85, 247, ${alpha.toFixed(2)})`;
+                    cell.style.color = "#ffffff";
+                } else {
+                    cell.style.backgroundColor = "";
+                    cell.style.color = "";
+                }
+            }
+        }
+
+        const wrenchArr = [wrench.mx, wrench.my, wrench.mz, wrench.fx, wrench.fy, wrench.fz];
+        for (let r = 0; r < 6; r++) {
+            const val = wrenchArr[r];
+            const absVal = Math.abs(val);
+            const cell = document.getElementById(`wrench-cell-${r}`);
+            cell.textContent = val === 0 ? "0.00" : (val > 0 ? "+" : "") + val.toFixed(2);
+            cell.style.backgroundColor = absVal > 0.01 ? "rgba(236, 72, 153, 0.25)" : "";
+            cell.style.color = absVal > 0.01 ? "#f472b6" : "";
+        }
+
         const fNorm = Math.sqrt(wrench.fx ** 2 + wrench.fy ** 2 + wrench.fz ** 2);
         this.wrenchNorm.textContent = `‖F‖ = ${fNorm.toFixed(2)} N`;
-        this.wrenchVector.textContent = `[${wrench.fx}, ${wrench.fy}, ${wrench.fz}, ${wrench.mx}, ${wrench.my}, ${wrench.mz}]ᵀ`;
     }
 }
 
 /* ==========================================================================
-4. Main Orchestrator App (requestAnimationFrame Loop Control)
+4. Main Orchestrator App
    ========================================================================== */
 class SimulationApp {
     constructor() {
@@ -602,12 +793,10 @@ class SimulationApp {
         this.needsRedraw = true;
     }
 
-    /** Input Stop Detection & Animation Loop Processing */
     startLoop() {
         const loop = () => {
             const now = performance.now();
             
-            // Detect input stop and decay joint velocities to 0
             for (let i = 0; i < 5; i++) {
                 if (this.lastChangeTime[i] !== 0 && (now - this.lastChangeTime[i]) > 50) {
                     if (this.qDotDeg[i] !== 0) {
@@ -621,7 +810,15 @@ class SimulationApp {
                 const wrench = this.dom.getWrench();
                 const kinData = this.engine.computeKinematicsAndStatics(this.qDeg, this.qDotDeg, wrench);
                 
-                this.renderer.draw(kinData.points, kinData.axes, this.activeJointIndex, wrench, kinData.tau, this.qDeg);
+                this.renderer.draw(
+                    kinData.points, 
+                    kinData.axes, 
+                    this.activeJointIndex, 
+                    wrench, 
+                    kinData.tau, 
+                    this.qDeg, 
+                    kinData.ellipsoid
+                );
                 this.dom.updateUI(kinData, this.qDotDeg, this.activeJointIndex, wrench);
                 this.needsRedraw = false;
             }
