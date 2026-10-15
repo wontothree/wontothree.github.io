@@ -1,20 +1,7 @@
 /* ==========================================================================
-1. Robot Model & Velocity/Force Kinematics Engine
+1. Linear Algebra & Math Utilities
    ========================================================================== */
-class RobotEngine {
-    constructor() {
-        // Link Lengths (cm)
-        this.H = 25;  this.L1 = 25; this.L2 = 50; 
-        this.L3 = 50; this.L4 = 25; this.L5 = 25;
-
-        // Kinematics Data Cache (Prevents memory re-allocation)
-        this.J = Array.from({ length: 6 }, () => new Float64Array(5));
-        this.V = new Float64Array(6);
-        this.JJT = Array.from({ length: 3 }, () => new Float64Array(3));
-        this.tau = new Float64Array(5); // Joint torque (tau = J^T * W)
-    }
-
-    /** 3D Vector Cross Product Helper */
+class Vector3 {
     static cross(a, b) {
         return {
             x: a.y * b.z - a.z * b.y,
@@ -23,10 +10,108 @@ class RobotEngine {
         };
     }
 
-    /** Symmetric 3x3 Matrix Eigen Decomposition (Jacobi Algorithm) */
+    static dot(a, b) {
+        return a.x * b.x + a.y * b.y + a.z * b.z;
+    }
+
+    static sub(a, b) {
+        return { x: a.x - b.x, y: a.y - b.y, z: a.z - b.z };
+    }
+
+    static normalize(v) {
+        const n = Math.hypot(v.x, v.y, v.z) || 1e-9;
+        return { x: v.x / n, y: v.y / n, z: v.z / n };
+    }
+}
+
+class MatrixMath {
+    /** 5x5 Matrix Determinant (Gaussian Elimination) */
+    static det5x5(mat) {
+        const A = mat.map(row => Array.from(row));
+        let det = 1.0;
+        const n = 5;
+
+        for (let i = 0; i < n; i++) {
+            let pivot = i;
+            for (let j = i + 1; j < n; j++) {
+                if (Math.abs(A[j][i]) > Math.abs(A[pivot][i])) pivot = j;
+            }
+
+            if (Math.abs(A[pivot][i]) < 1e-12) return 0.0;
+
+            if (pivot !== i) {
+                [A[i], A[pivot]] = [A[pivot], A[i]];
+                det *= -1.0;
+            }
+
+            det *= A[i][i];
+
+            for (let j = i + 1; j < n; j++) {
+                const factor = A[j][i] / A[i][i];
+                for (let k = i + 1; k < n; k++) {
+                    A[j][k] -= factor * A[i][k];
+                }
+            }
+        }
+        return det;
+    }
+
+    /** Symmetric 5x5 Matrix Eigenvalues Solver (Jacobi Algorithm) */
+    static solveEigenvalues5x5(A) {
+        const D = A.map(row => Array.from(row));
+        const n = 5;
+
+        for (let iter = 0; iter < 20; iter++) {
+            let p = 0, q = 1, max = Math.abs(D[0][1]);
+            for (let i = 0; i < n; i++) {
+                for (let j = i + 1; j < n; j++) {
+                    if (Math.abs(D[i][j]) > max) {
+                        max = Math.abs(D[i][j]);
+                        p = i; q = j;
+                    }
+                }
+            }
+
+            if (max < 1e-9) break;
+
+            const diff = D[q][q] - D[p][p];
+            let t = 0;
+            if (Math.abs(D[p][q]) >= 1e-11) {
+                const phi = diff / (2 * D[p][q]);
+                t = 1 / (Math.abs(phi) + Math.sqrt(phi * phi + 1));
+                if (phi < 0) t = -t;
+            }
+
+            const c = 1 / Math.sqrt(t * t + 1);
+            const s = t * c;
+            const tau = s / (1 + c);
+
+            const temp = D[p][q];
+            D[p][q] = 0;
+            D[q][p] = 0;
+            D[p][p] -= t * temp;
+            D[q][q] += t * temp;
+
+            for (let i = 0; i < n; i++) {
+                if (i !== p && i !== q) {
+                    const g = D[i][p], h = D[i][q];
+                    D[i][p] = g - s * (h + g * tau);
+                    D[p][i] = D[i][p];
+                    D[i][q] = h + s * (g - h * tau);
+                    D[q][i] = D[i][q];
+                }
+            }
+        }
+
+        const evals = [];
+        for (let i = 0; i < n; i++) evals.push(Math.max(0, D[i][i]));
+        return evals.sort((a, b) => b - a);
+    }
+
+    /** Symmetric 3x3 Matrix Eigen Decomposition */
     static solveEigen3x3(A) {
-        let V = [[1, 0, 0], [0, 1, 0], [0, 0, 1]];
-        let D = [
+        const V = [[1, 0, 0], [0, 1, 0], [0, 0, 1]];
+        const D = [
             [A[0][0], A[0][1], A[0][2]],
             [A[1][0], A[1][1], A[1][2]],
             [A[2][0], A[2][1], A[2][2]]
@@ -40,21 +125,19 @@ class RobotEngine {
 
             if (max < 1e-9) break;
 
-            let diff = D[q][q] - D[p][p];
-            let t;
-            if (Math.abs(D[p][q]) < 1e-11) {
-                t = 0;
-            } else {
-                let phi = diff / (2 * D[p][q]);
+            const diff = D[q][q] - D[p][p];
+            let t = 0;
+            if (Math.abs(D[p][q]) >= 1e-11) {
+                const phi = diff / (2 * D[p][q]);
                 t = 1 / (Math.abs(phi) + Math.sqrt(phi * phi + 1));
                 if (phi < 0) t = -t;
             }
 
-            let c = 1 / Math.sqrt(t * t + 1);
-            let s = t * c;
-            let tau = s / (1 + c);
+            const c = 1 / Math.sqrt(t * t + 1);
+            const s = t * c;
+            const tau = s / (1 + c);
 
-            let temp = D[p][q];
+            const temp = D[p][q];
             D[p][q] = 0;
             D[q][p] = 0;
             D[p][p] -= t * temp;
@@ -62,7 +145,7 @@ class RobotEngine {
 
             for (let i = 0; i < 3; i++) {
                 if (i !== p && i !== q) {
-                    let g = D[i][p], h = D[i][q];
+                    const g = D[i][p], h = D[i][q];
                     D[i][p] = g - s * (h + g * tau);
                     D[p][i] = D[i][p];
                     D[i][q] = h + s * (g - h * tau);
@@ -71,7 +154,7 @@ class RobotEngine {
             }
 
             for (let i = 0; i < 3; i++) {
-                let g = V[i][p], h = V[i][q];
+                const g = V[i][p], h = V[i][q];
                 V[i][p] = g - s * (h + g * tau);
                 V[i][q] = h + s * (g - h * tau);
             }
@@ -81,20 +164,32 @@ class RobotEngine {
             values: [D[0][0], D[1][1], D[2][2]],
             vectors: [
                 { x: V[0][0], y: V[1][0], z: V[2][0] },
-                { x: V[0][1], y: V[1][1], z: V[2][1] },
+                { x: V[0][1], y: V[1][0], z: V[2][1] },
                 { x: V[0][2], y: V[1][2], z: V[2][2] }
             ]
         };
     }
+}
 
-    /** Forward Kinematics & Joint Position/Axis Calculation */
+/* ==========================================================================
+2. Robot Kinematics & Statics Engine
+   ========================================================================== */
+class RobotEngine {
+    constructor() {
+        this.H = 25;  this.L1 = 25; this.L2 = 50; 
+        this.L3 = 50; this.L4 = 25; this.L5 = 25;
+
+        this.J = Array.from({ length: 6 }, () => new Float64Array(5));
+        this.V = new Float64Array(6);
+        this.JJT = Array.from({ length: 3 }, () => new Float64Array(3));
+        this.tau = new Float64Array(5);
+    }
+
     computeFK(qDeg) {
         const qRad = qDeg.map(d => (d * Math.PI) / 180);
         const [j1, j2, j3, j4, j5] = qRad;
-
         const c1 = Math.cos(j1), s1 = Math.sin(j1);
 
-        // Joint Positions (p)
         const base = { x: 0, y: 0, z: 0 };
         const p1 = { x: 0, y: 0, z: this.H };
         const p2 = { x: 0, y: 0, z: this.H + this.L1 };
@@ -128,10 +223,9 @@ class RobotEngine {
             z: p5.z + this.L5 * Math.cos(phi)
         };
 
-        // Joint Rotation Axes (z)
-        const z0 = { x: 0, y: 0, z: 1 };             // Base Yaw (+Z)
-        const zPitch = { x: -s1, y: c1, z: 0 };       // Pitch Axes (+Y rotated by theta1)
-        const z4 = { x: 0, y: 0, z: 1 };             // Head Yaw (+Z)
+        const z0 = { x: 0, y: 0, z: 1 };
+        const zPitch = { x: -s1, y: c1, z: 0 };
+        const z4 = { x: 0, y: 0, z: 1 };
 
         return {
             points: { base, j1P: p1, j2P: p2, j3P: p3, j4P: p4, j5P: p5, head },
@@ -140,7 +234,6 @@ class RobotEngine {
         };
     }
 
-    /** Geometric Jacobian, Manipulability & Statics (Wrench to Joint Torque) */
     computeKinematicsAndStatics(qDeg, qDotDeg, wrench) {
         const { points, axes, positions } = this.computeFK(qDeg);
         const headP = points.head;
@@ -151,61 +244,64 @@ class RobotEngine {
             const zI = axes[i];
             const pI = positions[i];
 
-            // Angular Velocity Jacobian J_omega = z_i
             J[0][i] = zI.x;
             J[1][i] = zI.y;
             J[2][i] = zI.z;
 
-            // Linear Velocity Jacobian J_v = z_i x (p_head - p_i)
-            const r = { 
-                x: headP.x - pI.x, 
-                y: headP.y - pI.y, 
-                z: headP.z - pI.z 
-            };
-            const v = RobotEngine.cross(zI, r);
+            const r = { x: headP.x - pI.x, y: headP.y - pI.y, z: headP.z - pI.z };
+            const v = Vector3.cross(zI, r);
 
             J[3][i] = v.x;
             J[4][i] = v.y;
             J[5][i] = v.z;
         }
 
-        // 2. Manipulability Index (w) & Linear Velocity J_v * J_v^T
-        const JJT = this.JJT;
-        for (let r = 0; r < 3; r++) {
-            for (let c = 0; c < 3; c++) {
+        // 2. JTJ Computation
+        const JTJ = Array.from({ length: 5 }, () => new Float64Array(5));
+        for (let r = 0; r < 5; r++) {
+            for (let c = 0; c < 5; c++) {
                 let sum = 0;
-                for (let k = 0; k < 5; k++) {
-                    sum += (J[r + 3][k] / 100) * (J[c + 3][k] / 100);
+                for (let k = 0; k < 6; k++) {
+                    const jVal_r = k >= 3 ? J[k][r] / 100.0 : J[k][r];
+                    const jVal_c = k >= 3 ? J[k][c] / 100.0 : J[k][c];
+                    sum += jVal_r * jVal_c;
                 }
-                JJT[r][c] = sum;
+                JTJ[r][c] = sum;
             }
         }
 
-        const detJJT = Math.max(0, 
-            JJT[0][0] * (JJT[1][1] * JJT[2][2] - JJT[1][2] * JJT[2][1]) -
-            JJT[0][1] * (JJT[1][0] * JJT[2][2] - JJT[1][2] * JJT[2][0]) +
-            JJT[0][2] * (JJT[1][0] * JJT[2][1] - JJT[1][1] * JJT[2][0])
-        );
-        const w = Math.sqrt(detJJT);
+        // 2.1 Manipulability Index & Condition Number
+        const detJTJ = Math.max(0, MatrixMath.det5x5(JTJ));
+        const w = Math.sqrt(detJTJ);
 
-        // 2.1 Compute Eigenvalues & Eigenvectors for Manipulability Ellipsoid
-        const eigen = RobotEngine.solveEigen3x3(JJT);
-        const sortedValues = [...eigen.values].map(v => Math.max(0, v)).sort((a, b) => b - a);
-
-        const lambdaMax = sortedValues[0];
-        const lambdaMin = sortedValues[2];
+        const sortedEvals = MatrixMath.solveEigenvalues5x5(JTJ);
+        const lambdaMax = sortedEvals[0];
+        const lambdaMin = sortedEvals[4];
 
         const condNum = (lambdaMin > 1e-8 && lambdaMax > 1e-8) 
             ? Math.sqrt(lambdaMax / lambdaMin) 
             : Infinity;
 
+        // 2.3 Linear Velocity Ellipsoid JJT
+        const JJT = this.JJT;
+        for (let r = 0; r < 3; r++) {
+            for (let c = 0; c < 3; c++) {
+                let sum = 0;
+                for (let k = 0; k < 5; k++) {
+                    sum += (J[r + 3][k] / 100.0) * (J[c + 3][k] / 100.0);
+                }
+                JJT[r][c] = sum;
+            }
+        }
+
+        const eigen3x3 = MatrixMath.solveEigen3x3(JJT);
+        const sortedValues3x3 = [...eigen3x3.values].map(v => Math.max(0, v)).sort((a, b) => b - a);
         const ellipsoid = {
-            radii: sortedValues.map(v => Math.sqrt(v)),
-            axes: eigen.vectors
+            radii: sortedValues3x3.map(v => Math.sqrt(v)),
+            axes: eigen3x3.vectors
         };
 
-
-        // 3. End-Effector Twist V = J * qDot
+        // 3. Twist Calculation
         const V = this.V;
         V.fill(0);
         for (let r = 0; r < 6; r++) {
@@ -215,11 +311,8 @@ class RobotEngine {
             }
         }
 
-        // 4. Joint Torque Calculation: tau = J^T * W
-        const W = [
-            wrench.mx, wrench.my, wrench.mz,
-            wrench.fx, wrench.fy, wrench.fz
-        ];
+        // 4. Joint Torque Calculation
+        const W = [wrench.mx, wrench.my, wrench.mz, wrench.fx, wrench.fy, wrench.fz];
         const tau = this.tau;
         for (let j = 0; j < 5; j++) {
             let t = 0;
@@ -235,7 +328,7 @@ class RobotEngine {
 }
 
 /* ==========================================================================
-2. Canvas 3D View Renderer
+3. Canvas 3D View Renderer
    ========================================================================== */
 class RobotRenderer {
     constructor(canvas) {
@@ -244,29 +337,24 @@ class RobotRenderer {
         this.camera = { x: 550, y: 180, z: 220 };
         this.target = { x: 0, y: 0, z: 90 };
         this.focal = 700;
-        
+
         this.initCamera();
     }
 
     initCamera() {
-        const sub = (a, b) => ({ x: a.x - b.x, y: a.y - b.y, z: a.z - b.z });
-        const dot = (a, b) => a.x * b.x + a.y * b.y + a.z * b.z;
-        const cross = (a, b) => ({ x: a.y * b.z - a.z * b.y, y: a.z * b.x - a.x * b.z, z: a.x * b.y - a.y * b.x });
-        const norm = v => { const n = Math.sqrt(dot(v, v)) || 1e-9; return { x: v.x / n, y: v.y / n, z: v.z / n }; };
-
-        this.fwd = norm(sub(this.target, this.camera));
-        this.rgt = norm(cross(this.fwd, { x: 0, y: 0, z: 1 }));
-        this.up  = norm(cross(this.rgt, this.fwd));
+        this.fwd = Vector3.normalize(Vector3.sub(this.target, this.camera));
+        this.rgt = Vector3.normalize(Vector3.cross(this.fwd, { x: 0, y: 0, z: 1 }));
+        this.up  = Vector3.normalize(Vector3.cross(this.rgt, this.fwd));
     }
 
     project(p) {
-        const v = { x: p.x - this.camera.x, y: p.y - this.camera.y, z: p.z - this.camera.z };
-        const z = v.x * this.fwd.x + v.y * this.fwd.y + v.z * this.fwd.z;
+        const v = Vector3.sub(p, this.camera);
+        const z = Vector3.dot(v, this.fwd);
         if (z <= 0) return null;
 
         const sc = this.focal / z;
-        const xProj = v.x * this.rgt.x + v.y * this.rgt.y + v.z * this.rgt.z;
-        const yProj = v.x * this.up.x  + v.y * this.up.y  + v.z * this.up.z;
+        const xProj = Vector3.dot(v, this.rgt);
+        const yProj = Vector3.dot(v, this.up);
 
         return {
             x: this.canvas.width / 2 + xProj * sc,
@@ -277,14 +365,19 @@ class RobotRenderer {
     line(a, b, w = 3, col = "black") {
         const A = this.project(a), B = this.project(b);
         if (!A || !B) return;
-        this.ctx.beginPath(); this.ctx.moveTo(A.x, A.y); this.ctx.lineTo(B.x, B.y);
-        this.ctx.strokeStyle = col; this.ctx.lineWidth = w; this.ctx.stroke();
+        this.ctx.beginPath(); 
+        this.ctx.moveTo(A.x, A.y); 
+        this.ctx.lineTo(B.x, B.y);
+        this.ctx.strokeStyle = col; 
+        this.ctx.lineWidth = w; 
+        this.ctx.stroke();
     }
 
     arrow(from, to, w = 2, col = "black") {
         this.line(from, to, w, col);
         const A = this.project(from), B = this.project(to);
         if (!A || !B) return;
+        
         const angle = Math.atan2(B.y - A.y, B.x - A.x);
         const headLen = 9;
         this.ctx.beginPath();
@@ -299,34 +392,27 @@ class RobotRenderer {
     point(p, r = 8, fill = "black") {
         const P = this.project(p);
         if (!P) return;
-        this.ctx.beginPath(); this.ctx.arc(P.x, P.y, r, 0, 2 * Math.PI);
-        this.ctx.fillStyle = fill; this.ctx.fill(); this.ctx.strokeStyle = "black"; this.ctx.lineWidth = 1.5; this.ctx.stroke();
+        this.ctx.beginPath(); 
+        this.ctx.arc(P.x, P.y, r, 0, 2 * Math.PI);
+        this.ctx.fillStyle = fill; 
+        this.ctx.fill(); 
+        this.ctx.strokeStyle = "black"; 
+        this.ctx.lineWidth = 1.5; 
+        this.ctx.stroke();
     }
 
     text3D(txt, p, col = "black", font = "bold 13px Arial") {
         const P = this.project(p);
         if (!P) return;
-        this.ctx.font = font; this.ctx.fillStyle = col;
+        this.ctx.font = font; 
+        this.ctx.fillStyle = col;
         this.ctx.fillText(txt, P.x + 6, P.y + 4);
     }
 
     drawRotationArrow(center, axis, angle, radius = 16) {
-        const a = axis;
-        const ref = Math.abs(a.z) < 0.9 ? { x: 0, y: 0, z: 1 } : { x: 0, y: 1, z: 0 };
-
-        const cross = (u, v) => ({
-            x: u.y * v.z - u.z * v.y,
-            y: u.z * v.x - u.x * v.z,
-            z: u.x * v.y - u.y * v.x
-        });
-
-        const norm = v => {
-            const n = Math.hypot(v.x, v.y, v.z) || 1e-9;
-            return { x: v.x / n, y: v.y / n, z: v.z / n };
-        };
-
-        const u = norm(cross(a, ref));
-        const v = norm(cross(a, u));
+        const ref = Math.abs(axis.z) < 0.9 ? { x: 0, y: 0, z: 1 } : { x: 0, y: 1, z: 0 };
+        const u = Vector3.normalize(Vector3.cross(axis, ref));
+        const v = Vector3.normalize(Vector3.cross(axis, u));
 
         const points = [];
         const direction = Math.sign(angle) || 1;
@@ -344,46 +430,33 @@ class RobotRenderer {
         for (let i = 0; i < points.length - 1; i++) {
             this.line(points[i], points[i + 1], 2, "#ff7700");
         }
-
         this.arrow(points[points.length - 2], points[points.length - 1], 2, "#ff7700");
     }
 
-    /** 3D Manipulability Ellipsoid Renderer */
     drawEllipsoid(center, ellipsoid, scale = 35) {
         const { radii, axes } = ellipsoid;
         const latSteps = 12, lonSteps = 24;
         const gridPoints = [];
 
-        // 1. Principal Axes
         const colors = ["#e03131", "#2f9e44", "#1971c2"];
         for (let i = 0; i < 3; i++) {
             const len = radii[i] * scale;
             if (len < 1e-3) continue;
             const dir = axes[i];
-            const p1 = {
-                x: center.x + dir.x * len,
-                y: center.y + dir.y * len,
-                z: center.z + dir.z * len
-            };
-            const p2 = {
-                x: center.x - dir.x * len,
-                y: center.y - dir.y * len,
-                z: center.z - dir.z * len
-            };
+            const p1 = { x: center.x + dir.x * len, y: center.y + dir.y * len, z: center.z + dir.z * len };
+            const p2 = { x: center.x - dir.x * len, y: center.y - dir.y * len, z: center.z - dir.z * len };
             this.line(p2, p1, 2, colors[i]);
         }
 
-        // 2. Wireframe Surface Mesh
         for (let i = 0; i <= latSteps; i++) {
-            const theta = (i * Math.PI) / latSteps; // 0 to pi
+            const theta = (i * Math.PI) / latSteps;
             const sinT = Math.sin(theta), cosT = Math.cos(theta);
             const row = [];
 
             for (let j = 0; j <= lonSteps; j++) {
-                const phi = (j * 2 * Math.PI) / lonSteps; // 0 to 2pi
+                const phi = (j * 2 * Math.PI) / lonSteps;
                 const sinP = Math.sin(phi), cosP = Math.cos(phi);
 
-                // Parametric sphere coordinates mapped by principal axes
                 const dx = radii[0] * sinT * cosP;
                 const dy = radii[1] * sinT * sinP;
                 const dz = radii[2] * cosT;
@@ -397,7 +470,6 @@ class RobotRenderer {
             gridPoints.push(row);
         }
 
-        // Render Latitude & Longitude Circles
         const meshCol = "rgba(0, 180, 216, 0.35)";
         for (let i = 0; i <= latSteps; i++) {
             for (let j = 0; j < lonSteps; j++) {
@@ -425,7 +497,7 @@ class RobotRenderer {
         this.arrow(O, { x: 0, y: 0, z: axisLen }, 2, "#1971c2");
         this.text3D("Z", { x: 0, y: 0, z: axisLen + 8 }, "#1971c2");
 
-        // Robot Structure
+        // Structure
         const P = points;
         this.point(P.base, 5, "#777");
         this.line(P.base, P.j1P, 5, "black");
@@ -436,7 +508,6 @@ class RobotRenderer {
         this.line(P.j5P, P.head, 3, "black");
         this.point(P.head, 6, "#598be7");
 
-        // Render Linear Velocity Manipulability Ellipsoid at Head
         if (ellipsoid) {
             this.drawEllipsoid(P.head, ellipsoid, 35);
         }
@@ -462,12 +533,11 @@ class RobotRenderer {
             }
         });
 
-        // Wrench Visualization at Head
+        // Wrench Visuals
         const head = P.head;
-        const fScale = 0.8;
-        const mScale = 1.8;
+        const fScale = 0.8, mScale = 1.8;
 
-        if (Math.abs(wrench.fx) > 0.1 || Math.abs(wrench.fy) > 0.1 || Math.abs(wrench.fz) > 0.1) {
+        if (Math.hypot(wrench.fx, wrench.fy, wrench.fz) > 0.1) {
             const fEnd = {
                 x: head.x + wrench.fx * fScale,
                 y: head.y + wrench.fy * fScale,
@@ -477,7 +547,7 @@ class RobotRenderer {
             this.text3D("F", fEnd, "#ff3300", "bold 14px Arial");
         }
 
-        if (Math.abs(wrench.mx) > 0.1 || Math.abs(wrench.my) > 0.1 || Math.abs(wrench.mz) > 0.1) {
+        if (Math.hypot(wrench.mx, wrench.my, wrench.mz) > 0.1) {
             const mEnd = {
                 x: head.x + wrench.mx * mScale,
                 y: head.y + wrench.my * mScale,
@@ -490,7 +560,7 @@ class RobotRenderer {
 }
 
 /* ==========================================================================
-3. DOM Manager (DOM Updates & Force Statics Table Integration)
+4. DOM Manager
    ========================================================================== */
 class DOMManager {
     constructor(jointNames, callbacks) {
@@ -511,23 +581,9 @@ class DOMManager {
         this.wrenchNorm = document.getElementById("wrench-norm");
         this.resetWrenchBtn = document.getElementById("reset-wrench");
 
-        this.wrenchInputs = {
-            fx: document.getElementById("wrench-fx"),
-            fy: document.getElementById("wrench-fy"),
-            fz: document.getElementById("wrench-fz"),
-            mx: document.getElementById("wrench-mx"),
-            my: document.getElementById("wrench-my"),
-            mz: document.getElementById("wrench-mz")
-        };
-
-        this.wrenchValues = {
-            fx: document.getElementById("value-fx"),
-            fy: document.getElementById("value-fy"),
-            fz: document.getElementById("value-fz"),
-            mx: document.getElementById("value-mx"),
-            my: document.getElementById("value-my"),
-            mz: document.getElementById("value-mz")
-        };
+        const keys = ['fx', 'fy', 'fz', 'mx', 'my', 'mz'];
+        this.wrenchInputs = Object.fromEntries(keys.map(k => [k, document.getElementById(`wrench-${k}`)]));
+        this.wrenchValues = Object.fromEntries(keys.map(k => [k, document.getElementById(`value-${k}`)]));
 
         this.initGUI();
         this.initWrenchEvents();
@@ -558,33 +614,26 @@ class DOMManager {
     initWrenchEvents() {
         Object.keys(this.wrenchInputs).forEach(key => {
             const input = this.wrenchInputs[key];
-            input.addEventListener("input", () => {
+            input?.addEventListener("input", () => {
                 const val = parseFloat(input.value);
                 this.wrenchValues[key].textContent = val;
                 this.callbacks.onWrenchChange();
             });
         });
 
-        if (this.resetWrenchBtn) {
-            this.resetWrenchBtn.addEventListener("click", () => {
-                Object.keys(this.wrenchInputs).forEach(key => {
-                    this.wrenchInputs[key].value = 0;
-                    this.wrenchValues[key].textContent = "0";
-                });
-                this.callbacks.onWrenchChange();
+        this.resetWrenchBtn?.addEventListener("click", () => {
+            Object.keys(this.wrenchInputs).forEach(key => {
+                this.wrenchInputs[key].value = 0;
+                this.wrenchValues[key].textContent = "0";
             });
-        }
+            this.callbacks.onWrenchChange();
+        });
     }
 
     getWrench() {
-        return {
-            fx: parseFloat(this.wrenchInputs.fx.value),
-            fy: parseFloat(this.wrenchInputs.fy.value),
-            fz: parseFloat(this.wrenchInputs.fz.value),
-            mx: parseFloat(this.wrenchInputs.mx.value),
-            my: parseFloat(this.wrenchInputs.my.value),
-            mz: parseFloat(this.wrenchInputs.mz.value)
-        };
+        return Object.fromEntries(
+            Object.entries(this.wrenchInputs).map(([k, el]) => [k, parseFloat(el?.value || 0)])
+        );
     }
 
     buildMatrixTables() {
@@ -594,9 +643,7 @@ class DOMManager {
         ).join('');
 
         this.jacobianBody.innerHTML = Array.from({ length: 6 }, (_, r) => {
-            const cells = Array.from({ length: 5 }, (_, c) => 
-                `<td class="j-cell" id="j-cell-${r}-${c}">0.00</td>`
-            ).join('');
+            const cells = Array.from({ length: 5 }, (_, c) => `<td class="j-cell" id="j-cell-${r}-${c}">0.00</td>`).join('');
             return `<tr${r === 3 ? ' class="sep-row"' : ''}>${cells}</tr>`;
         }).join('');
 
@@ -611,9 +658,7 @@ class DOMManager {
         ).join('');
 
         this.jtBody.innerHTML = Array.from({ length: 5 }, (_, r) => {
-            const cells = Array.from({ length: 6 }, (_, c) => 
-                `<td class="j-cell" id="jt-cell-${r}-${c}">0.00</td>`
-            ).join('');
+            const cells = Array.from({ length: 6 }, (_, c) => `<td class="j-cell" id="jt-cell-${r}-${c}">0.00</td>`).join('');
             return `<tr>${cells}</tr>`;
         }).join('');
 
@@ -628,12 +673,11 @@ class DOMManager {
     }
 
     updateUI({ J, V, w, condNum, tau }, qDotDeg, activeJointIndex, wrench) {
-        const condStr = (condNum === Infinity || isNaN(condNum)) ? "∞" : condNum.toFixed(3);
+        const condStr = (!isFinite(condNum) || isNaN(condNum)) ? "∞" : condNum.toFixed(3);
         this.manipBadge.innerHTML = `&mu;<sub>1</sub> = ${condStr} &nbsp;|&nbsp; &mu;<sub>3</sub> = ${w.toFixed(3)}`;
         
         for (let c = 0; c < 5; c++) {
-            const th = document.getElementById(`jh-${c}`);
-            if (th) th.classList.toggle("active-col", c === activeJointIndex);
+            document.getElementById(`jh-${c}`)?.classList.toggle("active-col", c === activeJointIndex);
         }
 
         for (let r = 0; r < 6; r++) {
@@ -721,13 +765,13 @@ class DOMManager {
             cell.style.color = absVal > 0.01 ? "#f472b6" : "";
         }
 
-        const fNorm = Math.sqrt(wrench.fx ** 2 + wrench.fy ** 2 + wrench.fz ** 2);
+        const fNorm = Math.hypot(wrench.fx, wrench.fy, wrench.fz);
         this.wrenchNorm.textContent = `‖F‖ = ${fNorm.toFixed(2)} N`;
     }
 }
 
 /* ==========================================================================
-4. Main Orchestrator App
+5. Main Orchestrator App
    ========================================================================== */
 class SimulationApp {
     constructor() {

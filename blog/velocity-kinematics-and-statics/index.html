@@ -31,19 +31,20 @@
           In this post, our goal is to understand some concepts related to Jacobian through visualization.
         </p>
         <h1>Simulator</h1>
-        <iframe id="robot-frame" src="./sim.html" style="width: 100%; height: 1000px; border: none; display: block;" scrolling="no"></iframe>
+        <iframe id="robot-frame" src="./sim.html" style="width: 100%; height: 1100px; border: none; display: block;" scrolling="no"></iframe>
         <p>
-          In this simulation, we introduced 5-FOF robotic arm that has 5 revolute joints. Each joints' axis are 
-          yaw (+z) (J1), pitch (+y) (J2), pitch (+y) (J2), pitch (+y) (J3), pitch (+z) (J4), yaw (+z) (J5), respectively from the bottom.
-          The length of link (L1) between J1 and J2 and the length of link (L5) between J5 and end effector are 1. 
-          Also, the length of links (L2, L3, L4) between J2 and J3, J3 and J4, J4 and J5 are 2.
+          In this simulation, we introduce a 5-DOF robotic arm with 5 revolute joints. From base to end-effector, the joint axes are defined as yaw (+z) for J1, pitch (+y) for J2, J3, and J4, and yaw (+z) for J5.
         </p>
         <p>
-          Space frame is located in J1 and body frame is located in end-effector.
+          The link length between J1 and J2 ($L_1$), as well as between J5 and the end-effector ($L_5$), is set to $1$. The intermediate link lengths ($L_2, L_3, L_4$) between J2–J3, J3–J4, and J4–J5 are each set to $2$.
+        </p>
+        <p>
+          The world frame represents the fixed origin of the global coordinate system. Here, the space frame is fixed at J1 (coinciding with the world frame origin), and the body frame is attached to the end-effector.
         </p>
         <h1>1. Jacobian</h1>
         <p>
-          We are interested in transformation from joint space to task space. Forward kinematics is about calculating the robot end-effector frame's position and orientation for agiven set of joint positions.
+          We are interested in transformation from joint space to task space. 
+          Forward kinematics is about calculating the robot end-effector frame's position and orientation for a given set of joint positions.
           $$
           \theta \in \mathbb R^n \xrightarrow{\text{Forward Kinematics}} T(\theta) := \begin{bmatrix}
           R(\theta) & p(\theta) \\
@@ -59,6 +60,7 @@
           $$
           \dot \theta \in \mathbb R^n \xrightarrow[\mathcal V = \textcolor{red}{J(\theta)} \dot \theta]{\text{Velocity Kinematics}} \mathcal V := \begin{bmatrix} \omega \\ v \end{bmatrix} \in se(3)
           $$
+          We call this problem velocity kinematics.
         </p>
         <h2>Space Jacobain</h2>
         <p>
@@ -91,7 +93,8 @@
           \end{cases}
           \end{aligned}
           $$
-          Now, we define the Jacobian.
+          From these equations, we see that the spatial twist is the image of the joint velocity $\dot{\theta}$ under a linear transformation (represented by a matrix).
+          We are interested in the simple matrix. Now, we define it.
           <fieldset class="definition-fieldset">
             <legend>&nbsp;Definition: Space Jacobian&nbsp;</legend>
             <p>
@@ -118,23 +121,25 @@
           $(i)$
           $$
           J_{s1}(\theta) = \mathcal S_1 = \begin{bmatrix} \omega_1 \\ v_1 \\ \end{bmatrix} 
-          = \begin{bmatrix} \omega_1 \\ -\omega_1 \times q_1 \end{bmatrix}
+          = \begin{bmatrix} \omega_z \\ 
+          -\omega_z \times q_1 
+          \end{bmatrix}
           = \begin{bmatrix} 0 & 0 & 1 & 0 & 0 & 0 \end{bmatrix}^\top.
           $$
-          where $\omega_1 = \begin{bmatrix} 0 & 0 & 1 \end{bmatrix}^\top$ and $q_1 = \begin{bmatrix} 0 & 0 & 0 \end{bmatrix}^\top.$
+          where the unit axis of rotation $\omega_1 = \begin{bmatrix} 0 & 0 & 1 \end{bmatrix}^\top$ and an point on the joint axis $q_1 = \begin{bmatrix} 0 & 0 & 0 \end{bmatrix}^\top.$
         </p>
         <p>
           $(ii)$
           $$
           \mathcal S_2 = \begin{bmatrix} 0 & 1 & 0 & -L_1 & 0 & 0 \end{bmatrix}^\top.
           $$
-          where $\omega_1 = \begin{bmatrix} 0 & 1 & 0 \end{bmatrix}^\top$ and $q_1 = \begin{bmatrix} 0 & 0 & L_1 \end{bmatrix}^\top.$ 
-          Since the joint 1 rotate in axis Z, the homogeneous transofrmation matrix in Joint 1 is given by
+          where $\omega_2 = \begin{bmatrix} 0 & 1 & 0 \end{bmatrix}^\top$ and $q_2 = \begin{bmatrix} 0 & 0 & L_1 \end{bmatrix}^\top.$ 
+          Since J1 rotates about the Z-axis, the homogeneous transformation matrix for J1 is given by
           $$
           e^{[\mathcal S_1] \theta_1}= 
           T_{01}(\theta_1) = \begin{bmatrix} R_z(\theta_1) & p_1 \\ \mathbf{0}_{1\times 3} & 1 \end{bmatrix} = \begin{bmatrix} \cos\theta_1 & -\sin\theta_1 & 0 & 0 \\ \sin\theta_1 & \cos\theta_1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}.
           $$
-          where $p_1 = \begin{bmatrix} 0 & 0 & 0 \end{bmatrix}^\top$. The adjoint representation for $T_{01}$ is given by
+          where the translation vector $p_1 = \begin{bmatrix} 0 & 0 & 0 \end{bmatrix}^\top$. The adjoint representation for $T_{01}$ is given by
           $$
           [\text{Ad}_{T_{01}}] = \begin{bmatrix} R_z(\theta_1) & \mathbf{0}_{3\times 3} \\ [p_1]R_z(\theta_1) & R_z(\theta_1) \end{bmatrix}
           = \begin{bmatrix} R_z(\theta_1) & \mathbf{0}_{3\times 3} \\ \mathbf{0}_{3\times 3} & R_z(\theta_1) \end{bmatrix}.
@@ -152,8 +157,8 @@
           $$
           \mathcal S_3 = \begin{bmatrix} 0 & 1 & 0 & -L_1 & 0 & L_2 \end{bmatrix}^\top.
           $$
-          where $\omega_2 = \begin{bmatrix} 0 & 1 & 0 \end{bmatrix}^\top$ and $q_2 = \begin{bmatrix} L_2 & 0 & L_1 \end{bmatrix}^\top.$ 
-          Since the joint 2 rotate in axis Y, the homogeneous transformation matrix in Joint 2 at zero position is given by
+          where $\omega_3 = \begin{bmatrix} 0 & 1 & 0 \end{bmatrix}^\top$ and $q_3 = \begin{bmatrix} L_2 & 0 & L_1 \end{bmatrix}^\top.$ 
+          Since Joint 2 rotates about the Y-axis, the homogeneous transformation matrix for Joint 2 at the zero position is given by
           $$
           e^{[\mathcal S_2] \theta_2}= 
           T_{12}(\theta_2) = \begin{bmatrix} R_y(\theta_2) & p_2 \\ \mathbf{0}_{1\times 3} & 1 \end{bmatrix} = \begin{bmatrix} \cos\theta_2 & 0 & \sin\theta_2 & 0 \\ 0 & 1 & 0 & 0 \\ -\sin\theta_2 & 0 & \cos\theta_2 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}.
@@ -185,9 +190,9 @@
             Since the joint 3 rotate in axis Y, the homogeneous transformation matrix in Joint 3 at zero position is given by
             $$
             e^{[\mathcal S_3] \theta_3}= 
-            T_{23}(\theta_3) = \begin{bmatrix} R_y(\theta_3) & p_3 \\ \mathbf{0}_{1\times 3} & 1 \end{bmatrix} = \begin{bmatrix} \cos\theta_3 & 0 & \sin\theta_3 & 0 \\ 0 & 1 & 0 & 0 \\ -\sin\theta_3 & 0 & \cos\theta_3 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}.
+            T_{23}(\theta_3) = \begin{bmatrix} R_y(\theta_3) & p_2 \\ \mathbf{0}_{1\times 3} & 1 \end{bmatrix} = \begin{bmatrix} \cos\theta_3 & 0 & \sin\theta_3 & 0 \\ 0 & 1 & 0 & 0 \\ -\sin\theta_3 & 0 & \cos\theta_3 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}.
             $$
-            where $p_3 = \begin{bmatrix} 0 & 0 & 0 \end{bmatrix}^\top$. The cumulative homogeneous transformation matrix up to Joint 3 is given by
+            where $p_2 = \begin{bmatrix} 0 & 0 & 0 \end{bmatrix}^\top$. The cumulative homogeneous transformation matrix up to Joint 3 is given by
             $$
             T_{03}(\theta_1, \theta_2, \theta_3) = T_{01}(\theta_1) T_{12}(\theta_2) T_{23}(\theta_3) = \begin{bmatrix} R_z(\theta_1)R_y(\theta_2 + \theta_3) & \mathbf{0}_{3\times 1} \\ \mathbf{0}_{1\times 3} & 1 \end{bmatrix}.
             $$
