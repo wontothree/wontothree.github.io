@@ -326,9 +326,9 @@
           $(i)$ <b>Redundant System</b> $(\text{rank}(J) < n)$
           <ul>
             <li><b>[Perspective 1 $(\mathcal F \rightarrow \tau)$]</b> The required torque is uniquely determined by $\tau=J^\top\mathcal F$. However, additional null-space torques can be added without changing the resulting end-effector wrench:
-            $\tau=J^\top\mathcal F+\tau_{\text{null}}$, where $\tau_{\text{null}}\in\text{Null}(J)$.</li>
+            $\tau=J^\top\mathcal F+\tau_{\mathcal N}$, where $\tau_{\mathcal N}\in\mathcal N(J)$.</li>
             <li><b>[Perspective 2 $(\tau \rightarrow \mathcal F)$]</b> Since $J^\top$ is not invertible, the wrench $\mathcal F$ cannot always be uniquely determined from $\tau$; a solution may not exist or may not be unique.</li>
-            <li><b>[Dynamics]</b> $\text{Null}(J)\neq\{0\}$, so nonzero joint velocities can leave the end-effector instantaneously stationary. Predicting actual motion may require dynamics.</li>
+            <li><b>[Dynamics]</b> $\mathcal N(J)\neq\{0\}$, so nonzero joint velocities can leave the end-effector instantaneously stationary. Predicting actual motion may require dynamics.</li>
           </ul>
         </p>
 
@@ -338,32 +338,37 @@
             <li><b>[Perspective 1 $(\mathcal F \rightarrow \tau)$]</b> The joint torque $\tau=J^\top\mathcal F$ is uniquely determined for a given wrench $\mathcal F$.</li>
             <li><b>[Perspective 2 $(\tau \rightarrow \mathcal F)$]</b> If $n=6$ and $J$ is full rank, every joint torque corresponds to a unique wrench:
             $\mathcal F=J^{-\top}\tau$.</li>
-            <li><b>[Kinematics]</b> $\text{Null}(J)=\{0\}$, so no nonzero joint velocity can keep the end-effector instantaneously stationary. For $n\leq6$, this means all joint degrees of freedom are locally constrained when the end-effector is fixed.</li>
+            <li><b>[Kinematics]</b> $\mathcal N(J)=\{0\}$, so no nonzero joint velocity can keep the end-effector instantaneously stationary. For $n\leq6$, this means all joint degrees of freedom are locally constrained when the end-effector is fixed.</li>
           </ul>
         </p>
         <p>
           $(iii)$ <b>Underactuated in Wrench Space</b> $(\text{rank}(J^\top)<6)$
           <ul>
-            <li><b>[Perspective 1 $(\mathcal F \rightarrow \tau)$]</b> External Wrenches in $\text{Null}(J^\top)$ produce zero joint torque
+            <li><b>[Perspective 1 $(\mathcal F \rightarrow \tau)$]</b> External Wrenches in $\mathcal N(J^\top)$ produce zero joint torque
             $\tau=J^\top\mathcal F=0$, but may be resisted without moving purely by the mechanical constraints of the robot (no guarantee).</li>
             $$
-            \text{Null}(J^\top)
+            \mathcal N(J^\top)
             =\{\mathcal F\in\mathbb R^6\mid J^\top\mathcal F=0\}
             $$
-            <li><b>[Perspective 2 $(\tau \rightarrow \mathcal F)$]</b> The robot cannot actively generate arbitrary 6D end-effector wrenches. The robot cannot actively generate wrench components in $\text{Null}(J^\top)$ using joint torques.</li>
+            <li><b>[Perspective 2 $(\tau \rightarrow \mathcal F)$]</b> The robot cannot actively generate arbitrary 6D end-effector wrenches. The robot cannot actively generate wrench components in $\mathcal N(J^\top)$ using joint torques.</li>
           </ul>
         </p>
       </div>
 
       <div class="box">
-        <h1>3. Singularity</h1>
+        <h1>3. Kinematic Singularity</h1>
         <p>
           <fieldset class="definition-fieldset">
             <legend>&nbsp;(Kinematic) Singularity&nbsp;</legend>
             <p>
-              Postures at which the robot’s end-effector loses the ability to move instantaneously in one or more directions.
+              Let $J(\theta)$ denote the robot's Jacobian at a joint configuration $\theta\in\Theta$, where $\Theta$ is the set of admissible joint configurations. A configuration $\theta$ is called a kinematic singularity if
+              $$
+              \text{rank }J(\theta) < \max_\theta \text{rank } J(\theta)
+              $$
+              That is, a kinematic singularity is a configuration at which the Jacobian rank drops below its maximum attainable value over the configuration space.
             </p>
           </fieldset>
+          Postures at which the robot’s end-effector loses the ability to move instantaneously in one or more directions.
           <br>
           A singular posture occurs when the Jacobian fails to be of maximal rank, meaning its column space fails to span the full task space.
         </p>
