@@ -25,7 +25,7 @@
     <br><br>
 
     <div class="base">
-      <h1>Velocity Kinematics and Statics</h1>
+      <h1>Forward Kinematics and Velocity Kinematics</h1>
       <div class="box">
         <p>
           In this post, our goal is to understand some concepts related to Jacobian through visualization.
@@ -41,7 +41,8 @@
         <p>
           The world frame represents the fixed origin of the global coordinate system. Here, the space frame is fixed at J1 (coinciding with the world frame origin), and the body frame is attached to the end-effector.
         </p>
-        <h1>1. Jacobian</h1>
+        <h1>1. Forward Kinematics</h1>
+        <h1>2. Jacobian</h1>
         <p>
           We are interested in transformation from joint space to task space. 
           Forward kinematics is about calculating the robot end-effector frame's position and orientation for a given set of joint positions.
@@ -299,7 +300,187 @@
       </div>
 
       <div class="box">
-        <h1>2. Statics</h1>
+        <h1>3. Kinematic Singularity and Manipulability</h1>
+
+        <h2>Kinematic Singularity</h2>
+        <p>
+          <fieldset class="definition-fieldset">
+            <legend>&nbsp;(Kinematic) Singularity&nbsp;</legend>
+            <p>
+              Let $J(\theta)$ denote the robot's Jacobian at a joint configuration $\theta\in\Theta$, where $\Theta$ is the set of admissible joint configurations. A configuration $\theta$ is called a kinematic singularity if
+              $$
+              \text{rank }J(\theta) < \max_\theta \text{rank } J(\theta)
+              $$
+              That is, a kinematic singularity is a configuration at which the Jacobian rank drops below its maximum attainable value over the configuration space.
+            </p>
+          </fieldset>
+          <br>
+          Postures at which the robot’s end-effector loses the ability to move instantaneously in one or more directions.
+          <br>
+          A singular posture occurs when the Jacobian fails to be of maximal rank, meaning its column space fails to span the full task space.
+        </p>
+        <h2>Manipulability</h2>
+        <p>
+          <fieldset class="definition-fieldset">
+            <legend>&nbsp;Definition: Manipulability Ellipsoid&nbsp;</legend>
+            <p>
+              We consider an $n$-joint open chain have joint configuration $\theta \in \mathbb{R}^n$, a task space configuration $x \in \mathbb{R}^m$, and the Jacobian $J(\theta) \in \mathbb R^{m \times n}$ where $m \le n$ and $m \le 6$.
+              The <strong>Manipulability Ellipsoid</strong> $\mathcal{E} \subseteq \mathcal C(J(\theta)) \subseteq \mathbb{R}^m$ is defined as the image of the unit ball in joint-velocity space under the linear mapping $J(\theta)$:
+              $$
+              \mathcal{E}(\theta) := \left\{ \dot x \in \mathbb{R}^m \;\middle|\; \dot x = J(\theta)\dot{\theta}, \; \dot{\theta} \in \mathbb{R}^n, \; \|\dot{\theta}\|_2 \le 1 \right\}.
+              $$
+            </p>
+          </fieldset>
+
+          <fieldset class="theorem-fieldset">
+            <legend>&nbsp;Theorem: Quadratic Form&nbsp;</legend>
+            <p>
+              Assuming $J(\theta)$ is of full row rank ($\operatorname{rank}(J(\theta)) = m$), the manipulability ellipsoid is equivalently expressed in quadratic form as:
+              $$
+              \mathcal{E}(\theta) = \left\{ \dot x \in \mathbb{R}^m \;\middle|\; \dot x^\top \left( J(\theta) J^\top(\theta) \right)^{-1} \dot x \le 1 \right\}.
+              $$
+            </p>
+          </fieldset>
+          <br>
+          <details>
+            <summary>Proof</summary>
+
+            <p>
+              We consider the following problem:
+              $$
+              \underset{\dot \theta \in \mathbb R^{n}}{\min}\; \dfrac{1}{2} \| \dot\theta\|_2^2 \quad \text{s.t. }\quad \dot x = J \dot \theta.
+              $$
+              The Lagrangian function with muliplier $\lambda \in \mathbb R^m$ is defined as
+              $$
+              \mathcal L_\lambda(\dot\theta) = \dfrac{1}{2} \| \dot\theta\|_2^2 + \lambda^\top (\dot x - J\dot \theta).
+              $$
+              Stationary condition is given by
+              $$
+              \nabla_{\dot \theta_{\text{}}} \mathcal L_\lambda(\dot \theta) = \dot\theta - J^\top \lambda = 0 \Longrightarrow \dot\theta_\text{min} = J^\top \lambda
+              $$
+              Thus, we have
+              $$
+              \begin{aligned}
+              \dot x =& J \dot\theta_\text{min}
+              \\
+              =& JJ^\top \lambda
+              \end{aligned}
+              $$
+              Assuming $J$ has full row rank, $JJ^\top$ is invertible, so
+              $$
+              \lambda = (JJ^\top)^{-1}\dot x
+              $$
+              Therefore, we have
+              $$
+              \dot \theta_{\text{min}} = J^\top \lambda = J^\top (JJ^\top)^{-1} \dot x  
+              $$
+              Now, we can derive the quadratic form
+              $$
+              \begin{aligned}
+              1
+              &\ge\dot{\theta}^\top\dot{\theta}
+              \\
+              &\ge\dot{\theta}{\text{min}}^\top\dot{\theta}{\text{min}}
+              \\
+              &= (J^\top (JJ^\top)^{-1}\dot x)^\top (J^\top (JJ^\top)^{-1}\dot x)
+              \\
+              &= \dot x^\top (JJ^\top)^{-1}  \dot x
+              \end{aligned}
+              $$
+              Since $J\in \mathbb R^{m \times n}$ has full row rank, the square matrix $JJ^\top \in \mathbb R^{m \times m}$ is both symmetric and postivie definite, as is $(JJ^\top)^{-1}$.
+              It means $\mathcal E$ is an ellipsoid in the $m$-dimensional space.
+            </p>
+          </details>
+          <!-- We consider the following problem:
+          $$
+          \underset{\dot \theta \in \mathbb R^{n}}{\min}\; \dfrac{1}{2} \| \dot\theta\|_2^2 \quad \text{s.t. }\quad \dot x = J \dot \theta.
+          $$
+          The Lagrangian function with muliplier $\lambda \in \mathbb R^m$ is defined as
+          $$
+          \mathcal L_\lambda(\dot\theta) = \dfrac{1}{2} \| \dot\theta\|_2^2 + \lambda^\top (\dot x - J\dot \theta).
+          $$
+          Stationary condition is given by
+          $$
+          \nabla_{\dot \theta_{\text{}}} \mathcal L_\lambda(\dot \theta) = \dot\theta - J^\top \lambda = 0 \Longrightarrow \dot\theta_\text{min} = J^\top \lambda
+          $$
+          Thus, we have
+          $$
+          \begin{aligned}
+          \dot x =& J \dot\theta_\text{min}
+          \\
+          =& JJ^\top \lambda
+          \end{aligned}
+          $$
+          Assuming $J$ has full row rank, $JJ^\top$ is invertible, so
+          $$
+          \lambda = (JJ^\top)^{-1}\dot x
+          $$
+          Therefore, we have
+          $$
+          \dot \theta_{\text{min}} = J^\top \lambda = J^\top (JJ^\top)^{-1} \dot x  
+          $$
+          Now, we can derive the quadratic form
+          $$
+          \begin{aligned}
+          1
+          &\ge\dot{\theta}^\top\dot{\theta}
+          \\
+          &\ge\dot{\theta}{\text{min}}^\top\dot{\theta}{\text{min}}
+          \\
+          &= (J^\top (JJ^\top)^{-1}\dot x)^\top (J^\top (JJ^\top)^{-1}\dot x)
+          \\
+          &= \dot x^\top (JJ^\top)^{-1}  \dot x
+          \end{aligned}
+          $$
+          Since $J\in \mathbb R^{m \times n}$ has full row rank, the square matrix $JJ^\top \in \mathbb R^{m \times m}$ is both symmetric and postivie definite, as is $(JJ^\top)^{-1}$.
+          It means $\mathcal E$ is an ellipsoid in the $m$-dimensional space. -->
+        </p>
+        <h2>Manipulability Measures</h2>
+        <p>
+          When considering the linear-velocity manipulability ellipsoid, it makes sense to use the body Jacobian instead of the space Jacobian.
+        </p>
+        <p>
+          There are three single scalar measure defining how easily the robot can move at a given posture.
+          For the eigenvalues $\lambda_i$ of matrix $JJ^\top$, the principal semi-axis lenths of ellipsoid are $\sqrt{\lambda_i}$.
+        </p>
+        <p>
+          <strong>Ratio of the longest and shortest semi-axes of the manipulability ellipsoid.</strong>
+          $$
+          \mu_1(JJ^\top) := \dfrac{\sqrt{\lambda_{\text{max}}}}{\sqrt{\lambda_{\text{max}}}} \ge 1
+          $$
+          When $\mu_1(JJ^\top)$ is cloes to 1, then the manipulability ellipsoid is nearly spherical or isotropic, meaning that it is equally easy to move in any direction.
+          When $\mu_1(JJ^\top)$ goes to infinity, the robot approaches a singularity.
+        </p>
+        <p>
+          Similarily, the condition number of the matrix $JJ^\top$ is defined as
+          $$
+          \mu_2(JJ^\top) := \mu_1(JJ^\top)^2
+          $$
+        </p>
+        <p>
+          <strong>Volume of the manipulability ellipsoid (Yoshikawa manipulability measure).</strong>
+          The volume $\text{vol}(\mathcal E)$ is proportional to the product of the semi-axis lengths:
+          $$
+          \text{vol}(\mathcal E) \propto \sqrt{\lambda_1\lambda_2\cdots\lambda_m} = \sqrt{\det(JJ^\top)}.
+          $$
+          In this sense, we define
+          $$
+          \mu_3(JJ^\top) := \sqrt{\det(JJ^\top)}.
+          $$
+          In this case, unlike the two measures, a larger value is better.
+        </p>
+
+        <h2>Singularity Case Study</h2>
+        <p>- Case 1: Two Collinear Revolute Joint Axes</p>
+        <img src="./case01.png" width="100%" />
+        <p>- Case 2: Three Coplanar and Parallel Revolute Joint Axes</p>
+        <img src="./case02.png" width="100%" />
+        <p>Case 3: Four Coplanar Revolute Joints</p>
+        <img src="./case03.png" width="100%" />
+      </div>
+
+      <div class="box">
+        <h1>4. Statics</h1>
         <p>
           For $\tau$ is the joint torque vector, the static equilibrium equation is given by
           $$
@@ -352,130 +533,6 @@
             $$
             <li><b>[Perspective 2 $(\tau \rightarrow \mathcal F)$]</b> The robot cannot actively generate arbitrary 6D end-effector wrenches. The robot cannot actively generate wrench components in $\mathcal N(J^\top)$ using joint torques.</li>
           </ul>
-        </p>
-      </div>
-
-      <div class="box">
-        <h1>3. Kinematic Singularity</h1>
-        <p>
-          <fieldset class="definition-fieldset">
-            <legend>&nbsp;(Kinematic) Singularity&nbsp;</legend>
-            <p>
-              Let $J(\theta)$ denote the robot's Jacobian at a joint configuration $\theta\in\Theta$, where $\Theta$ is the set of admissible joint configurations. A configuration $\theta$ is called a kinematic singularity if
-              $$
-              \text{rank }J(\theta) < \max_\theta \text{rank } J(\theta)
-              $$
-              That is, a kinematic singularity is a configuration at which the Jacobian rank drops below its maximum attainable value over the configuration space.
-            </p>
-          </fieldset>
-          Postures at which the robot’s end-effector loses the ability to move instantaneously in one or more directions.
-          <br>
-          A singular posture occurs when the Jacobian fails to be of maximal rank, meaning its column space fails to span the full task space.
-        </p>
-        <h2>Singularity Case Study</h2>
-        <p>- Case 1: Two Collinear Revolute Joint Axes</p>
-        <img src="./case01.png" width="100%" />
-        <p>- Case 2: Three Coplanar and Parallel Revolute Joint Axes</p>
-        <img src="./case02.png" width="100%" />
-        <p>Case 3: Four Coplanar Revolute Joints</p>
-        <img src="./case03.png" width="100%" />
-      </div>
-
-      <div class="box">
-        <h1>4. Manipulability</h1>
-        <p>
-          <fieldset class="definition-fieldset">
-            <legend>&nbsp;Definition: Manipulability Ellipsoid&nbsp;</legend>
-            <p>
-              We consider an $n$-joint open chain have joint configuration $\theta \in \mathbb{R}^n$, a task space configuration $x \in \mathbb{R}^m$, and the Jacobian $J(\theta) \in \mathbb R^{m \times n}$ where $m \le n$ and $m \le 6$. 
-              The <strong>Manipulability Ellipsoid</strong> $\mathcal{E} \subseteq \mathcal C(J(\theta)) \subseteq \mathbb{R}^m$ is defined as the image of the unit ball in joint-velocity space under the linear mapping $J(\theta)$:
-              $$
-              \mathcal{E} := \left\{ \dot x \in \mathbb{R}^m \;\middle|\; \dot x = J(\theta)\dot{\theta}, \; \dot{\theta} \in \mathbb{R}^n, \; \|\dot{\theta}\|_2 \le 1 \right\}.
-              $$
-              Assuming $J(\theta)$ is of full row rank ($\operatorname{rank}(J(\theta)) = m$), this set is equivalently expressed in quadratic form as:
-              $$
-              \mathcal{E} = \left\{ \dot x \in \mathbb{R}^m \;\middle|\; \dot x^\top \left( J(\theta) J^\top(\theta) \right)^{-1} \dot x \le 1 \right\}.
-              $$
-            </p>
-          </fieldset>
-          <br>
-          We consider the following problem:
-          $$
-          \underset{\dot \theta \in \mathbb R^{n}}{\min}\; \dfrac{1}{2} \| \dot\theta\|_2^2 \quad \text{s.t. }\quad \dot x = J \dot \theta.
-          $$
-          The Lagrangian function with muliplier $\lambda \in \mathbb R^m$ is defined as
-          $$
-          \mathcal L_\lambda(\dot\theta) = \dfrac{1}{2} \| \dot\theta\|_2^2 + \lambda^\top (\dot x - J\dot \theta).
-          $$
-          Stationary condition is given by
-          $$
-          \nabla_{\dot \theta_{\text{}}} \mathcal L_\lambda(\dot \theta) = \dot\theta - J^\top \lambda = 0 \Longrightarrow \dot\theta_\text{min} = J^\top \lambda
-          $$
-          Thus, we have
-          $$
-          \begin{aligned}
-          \dot x =& J \dot\theta_\text{min}
-          \\
-          =& JJ^\top \lambda
-          \end{aligned}
-          $$
-          Assuming $J$ has full row rank, $JJ^\top$ is invertible, so
-          $$
-          \lambda = (JJ^\top)^{-1}\dot x
-          $$
-          Therefore, we have
-          $$
-          \dot \theta_{\text{min}} = J^\top \lambda = J^\top (JJ^\top)^{-1} \dot x  
-          $$
-          Now, we can derive the quadratic form
-          $$
-          \begin{aligned}
-          1
-          &\ge\dot{\theta}^\top\dot{\theta}
-          \\
-          &\ge\dot{\theta}{\text{min}}^\top\dot{\theta}{\text{min}}
-          \\
-          &= (J^\top (JJ^\top)^{-1}\dot x)^\top (J^\top (JJ^\top)^{-1}\dot x)
-          \\
-          &= \dot x^\top (JJ^\top)^{-1}  \dot x
-          \end{aligned}
-          $$
-          Since $J\in \mathbb R^{m \times n}$ has full row rank, the square matrix $JJ^\top \in \mathbb R^{m \times m}$ is both symmetric and postivie definite, as is $(JJ^\top)^{-1}$.
-          It means $\mathcal E$ is an ellipsoid in the $m$-dimensional space.
-        </p>
-        <h2>Manipulability Measures</h2>
-        <p>
-          When considering the linear-velocity manipulability ellipsoid, it makes sense to use the body Jacobian instead of the space Jacobian.
-        </p>
-        <p>
-          There are three single scalar measure defining how easily the robot can move at a given posture.
-          For the eigenvalues $\lambda_i$ of matrix $JJ^\top$, the principal semi-axis lenths of ellipsoid are $\sqrt{\lambda_i}$.
-        </p>
-        <p>
-          <strong>Ratio of the longest and shortest semi-axes of the manipulability ellipsoid.</strong>
-          $$
-          \mu_1(JJ^\top) := \dfrac{\sqrt{\lambda_{\text{max}}}}{\sqrt{\lambda_{\text{max}}}} \ge 1
-          $$
-          When $\mu_1(JJ^\top)$ is cloes to 1, then the manipulability ellipsoid is nearly spherical or isotropic, meaning that it is equally easy to move in any direction.
-          When $\mu_1(JJ^\top)$ goes to infinity, the robot approaches a singularity.
-        </p>
-        <p>
-          Similarily, the condition number of the matrix $JJ^\top$ is defined as
-          $$
-          \mu_2(JJ^\top) := \mu_1(JJ^\top)^2
-          $$
-        </p>
-        <p>
-          <strong>Volume of the manipulability ellipsoid (Yoshikawa manipulability measure).</strong>
-          The volume $\text{vol}(\mathcal E)$ is proportional to the product of the semi-axis lengths:
-          $$
-          \text{vol}(\mathcal E) \propto \sqrt{\lambda_1\lambda_2\cdots\lambda_m} = \sqrt{\det(JJ^\top)}.
-          $$
-          In this sense, we define
-          $$
-          \mu_3(JJ^\top) := \sqrt{\det(JJ^\top)}.
-          $$
-          In this case, unlike the two measures, a larger value is better.
         </p>
 
         <h2>Force Ellipsoid</h2>
