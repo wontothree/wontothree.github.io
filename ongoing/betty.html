@@ -3,10 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>5-DOF Robot — Universal Groove Studio</title>
+<title>Universal Groove Studio</title>
 
 <style>
-
 :root {
   color-scheme: light;
   --bg: #f8fafc;
@@ -149,16 +148,15 @@ audio { width: 100%; margin-top: 12px; height: 36px; }
   .layout { grid-template-columns: 1fr; }
   .canvas-wrap { height: 400px; }
 }
-
 </style>
 </head>
 
 <body>
 
 <header>
-  <h1>🎧 Universal Groove Robot</h1>
+  <h1>Universal Groove Studio</h1>
   <p>
-    12가지 감정 스타일과 리듬 특징을 반영하여 일정한 Groove와 모션을 표현하는 5-DOF 로봇
+    Betty
   </p>
 </header>
 
@@ -169,19 +167,16 @@ audio { width: 100%; margin-top: 12px; height: 36px; }
     <div class="canvas-wrap">
       <canvas id="canvas"></canvas>
     </div>
-    <div class="hint">
-      감정 버튼을 클릭하여 서로 다른 춤 스타일을 확인해보세요.
-    </div>
   </section>
 
   <aside class="controls">
 
     <section class="panel">
-      <h2>🎵 Beat Intelligence</h2>
+      <h2>Music Upload</h2>
 
       <div class="row">
-        <button class="btn active" id="mode-file">📁 파일</button>
-        <button class="btn" id="mode-mic">🎙️ 마이크</button>
+        <button class="btn active" id="mode-file">📁 File</button>
+        <button class="btn" id="mode-mic">🎙️ Mic</button>
         <button class="btn" id="reset">Reset</button>
       </div>
 
@@ -227,11 +222,8 @@ audio { width: 100%; margin-top: 12px; height: 36px; }
     </section>
 
     <section class="panel">
-      <h2>💗 Emotion System (12가지 스타일)</h2>
+      <h2>Emotion</h2>
       <div class="row" id="emo"></div>
-      <div id="emo-desc" style="font-size:12px;color:var(--muted);margin-top:10px">
-        모든 스타일은 기본적인 비트 바운스를 유지하면서 서로 다른 동작을 표현합니다.
-      </div>
     </section>
 
     <section class="panel">
