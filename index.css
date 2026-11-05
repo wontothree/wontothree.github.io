@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
 * {
     box-sizing: border-box;
     text-rendering: optimizeLegibility;
@@ -16,14 +18,9 @@ html {
     margin: 0;
     padding: 0;
     line-height: 1.8rem;
-    font-family: sans-serif;
     background-color: white;
     color: #1e1e1e;
-    font-family: 'Monaspace Neon', monospace; /* Helvetica Neue */
-}
-
-/* font size by screen size */
-html {
+    font-family: 'Space Grotesk', sans-serif;
     font-size: 16px;
 }
 
