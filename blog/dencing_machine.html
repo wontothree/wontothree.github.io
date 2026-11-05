@@ -1,0 +1,1872 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>5-DOF Robot — Universal Groove Studio</title>
+
+<style>
+
+:root {
+  color-scheme: light;
+  --bg: #f8fafc;
+  --line: #e2e8f0;
+  --text: #1e293b;
+  --muted: #64748b;
+  --cyan: #3b82f6;
+  --yellow: #8b5cf6;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: radial-gradient(ellipse at 50% -20%, #e0eaff 0%, var(--bg) 55%);
+  color: var(--text);
+  font: 14px/1.5 Inter, system-ui, -apple-system, sans-serif;
+  min-height: 100vh;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+header {
+  padding: 22px 26px 8px;
+  max-width: 1200px;
+  margin: auto;
+  text-align: center;
+}
+h1 { margin: 0; font-size: 24px; }
+header p { color: var(--muted); margin: 6px 0 0; }
+
+.layout {
+  max-width: 1200px;
+  margin: auto;
+  padding: 12px 20px 28px;
+  display: grid;
+  grid-template-columns: minmax(300px, 1.8fr) minmax(280px, 1fr);
+  gap: 18px;
+}
+.panel {
+  background: linear-gradient(145deg, #ffffff, #f1f5f9);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 18px;
+}
+.panel h2 { font-size: 15px; margin: 0 0 12px; }
+
+.canvas-wrap {
+  height: 520px;
+  background: radial-gradient(ellipse at center, #ffffff, #f1f5f9 72%);
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+canvas { display: block; width: 100%; height: 100%; }
+.hint {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 10px;
+  text-align: center;
+}
+.controls { display: grid; gap: 16px; align-content: start; }
+.row { display: flex; gap: 6px; flex-wrap: wrap; }
+
+.btn {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 8px 11px;
+  font-weight: 700;
+  cursor: pointer;
+  color: #475569;
+  background: #f1f5f9;
+  font-size: 11px;
+  transition: all 0.15s;
+}
+.btn:hover { background: #e2e8f0; }
+.btn.active {
+  color: #fff;
+  background: linear-gradient(100deg, #6366f1, #3b82f6);
+  border-color: transparent;
+}
+
+.up {
+  margin-top: 12px;
+  padding: 12px;
+  border: 1px dashed #c7d2fe;
+  border-radius: 8px;
+  text-align: center;
+  background: #f8faff;
+}
+.up input { display: none; }
+.up label {
+  cursor: pointer;
+  color: var(--cyan);
+  font-weight: 600;
+  display: block;
+}
+audio { width: 100%; margin-top: 12px; height: 36px; }
+
+.mon {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-top: 14px;
+  background: #f1f5f9;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 11px;
+}
+.mon span { color: var(--muted); display: block; }
+.mon strong {
+  color: var(--cyan);
+  font-family: monospace;
+  font-size: 13px;
+}
+.bar {
+  height: 6px;
+  border-radius: 3px;
+  background: #e2e8f0;
+  margin-top: 3px;
+  overflow: hidden;
+}
+.bar i {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--yellow);
+}
+.gi label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #334155;
+}
+.gi input {
+  width: 100%;
+  accent-color: var(--cyan);
+  margin-top: 4px;
+}
+#gui { display: grid; gap: 10px; }
+
+@media(max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+  .canvas-wrap { height: 400px; }
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🎧 Universal Groove Robot</h1>
+  <p>
+    12가지 감정 스타일과 리듬 특징을 반영하여 일정한 Groove와 모션을 표현하는 5-DOF 로봇
+  </p>
+</header>
+
+<main class="layout">
+
+  <section class="panel">
+    <h2>Robot View</h2>
+    <div class="canvas-wrap">
+      <canvas id="canvas"></canvas>
+    </div>
+    <div class="hint">
+      감정 버튼을 클릭하여 서로 다른 춤 스타일을 확인해보세요.
+    </div>
+  </section>
+
+  <aside class="controls">
+
+    <section class="panel">
+      <h2>🎵 Beat Intelligence</h2>
+
+      <div class="row">
+        <button class="btn active" id="mode-file">📁 파일</button>
+        <button class="btn" id="mode-mic">🎙️ 마이크</button>
+        <button class="btn" id="reset">Reset</button>
+      </div>
+
+      <div class="up" id="file-box">
+        <label for="fin">🎵 음악 파일 선택 (mp3, wav …)</label>
+        <input type="file" id="fin" accept="audio/*">
+        <div id="fname" style="font-size:11px;color:var(--muted);margin-top:4px">
+          선택된 파일 없음
+        </div>
+      </div>
+
+      <audio id="player" controls style="display:none"></audio>
+
+      <div class="mon">
+        <div>
+          <span>Tempo (BPM)</span>
+          <strong id="m-bpm">-</strong>
+        </div>
+        <div>
+          <span>Beat in Bar</span>
+          <strong id="m-bar">-</strong>
+        </div>
+        <div>
+          <span>Tempo Lock</span>
+          <strong id="m-conf">0%</strong>
+          <div class="bar"><i id="b-conf"></i></div>
+        </div>
+        <div>
+          <span>Energy</span>
+          <strong id="m-int">0%</strong>
+          <div class="bar"><i id="b-int"></i></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>🗺️ Dance Plan (곡 구조 분석)</h2>
+      <div id="plan-info" style="font-size:12px;color:var(--muted)">
+        음악 파일을 올리면 곡 전체를 분석해 구간별 감정과 choreography를 설계합니다.
+      </div>
+      <div id="plan" style="margin-top:10px"></div>
+      <div id="plan-now" style="font-size:12px;margin-top:8px;color:var(--yellow);font-weight:bold"></div>
+    </section>
+
+    <section class="panel">
+      <h2>💗 Emotion System (12가지 스타일)</h2>
+      <div class="row" id="emo"></div>
+      <div id="emo-desc" style="font-size:12px;color:var(--muted);margin-top:10px">
+        모든 스타일은 기본적인 비트 바운스를 유지하면서 서로 다른 동작을 표현합니다.
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Feel &amp; Base Stance</h2>
+      <div id="gui"></div>
+    </section>
+
+  </aside>
+</main>
+
+<script>
+
+/* =========================================================
+1. REAL-TIME MUSIC ANALYZER
+========================================================= */
+
+class MusicAnalyzer {
+  constructor() {
+    this.ctx = null;
+    this.mode = 'file';
+    this.ready = false;
+    this.el = null;
+    this.mediaSrc = null;
+    this.mic = null;
+    this.micSrc = null;
+    this.reset();
+  }
+
+  reset() {
+    this.bpm = 120;
+    this.conf = 0;
+    this.locked = false;
+    this.beatPos = 0;
+    this.lastBi = 0;
+    this.slot = [0, 0, 0, 0];
+    this.env = [];
+    this.prev = null;
+    this.fps = 60;
+    this.tempoT = 0;
+    this.candBpm = 0;
+    this.candCnt = 0;
+    this.lastKick = 0;
+    this.lastHit = 0;
+    this.lastOn = 0;
+    this.st = {
+      low: [0, 0],
+      hit: [0, 0],
+      all: [0, 0]
+    };
+    this.fast = 0;
+    this.maxE = 0.05;
+    this.inten = 0;
+    this.bright = 0.3;
+    this.act = 0;
+    this.prevTot = 0;
+  }
+
+  init() {
+    if (!this.ctx) {
+      this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+      this.an = this.ctx.createAnalyser();
+      this.an.fftSize = 2048;
+      this.an.smoothingTimeConstant = 0;
+      this.an.minDecibels = -95;
+      this.an.maxDecibels = -25;
+
+      this.out = this.ctx.createGain();
+      this.an.connect(this.out);
+      this.out.connect(this.ctx.destination);
+
+      this.buf = new Uint8Array(this.an.frequencyBinCount);
+    }
+
+    if (this.ctx.state === 'suspended') {
+      this.ctx.resume();
+    }
+  }
+
+  stopMic() {
+    if (this.mic) {
+      this.mic.getTracks().forEach(t => t.stop());
+      this.mic = null;
+    }
+    if (this.micSrc) {
+      try { this.micSrc.disconnect(); } catch (e) {}
+      this.micSrc = null;
+    }
+  }
+
+  useFile(el) {
+    this.init();
+    this.stopMic();
+
+    this.el = el;
+    if (!this.mediaSrc) {
+      this.mediaSrc = this.ctx.createMediaElementSource(el);
+    }
+
+    try { this.mediaSrc.disconnect(); } catch (e) {}
+    this.mediaSrc.connect(this.an);
+
+    this.out.gain.value = 1;
+    this.mode = 'file';
+    this.ready = true;
+    this.reset();
+  }
+
+  async useMic() {
+    this.init();
+    try {
+      this.stopMic();
+      this.mic = await navigator.mediaDevices.getUserMedia({
+        audio: {
+          echoCancellation: false,
+          noiseSuppression: false,
+          autoGainControl: false
+        }
+      });
+
+      if (this.mediaSrc) {
+        try { this.mediaSrc.disconnect(); } catch (e) {}
+      }
+
+      this.micSrc = this.ctx.createMediaStreamSource(this.mic);
+      this.micSrc.connect(this.an);
+
+      this.out.gain.value = 0;
+      this.mode = 'mic';
+      this.ready = true;
+      this.reset();
+      return true;
+
+    } catch (e) {
+      alert("마이크를 사용할 수 없습니다: " + e.message);
+      return false;
+    }
+  }
+
+  _on(k, x) {
+    const s = this.st[k];
+    const thr = s[0] + 2.0 * s[1] + 0.003;
+
+    s[0] += (x - s[0]) * 0.03;
+    s[1] += (Math.abs(x - s[0]) - s[1]) * 0.03;
+
+    return x > thr ? Math.min(1, 0.35 + (x - thr) * 12) : 0;
+  }
+
+  update(dt) {
+    const off = {
+      active: false,
+      bpm: this.bpm,
+      conf: this.conf,
+      inten: this.inten,
+      beatPos: this.beatPos,
+      barT: 0,
+      barNum: 0,
+      downConf: 0,
+      kick: 0,
+      hit: 0,
+      bright: this.bright,
+      act: 0
+    };
+
+    this.inten *= 0.97;
+    this.act *= 0.9;
+    off.inten = this.inten;
+
+    if (!this.ready || (this.mode === 'file' && (!this.el || this.el.paused))) {
+      return off;
+    }
+
+    const b = this.buf;
+    const an = this.an;
+    an.getByteFrequencyData(b);
+
+    let tot = 0;
+    for (let i = 2; i < 372; i++) tot += b[i];
+    tot /= (370 * 255);
+
+    this.fast += (tot - this.fast) * 0.12;
+    this.act += ((this.fast > 0.06 ? 1 : 0) - this.act) * 0.06;
+
+    if (this.act < 0.03) {
+      this.prev = null;
+      return off;
+    }
+
+    const hz = this.ctx.sampleRate / an.fftSize;
+    const ix = f => Math.max(1, Math.round(f / hz));
+
+    const bands = [
+      [ix(30), ix(150)],
+      [ix(150), ix(2000)],
+      [ix(2000), ix(9000)]
+    ];
+
+    const prev = this.prev || new Uint8Array(b);
+    const F = [], M = [];
+
+    for (const [a, z] of bands) {
+      let f = 0, m = 0;
+      for (let i = a; i < z; i++) {
+        const d = b[i] - prev[i];
+        if (d > 0) f += d;
+        m += b[i];
+      }
+      F.push(f / (z - a) / 255);
+      M.push(m / (z - a) / 255);
+    }
+
+    this.prev = new Uint8Array(b);
+
+    const k = 0.25 / (0.05 + this.fast);
+    const rise = Math.max(0, tot - this.prevTot) * 1.5;
+    this.prevTot = tot;
+
+    const lowF = F[0] * k;
+    const hitF = (F[1] * 0.7 + F[2] * 0.6) * k;
+    const envV = lowF + hitF * 0.8 + rise;
+
+    const now = performance.now();
+
+    let kick = this._on('low', lowF);
+    if (kick && now - this.lastKick < 110) kick = 0;
+    if (kick) this.lastKick = now;
+
+    let hit = this._on('hit', hitF);
+    if (hit && now - this.lastHit < 70) hit = 0;
+    if (hit) this.lastHit = now;
+
+    const any = this._on('all', envV);
+
+    let cs = 0, cw = 0;
+    for (let i = 2; i < 372; i++) {
+      cs += i * b[i];
+      cw += b[i];
+    }
+
+    this.maxE = Math.max(this.fast, this.maxE * 0.9997, 0.05);
+    const tgt = Math.min(1, Math.max(0, (this.fast / this.maxE - 0.45) * 1.9));
+    this.inten += (tgt - this.inten) * 0.03;
+
+    if (cw > 0) {
+      this.bright += ((cs / cw) / 150 - this.bright) * 0.05;
+    }
+
+    this.env.push(envV);
+    if (this.env.length > 360) this.env.shift();
+
+    this.fps += (1 / Math.max(dt, 0.004) - this.fps) * 0.03;
+
+    if (now - this.tempoT > 400 && this.env.length > this.fps * 3) {
+      this._tempo(now);
+    }
+
+    this.tempoT = this.tempoT || now;
+    this.beatPos += dt * (this.bpm / 60);
+
+    const w = kick ? 1 : (hit || any) ? 0.45 : 0;
+
+    if (w && this.locked) {
+      const f = this.beatPos - Math.round(this.beatPos);
+      if (Math.abs(f) < 0.3) {
+        this.beatPos -= f * 0.05 * w;
+      }
+    }
+
+    if (!this.locked && kick) {
+      this.beatPos = Math.round(this.beatPos);
+    }
+
+    const bi = Math.floor(this.beatPos);
+
+    if (bi > this.lastBi) {
+      for (let i = 0; i < 4; i++) this.slot[i] *= 0.96;
+      this.lastBi = bi;
+    } else if (bi < this.lastBi) {
+      this.lastBi = bi;
+    }
+
+    this.slot[((Math.round(this.beatPos) % 4) + 4) % 4] += lowF + F[1] * 0.3;
+
+    const mx = Math.max(...this.slot);
+    const sum = this.slot.reduce((a, c) => a + c, 0) || 1;
+    const down = this.slot.indexOf(mx);
+    const rel = this.beatPos - down;
+
+    return {
+      active: true,
+      bpm: this.bpm,
+      conf: this.conf,
+      inten: this.inten,
+      beatPos: this.beatPos,
+      barT: ((rel % 4) + 4) % 4,
+      barNum: Math.floor(rel / 4),
+      downConf: Math.min(1, Math.max(0, (mx / sum - 0.25) * 2.4)) * Math.min(1, this.conf * 2),
+      kick,
+      hit,
+      bright: Math.min(1, this.bright),
+      act: this.act
+    };
+  }
+
+  _tempo(now) {
+    this.tempoT = now;
+
+    const x = this.env;
+    const n = x.length;
+
+    const mean = x.reduce((a, c) => a + c, 0) / n;
+    const v = x.map(e => e - mean);
+
+    const ac = L => {
+      let s = 0;
+      for (let i = L; i < n; i++) s += v[i] * v[i - L];
+      return s / (n - L);
+    };
+
+    const a0 = ac(0) || 1e-9;
+    const Lmin = Math.floor(this.fps * 60 / 185);
+    const Lmax = Math.ceil(this.fps * 60 / 68);
+
+    const sc = [];
+    for (let L = Lmin - 1; L <= Lmax + 1; L++) {
+      const bpm = 60 * this.fps / L;
+      let s = ac(L) + 0.5 * ac(2 * L) + 0.25 * (4 * L < n - 10 ? ac(4 * L) : 0);
+      sc[L] = s * Math.exp(-0.5 * Math.pow(Math.log2(bpm / 118) / 0.75, 2));
+    }
+
+    let best = Lmin, bv = -1e9;
+    for (let L = Lmin; L <= Lmax; L++) {
+      if (sc[L] > bv) {
+        bv = sc[L];
+        best = L;
+      }
+    }
+
+    const A = sc[best - 1];
+    const B = sc[best];
+    const C = sc[best + 1];
+
+    const den = A - 2 * B + C;
+    const d = den ? 0.5 * (A - C) / den : 0;
+    const nb = 60 * this.fps / (best + Math.max(-1, Math.min(1, d)));
+
+    const c = Math.max(0, Math.min(1, bv / (a0 * 1.2)));
+    this.conf += (c - this.conf) * 0.25;
+
+    if (c < 0.06) return;
+
+    if (!this.locked) {
+      this.bpm = nb;
+      this.locked = true;
+      return;
+    }
+
+    if (Math.abs(nb / this.bpm - 1) < 0.06) {
+      this.bpm += (nb - this.bpm) * 0.1;
+      this.candCnt = 0;
+    } else {
+      if (this.candBpm && Math.abs(nb / this.candBpm - 1) < 0.04) {
+        this.candCnt++;
+      } else {
+        this.candBpm = nb;
+        this.candCnt = 1;
+      }
+
+      if (this.candCnt >= 3) {
+        this.bpm = nb;
+        this.candCnt = 0;
+      }
+    }
+  }
+}
+
+
+/* =========================================================
+   2. 5-DOF ROBOT KINEMATICS
+========================================================= */
+
+class RobotEngine {
+  constructor() {
+    this.H = 25;
+    this.L1 = 25;
+    this.L2 = 50;
+    this.L3 = 50;
+    this.L4 = 25;
+    this.L5 = 25;
+  }
+
+  fk(q) {
+    const r = q.map(d => d * Math.PI / 180);
+    const [j1, j2, j3, j4, j5] = r;
+
+    const c1 = Math.cos(j1);
+    const s1 = Math.sin(j1);
+
+    const p1 = { x: 0, y: 0, z: this.H };
+    const p2 = { x: 0, y: 0, z: this.H + this.L1 };
+
+    let phi = j2;
+
+    const nx = (p, L, c, s) => ({
+      x: p.x + L * Math.sin(phi) * c,
+      y: p.y + L * Math.sin(phi) * s,
+      z: p.z + L * Math.cos(phi)
+    });
+
+    const p3 = nx(p2, this.L2, c1, s1);
+    phi += j3;
+
+    const p4 = nx(p3, this.L3, c1, s1);
+    phi += j4;
+
+    const p5 = nx(p4, this.L4, c1, s1);
+
+    const y = j1 + j5;
+    const head = nx(p5, this.L5, Math.cos(y), Math.sin(y));
+
+    return {
+      base: { x: 0, y: 0, z: 0 },
+      p1, p2, p3, p4, p5, head
+    };
+  }
+}
+
+
+/* =========================================================
+   3. ROBOT RENDERER
+========================================================= */
+
+class Renderer {
+  constructor(c) {
+    this.c = c;
+    this.x = c.getContext("2d");
+    this.yaw = -Math.PI / 4;
+    this.pitch = Math.PI / 6;
+    this.s = 1.35;
+
+    this.rs();
+    addEventListener('resize', () => this.rs());
+  }
+
+  rs() {
+    this.c.width = this.c.clientWidth;
+    this.c.height = this.c.clientHeight;
+  }
+
+  pr(p) {
+    const cx = this.c.width / 2;
+    const cy = this.c.height / 2 + 100;
+
+    const x1 = p.x * Math.cos(this.yaw) - p.y * Math.sin(this.yaw);
+    const y1 = p.x * Math.sin(this.yaw) + p.y * Math.cos(this.yaw);
+
+    const y2 = y1 * Math.cos(this.pitch) - p.z * Math.sin(this.pitch);
+    const z2 = y1 * Math.sin(this.pitch) + p.z * Math.cos(this.pitch);
+
+    return {
+      x: cx + x1 * this.s,
+      y: cy - z2 * this.s
+    };
+  }
+
+  ln(a, b, w, col) {
+    const A = this.pr(a);
+    const B = this.pr(b);
+    const x = this.x;
+
+    x.beginPath();
+    x.moveTo(A.x, A.y);
+    x.lineTo(B.x, B.y);
+    x.strokeStyle = col;
+    x.lineWidth = w;
+    x.lineCap = "round";
+    x.stroke();
+  }
+
+  pt(p, r, fill, glow, gc, gs) {
+    const P = this.pr(p);
+    const x = this.x;
+
+    x.beginPath();
+    x.arc(P.x, P.y, r, 0, 6.2832);
+
+    x.fillStyle = fill;
+    x.shadowColor = gc;
+    x.shadowBlur = glow ? gs : 0;
+    x.fill();
+
+    x.shadowBlur = 0;
+    x.strokeStyle = "#000";
+    x.lineWidth = 1.5;
+    x.stroke();
+  }
+
+  draw(P, d) {
+    this.x.clearRect(0, 0, this.c.width, this.c.height);
+
+    const ga = 0.05 + d.flash * 0.22;
+
+    // Ground grid
+    for (let i = -150; i <= 150; i += 30) {
+      this.ln({ x: i, y: -150, z: 0 }, { x: i, y: 150, z: 0 }, 1, `rgba(56,237,248,${ga})`);
+      this.ln({ x: -150, y: i, z: 0 }, { x: 150, y: i, z: 0 }, 1, `rgba(156,237,248,${ga})`);
+    }
+
+    // Ground ring
+    const R = 35 + d.ph * 110;
+    const ra = d.active ? (1 - d.ph) * 0.5 * d.acc : 0;
+
+    for (let i = 0; i < 40; i++) {
+      const a = (i / 40) * 6.2832;
+      const b = ((i + 1) / 40) * 6.2832;
+      this.ln(
+        { x: R * Math.cos(a), y: R * Math.sin(a), z: 0 },
+        { x: R * Math.cos(b), y: R * Math.sin(b), z: 0 },
+        2,
+        `rgba(255,92,168,${ra})`
+      );
+    }
+
+    // Robot links
+    this.ln(P.base, P.p1, 8, "#38edf8");
+    this.ln(P.p1, P.p2, 7, "#35a2ff");
+    this.ln(P.p2, P.p3, 6, "#7b5cff");
+    this.ln(P.p3, P.p4, 5, "#b85cff");
+    this.ln(P.p4, P.p5, 4, "#ff5ca8");
+    this.ln(P.p5, P.head, 3, "#ff8b45");
+
+    [P.base, P.p1, P.p2, P.p3, P.p4, P.p5].forEach(p => {
+      this.pt(p, 8, "#fff", false);
+    });
+
+    this.pt(
+      P.head,
+      9 + d.flash * 9,
+      d.flash > 0.3 ? "#fff" : "#ff8b45",
+      d.active,
+      d.inten > 0.6 ? "#ffd000" : "#38edf8",
+      10 + d.flash * 28
+    );
+  }
+}
+
+
+/* =========================================================
+   4. MUSIC PLANNER
+========================================================= */
+
+class Planner {
+  static fft(re, im) {
+    const n = re.length;
+
+    for (let i = 1, j = 0; i < n; i++) {
+      let b = n >> 1;
+      for (; j & b; b >>= 1) j ^= b;
+      j ^= b;
+
+      if (i < j) {
+        [re[i], re[j]] = [re[j], re[i]];
+        [im[i], im[j]] = [im[j], im[i]];
+      }
+    }
+
+    for (let len = 2; len <= n; len <<= 1) {
+      const a = -2 * Math.PI / len;
+      const wr = Math.cos(a);
+      const wi = Math.sin(a);
+
+      for (let i = 0; i < n; i += len) {
+        let cr = 1, ci = 0;
+        for (let k = 0; k < len / 2; k++) {
+          const u = i + k;
+          const v = u + len / 2;
+
+          const tr = re[v] * cr - im[v] * ci;
+          const ti = re[v] * ci + im[v] * cr;
+
+          re[v] = re[u] - tr;
+          im[v] = im[u] - ti;
+
+          re[u] += tr;
+          im[u] += ti;
+
+          const nr = cr * wr - ci * wi;
+          ci = cr * wi + ci * wr;
+          cr = nr;
+        }
+      }
+    }
+  }
+
+  static analyze(buf) {
+    const c0 = buf.getChannelData(0);
+    const c1 = buf.numberOfChannels > 1 ? buf.getChannelData(1) : null;
+
+    const D = Math.max(1, Math.round(buf.sampleRate / 11025));
+    const sr = buf.sampleRate / D;
+    const m = Math.floor(c0.length / D);
+
+    const x = new Float32Array(m);
+    for (let i = 0; i < m; i++) {
+      let s = 0;
+      for (let k = 0; k < D; k++) {
+        s += c0[i * D + k] + (c1 ? c1[i * D + k] : 0);
+      }
+      x[i] = s / (D * (c1 ? 2 : 1));
+    }
+
+    const N = 512, H = 128;
+    const n = Math.floor((m - N) / H);
+    const fps = sr / H, hz = sr / N;
+
+    const win = new Float32Array(N);
+    const re = new Float32Array(N);
+    const im = new Float32Array(N);
+
+    const cur = new Float32Array(N / 2);
+    const prev = new Float32Array(N / 2);
+
+    if (n < fps * 15) return null;
+
+    for (let i = 0; i < N; i++) {
+      win[i] = 0.5 - 0.5 * Math.cos(2 * Math.PI * i / N);
+    }
+
+    const bd = [
+      [2, Math.round(150 / hz)],
+      [Math.round(150 / hz), Math.round(2000 / hz)],
+      [Math.round(2000 / hz), Math.min(255, Math.round(5000 / hz))]
+    ];
+
+    const FL = [new Float32Array(n), new Float32Array(n), new Float32Array(n)];
+    const E = new Float32Array(n);
+    const Cn = new Float32Array(n);
+
+    for (let f = 0; f < n; f++) {
+      let e = 0;
+      for (let i = 0; i < N; i++) {
+        const v = x[f * H + i];
+        e += v * v;
+        re[i] = v * win[i];
+        im[i] = 0;
+      }
+      E[f] = Math.sqrt(e / N);
+
+      Planner.fft(re, im);
+
+      let cs = 0, cw = 0;
+      for (let k = 1; k < N / 2; k++) {
+        const mg = Math.hypot(re[k], im[k]);
+        cur[k] = Math.log1p(mg * 0.2);
+        cs += k * mg;
+        cw += mg;
+      }
+
+      for (let b = 0; b < 3; b++) {
+        let s = 0;
+        for (let k = bd[b][0]; k < bd[b][1]; k++) {
+          const d = cur[k] - prev[k];
+          if (d > 0) s += d;
+        }
+        FL[b][f] = s / (bd[b][1] - bd[b][0]);
+      }
+
+      prev.set(cur);
+      Cn[f] = cw ? (cs / cw) * hz / 1600 : 0;
+    }
+
+    const nz = a => {
+      let m = 0, s = 0;
+      for (const v of a) m += v;
+      m /= a.length;
+      for (const v of a) s += (v - m) * (v - m);
+      s = Math.sqrt(s / a.length) || 1;
+      return a.map(v => v / s);
+    };
+
+    const nF0 = nz(FL[0]);
+    const nH = nz(FL[1].map((v, i) => v * 0.7 + FL[2][i] * 0.6));
+    const env = nz(FL[0].map((v, i) => v + 0.7 * FL[1][i] + 0.5 * FL[2][i]));
+
+    let mu = 0;
+    for (const v of env) mu += v;
+    mu /= n;
+
+    const v = env.map(q => q - mu);
+    const ac = L => {
+      let s = 0;
+      for (let i = L; i < n; i++) s += v[i] * v[i - L];
+      return s / (n - L);
+    };
+
+    const Lmin = Math.floor(fps * 60 / 185);
+    const Lmax = Math.ceil(fps * 60 / 68);
+    const sc = [];
+
+    for (let L = Lmin - 1; L <= Lmax + 1; L++) {
+      const bpm = 60 * fps / L;
+      sc[L] = (ac(L) + 0.5 * ac(2 * L) + 0.25 * ac(4 * L)) * Math.exp(-0.5 * Math.pow(Math.log2(bpm / 118) / 0.75, 2));
+    }
+
+    let bl = Lmin, bv = -1e9;
+    for (let L = Lmin; L <= Lmax; L++) {
+      if (sc[L] > bv) {
+        bv = sc[L];
+        bl = L;
+      }
+    }
+
+    const A = sc[bl - 1], B = sc[bl], C2 = sc[bl + 1];
+    const den = A - 2 * B + C2;
+    const P = bl + (den ? Math.max(-1, Math.min(1, 0.5 * (A - C2) / den)) : 0);
+
+    const C = new Float32Array(n);
+    const pv = new Int32Array(n).fill(-1);
+
+    const w0 = Math.round(P * 0.5);
+    const w1 = Math.round(P * 2);
+
+    for (let t = 0; t < n; t++) {
+      let best = -1e9, bi = -1;
+      for (let d = w0; d <= w1; d++) {
+        const j = t - d;
+        if (j < 0) break;
+        const l = Math.log(d / P);
+        const s = C[j] - 100 * l * l;
+        if (s > best) {
+          best = s;
+          bi = j;
+        }
+      }
+      if (bi >= 0 && best > 0) {
+        C[t] = env[t] + best;
+        pv[t] = bi;
+      } else {
+        C[t] = env[t];
+      }
+    }
+
+    let e0 = Math.max(0, n - Math.round(2 * P));
+    for (let t = e0; t < n; t++) {
+      if (C[t] > C[e0]) e0 = t;
+    }
+
+    const bf = [];
+    for (let t = e0; t >= 0; t = pv[t]) {
+      bf.push(t);
+      if (pv[t] < 0) break;
+    }
+    bf.reverse();
+
+    if (bf.length < 12) return null;
+
+    const beats = Float32Array.from(bf, f => (f * H + N / 2) / sr);
+    const slot = [0, 0, 0, 0];
+
+    bf.forEach((f, i) => {
+      for (let q = Math.max(0, f - 2); q <= Math.min(n - 1, f + 2); q++) {
+        slot[i % 4] += FL[0][q];
+      }
+    });
+
+    const mx = Math.max(...slot);
+    const sum = slot.reduce((a, c) => a + c, 0) || 1;
+    const down = slot.indexOf(mx);
+    const downConf = Math.min(1, Math.max(0, (mx / sum - 0.25) * 3));
+
+    const sm = (a, w) => {
+      const o = new Float32Array(n);
+      const c = new Float64Array(n + 1);
+      for (let i = 0; i < n; i++) c[i + 1] = c[i] + a[i];
+      for (let i = 0; i < n; i++) {
+        const l = Math.max(0, i - w);
+        const r = Math.min(n, i + w + 1);
+        o[i] = (c[r] - c[l]) / (r - l);
+      }
+      return o;
+    };
+
+    const Es = sm(E, Math.round(fps * 0.75));
+    const sd = Float32Array.from(Es).sort();
+    const p10 = sd[Math.floor(n * 0.1)];
+    const p90 = sd[Math.floor(n * 0.9)];
+
+    const inten = Es.map(q => Math.min(1, Math.max(0, (q - p10) / (p90 - p10 + 1e-6))));
+    const act = E.map(q => q > 0.004 ? 1 : 0);
+    const bright = sm(Cn, Math.round(fps * 0.5)).map(q => Math.min(1, q));
+
+    const pk = (a, gap) => {
+      const o = new Float32Array(n);
+      let m = 0, d = 0, last = -99;
+      for (let i = 1; i < n - 1; i++) {
+        const q = a[i];
+        const thr = m + 2 * d + 0.3;
+        m += (q - m) * 0.02;
+        d += (Math.abs(q - m) - d) * 0.02;
+
+        if (q > thr && q >= a[i - 1] && q > a[i + 1] && i - last >= gap) {
+          o[i] = Math.min(1, 0.4 + (q - thr) * 0.3);
+          last = i;
+        }
+      }
+      return o;
+    };
+
+    const t0 = N / 2 / sr;
+    const dur = buf.duration;
+
+    const avg = (a, s, e) => {
+      let i = Math.max(0, Math.floor((s - t0) * fps));
+      let j = Math.min(n, Math.max(i + 1, Math.floor((e - t0) * fps)));
+      let z = 0;
+      for (let k = i; k < j; k++) z += a[k];
+      return z / (j - i);
+    };
+
+    const kickA = pk(nF0, 9);
+    const hitA = pk(nH, 6);
+    const nBars = Math.floor((beats.length - 1 - down) / 4);
+
+    if (nBars < 2) return null;
+
+    const bars = [];
+    for (let k = 0; k < nBars; k++) {
+      const s = beats[down + 4 * k];
+      const e = beats[down + 4 * k + 4];
+
+      const f0 = Math.max(0, Math.floor((s - t0) * fps));
+      const f1 = Math.min(n, Math.max(f0 + 1, Math.floor((e - t0) * fps)));
+
+      let on = 0;
+      for (let q = f0; q < f1; q++) {
+        on += (kickA[q] > 0) + (hitA[q] > 0);
+      }
+
+      const lo = avg(FL[0], s, e);
+      const mi = avg(FL[1], s, e);
+      const hi = avg(FL[2], s, e);
+
+      bars.push({
+        s, e,
+        L: avg(inten, s, e),
+        B: avg(bright, s, e),
+        bass: lo / (lo + mi + hi + 1e-9),
+        dens: Math.min(1, on / 16),
+        lo, hi
+      });
+    }
+
+    const cols = ['L', 'B', 'bass', 'dens', 'lo', 'hi'].map(c => nz(Float32Array.from(bars, b => b[c])));
+    const W = [1.5, 1, 1, 1, 1, 0.8];
+    const vec = bars.map((_, k) => cols.map(c => c[k]));
+
+    const dist = (a, b) => Math.sqrt(a.reduce((s, v, i) => s + W[i] * (v - b[i]) * (v - b[i]), 0));
+    const sim = (i, j) => Math.exp(-Math.pow(dist(vec[i], vec[j]), 2) / 12);
+
+    let cut = [0];
+
+    if (nBars >= 4) {
+      const K = 2;
+      const nov = new Float32Array(nBars);
+
+      for (let i = K; i <= nBars - K; i++) {
+        let s = 0;
+        for (let a = -K; a < K; a++) {
+          for (let b = -K; b < K; b++) {
+            s += (((a < 0) === (b < 0) ? 1 : -1)) * sim(i + a, i + b);
+          }
+        }
+        nov[i] = s / (i % 4 === 0 ? 1.3 : 1.1);
+      }
+
+      let m = 0, sdv = 0;
+      for (const q of nov) m += q;
+      m /= nBars;
+
+      for (const q of nov) sdv += (q - m) * (q - m);
+      sdv = Math.sqrt(sdv / nBars);
+
+      const thr = Math.max(m + 0.25 * sdv, 0.2 * Math.max(...nov));
+      const cand = [];
+
+      for (let i = 2; i <= nBars - 2; i++) {
+        if (nov[i] > thr && nov[i] >= nov[i - 1] && nov[i] >= nov[i + 1]) {
+          cand.push(i);
+        }
+      }
+
+      cand.sort((a, b) => nov[b] - nov[a]);
+      const pick = [];
+
+      for (const i of cand) {
+        if (pick.every(j => Math.abs(j - i) >= 2)) {
+          pick.push(i);
+        }
+      }
+
+      cut = cut.concat(pick.sort((a, b) => a - b));
+    }
+
+    cut.push(nBars);
+    const secs = [];
+
+    for (let c = 0; c < cut.length - 1; c++) {
+      const a = cut[c];
+      const z = cut[c + 1];
+      const Bs = bars.slice(a, z);
+
+      const mean = f => Bs.reduce((s, b) => s + f(b), 0) / Bs.length;
+      const t = Math.max(1, Math.floor(Bs.length / 3));
+
+      const first = Bs.slice(0, t).reduce((s, b) => s + b.L, 0) / t;
+      const lastL = Bs.slice(-t).reduce((s, b) => s + b.L, 0) / t;
+
+      secs.push({
+        bar0: a,
+        bar1: z,
+        t0: Bs[0].s,
+        t1: Bs[Bs.length - 1].e,
+        L: mean(b => b.L),
+        B: mean(b => b.B),
+        bass: mean(b => b.bass),
+        dens: mean(b => b.dens),
+        slope: Bs.length >= 2 ? lastL - first : 0,
+        w: Bs.length,
+        vec: vec[a].map((_, i) => vec.slice(a, z).reduce((s, q) => s + q[i], 0) / (z - a))
+      });
+    }
+
+    const groups = [];
+
+    secs.forEach(s => {
+      let g = groups.findIndex(q => dist(q, s.vec) < 1.4);
+      if (g < 0) {
+        groups.push(s.vec);
+        g = groups.length - 1;
+      }
+      s.grp = g;
+      s.style = g % 3;
+    });
+
+    const med = k => secs.map(s => s[k]).sort((a, b) => a - b)[Math.floor(secs.length / 2)];
+    const medB = med('B');
+    const medD = med('dens');
+    const medBass = med('bass');
+
+    const usedHistory = [];
+    const MAX_HISTORY = 4;
+
+    const pickDiverse = (candidates) => {
+      const filtered = candidates.filter(c => !usedHistory.includes(c));
+      const pool = filtered.length > 0 ? filtered : candidates;
+      const chosen = pool[Math.floor(Math.random() * pool.length)];
+
+      usedHistory.push(chosen);
+      if (usedHistory.length > MAX_HISTORY) {
+        usedHistory.shift();
+      }
+      return chosen;
+    };
+
+    secs.forEach((s, i) => {
+      const nx = secs[i + 1];
+      let lb, emo;
+
+      if (i === 0 && s.L < 0.45) {
+        lb = 'INTRO';
+        emo = pickDiverse(['calm', 'dreamy', 'shoulder_bounce']);
+      } else if (i === secs.length - 1 && s.L < 0.5) {
+        lb = 'OUTRO';
+        emo = pickDiverse(['shoulder_bounce', 'calm', 'sad']);
+      } else if (s.L >= 0.75) {
+        lb = 'DROP';
+        emo = pickDiverse(['headbang', 'hyped', 'spooky', 'shoulder_bounce', 'joy']);
+      } else if (s.L >= 0.6) {
+        lb = 'CHORUS';
+        emo = pickDiverse(['hyped', 'joy', 'groovy', 'shoulder_bounce']);
+      } else if (s.slope > 0.15 || (nx && nx.L - s.L > 0.2 && s.L > 0.3)) {
+        lb = 'BUILD-UP';
+        emo = pickDiverse(['anger', 'hyped', 'spooky']);
+      } else if (s.L < 0.3) {
+        lb = 'BREAK';
+        emo = pickDiverse(['hip_twerk', 'sad', 'dreamy']);
+      } else if (s.dens < medD * 0.6) {
+        lb = 'INTERLUDE';
+        emo = pickDiverse(['dreamy', 'calm', 'spooky']);
+      } else if (s.B > medB * 1.25) {
+        lb = 'SOLO';
+        emo = pickDiverse(['spooky', 'hip_twerk', 'groovy', 'joy']);
+      } else if (s.slope < -0.15) {
+        lb = 'POST-CHORUS';
+        emo = pickDiverse(['shoulder_bounce', 'calm', 'groovy']);
+      } else {
+        lb = 'VERSE';
+        emo = pickDiverse(['groovy', 'calm', 'joy', 'hip_twerk', 'spooky']);
+      }
+
+      s.label = lb;
+      s.emo = emo;
+    });
+
+    secs[0].t0 = 0;
+    secs[secs.length - 1].t1 = dur;
+
+    return {
+      beats, P: P / fps, down, downConf, fps, t0, n, dur,
+      kick: kickA, hit: hitA, inten, act, bright, secs, bars
+    };
+  }
+}
+
+
+/* =========================================================
+   5. 12 EMOTION SYSTEM (이름 및 설명 정돈 / 모션 변수 동일)
+========================================================= */
+
+const EMO = {
+  neutral: {
+    label: "🤖 기본",
+    desc: "중립적인 자세로 가볍게 리듬을 탐.",
+    post: [0, 0, 0, 0, 0]
+  },
+  joy: {
+    label: "😄 기쁨",
+    desc: "가볍게 튀어 오르는 듯한 밝고 경쾌한 움직임.",
+    post: [0, -12, 10, -5, 0]
+  },
+  calm: {
+    label: "😌 평온",
+    desc: "작고 느린 좌우 스웨이와 부드러운 호흡.",
+    post: [0, -3, 3, 0, 0]
+  },
+  sad: {
+    label: "😢 슬픔",
+    desc: "고개를 숙이고 무겁게 처지는 움직임.",
+    post: [0, 20, -10, 15, 0]
+  },
+  anger: {
+    label: "😠 분노",
+    desc: "몸을 앞으로 기울이고 강하게 밀어붙이는 동작.",
+    post: [0, 14, -15, 5, 0]
+  },
+  dreamy: {
+    label: "🌙 몽환",
+    desc: "느릿하게 좌우로 흔들리는 유려한 움직임.",
+    post: [0, -3, 3, 5, 12]
+  },
+  spooky: {
+    label: "👻 스푸키",
+    desc: "어깨를 튕기며 신나고 유쾌하게 상체를 까닥거림.",
+    post: [0, -17, 13, -7, 0]
+  },
+  groovy: {
+    label: "🕺 그루비",
+    desc: "상체와 머리를 서로 반대 방향으로 움직이는 리듬.",
+    post: [8, -5, 7, -4, -10]
+  },
+  headbang: {
+    label: "🤘 헤드뱅잉",
+    desc: "상체 전체를 앞으로 숙였다가 복귀하는 강렬한 리듬.",
+    post: [0, 0, 0, 0, 0],
+    isHeadbang: true
+  },
+  shoulder_bounce: {
+    label: "💥 어깨 바운스",
+    desc: "어깨와 상체를 수직으로 강하게 바운스하며 기울이는 춤.",
+    post: [0, 8, -5, 7, -8]
+  },
+  hyped: {
+    label: "🔥 흥분",
+    desc: "크게 몸을 흔들고 강하게 리듬을 타는 에너지 넘치는 움직임.",
+    post: [0, -10, 15, -8, 0]
+  },
+  hip_twerk: {
+    label: "🍑 엉덩이 댄스",
+    desc: "상체를 숙인(Hip-hinge) 자세에서 골반 좌우 트위스트와 강력한 힙 바운스를 동기화하는 모션.",
+    post: [0, 50, 0, 0, 0]
+  }
+};
+
+
+/* =========================================================
+   6. STUDIO CONTROLLER
+========================================================= */
+
+class Studio {
+  constructor() {
+    this.base = [0, 0, 0, 0, 0];
+    this.q = [...this.base];
+    this.v = [0, 0, 0, 0, 0];
+
+    this.t = 0;
+    this.emo = 'neutral';
+    this.plan = null;
+    this.lastF = 0;
+    this.curSec = -1;
+    this.autoEmo = 'neutral';
+
+    this.offset = 0;
+    this.feel = 1;
+    this.last = performance.now();
+
+    this.eng = new RobotEngine();
+    this.r = new Renderer(document.getElementById("canvas"));
+    this.m = new MusicAnalyzer();
+
+    this.ui();
+    requestAnimationFrame(() => this.loop());
+  }
+
+  ui() {
+    const names = [
+      "θ₁ Yaw",
+      "θ₂ Pitch 1",
+      "θ₃ Pitch 2",
+      "θ₄ Pitch 3",
+      "θ₅ Head Roll"
+    ];
+
+    const g = document.getElementById("gui");
+    g.innerHTML = `
+      <div class="gi">
+        <label>
+          <b>Feel (동작 크기)</b>
+          <span id="vf">100%</span>
+        </label>
+        <input type="range" id="sf" min="40" max="160" value="100">
+      </div>
+
+      <div class="gi">
+        <label>
+          <b>Sync Offset (싱크 보정)</b>
+          <span id="vo">0ms</span>
+        </label>
+        <input type="range" id="so" min="-200" max="200" value="0">
+      </div>
+    ` + names.map((n, i) => `
+      <div class="gi">
+        <label>
+          <b>${n}</b>
+          <span id="v${i}">0°</span>
+        </label>
+        <input type="range" id="s${i}" min="-90" max="90" value="0">
+      </div>
+    `).join("");
+
+    const $ = id => document.getElementById(id);
+
+    $("sf").oninput = e => {
+      this.feel = e.target.value / 100;
+      $("vf").textContent = e.target.value + "%";
+    };
+
+    $("so").oninput = e => {
+      this.offset = +e.target.value;
+      $("vo").textContent = e.target.value + "ms";
+    };
+
+    names.forEach((_, i) => {
+      $("s" + i).oninput = e => {
+        this.base[i] = +e.target.value;
+        $("v" + i).textContent = e.target.value + "°";
+      };
+    });
+
+    /* Emotion Buttons */
+    const em = $("emo");
+    em.innerHTML = Object.entries(EMO).map(([k, e]) => `
+      <button class="btn${k === 'neutral' ? ' active' : ''}" data-k="${k}">
+        ${e.label}
+      </button>
+    `).join('') + `
+      <button class="btn" data-k="auto">
+        🧠 자동(곡 분석)
+      </button>
+    `;
+
+    em.onclick = ev => {
+      const k = ev.target.dataset && ev.target.dataset.k;
+      if (!k) return;
+
+      this.emo = k;
+      [...em.children].forEach(c => {
+        c.className = "btn" + (c.dataset.k === k ? " active" : "");
+      });
+
+      $("emo-desc").textContent = (EMO[k] || {
+        desc: '곡 분석 결과에 따라 감정과 춤이 자동으로 바뀝니다.'
+      }).desc;
+    };
+
+    /* File Upload */
+    const pl = $("player");
+    const fb = $("file-box");
+    const mf = $("mode-file");
+    const mm = $("mode-mic");
+
+    $("fin").onchange = async e => {
+      const f = e.target.files[0];
+      if (!f) return;
+
+      $("fname").textContent = '📂 ' + f.name;
+      pl.pause();
+
+      this.plan = null;
+      this.curSec = -1;
+      $("plan").innerHTML = '';
+      $("plan-now").textContent = '';
+
+      pl.src = URL.createObjectURL(f);
+      pl.style.display = 'block';
+
+      this.m.useFile(pl);
+      $("plan-info").textContent = '⏳ 곡 전체를 분석하여 구간별 choreography를 설계하는 중…';
+
+      try {
+        const ab = await f.arrayBuffer();
+        const buf = await this.m.ctx.decodeAudioData(ab);
+        await new Promise(r => setTimeout(r, 30));
+
+        this.plan = Planner.analyze(buf);
+
+        if (this.plan) {
+          this.renderPlan();
+          this.emo = 'auto';
+          const autoBtn = document.querySelector('#emo [data-k=auto]');
+          if (autoBtn) autoBtn.click();
+        } else {
+          $("plan-info").textContent = '박자를 충분히 찾지 못해 실시간 분석으로 춤춥니다.';
+        }
+      } catch (err) {
+        $("plan-info").textContent = '분석 실패 → 실시간 분석으로 춤춥니다. (' + err.message + ')';
+      }
+
+      pl.play();
+    };
+
+    /* File mode */
+    mf.onclick = () => {
+      mf.className = "btn active";
+      mm.className = "btn";
+      fb.style.display = "block";
+
+      if (pl.src) {
+        pl.style.display = "block";
+        this.m.useFile(pl);
+      }
+    };
+
+    /* Mic mode */
+    mm.onclick = async () => {
+      pl.pause();
+      if (await this.m.useMic()) {
+        mm.className = "btn active";
+        mf.className = "btn";
+        fb.style.display = "none";
+        pl.style.display = "none";
+      }
+    };
+
+    /* Reset */
+    $("reset").onclick = () => {
+      this.base = [0, 0, 0, 0, 0];
+      this.base.forEach((v, i) => {
+        $("s" + i).value = v;
+        $("v" + i).textContent = v + "°";
+      });
+    };
+  }
+
+  renderPlan() {
+    const p = this.plan;
+    const el = document.getElementById('plan');
+
+    const fmt = t => Math.floor(t / 60) + ':' + String(Math.floor(t % 60)).padStart(2, '0');
+
+    const col = {
+      INTRO: '#35a2ff', VERSE: '#7b5cff', 'PRE-CHORUS': '#b85cff',
+      CHORUS: '#ff5ca8', 'POST-CHORUS': '#ff8b45', BRIDGE: '#ffd000',
+      SOLO: '#e040fb', DROP: '#ff1744', 'BUILD-UP': '#ff9100',
+      BREAK: '#4cd964', INTERLUDE: '#00e5ff', OUTRO: '#35a2ff'
+    };
+
+    document.getElementById('plan-info').textContent =
+      `♩ ${(60 / p.P).toFixed(1)} BPM · ${p.bars.length}마디 · ${p.secs.length}개 구간 (클릭 시 이동)`;
+
+    el.innerHTML = `
+      <div id="tl" style="position:relative;display:flex;height:34px;border-radius:6px;overflow:hidden;cursor:pointer">
+        ${p.secs.map(s => `
+          <div style="flex:${s.t1 - s.t0};background:${col[s.label] || '#7b5cff'};opacity:.85;font-size:9px;color:#000;font-weight:bold;display:flex;align-items:center;justify-content:center;overflow:hidden;white-space:nowrap;border-right:1px solid rgba(0,0,0,0.2);">
+            ${s.label}
+          </div>
+        `).join('')}
+        <i id="ph" style="position:absolute;top:0;bottom:0;width:2px;background:#fff;left:0"></i>
+      </div>
+
+      <div style="font-size:11px;color:var(--muted);margin-top:8px;line-height:1.7;max-height:140px;overflow-y:auto;">
+        ${p.secs.map(s => `
+          ${fmt(s.t0)} ·
+          <strong style="color:${col[s.label] || '#fff'}">${s.label}</strong>
+          ${'ABCDEFGH'[s.grp] || ''} → ${EMO[s.emo] ? EMO[s.emo].label : s.emo} (밀도 ${Math.round(s.dens * 100)}%)
+        `).join('<br>')}
+      </div>
+    `;
+
+    document.getElementById('tl').onclick = ev => {
+      const r = ev.currentTarget.getBoundingClientRect();
+      this.m.el.currentTime = ((ev.clientX - r.left) / r.width) * p.dur;
+    };
+  }
+
+  planState(t) {
+    const p = this.plan;
+    const B = p.beats;
+
+    let lo = 0, hi = B.length - 1, bp;
+
+    if (t < B[0]) {
+      bp = (t - B[0]) / p.P;
+    } else if (t >= B[hi]) {
+      bp = hi + (t - B[hi]) / p.P;
+    } else {
+      while (hi - lo > 1) {
+        const m = (lo + hi) >> 1;
+        if (B[m] <= t) lo = m;
+        else hi = m;
+      }
+      bp = lo + (t - B[lo]) / (B[lo + 1] - B[lo]);
+    }
+
+    const f = Math.max(0, Math.min(p.n - 1, Math.floor((t - p.t0) * p.fps)));
+
+    if (f < this.lastF || f - this.lastF > 200) {
+      this.lastF = f - 1;
+    }
+
+    let kick = 0, hit = 0;
+    for (let i = this.lastF + 1; i <= f; i++) {
+      kick = Math.max(kick, p.kick[i]);
+      hit = Math.max(hit, p.hit[i]);
+    }
+    this.lastF = f;
+
+    let si = p.secs.findIndex(s => t >= s.t0 && t < s.t1);
+    if (si < 0) si = p.secs.length - 1;
+
+    const sec = p.secs[si];
+    const nx = p.secs[si + 1];
+
+    if (si !== this.curSec) {
+      this.curSec = si;
+      this.autoEmo = sec.emo;
+
+      const n = document.getElementById('plan-now');
+      if (n) {
+        n.textContent = `현재 구간: ${sec.label} (${EMO[sec.emo] ? EMO[sec.emo].label : sec.emo})`;
+      }
+    }
+
+    const pre = nx && nx.label === 'DROP' && nx.t0 - t < 4 * p.P;
+    const rel = bp - p.down;
+    const bn = Math.floor(rel / 4);
+    const bk = p.bars[Math.max(0, Math.min(p.bars.length - 1, bn))];
+    const sp = Math.max(0, Math.min(1, (t - sec.t0) / (sec.t1 - sec.t0)));
+    const pb = (((bn - sec.bar0) % 8) + 8) % 8;
+    const fill = pb === 7 || (sec.label === 'BUILD-UP' && pb >= 6);
+
+    return {
+      active: p.act[f] > 0.5,
+      bpm: 60 / p.P,
+      conf: 0.9,
+      inten: p.inten[f],
+      beatPos: bp,
+      barT: ((rel % 4) + 4) % 4,
+      barNum: bn,
+      downConf: p.downConf,
+      kick, hit,
+      bright: p.bright[f],
+      act: p.act[f] * (pre ? 0.55 : 1),
+      dens: bk ? bk.dens : 0.5,
+      bassR: bk ? bk.bass : 0.5,
+      sp, fill,
+      slope: sec.slope,
+      style: sec.style,
+      label: sec.label
+    };
+  }
+
+
+  /* =======================================================
+     7. UNIVERSAL GROOVE DANCE ENGINE
+- 박자 동기화 (beatPos 스냅)
+- 에너지를 반영한 동적 진폭 & 관절 스티프니스 스케일링
+- Twerk Mode (Kinematics Engine 수식 이식 결합)
+  ======================================================= */
+
+  dance(s, dt) {
+    this.t += dt;
+
+    const key = this.emo === "auto" ? this.autoEmo : this.emo;
+    const E = EMO[key] || EMO.neutral;
+
+    const B = this.base;
+    const F = this.feel;
+
+    if (!s.active && key !== "neutral" && key !== "auto") {
+      s = {
+        active: true,
+        bpm: 90,
+        inten: 0.5,
+        beatPos: this.t * 1.5,
+        barT: (this.t * 1.5) % 4,
+        downConf: 0,
+        act: 0.8
+      };
+    }
+
+    const T = B.map((v, i) => v + E.post[i]);
+    let flash = 0;
+    let ph = 1;
+    let acc = 0.75;
+
+    if (s.active) {
+      // 1. 박자에 정확히 동기화된 주기 산출
+      const t = s.beatPos + (this.offset / 1000) * (s.bpm / 60);
+      const beat = 2 * Math.PI * t;
+
+      const pulse = 0.5 - 0.5 * Math.cos(beat);
+      const wave = Math.sin(beat);
+      const half = Math.sin(beat / 2);
+      const side = Math.sin(beat / 2 + Math.PI / 2);
+
+      // 2. 음원 실시간 에너지(s.inten) 기반 동적 진폭 스케일링
+      const energy = Math.max(0.1, s.inten);
+      const act = s.act;
+      const amp = F * (0.3 + energy * 1.2) * act;
+
+      // 3. 비트 바운스 (Twerk Mode일 경우 자체 바운스를 수행하므로 제외)
+      if (key !== "hip_twerk") {
+        const bounce = Math.pow(pulse, 1.3) * amp;
+        T[1] += 2.5 * bounce;
+        T[2] -= 1.5 * bounce;
+        T[3] += 1.0 * bounce;
+      }
+
+      const beatIndex = Math.floor(s.barT + 0.5) % 4;
+      const accent = [1, 0.65, 0.85, 0.65][beatIndex];
+      acc = 0.75 + (accent - 0.75) * (s.downConf || 0);
+
+      // 4. 관절 모션
+      switch (key) {
+
+        case "joy":
+          T[0] += wave * 10 * amp;
+          T[1] -= pulse * 13 * amp;
+          T[2] += pulse * 9 * amp;
+          T[3] -= pulse * 12 * amp;
+          T[4] += wave * 10 * amp;
+          break;
+
+        case "calm":
+          T[0] += half * 5 * amp;
+          T[1] += side * 3 * amp;
+          T[2] -= side * 2 * amp;
+          T[3] += side * 2 * amp;
+          T[4] += half * 5 * amp;
+          break;
+
+        case "sad":
+          T[1] += pulse * 5 * amp;
+          T[2] -= pulse * 4 * amp;
+          T[3] += pulse * 9 * amp;
+          T[4] += half * 3 * amp;
+          break;
+
+        case "anger":
+          T[0] += wave * 5 * amp;
+          T[1] += pulse * 13 * amp;
+          T[2] -= pulse * 9 * amp;
+          T[3] += pulse * 5 * amp;
+          T[4] += wave * 4 * amp;
+          break;
+
+        case "dreamy":
+          T[0] += half * 10 * amp;
+          T[1] += side * 5 * amp;
+          T[2] -= side * 4 * amp;
+          T[3] += half * 7 * amp;
+          T[4] += half * 14 * amp;
+          break;
+
+        case "spooky": {
+          const spookySide = Math.sin(beat * 0.5); 
+          const spookyBounce = Math.pow(Math.abs(Math.sin(beat)), 1.2);
+          const spookySnap = Math.sin(beat);
+
+          T[0] += spookySide * 35 * amp;
+          T[1] -= (8 + spookyBounce * 16) * amp;
+          T[2] += (5 + spookyBounce * 14) * amp;
+          T[3] += spookySnap * 12 * amp;
+          T[4] -= (spookySide * -28 + spookySnap * 10) * amp;
+          break;
+        }
+
+        case "groovy":
+          T[0] += wave * 17 * amp;
+          T[1] += wave * 5 * amp;
+          T[2] -= wave * 9 * amp;
+          T[3] += wave * 7 * amp;
+          T[4] -= wave * 20 * amp;
+          break;
+
+        case "shoulder_bounce": {
+          const shoulderPhase = Math.sin(beat * 0.5); 
+          const shoulderSnap = Math.pow(Math.abs(Math.cos(beat)), 0.6);
+
+          T[0] += shoulderPhase * 32 * amp;
+          T[1] -= shoulderSnap * 22 * amp;
+          T[2] += shoulderSnap * 18 * amp;
+          T[3] += shoulderPhase * 24 * amp;
+          T[4] -= shoulderPhase * 38 * amp;
+          break;
+        }
+
+        case "hyped":
+          T[0] += wave * 20 * amp;
+          T[1] -= pulse * 16 * amp;
+          T[2] += pulse * 15 * amp;
+          T[3] -= pulse * 14 * amp;
+          T[4] += wave * 17 * amp;
+          break;
+
+        case "hip_twerk": {
+          /* Twerk Mode Kinematics (두 번째 코드의 동작 수식 결합) */
+          const swayYaw = 24 * Math.sin(beat);               // 골반 좌우 트위스트
+          const hipBounce = 28 * Math.sin(2 * beat);         // 엉덩이/허벅지 튕김
+          const kneeBounce = -35 * Math.sin(2 * beat);       // 무릎/관절 굴곡
+          const upperBodyLock = -(hipBounce + kneeBounce);   // 숙인 각도를 유지하기 위한 역상 보정
+
+          T[0] += swayYaw * amp;
+          T[1] += hipBounce * amp;
+          T[2] += kneeBounce * amp;
+          T[3] += upperBodyLock * amp;
+          T[4] += -swayYaw * amp;                            // 정면 시선 고정
+          break;
+        }
+
+        case "headbang": {
+          T[0] = B[0];
+          T[4] = B[4];
+
+          const bend = pulse * 1.0 + half * 0.25;
+
+          T[1] = B[1] + bend * 42 * amp;
+          T[2] = B[2] + bend * 32 * amp;
+          T[3] = B[3] + bend * 24 * amp;
+          break;
+        }
+      }
+
+      ph = ((t % 1) + 1) % 1;
+      flash = Math.exp(-ph * 6) * acc * act;
+    }
+
+    // 5. 에너지가 높을수록 스프링 강도(stiffness)를 높여 타격감과 상하 꺾임 강조
+    const baseStiffness = E.isHeadbang ? 12 : 9;
+    const stiffness = baseStiffness * (0.8 + (s.inten || 0.5) * 0.5);
+    const damping = 2 * stiffness;
+
+    for (let i = 0; i < 5; i++) {
+      const a = stiffness * stiffness * (T[i] - this.q[i]) - damping * this.v[i];
+      this.v[i] += a * dt;
+      this.q[i] += this.v[i] * dt;
+    }
+
+    return {
+      active: s.active,
+      flash,
+      ph,
+      acc,
+      inten: s.inten
+    };
+  }
+
+
+  /* =======================================================
+     8. MAIN LOOP
+  ======================================================= */
+
+  loop() {
+    const now = performance.now();
+    const dt = Math.min(0.033, Math.max(0.001, (now - this.last) / 1000));
+    this.last = now;
+
+    const $ = id => document.getElementById(id);
+
+    const usePlan = this.plan && this.m.mode === 'file' && this.m.el && !this.m.el.paused;
+
+    const s = usePlan
+      ? this.planState(this.m.el.currentTime + 0.03)
+      : this.m.update(dt);
+
+    const d = this.dance(s, dt);
+
+    if (usePlan) {
+      const ph = $('ph');
+      if (ph) {
+        ph.style.left = ((this.m.el.currentTime / this.plan.dur) * 100) + '%';
+      }
+    }
+
+    $("m-bpm").textContent = s.active && (usePlan || this.m.locked) ? s.bpm.toFixed(1) : "-";
+    $("m-bar").textContent = s.active ? `${Math.floor(s.barT + 0.5) % 4 + 1} / 4` : "-";
+    $("m-conf").textContent = Math.round(s.conf * 100) + "%";
+    $("b-conf").style.width = (s.conf * 100) + "%";
+    $("m-int").textContent = Math.round(s.inten * 100) + "%";
+    $("b-int").style.width = (s.inten * 100) + "%";
+
+    this.r.draw(this.eng.fk(this.q), d);
+
+    requestAnimationFrame(() => this.loop());
+  }
+}
+
+
+/* =========================================================
+   9. INITIALIZE
+========================================================= */
+
+addEventListener("DOMContentLoaded", () => new Studio());
+
+</script>
+
+</body>
+</html>

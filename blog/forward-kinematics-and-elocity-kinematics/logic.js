@@ -338,6 +338,10 @@ class RobotRenderer {
         this.target = { x: 0, y: 0, z: 90 };
         this.focal = 700;
 
+        this.camYaw = -3* Math.PI / 4;   // Z축 기준 회전각 (기본 45도)
+        this.camPitch = Math.PI / 6; // 위아래 시점각 (기본 30도)
+        this.scale = 1.2;            // 3D 공간 좌표 스케일 조정 비율
+
         this.initCamera();
     }
 
@@ -348,17 +352,24 @@ class RobotRenderer {
     }
 
     project(p) {
-        const v = Vector3.sub(p, this.camera);
-        const z = Vector3.dot(v, this.fwd);
-        if (z <= 0) return null;
+        if (!p) return null;
 
-        const sc = this.focal / z;
-        const xProj = Vector3.dot(v, this.rgt);
-        const yProj = Vector3.dot(v, this.up);
+        const cx = this.canvas.width / 2;
+        const cy = this.canvas.height / 2 + 120; // 베이스 위치를 화면 하단으로 낮춰 가독성 확보
 
+        // 1. Yaw (Z축 기준 45도 회전: x=y 방향 시점)
+        const x1 = p.x * Math.cos(this.camYaw) - p.y * Math.sin(this.camYaw);
+        const y1 = p.x * Math.sin(this.camYaw) + p.y * Math.cos(this.camYaw);
+        const z1 = p.z;
+
+        // 2. Pitch (시선 높이 적용)
+        const y2 = y1 * Math.cos(this.camPitch) - z1 * Math.sin(this.camPitch);
+        const z2 = y1 * Math.sin(this.camPitch) + z1 * Math.cos(this.camPitch);
+
+        // 3. Screen 좌표 변환 (+Z축이 항상 화면 위쪽 -Y를 향하도록 투영)
         return {
-            x: this.canvas.width / 2 + xProj * sc,
-            y: this.canvas.height / 2 - yProj * sc
+            x: cx + x1 * this.scale,
+            y: cy - z2 * this.scale
         };
     }
 
@@ -775,7 +786,7 @@ class DOMManager {
    ========================================================================== */
 class SimulationApp {
     constructor() {
-        this.qDeg = [0, 0, 0, 0, 0];
+        this.qDeg = [0, 90, 0, 0, 0];
         this.qDotDeg = [0, 0, 0, 0, 0];
         this.activeJointIndex = -1;
 
@@ -871,6 +882,55 @@ class SimulationApp {
         };
 
         requestAnimationFrame(loop);
+    }
+
+    initEvents() {
+        const handleResize = () => {
+            const container = this.canvas.parentElement;
+            this.canvas.width = container.clientWidth;
+            this.canvas.height = container.clientHeight;
+            this.needsRedraw = true;
+        };
+        window.addEventListener("resize", handleResize);
+        handleResize();
+
+        // --- [추가] 마우스 드래그로 카메라 회전 & 휠 Zoom ---
+        let isDragging = false;
+        let prevMousePos = { x: 0, y: 0 };
+
+        this.canvas.addEventListener("mousedown", (e) => {
+            isDragging = true;
+            prevMousePos = { x: e.clientX, y: e.clientY };
+        });
+
+        window.addEventListener("mousemove", (e) => {
+            if (!isDragging) return;
+
+            const deltaX = e.clientX - prevMousePos.x;
+            const deltaY = e.clientY - prevMousePos.y;
+
+            this.renderer.camYaw += deltaX * 0.008;
+            this.renderer.camPitch += deltaY * 0.008;
+
+            // Pitch 각도 범위 제한 (-89deg ~ +89deg)
+            const maxPitch = Math.PI / 2 - 0.01;
+            const minPitch = -Math.PI / 2 + 0.01;
+            this.renderer.camPitch = Math.max(minPitch, Math.min(maxPitch, this.renderer.camPitch));
+
+            prevMousePos = { x: e.clientX, y: e.clientY };
+            this.needsRedraw = true;
+        });
+
+        window.addEventListener("mouseup", () => {
+            isDragging = false;
+        });
+
+        this.canvas.addEventListener("wheel", (e) => {
+            e.preventDefault();
+            this.renderer.scale -= e.deltaY * 0.001;
+            this.renderer.scale = Math.max(0.2, Math.min(5.0, this.renderer.scale));
+            this.needsRedraw = true;
+        }, { passive: false });
     }
 }
 
