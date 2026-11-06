@@ -1,19 +1,13 @@
 import { ROBOT_CONFIG } from "./robot.config.js";
 import { Robot } from "./robot.js";
 import { RobotVisual } from "./robot.visual.js";
+import { EllipsoidVisual } from "./ellipsoid.visual.js";
+import { IKSolver } from "./ik.solver.js";
 
-import {
-  RAD,
-  transpose,
-  mm,
-  solve,
-  eig3,
-} from "./math.js";
+import { RAD } from "./math.js";
 
 import {
   vec,
-  clamp,
-  basic,
   newLine,
   setLine,
 } from "./three.utils.js";
@@ -28,7 +22,7 @@ const { OrbitControls } = THREE;
    IK and error line remain active.
    ========================================= */
 
-const ENABLE_TARGET_MARKER = true;
+const ENABLE_TARGET_MARKER = false;
 
 const DT = 1 / 60;
 
@@ -97,6 +91,8 @@ class Simulator {
     // Use the supplied configuration rather than global limits.
     this.limits = config.joints.map((j) => j.limit);
     this.names = config.joints.map((j) => j.name);
+
+    this.ik = new IKSolver(this.robot, this.limits);
 
     this.q = [...config.initialPosition];
     this.qdot = Array(this.dof).fill(0);
@@ -194,13 +190,19 @@ class Simulator {
     this.scene.add(axes);
 
     /* =====================================
-       ROBOT VISUALIZATION
+       ROBOT & ELLIPSOID VISUALIZATION
        ===================================== */
 
     this.robotVisual = new RobotVisual({
       scene: this.scene,
       robot: this.robot,
       dof: this.dof,
+      accentColor: ACC,
+    });
+
+    this.ellipsoidVisual = new EllipsoidVisual({
+      canvasId: "ell",
+      robot: this.robot,
       accentColor: ACC,
     });
 
@@ -247,7 +249,6 @@ class Simulator {
        ===================================== */
 
     this.initKin();
-    this.initEllipsoid();
     this.buildUI();
 
     this.resize();
@@ -382,174 +383,8 @@ class Simulator {
     `;
   }
 
-  /* =====================================
-     MANIPULABILITY ELLIPSOID
-     ===================================== */
-
-  initEllipsoid() {
-    const cv = this.getElement("ell");
-
-    if (!cv) return;
-
-    this.eR = new THREE.WebGLRenderer({
-      canvas: cv,
-      antialias: true,
-      alpha: true,
-    });
-
-    this.eR.setPixelRatio(
-      Math.min(devicePixelRatio, 2),
-    );
-
-    this.eS = new THREE.Scene();
-
-    this.eC = new THREE.PerspectiveCamera(
-      32,
-      1,
-      0.1,
-      50,
-    );
-
-    this.eC.up.set(0, 0, 1);
-
-    this.eC.position.set(3.3, 3.3, 2.8);
-
-    this.eC.lookAt(0, 0, 0);
-
-    this.eCtl = new OrbitControls(this.eC, cv);
-
-    this.eCtl.enablePan = false;
-    this.eCtl.enableZoom = false;
-    this.eCtl.enableDamping = true;
-    this.eCtl.dampingFactor = 0.08;
-
-    this.eG = new THREE.Group();
-
-    const geo = new THREE.SphereGeometry(1, 40, 28);
-
-    this.eG.add(
-      new THREE.Mesh(
-        geo,
-        basic(ACC, {
-          transparent: true,
-          opacity: 0.22,
-          depthWrite: false,
-        }),
-      ),
-    );
-
-    this.eG.add(
-      new THREE.Mesh(
-        geo,
-        basic(ACC, {
-          wireframe: true,
-          transparent: true,
-          opacity: 0.28,
-        }),
-      ),
-    );
-
-    [
-      [1, 0, 0],
-      [0, 1, 0],
-      [0, 0, 1],
-    ].forEach(([x, y, z]) => {
-      this.eG.add(
-        new THREE.Line(
-          new THREE.BufferGeometry().setFromPoints([
-            new THREE.Vector3(-x, -y, -z),
-            new THREE.Vector3(x, y, z),
-          ]),
-          new THREE.LineBasicMaterial({
-            color: 0x475569,
-          }),
-        ),
-      );
-    });
-
-    this.eS.add(this.eG);
-
-    const axes = new THREE.AxesHelper(1.7);
-
-    axes.material.transparent = true;
-    axes.material.opacity = 0.3;
-
-    this.eS.add(axes);
-
-    if (
-      typeof ResizeObserver !== "undefined" &&
-      cv.parentElement
-    ) {
-      new ResizeObserver(() => {
-        const r = cv.getBoundingClientRect();
-
-        if (!r.width || !r.height) return;
-
-        this.eR.setSize(r.width, r.height, false);
-
-        this.eC.aspect = r.width / r.height;
-
-        this.eC.updateProjectionMatrix();
-      }).observe(cv.parentElement);
-    }
-  }
-
-  drawEllipsoid() {
-    const Jv = this.robot.jacKin(this.q);
-
-    const JvJT = mm(Jv, transpose(Jv));
-
-    const E = eig3(JvJT);
-
-    const sg = E.map((e) =>
-      Math.sqrt(Math.max(e.val, 0)),
-    );
-
-    const smax = sg[0];
-    const smid = sg[1];
-    const smin = sg[2];
-
-    const mu = smin > 1e-4 ? smax / smin : Infinity;
-
-    const w = Math.sqrt(
-      Math.max(
-        0,
-        smax * smax * smid * smid * smin * smin,
-      ),
-    );
-
-    this.setText(
-      "mu1",
-      isFinite(mu)
-        ? mu > 999
-          ? ">999"
-          : mu.toFixed(3)
-        : "∞",
-    );
-
-    this.setText(
-      "mu2",
-      isFinite(mu)
-        ? mu * mu > 9999
-          ? ">9999"
-          : (mu * mu).toFixed(3)
-        : "∞",
-    );
-
-    this.setText(
-      "mu3",
-      w >= 1000 ? w.toFixed(0) : w.toFixed(3),
-    );
-
-    this.setText(
-      "ell-s",
-      "σ  " +
-        sg.map((v) => v.toFixed(1)).join(" · ") +
-        "  scaled unit/s per rad/s",
-    );
-
+  updateKinTable() {
     const J = this.robot.sJacKin(this.q);
-
     const qd = this.qdot;
 
     const maxJ = Math.max(
@@ -610,41 +445,6 @@ class Simulator {
 
     for (let r = 0; r < 6; r++) {
       this.put("tw" + r, twist[r], r < 3 ? na : nl);
-    }
-
-    const k = smax > 1e-6 ? 1.15 / smax : 0;
-
-    const sc = sg.map((v) =>
-      Math.max(v * k, 0.03),
-    );
-
-    const v1 = new THREE.Vector3(...E[0].vec);
-    const v2 = new THREE.Vector3(...E[1].vec);
-
-    const v3 = new THREE.Vector3().crossVectors(v1, v2);
-
-    if (
-      this.eG &&
-      this.eCtl &&
-      this.eR &&
-      this.eS &&
-      this.eC
-    ) {
-      new THREE.Matrix4()
-        .makeBasis(
-          v1.clone().multiplyScalar(sc[0]),
-          v2.clone().multiplyScalar(sc[1]),
-          v3.multiplyScalar(sc[2]),
-        )
-        .decompose(
-          this.eG.position,
-          this.eG.quaternion,
-          this.eG.scale,
-        );
-
-      this.eCtl.update();
-
-      this.eR.render(this.eS, this.eC);
     }
   }
 
@@ -906,106 +706,29 @@ class Simulator {
   step() {
     if (!this.running) return;
 
-    const S = this.robot.unitScale;
+    const res = this.ik.step(
+      this.q,
+      this.target.position,
+      this.control,
+      DT,
+    );
 
-    const p = this.robot.fkKin(this.q).head;
-
-    const t = {
-      x: this.target.position.x * S,
-      y: this.target.position.y * S,
-      z: this.target.position.z * S,
-    };
-
-    const e = [
-      t.x - p.x,
-      t.y - p.y,
-      t.z - p.z,
-    ];
-
-    const error = Math.hypot(...e);
-
-    if (error < 0.5 * S) {
+    if (res.status === "reached") {
       this.running = false;
-
-      this.qdot.fill(0);
-
+      this.qdot = res.qdot;
       this.status("Target reached");
-
       return;
     }
 
-    const gain = clamp(
-      this.control.gain || 2,
-      0.1,
-      10,
-    );
-
-    let xd = e.map((v) => gain * v);
-
-    const maxCart =
-      Math.max(1, this.control.cart || 35) * S;
-
-    const cs = Math.hypot(...xd);
-
-    if (cs > maxCart) {
-      xd = xd.map((v) => (v * maxCart) / cs);
-    }
-
-    const J = this.robot.jacKin(this.q);
-
-    const JT = transpose(J);
-
-    const JJ = mm(J, JT);
-
-    const damping =
-      this.control.method === "dls"
-        ? Math.max(0.001, this.control.damping || 1) * S
-        : 0;
-
-    const A = JJ.map((row, i) =>
-      row.map(
-        (v, j) =>
-          v + (i === j ? damping * damping : 0),
-      ),
-    );
-
-    const y = solve(A, xd);
-
-    if (!y) {
+    if (res.status === "singular") {
       this.running = false;
-
       this.status("Singular: use DLS");
-
       return;
     }
 
-    let qd = mm(
-      JT,
-      y.map((v) => [v]),
-    ).map((row) => row[0]);
-
-    const maxJoint =
-      Math.max(1, this.control.speed || 90) * RAD;
-
-    const maxQd = Math.max(...qd.map(Math.abs));
-
-    if (maxQd > maxJoint) {
-      qd = qd.map(
-        (v) => (v * maxJoint) / maxQd,
-      );
-    }
-
-    for (let i = 0; i < this.dof; i++) {
-      this.q[i] = clamp(
-        this.q[i] + (qd[i] * DT) / RAD,
-        this.limits[i][0],
-        this.limits[i][1],
-      );
-    }
-
-    this.qdot = qd;
-
-    this.q.forEach((v, i) => this.syncJoint(i));
+    this.q = res.q;
+    this.qdot = res.qdot;
+    this.q.forEach((_, i) => this.syncJoint(i));
   }
 
   /* =====================================
@@ -1125,7 +848,9 @@ class Simulator {
 
       this.refresh();
 
-      this.drawEllipsoid();
+      this.updateKinTable();
+
+      this.ellipsoidVisual.update(this.q);
 
       this.renderer.render(this.scene, this.camera);
     };

@@ -1,3 +1,4 @@
+// src/robot.visual.js
 import {
   vec,
   Y,
@@ -25,6 +26,9 @@ export class RobotVisual {
     jointColor = 0x94a3b8,
     linkColors = DEFAULT_LINK_COLORS,
     trailLength = 260,
+    linkRadius = 1.6,
+    jointRadius = 3.4,
+    tipRadius = 4.5,
   }) {
     this.scene = scene;
     this.robot = robot;
@@ -38,21 +42,21 @@ export class RobotVisual {
     const linkCount = this.dof + 1;
     this.links = Array.from({ length: linkCount }, (_, i) => {
       const color = linkColors[i % linkColors.length];
-      const mesh = link(1.5, color);
+      const mesh = link(linkRadius, color);
       this.root.add(mesh);
       return mesh;
     });
 
     // 3. Joints (j1 ~ j5 : 총 dof개)
     this.joints = Array.from({ length: this.dof }, () => {
-      const g = hub(jointColor);
+      const g = hub(jointColor, jointRadius);
       this.root.add(g);
       return g;
     });
 
     // 4. End Effector Tip
     this.tip = new THREE.Group();
-    this.tip.add(dot(4, accentColor));
+    this.tip.add(dot(tipRadius, accentColor));
     this.root.add(this.tip);
 
     // 5. Trajectory Trail
@@ -122,7 +126,7 @@ export class RobotVisual {
     // 궤적 업데이트
     this._updateTrail(headVec);
 
-    return headVec; // Simulator에서 errorLine 그릴 때 재사용 가능
+    return headVec;
   }
 
   _updateTrail(headVec) {

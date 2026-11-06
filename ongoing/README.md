@@ -1,3 +1,4 @@
+# 5 DOF Arm Studio
 
 ```bash
 python3 -m http.server 8000
@@ -6,7 +7,7 @@ python3 -m http.server 8000
 ```mermaid
 flowchart TD
     A[robot.config.js] --> B[robot.js]
-    C[math.js] --> D[ik.controller.js]
+    C[math.js] --> D[ik.solver.js]
     C ---> B
     B --> D
     B --> E[robot.visual.js]
@@ -32,5 +33,7 @@ src/
 ├── robot.config.js
 ├── robot.js
 ├── robot.visual.js
+├── ik.solver.js
+├── ellipsoid.visual.js
 └── math.js
 ```
