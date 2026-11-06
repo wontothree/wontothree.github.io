@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>5-DOF Robotics Studio</title>
+    <link rel="stylesheet" href="sim.css"/>
+  </head>
+  <body>
+    <div class="app">
+      <header>
+        <div><h1>5-DOF Robotics Studio</h1></div>
+      </header>
+      <div class="layout">
+        <div class="col">
+          <section class="panel">
+            <div class="head">
+              <h2>3D Robot Workspace</h2>
+            </div>
+            <div class="viewport">
+              <canvas id="view"></canvas>
+            </div>
+            <div class="legend">
+              <div><i style="background: #ff7700"></i>End Effector</div>
+              <div><i style="background: #0f172a"></i>Target</div>
+              <div><i style="background: #94a3b8"></i>Position Error</div>
+            </div>
+          </section>
+          <section class="panel">
+            <div class="head">
+              <h2>Velocity Kinematics</h2>
+              <span class="tag">V = J(θ) θ̇</span>
+            </div>
+            <div class="kin">
+              <div class="kmain">
+                <div class="khead">
+                  <div class="ktitle">
+                    Velocity Kinematics with Space Jacobian
+                  </div>
+                </div>
+                <div class="eq" id="eq"></div>
+                <div class="measures">
+                  <div class="mtile">
+                    <span
+                      >μ<sub>1</sub> = σ<sub>max</sub> / σ<sub>min</sub></span
+                    ><b id="mu1">—</b><small>1 = isotropic, ∞ = singular</small>
+                  </div>
+                  <div class="mtile">
+                    <span>μ<sub>2</sub> = μ<sub>1</sub>²</span><b id="mu2">—</b
+                    ><small>Condition number of JvJvᵀ</small>
+                  </div>
+                  <div class="mtile">
+                    <span>μ<sub>3</sub> = √det(JvJvᵀ)</span><b id="mu3">—</b
+                    ><small>Ellipsoid volume · larger is better</small>
+                  </div>
+                </div>
+              </div>
+              <div class="ell-card">
+                <canvas id="ell"></canvas>
+                <div class="ell-t">Manipulability ellipsoid</div>
+                <div class="ell-s" id="ell-s"></div>
+              </div>
+            </div>
+          </section>
+        </div>
+        <aside>
+          <section class="panel jp">
+            <div class="head">
+              <h2>Joint Configuration</h2>
+              <span class="tag">θ ∈ R⁵</span>
+            </div>
+            <div class="body" id="joints"></div>
+          </section>
+          <section class="panel">
+            <div class="head">
+              <h2>Cartesian Target</h2>
+              <span class="tag">WORLD POSITION</span>
+            </div>
+            <div class="body">
+              <div class="row">
+                <label
+                  >X<input id="tx" type="number" value="0" step=".5"
+                /></label>
+                <label
+                  >Y<input id="ty" type="number" value="0" step=".5"
+                /></label>
+                <label
+                  >Z<input id="tz" type="number" value="1.00" step=".01"
+                /></label>
+              </div>
+              <div class="buttons">
+                <button class="primary" id="run">Run IK</button
+                ><button id="current">Target = Tip</button>
+              </div>
+              <div class="grid">
+                <div class="info">
+                  <span>Position Error</span><b id="error">—</b>
+                </div>
+                <div class="info">
+                  <span>Solver Status</span><b id="status">Ready</b>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section class="panel">
+            <div class="head">
+              <h2>Inverse Velocity Solver</h2>
+              <span class="tag">IK PARAMETERS</span>
+            </div>
+            <div class="body">
+              <label
+                >Numerical Method<select id="method">
+                  <option value="dls">Damped Least Squares</option>
+                  <option value="pinv">Pseudoinverse</option>
+                </select></label
+              >
+              <div class="two">
+                <label
+                  >Position Gain Kp<input
+                    id="gain"
+                    type="number"
+                    value="2"
+                    step=".1"
+                /></label>
+                <label
+                  >Damping λ<input
+                    id="damping"
+                    type="number"
+                    value="1"
+                    step=".1"
+                /></label>
+                <label
+                  >Cartesian Speed<input id="cart" type="number" value="35"
+                /></label>
+                <label
+                  >Joint Speed<input id="speed" type="number" value="90"
+                /></label>
+              </div>
+            </div>
+          </section>
+          <section class="panel">
+            <div class="head">
+              <h2>Live Quantities</h2>
+              <span class="tag">REAL TIME</span>
+            </div>
+            <div class="body">
+              <div class="grid" style="margin-top: 0">
+                <div class="info">
+                  <span>Jacobian Rank</span><b id="rank">—</b>
+                </div>
+                <div class="info">
+                  <span>Integration Step</span><b>1/60 s</b>
+                </div>
+              </div>
+              <div class="buttons">
+                <button class="danger" id="stop">Stop</button
+                ><button id="reset">Reset</button>
+              </div>
+            </div>
+          </section>
+        </aside>
+      </div>
+    </div>
+
+    <!-- Three.js -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
+    <!-- Three.js Controls -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/controls/TransformControls.js"></script>
+
+    <!-- <script src="sim.js" defer></script> -->
+    <script type="module" src="./sim.js"></script>
+  </body>
+</html>
