@@ -25,7 +25,7 @@
     <br><br>
 
     <div class="base">
-      <h1>Forward Kinematics and Velocity Kinematics</h1>
+      <h1>Kinematics of an Open Chain Arm</h1>
       <div class="box">
         <p>
           In this post, our goal is to understand some concepts related to Jacobian through visualization.
@@ -88,7 +88,8 @@
 
           This equation is an alternative form of the product of exponentials formula, representing the joint axes as screw axes $\mathcal B_i$ in the end-effector (body) frame when the robot is at its zero position. We call this equation the body form of product of exponentials formula.
         </p>
-        <h1>2. Jacobian</h1>
+        <h1>2. Velocity Kinematics</h1>
+        <h2>Jacobian</h2>
         <p>
           We are interested in transformation from joint space to task space. 
           Forward kinematics is about calculating the robot end-effector frame's position and orientation for a given set of joint positions.
@@ -346,8 +347,6 @@
       </div>
 
       <div class="box">
-        <h1>3. Kinematic Singularity and Manipulability</h1>
-
         <h2>Kinematic Singularity</h2>
         <p>
           <fieldset class="definition-fieldset">
@@ -515,89 +514,16 @@
           $$
           In this case, unlike the two measures, a larger value is better.
         </p>
-
-        <h2>Singularity Case Study</h2>
-        <p>- Case 1: Two Collinear Revolute Joint Axes</p>
-        <img src="./case01.png" width="100%" />
-        <p>- Case 2: Three Coplanar and Parallel Revolute Joint Axes</p>
-        <img src="./case02.png" width="100%" />
-        <p>Case 3: Four Coplanar Revolute Joints</p>
-        <img src="./case03.png" width="100%" />
       </div>
 
       <div class="box">
-        <h1>4. Statics</h1>
-        <p>
-          For $\tau$ is the joint torque vector, the static equilibrium equation is given by
-          $$
-          \tau^\top \dot\theta = \mathcal F^\top \mathcal V.
-          $$
-          Using $\mathcal V = J(\theta)\dot \theta$, we have
-          $$
-          \tau = J^\top(\theta) \mathcal F
-          $$
-          We can express this equation in both the end-effector frame (body frame) and the fixed space frame.
-        </p>
-        <p>
-          We can interpret the static relation
-          $\tau = J^\top(\theta)\mathcal F$
-          from two perspectives:
-          <ol>
-            <li><b>Wrench to torque $(\mathcal F \rightarrow \tau)$:</b> Given an external wrench $-\mathcal F$, what joint torques $\tau$ are required to maintain static equilibrium?</li>
-            <li><b>Torque to wrench $(\tau \rightarrow \mathcal F)$:</b> Given joint torques $\tau$, what end-effector wrench $\mathcal F$ can they generate?</li>
-          </ol>
-          The relationship between joint torques and end-effector wrenches depends on the rank of $J$ and the number of joints $n$.
-        </p>
+        <h1>3. Inverse Kinematics</h1>
+        
+      </div>
 
-        <p>
-          $(i)$ <b>Redundant System</b> $(\text{rank}(J) < n)$
-          <ul>
-            <li><b>[Perspective 1 $(\mathcal F \rightarrow \tau)$]</b> The required torque is uniquely determined by $\tau=J^\top\mathcal F$. However, additional null-space torques can be added without changing the resulting end-effector wrench:
-            $\tau=J^\top\mathcal F+\tau_{\mathcal N}$, where $\tau_{\mathcal N}\in\mathcal N(J)$.</li>
-            <li><b>[Perspective 2 $(\tau \rightarrow \mathcal F)$]</b> Since $J^\top$ is not invertible, the wrench $\mathcal F$ cannot always be uniquely determined from $\tau$; a solution may not exist or may not be unique.</li>
-            <li><b>[Dynamics]</b> $\mathcal N(J)\neq\{0\}$, so nonzero joint velocities can leave the end-effector instantaneously stationary. Predicting actual motion may require dynamics.</li>
-          </ul>
-        </p>
-
-        <p>
-          $(ii)$ <b>Fully Constrained by the End-Effector</b> $(\text{rank}(J)=n)$
-          <ul>
-            <li><b>[Perspective 1 $(\mathcal F \rightarrow \tau)$]</b> The joint torque $\tau=J^\top\mathcal F$ is uniquely determined for a given wrench $\mathcal F$.</li>
-            <li><b>[Perspective 2 $(\tau \rightarrow \mathcal F)$]</b> If $n=6$ and $J$ is full rank, every joint torque corresponds to a unique wrench:
-            $\mathcal F=J^{-\top}\tau$.</li>
-            <li><b>[Kinematics]</b> $\mathcal N(J)=\{0\}$, so no nonzero joint velocity can keep the end-effector instantaneously stationary. For $n\leq6$, this means all joint degrees of freedom are locally constrained when the end-effector is fixed.</li>
-          </ul>
-        </p>
-        <p>
-          $(iii)$ <b>Underactuated in Wrench Space</b> $(\text{rank}(J^\top)<6)$
-          <ul>
-            <li><b>[Perspective 1 $(\mathcal F \rightarrow \tau)$]</b> External Wrenches in $\mathcal N(J^\top)$ produce zero joint torque
-            $\tau=J^\top\mathcal F=0$, but may be resisted without moving purely by the mechanical constraints of the robot (no guarantee).</li>
-            $$
-            \mathcal N(J^\top)
-            =\{\mathcal F\in\mathbb R^6\mid J^\top\mathcal F=0\}
-            $$
-            <li><b>[Perspective 2 $(\tau \rightarrow \mathcal F)$]</b> The robot cannot actively generate arbitrary 6D end-effector wrenches. The robot cannot actively generate wrench components in $\mathcal N(J^\top)$ using joint torques.</li>
-          </ul>
-        </p>
-
-        <h2>Force Ellipsoid</h2>
-        <p>
-          <fieldset class="definition-fieldset">
-            <legend>&nbsp;Definition: Force Ellipsoid&nbsp;</legend>
-            <p>
-              For an $n$-joint open chain with Jacobian $J(\theta) \in \mathbb R^{m \times n}$ ($m \le n$),
-              the <strong>Force Ellipsoid</strong> $\mathcal{E}_f \subseteq \mathcal C(J^{-\top}(\theta)) \subseteq \mathbb{R}^m$ is defined as the image of the unit ball in the joint-torque space under the dual mapping $J^{-\top}(\theta)$:
-              $$
-              \mathcal{E}_f := \left\{ \mathcal{F} \in \mathbb{R}^m \;\middle|\; \mathcal{F} = J^{-\top}(\theta)\tau, \; \|\tau\|_2 \le 1 \right\}.
-              $$
-              Assuming $J(\theta)$ is of full row rank ($\operatorname{rank}(J(\theta)) = m$), this set is equivalently expressed in quadratic form as:
-              $$
-              \mathcal{E}_f = \left\{ \mathcal{F} \in \mathbb{R}^m \;\middle|\; \mathcal{F}^\top \left( J(\theta) J^\top(\theta) \right) \mathcal{F} \le 1 \right\}.
-              $$
-            </p>
-          </fieldset>
-        </p>
+      <div class="box">
+        <h1>4. Inverse Velocity Kinematics</h1>
+        
       </div>
 
       <div class="box">
