@@ -1,4 +1,3 @@
-
 import { ROBOT_CONFIG } from "./robot.config.js";
 import { Robot } from "./robot.js";
 import { RobotVisual } from "./robot.visual.js";
@@ -198,43 +197,12 @@ class Simulator {
        ROBOT VISUALIZATION
        ===================================== */
 
-    this.robotVisual = new RobotVisual(
-      this.scene,
-      this.robot,
-    );
-
-    /* =====================================
-       TRAJECTORY
-       ===================================== */
-
-    this.N = 260;
-
-    this.trailPts = [];
-
-    this.trailGeo = new THREE.BufferGeometry();
-
-    this.trailGeo.setAttribute(
-      "position",
-      new THREE.BufferAttribute(
-        new Float32Array(this.N * 3),
-        3,
-      ),
-    );
-
-    this.trailGeo.setDrawRange(0, 0);
-
-    this.trail = new THREE.Line(
-      this.trailGeo,
-      new THREE.LineBasicMaterial({
-        color: ACC,
-        transparent: true,
-        opacity: 0.8,
-      }),
-    );
-
-    this.trail.frustumCulled = false;
-
-    this.scene.add(this.trail);
+    this.robotVisual = new RobotVisual({
+      scene: this.scene,
+      robot: this.robot,
+      dof: this.dof,
+      accentColor: ACC,
+    });
 
     /* =====================================
        TARGET STATE
@@ -716,9 +684,7 @@ class Simulator {
   }
 
   clearTrail() {
-    this.trailPts = [];
-
-    this.trailGeo.setDrawRange(0, 0);
+    this.robotVisual.clearTrail();
   }
 
   syncJoint(i) {
@@ -1047,43 +1013,7 @@ class Simulator {
      ===================================== */
 
   draw() {
-    // Robot geometry and forward-kinematics visualization
-    // are now handled by RobotVisual.
-    const p = this.robotVisual.update(this.q);
-
-    /* =====================================
-       TRAJECTORY
-       ===================================== */
-
-    const h = vec(p.head);
-
-    const last = this.trailPts[
-      this.trailPts.length - 1
-    ];
-
-    if (!last || last.distanceTo(h) > 0.6) {
-      this.trailPts.push(h);
-
-      if (this.trailPts.length > this.N) {
-        this.trailPts.shift();
-      }
-
-      const arr =
-        this.trailGeo.attributes.position.array;
-
-      this.trailPts.forEach((v, i) => {
-        arr[i * 3] = v.x;
-        arr[i * 3 + 1] = v.y;
-        arr[i * 3 + 2] = v.z;
-      });
-
-      this.trailGeo.attributes.position.needsUpdate = true;
-
-      this.trailGeo.setDrawRange(
-        0,
-        this.trailPts.length,
-      );
-    }
+    const headVec = this.robotVisual.update(this.q);
 
     /* =====================================
        TARGET MARKER
@@ -1095,7 +1025,7 @@ class Simulator {
        ERROR LINE
        ===================================== */
 
-    setLine(this.errorLine, h, this.target.position);
+    setLine(this.errorLine, headVec, this.target.position);
   }
 
   /* =====================================

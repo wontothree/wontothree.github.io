@@ -1,4 +1,3 @@
-
 import {
   vec,
   Y,
@@ -8,70 +7,80 @@ import {
   hub,
 } from "./three.utils.js";
 
-const ACC = 0xff7700;
+const DEFAULT_LINK_COLORS = [
+  0x38edf8,
+  0x35a2ff,
+  0x7b5cff,
+  0xb85cff,
+  0xff5ca8,
+  0xff7700,
+];
 
 export class RobotVisual {
-  constructor(scene, robot) {
+  constructor({
+    scene,
+    robot,
+    dof,
+    accentColor = 0xff7700,
+    jointColor = 0x94a3b8,
+    linkColors = DEFAULT_LINK_COLORS,
+    trailLength = 260,
+  }) {
     this.scene = scene;
     this.robot = robot;
+    this.dof = dof;
 
-    this.createLinks();
-    this.createJoints();
-    this.createEndEffector();
-  }
+    // 1. 로봇 전체를 담는 루트 그룹 (한 번만 scene에 추가)
+    this.root = new THREE.Group();
+    this.scene.add(this.root);
 
-  createLinks() {
-    const linkColors = [
-      0x38edf8,
-      0x35a2ff,
-      0x7b5cff,
-      0xb85cff,
-      0xff5ca8,
-      ACC,
-    ];
-
-    const linkRadii = [
-      1.5,
-      1.5,
-      1.5,
-      1.5,
-      1.5,
-      1.5,
-    ];
-
-    this.links = linkColors.map((color, i) =>
-      link(linkRadii[i], color),
-    );
-
-    this.links.forEach((mesh) => {
-      this.scene.add(mesh);
+    // 2. Links (base -> j1 -> ... -> j5 -> head : 총 dof + 1개)
+    const linkCount = this.dof + 1;
+    this.links = Array.from({ length: linkCount }, (_, i) => {
+      const color = linkColors[i % linkColors.length];
+      const mesh = link(1.5, color);
+      this.root.add(mesh);
+      return mesh;
     });
-  }
 
-  createJoints() {
-    this.joints = Array.from(
-      { length: this.robot.dof },
-      () => {
-        const group = hub(0x94a3b8);
+    // 3. Joints (j1 ~ j5 : 총 dof개)
+    this.joints = Array.from({ length: this.dof }, () => {
+      const g = hub(jointColor);
+      this.root.add(g);
+      return g;
+    });
 
-        this.scene.add(group);
-
-        return group;
-      },
-    );
-  }
-
-  createEndEffector() {
+    // 4. End Effector Tip
     this.tip = new THREE.Group();
+    this.tip.add(dot(4, accentColor));
+    this.root.add(this.tip);
 
-    this.tip.add(dot(4, ACC));
+    // 5. Trajectory Trail
+    this.N = trailLength;
+    this.trailPts = [];
+    this.trailGeo = new THREE.BufferGeometry();
+    this.trailGeo.setAttribute(
+      "position",
+      new THREE.BufferAttribute(new Float32Array(this.N * 3), 3),
+    );
+    this.trailGeo.setDrawRange(0, 0);
 
-    this.scene.add(this.tip);
+    this.trail = new THREE.Line(
+      this.trailGeo,
+      new THREE.LineBasicMaterial({
+        color: accentColor,
+        transparent: true,
+        opacity: 0.8,
+      }),
+    );
+    this.trail.frustumCulled = false;
+    this.root.add(this.trail);
   }
 
   update(q) {
     const p = this.robot.fkVisual(q);
 
+    // fkVisual 반환 구조에 맞춰 좌표 배열 구성 (총 dof + 2개 포인트)
     const pts = [
       p.base,
       p.j1,
@@ -82,23 +91,64 @@ export class RobotVisual {
       p.head,
     ];
 
-    this.links.forEach((mesh, i) => {
-      connect(mesh, pts[i], pts[i + 1]);
+    // 링크 업데이트: pts[0]~pts[1], ..., pts[5]~pts[6]
+    this.links.forEach((m, i) => {
+      if (pts[i] && pts[i + 1]) {
+        connect(m, pts[i], pts[i + 1]);
+      }
     });
 
-    const axes = this.robot.axes(q);
+    // 조인트 업데이트: pts[1](j1) ~ pts[5](j5)
+    const ax = this.robot.axes(q);
+    this.joints.forEach((g, i) => {
+      const jointPos = pts[i + 1];
+      if (!jointPos) return;
 
-    this.joints.forEach((group, i) => {
-      group.position.copy(vec(pts[i + 1]));
+      g.position.copy(vec(jointPos));
 
-      group.quaternion.setFromUnitVectors(
-        Y,
-        vec(axes[i]).normalize(),
-      );
+      // 영벡터 방어: axes[i] 길이가 0이면 quaternion이 NaN이 되어 메쉬가 사라짐
+      if (ax && ax[i]) {
+        const axisVec = vec(ax[i]);
+        if (axisVec.lengthSq() > 1e-10) {
+          g.quaternion.setFromUnitVectors(Y, axisVec.normalize());
+        }
+      }
     });
 
-    this.tip.position.copy(vec(p.head));
+    // 엔드이펙터 위치 업데이트
+    const headVec = vec(p.head);
+    this.tip.position.copy(headVec);
 
-    return p;
+    // 궤적 업데이트
+    this._updateTrail(headVec);
+
+    return headVec; // Simulator에서 errorLine 그릴 때 재사용 가능
+  }
+
+  _updateTrail(headVec) {
+    const last = this.trailPts[this.trailPts.length - 1];
+
+    if (!last || last.distanceTo(headVec) > 0.6) {
+      this.trailPts.push(headVec.clone());
+
+      if (this.trailPts.length > this.N) {
+        this.trailPts.shift();
+      }
+
+      const arr = this.trailGeo.attributes.position.array;
+      this.trailPts.forEach((v, i) => {
+        arr[i * 3] = v.x;
+        arr[i * 3 + 1] = v.y;
+        arr[i * 3 + 2] = v.z;
+      });
+
+      this.trailGeo.attributes.position.needsUpdate = true;
+      this.trailGeo.setDrawRange(0, this.trailPts.length);
+    }
+  }
+
+  clearTrail() {
+    this.trailPts = [];
+    this.trailGeo.setDrawRange(0, 0);
   }
 }
