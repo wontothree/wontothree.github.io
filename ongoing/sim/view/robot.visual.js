@@ -1,19 +1,7 @@
-import {
-  vec,
-  Y,
-  link,
-  connect,
-  dot,
-  hub,
-} from "./three.utils.js";
+import { vec, Y, link, connect, dot, hub } from "./three.utils.js";
 
 const DEFAULT_LINK_COLORS = [
-  0x38edf8,
-  0x35a2ff,
-  0x7b5cff,
-  0xb85cff,
-  0xff5ca8,
-  0xff7700,
+  0x38edf8, 0x35a2ff, 0x7b5cff, 0xb85cff, 0xff5ca8, 0xff7700,
 ];
 
 export class RobotVisual {
@@ -25,6 +13,7 @@ export class RobotVisual {
     jointColor = 0x94a3b8,
     linkColors = DEFAULT_LINK_COLORS,
     trailLength = 260,
+    trailEnabled = true,
     linkRadius = 1.6,
     jointRadius = 3.4,
     tipRadius = 4.5,
@@ -33,11 +22,11 @@ export class RobotVisual {
     this.robot = robot;
     this.dof = dof;
 
-    // 1. 로봇 전체를 담는 루트 그룹 (한 번만 scene에 추가)
+    // 1. Root group holding the whole robot (added to the scene once)
     this.root = new THREE.Group();
     this.scene.add(this.root);
 
-    // 2. Links (base -> j1 -> ... -> j5 -> head : 총 dof + 1개)
+    // 2. Links (base -> j1 -> ... -> j5 -> head : dof + 1 in total)
     const linkCount = this.dof + 1;
     this.links = Array.from({ length: linkCount }, (_, i) => {
       const color = linkColors[i % linkColors.length];
@@ -46,19 +35,20 @@ export class RobotVisual {
       return mesh;
     });
 
-    // 3. Joints (j1 ~ j5 : 총 dof개)
+    // 3. Joints (j1 ~ j5 : dof in total)
     this.joints = Array.from({ length: this.dof }, () => {
       const g = hub(jointColor, jointRadius);
       this.root.add(g);
       return g;
     });
 
-    // 4. End Effector Tip
+    // 4. End effector tip
     this.tip = new THREE.Group();
     this.tip.add(dot(tipRadius, accentColor));
     this.root.add(this.tip);
 
-    // 5. Trajectory Trail
+    // 5. Trajectory trail
+    this.trailEnabled = trailEnabled;
     this.N = trailLength;
     this.trailPts = [];
     this.trailGeo = new THREE.BufferGeometry();
@@ -77,31 +67,24 @@ export class RobotVisual {
       }),
     );
     this.trail.frustumCulled = false;
+    this.trail.visible = this.trailEnabled;
     this.root.add(this.trail);
   }
 
   update(q) {
     const p = this.robot.fkVisual(q);
 
-    // fkVisual 반환 구조에 맞춰 좌표 배열 구성 (총 dof + 2개 포인트)
-    const pts = [
-      p.base,
-      p.j1,
-      p.j2,
-      p.j3,
-      p.j4,
-      p.j5,
-      p.head,
-    ];
+    // Build the point list from the fkVisual result (dof + 2 points)
+    const pts = [p.base, p.j1, p.j2, p.j3, p.j4, p.j5, p.head];
 
-    // 링크 업데이트: pts[0]~pts[1], ..., pts[5]~pts[6]
+    // Update links: pts[0]~pts[1], ..., pts[5]~pts[6]
     this.links.forEach((m, i) => {
       if (pts[i] && pts[i + 1]) {
         connect(m, pts[i], pts[i + 1]);
       }
     });
 
-    // 조인트 업데이트: pts[1](j1) ~ pts[5](j5)
+    // Update joints: pts[1] (j1) ~ pts[5] (j5)
     const ax = this.robot.axes(q);
     this.joints.forEach((g, i) => {
       const jointPos = pts[i + 1];
@@ -109,7 +92,8 @@ export class RobotVisual {
 
       g.position.copy(vec(jointPos));
 
-      // 영벡터 방어: axes[i] 길이가 0이면 quaternion이 NaN이 되어 메쉬가 사라짐
+      // Zero-vector guard: a zero-length axis would make the quaternion NaN
+      // and the mesh would disappear
       if (ax && ax[i]) {
         const axisVec = vec(ax[i]);
         if (axisVec.lengthSq() > 1e-10) {
@@ -118,26 +102,31 @@ export class RobotVisual {
       }
     });
 
-    // 엔드이펙터 위치 업데이트
+    // Update end effector position
     const headVec = vec(p.head);
     this.tip.position.copy(headVec);
 
-    // 궤적 업데이트
+    // Update trail (returns immediately inside if trailEnabled is false)
     this._updateTrail(headVec);
 
     return headVec;
   }
 
   _updateTrail(headVec) {
+    if (!this.trailEnabled) return;
+
     const last = this.trailPts[this.trailPts.length - 1];
 
+    // Only add a point when the tip has moved far enough from the last one
     if (!last || last.distanceTo(headVec) > 0.6) {
       this.trailPts.push(headVec.clone());
 
+      // Drop the oldest point once the buffer is full
       if (this.trailPts.length > this.N) {
         this.trailPts.shift();
       }
 
+      // Copy points into the GPU buffer
       const arr = this.trailGeo.attributes.position.array;
       this.trailPts.forEach((v, i) => {
         arr[i * 3] = v.x;
@@ -148,6 +137,19 @@ export class RobotVisual {
       this.trailGeo.attributes.position.needsUpdate = true;
       this.trailGeo.setDrawRange(0, this.trailPts.length);
     }
+  }
+
+  /* =====================================
+     TRAIL CONTROL
+     ===================================== */
+
+  setTrailEnabled(enabled) {
+    this.trailEnabled = enabled;
+    this.trail.visible = enabled;
+
+    // Clear the old path when disabling so it does not reappear
+    // connected to new points when re-enabled
+    if (!enabled) this.clearTrail();
   }
 
   clearTrail() {

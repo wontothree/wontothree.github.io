@@ -162,3 +162,34 @@ export function eig3(A) {
     }))
     .sort((u, v) => v.val - u.val);
 }
+
+export function rank(A, eps = 1e-8) {
+  const M = A.map((row) => row.slice());
+  const rows = M.length;
+  const cols = M[0].length;
+  let rk = 0;
+
+  for (let c = 0; c < cols && rk < rows; c++) {
+    // Find the pivot row with the largest absolute value
+    let pv = rk;
+    for (let r = rk + 1; r < rows; r++) {
+      if (Math.abs(M[r][c]) > Math.abs(M[pv][c])) pv = r;
+    }
+    if (Math.abs(M[pv][c]) < eps) continue;
+
+    [M[rk], M[pv]] = [M[pv], M[rk]];
+
+    // Normalize the pivot row
+    const d = M[rk][c];
+    for (let j = c; j < cols; j++) M[rk][j] /= d;
+
+    // Eliminate the column from all other rows
+    for (let r = 0; r < rows; r++) {
+      if (r === rk) continue;
+      const f = M[r][c];
+      for (let j = c; j < cols; j++) M[r][j] -= f * M[rk][j];
+    }
+    rk++;
+  }
+  return rk;
+}
