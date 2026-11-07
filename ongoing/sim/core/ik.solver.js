@@ -5,7 +5,7 @@ import {
   solve,
 } from "./math.js";
 
-import { clamp } from "./three.utils.js";
+import { clamp } from "../view/three.utils.js";
 
 export class IKSolver {
   constructor(robot, limits) {

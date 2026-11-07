@@ -1,24 +1,24 @@
-import { ROBOT_CONFIG } from "./robot.config.js";
-import { Robot } from "./robot.js";
-import { RobotVisual } from "./robot.visual.js";
-import { EllipsoidVisual } from "./ellipsoid.visual.js";
-import { IKSolver } from "./ik.solver.js";
+import { ROBOT_CONFIG } from "./core/robot.config.js";
+import { Robot } from "./core/robot.js";
+import { RobotVisual } from "./view/robot.visual.js";
+import { EllipsoidVisual } from "./view/ellipsoid.visual.js";
+import { IKSolver } from "./core/ik.solver.js";
 
-import { RAD } from "./math.js";
+import { RAD } from "./core/math.js";
 
-import { vec } from "./three.utils.js";
+import { vec } from "./view/three.utils.js";
 
-import { TargetMarker } from "./target.marker.js";
+import { TargetMarker } from "./view/target.marker.js";
 
 const { OrbitControls } = THREE;
 
 /* =========================================
-   MASTER SWITCH
-   false: hide target ball / arrows / foot / stem / error line
-   IK remains active.
-   ========================================= */
+  MASTER SWITCH
+  false: hide target ball / arrows / foot / stem / error line
+  IK remains active.
+  ========================================= */
 
-const ENABLE_TARGET_MARKER = false;
+const ENABLE_TARGET_MARKER = true;
 
 const DT = 1 / 60;
 
@@ -32,8 +32,8 @@ const INK = 0x0f172a;
 class Simulator {
 
   /* =====================================
-     DOM HELPERS
-     ===================================== */
+    DOM HELPERS
+    ===================================== */
 
   getElement(id) {
     return document.getElementById(id);

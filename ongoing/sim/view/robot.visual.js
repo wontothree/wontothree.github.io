@@ -1,4 +1,3 @@
-// src/robot.visual.js
 import {
   vec,
   Y,

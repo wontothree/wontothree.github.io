@@ -2,7 +2,7 @@ import {
   transpose,
   mm,
   eig3,
-} from "./math.js";
+} from "../core/math.js";
 
 import { basic } from "./three.utils.js";
 
