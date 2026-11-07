@@ -6,11 +6,7 @@ import { IKSolver } from "./ik.solver.js";
 
 import { RAD } from "./math.js";
 
-import {
-  vec,
-  newLine,
-  setLine,
-} from "./three.utils.js";
+import { vec } from "./three.utils.js";
 
 import { TargetMarker } from "./target.marker.js";
 
@@ -18,8 +14,8 @@ const { OrbitControls } = THREE;
 
 /* =========================================
    MASTER SWITCH
-   false: hide target ball / arrows / foot / stem
-   IK and error line remain active.
+   false: hide target ball / arrows / foot / stem / error line
+   IK remains active.
    ========================================= */
 
 const ENABLE_TARGET_MARKER = false;
@@ -34,6 +30,7 @@ const INK = 0x0f172a;
    ========================================= */
 
 class Simulator {
+
   /* =====================================
      DOM HELPERS
      ===================================== */
@@ -44,13 +41,11 @@ class Simulator {
 
   setText(id, value) {
     const el = this.getElement(id);
-
     if (el) el.textContent = value;
   }
 
   setValue(id, value) {
     const el = this.getElement(id);
-
     if (el) el.value = value;
   }
 
@@ -66,7 +61,6 @@ class Simulator {
 
   getValue(id, fallback) {
     const el = this.getElement(id);
-
     return el ? el.value : fallback;
   }
 
@@ -88,7 +82,6 @@ class Simulator {
     this.robot = new Robot(config);
     this.dof = config.joints.length;
 
-    // Use the supplied configuration rather than global limits.
     this.limits = config.joints.map((j) => j.limit);
     this.names = config.joints.map((j) => j.name);
 
@@ -139,6 +132,10 @@ class Simulator {
     this.camera.up.set(0, 0, 1);
     this.camera.position.set(267, 267, 210);
 
+    /* =====================================
+       RENDERER
+       ===================================== */
+
     this.renderer = new THREE.WebGLRenderer({
       canvas: viewCanvas,
       antialias: true,
@@ -147,6 +144,44 @@ class Simulator {
     this.renderer.setPixelRatio(
       Math.min(devicePixelRatio, 2),
     );
+
+    this.renderer.shadowMap.enabled = true;
+    this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+    /* =====================================
+       LIGHTING
+       ===================================== */
+
+    const ambient = new THREE.AmbientLight(
+      0xffffff,
+      0.65,
+    );
+
+    this.scene.add(ambient);
+
+    const directional = new THREE.DirectionalLight(
+      0xffffff,
+      1.5,
+    );
+
+    directional.position.set(-150, -200, 350);
+
+    directional.castShadow = true;
+
+    directional.shadow.mapSize.set(2048, 2048);
+
+    directional.shadow.camera.left = -350;
+    directional.shadow.camera.right = 350;
+    directional.shadow.camera.top = 350;
+    directional.shadow.camera.bottom = -350;
+
+    directional.shadow.camera.near = 0.1;
+    directional.shadow.camera.far = 1000;
+
+    directional.shadow.bias = -0.0001;
+    directional.shadow.normalBias = 0.02;
+
+    this.scene.add(directional);
 
     /* =====================================
        ORBIT CONTROLS
@@ -171,6 +206,19 @@ class Simulator {
        WORKSPACE
        ===================================== */
 
+    const shadowPlane = new THREE.Mesh(
+      new THREE.PlaneGeometry(500, 500),
+      new THREE.ShadowMaterial({
+        color: 0x000000,
+        opacity: 0.2,
+      }),
+    );
+
+    shadowPlane.position.z = -0.02;
+    shadowPlane.receiveShadow = true;
+
+    this.scene.add(shadowPlane);
+
     const grid = new THREE.GridHelper(
       500,
       25,
@@ -179,6 +227,7 @@ class Simulator {
     );
 
     grid.rotation.x = Math.PI / 2;
+    grid.position.z = 0.001;
 
     this.scene.add(grid);
 
@@ -200,6 +249,14 @@ class Simulator {
       accentColor: ACC,
     });
 
+    // Enable shadow casting for existing robot meshes.
+    this.scene.traverse((object) => {
+      if (object.isMesh) {
+        object.castShadow = true;
+        object.receiveShadow = true;
+      }
+    });
+
     this.ellipsoidVisual = new EllipsoidVisual({
       canvasId: "ell",
       robot: this.robot,
@@ -214,41 +271,39 @@ class Simulator {
 
     this.scene.add(this.target);
 
-    this.errorLine = newLine(0x94a3b8, 4, 3);
-
-    this.scene.add(this.errorLine);
-
     /* =====================================
-       TARGET MARKER
+       TARGET MARKER (+ POSITION ERROR LINE)
+       - 항상 생성
+       - ENABLE_TARGET_MARKER=false 이면
+         공/화살표/발/줄기/error line 모두 숨김
        ===================================== */
 
-    this.marker = null;
+    this.marker = new TargetMarker({
+      scene: this.scene,
+      camera: this.camera,
+      domElement: this.renderer.domElement,
+      target: this.target,
 
-    if (ENABLE_TARGET_MARKER) {
-      this.marker = new TargetMarker({
-        scene: this.scene,
-        camera: this.camera,
-        domElement: this.renderer.domElement,
-        target: this.target,
+      onDragging: (dragging) => {
+        this.controls.enabled = !dragging;
 
-        onDragging: (dragging) => {
-          this.controls.enabled = !dragging;
+        if (dragging) this.stop();
+      },
 
-          if (dragging) this.stop();
-        },
+      onChange: () => {
+        this.syncTarget();
+        this.start();
+      },
+    });
 
-        onChange: () => {
-          this.syncTarget();
-          this.start();
-        },
-      });
-    }
+    this.marker.setVisible(ENABLE_TARGET_MARKER);
 
     /* =====================================
        INITIALIZATION
        ===================================== */
 
     this.initKin();
+
     this.buildUI();
 
     this.resize();
@@ -265,7 +320,9 @@ class Simulator {
     this.syncTarget();
 
     this.draw();
+
     this.refresh();
+
     this.animate();
   }
 
@@ -274,7 +331,7 @@ class Simulator {
      ===================================== */
 
   setTargetVisible(visible) {
-    this.marker?.setVisible(visible);
+    this.marker.setVisible(visible);
   }
 
   /* =====================================
@@ -294,7 +351,11 @@ class Simulator {
 
     this.camera.updateProjectionMatrix();
 
-    this.renderer.setSize(r.width, r.height, false);
+    this.renderer.setSize(
+      r.width,
+      r.height,
+      false,
+    );
   }
 
   /* =====================================
@@ -316,7 +377,10 @@ class Simulator {
     ];
 
     const R = (n, f) =>
-      Array.from({ length: n }, (_, i) => f(i)).join("");
+      Array.from(
+        { length: n },
+        (_, i) => f(i),
+      ).join("");
 
     eq.innerHTML = `
       <table class="mx vec">
@@ -418,7 +482,9 @@ class Simulator {
       const active = Math.abs(qd[c]) > 1e-3;
 
       for (let r = 0; r < 6; r++) {
-        const el = this.getElement("jc" + r + "_" + c);
+        const el = this.getElement(
+          "jc" + r + "_" + c,
+        );
 
         if (el) {
           el.textContent = J[r][c].toFixed(2);
@@ -444,7 +510,11 @@ class Simulator {
     }
 
     for (let r = 0; r < 6; r++) {
-      this.put("tw" + r, twist[r], r < 3 ? na : nl);
+      this.put(
+        "tw" + r,
+        twist[r],
+        r < 3 ? na : nl,
+      );
     }
   }
 
@@ -728,6 +798,7 @@ class Simulator {
 
     this.q = res.q;
     this.qdot = res.qdot;
+
     this.q.forEach((_, i) => this.syncJoint(i));
   }
 
@@ -738,17 +809,12 @@ class Simulator {
   draw() {
     const headVec = this.robotVisual.update(this.q);
 
-    /* =====================================
-       TARGET MARKER
-       ===================================== */
+    this.marker.update(this.camera);
 
-    this.marker?.update(this.camera);
-
-    /* =====================================
-       ERROR LINE
-       ===================================== */
-
-    setLine(this.errorLine, headVec, this.target.position);
+    this.marker.updatePositionErrorLine(
+      headVec,
+      this.target.position,
+    );
   }
 
   /* =====================================
@@ -773,7 +839,7 @@ class Simulator {
 
     const col = err < 0.5 ? 0x10b981 : INK;
 
-    this.marker?.setColor(col);
+    this.marker.setColor(col);
 
     this.setText(
       "rank",
@@ -852,7 +918,10 @@ class Simulator {
 
       this.ellipsoidVisual.update(this.q);
 
-      this.renderer.render(this.scene, this.camera);
+      this.renderer.render(
+        this.scene,
+        this.camera,
+      );
     };
 
     tick();

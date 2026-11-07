@@ -8,6 +8,7 @@ import {
 const { TransformControls } = THREE;
 
 const INK = 0x0f172a;
+const ERROR_COLOR = 0x94a3b8;
 
 /* =========================================
    TARGET MARKER
@@ -22,6 +23,7 @@ export class TargetMarker {
     onDragging,
     onChange,
   }) {
+    this.scene = scene; 
     this.target = target;
 
     this.group = new THREE.Group();
@@ -90,6 +92,7 @@ export class TargetMarker {
         if (onChange) onChange();
       },
     );
+    this.positionErrorLine = this.createPositionErrorLine();
   }
 
   /* =====================================
@@ -130,5 +133,69 @@ export class TargetMarker {
 
     this.transform.visible = visible;
     this.transform.enabled = visible;
+
+    this.setPositionErrorLineVisible(visible);
+  }
+
+  dispose() {
+    this.disposePositionErrorLine();
+
+    this.transform.detach();
+    this.scene.remove(this.transform);
+    this.transform.dispose?.();
+
+    this.scene.remove(this.stem);
+    this.scene.remove(this.foot);
+    this.target.remove(this.group);
+  }
+
+  /* =====================================
+     POSITION ERROR LINE
+     ===================================== */
+
+  createPositionErrorLine() {
+    const line = newLine(
+      ERROR_COLOR,
+      4,
+      3,
+    );
+
+    this.scene.add(line);
+
+    return line;
+  }
+
+  updatePositionErrorLine(start, end) {
+    if (!this.positionErrorLine) return;
+
+    setLine(
+      this.positionErrorLine,
+      start,
+      end,
+    );
+  }
+
+  setPositionErrorLineVisible(visible) {
+    if (!this.positionErrorLine) return;
+
+    this.positionErrorLine.visible = visible;
+  }
+
+  disposePositionErrorLine() {
+    if (!this.positionErrorLine) return;
+
+    this.scene.remove(this.positionErrorLine);
+
+    this.positionErrorLine.geometry.dispose();
+
+    if (Array.isArray(this.positionErrorLine.material)) {
+      this.positionErrorLine.material.forEach((material) => {
+        material.dispose();
+      });
+    } else {
+      this.positionErrorLine.material.dispose();
+    }
+
+    this.positionErrorLine = null;
   }
 }

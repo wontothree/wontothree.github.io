@@ -24,7 +24,7 @@ flowchart TD
 ```
 
 ```md
-src/
+
 ├── sim.html
 ├── sim.css
 ├── sim.js
